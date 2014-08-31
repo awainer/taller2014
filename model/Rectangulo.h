@@ -1,6 +1,6 @@
 #pragma once
 #include "Figura.h"
-#include  <../Box2d/Box2d.h>
+#include  <Box2d/Box2d.h>
 
 class Rectangulo: Figura
 {

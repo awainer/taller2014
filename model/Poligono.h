@@ -9,7 +9,7 @@ public:
 	lados es la cantidad de lados (y vertices)
 	*/
 
-	Poligono(unsigned int x, unsigned int y, unsigned int radio, unsigned int lados, b2World * world);
+	Poligono(float x, float  y, float radio, unsigned int lados, int angulorot, b2World * world);
 	~Poligono(void);
 };
 

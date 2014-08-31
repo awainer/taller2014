@@ -22,7 +22,7 @@ Rectangulo::Rectangulo(unsigned int x, unsigned int y, unsigned int alto, unsign
 		
 	this->body = this->world->CreateBody(&bd);
 	b2PolygonShape shape;
-	shape.SetAsBox(alto/2,ancho/2); //,b2Vec2(x,y)
+	shape.SetAsBox(ancho/2,alto/2); //,b2Vec2(x,y)
 	fixtureDef.shape = &shape;
 	this->body->CreateFixture(&fixtureDef);
 
