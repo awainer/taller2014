@@ -10,33 +10,33 @@ Poligono::Poligono(float x, float y, float radio, unsigned int lados, int angulo
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
 	b2PolygonShape shape;
-	
-	float vx=x-radio;
-	float vy=y;
+	float angulo = 2 * b2_pi / lados;
+	float vx,vy;
 	int i = 0;
 
 	bodyDef.type = b2_staticBody;
 	bodyDef.position.Set(x,y);
+	bodyDef.angle=angulorot * b2_pi /180;
+//	printf("bodyDef.position x: %f y: %f \n", bodyDef.position.x,bodyDef.position.y);
 	b2Vec2 vertices[8]; 
 
-	float angulo = 2 * b2_pi / lados;
+	
 	// http://stackoverflow.com/questions/3436453/calculate-coordinates-of-a-regular-polygons-vertices
 	for (i=lados-1 ; i > -1; i--){
-		    vx = x + radio * cos(2*b2_pi*i/lados);
-			vy = y + radio * sin(2*b2_pi*i/lados);
+		    vx =  radio * cos(2*b2_pi*i/lados);
+			vy =  radio * sin(2*b2_pi*i/lados);
 			vertices[i].Set(vx,vy);
 	}
-	for(int i=0; i<lados; i++)
-		printf("x: %f y: %f \n", vertices[i].x,vertices[i].y);
-
+//	for(int i=0; i<lados; i++)
+//		printf("x: %f y: %f \n", vertices[i].x,vertices[i].y);
+	
 	shape.Set(vertices,lados);
-	shape.Validate();
 	this->body = this->world->CreateBody(&bodyDef);
-	this->body->SetTransform(this->body->GetWorldCenter(),angulorot* b2_pi /180);
-
 	fixtureDef.shape = (&shape);
 	this->body->CreateFixture(&fixtureDef);
-	
+//	printf("Rotando alrededor de %f ; %f", this->body->GetWorldPoint(shape.m_centroid).x, this->body->GetWorldPoint(shape.m_centroid).y);
+//	this->body->SetTransform(this->body->GetPosition(),angulorot* b2_pi /180);
+
 }
 
 
