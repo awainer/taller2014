@@ -366,6 +366,9 @@
     <ClInclude Include="SDL2\SDL_video.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="testbed\Garola.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="model\Figura.cpp">
@@ -527,5 +530,8 @@
     <ClCompile Include="..\main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\Box2D.lib" />
   </ItemGroup>
 </Project>
