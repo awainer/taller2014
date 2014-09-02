@@ -1,4 +1,5 @@
 #include "Jugador.h"
+#include "constantes.h"
 
 //Constantes del Jugador
 #define ALTO_JUGADOR     1.5
@@ -28,6 +29,10 @@ Jugador::Jugador(float x, float y,b2World * world)
 	
 	fixtureDef.density = 7;
 	this->body->CreateFixture(&fixtureDef);
+	this->body->SetUserData((void*)this);
+	this->type = CHARACTER;
+
+
 
 }
 

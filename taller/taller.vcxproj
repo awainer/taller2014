@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Proyectos\taller2014\taller\model;$(IncludePath)</IncludePath>
+    <IncludePath>./SDL2;./;D:\Proyectos\taller2014\taller\model;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -75,6 +75,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="model\Escenario.h" />
+    <ClInclude Include="model\CollisionHandler.h" />
+    <ClInclude Include="model\constantes.h" />
     <ClInclude Include="model\CoordenadasR2.h" />
     <ClInclude Include="model\Figura.h" />
     <ClInclude Include="model\Jugador.h" />
@@ -129,6 +132,7 @@
     <ClInclude Include="Box2D\Dynamics\Joints\b2WeldJoint.h" />
     <ClInclude Include="Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="Box2D\Rope\b2Rope.h" />
+    <ClInclude Include="model\Pared.h" />
     <ClInclude Include="SDL2\begin_code.h" />
     <ClInclude Include="SDL2\close_code.h" />
     <ClInclude Include="SDL2\SDL.h" />
@@ -204,6 +208,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="model\Escenario.cpp" />
+    <ClCompile Include="model\CollisionHandler.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="model\CoordenadasR2.cpp" />
     <ClCompile Include="model\Figura.cpp" />
     <ClCompile Include="model\Jugador.cpp" />
@@ -257,6 +264,7 @@
     <ClCompile Include="Box2D\Dynamics\Joints\b2WeldJoint.cpp" />
     <ClCompile Include="Box2D\Dynamics\Joints\b2WheelJoint.cpp" />
     <ClCompile Include="Box2D\Rope\b2Rope.cpp" />
+    <ClCompile Include="model\Pared.cpp" />
     <ClCompile Include="vista\SDL2_gfx\SDL2_framerate.c" />
     <ClCompile Include="vista\SDL2_gfx\SDL2_gfxPrimitives.c" />
     <ClCompile Include="vista\SDL2_gfx\SDL2_imageFilter.c" />
@@ -266,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\Box2D.lib" />
+    <Library Include="lib\SDL2.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
