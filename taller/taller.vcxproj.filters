@@ -405,6 +405,9 @@
     <ClInclude Include="model\Pared.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="pruebapoligono.cpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="model\Figura.cpp">
@@ -563,9 +566,6 @@
     <ClCompile Include="Box2D\Rope\b2Rope.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="..\main.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="vista\VistaPoligono.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -587,9 +587,6 @@
     <ClCompile Include="model\CoordenadasR2.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="model\CollisionHandler.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -597,6 +594,9 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="model\Pared.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>

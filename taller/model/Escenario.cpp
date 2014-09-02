@@ -1,5 +1,6 @@
 #include "Escenario.h"
 #include "Pared.h"
+#include "Poligono.h"
 #include <Box2d/Box2d.h>
 
 Escenario::Escenario(float largo, float alto,b2World * mundo)
@@ -12,13 +13,13 @@ Escenario::Escenario(float largo, float alto,b2World * mundo)
 	}
 
 	// Piso
-	this->cuerposEstaticos.push_back(new Pared(largo/2,0,largo,this->world,FLOOR));
+	this->paredes.push_back(new Pared(largo/2,0,largo,this->world,FLOOR));
 	// Techo
-	this->cuerposEstaticos.push_back(new Pared(largo/2,alto,largo,this->world,ROOF));
+	this->paredes.push_back(new Pared(largo/2,alto,largo,this->world,ROOF));
 	// Pared izquierda
-	this->cuerposEstaticos.push_back(new Pared(0,alto/2,alto,this->world,LEFT_WALL));
+	this->paredes.push_back(new Pared(0,alto/2,alto,this->world,LEFT_WALL));
 	// Pared derecha
-	this->cuerposEstaticos.push_back(new Pared(largo,alto/2,alto,this->world,RIGHT_WALL));
+	this->paredes.push_back(new Pared(largo,alto/2,alto,this->world,RIGHT_WALL));
 
 
 }
@@ -26,7 +27,13 @@ Escenario::Escenario(float largo, float alto,b2World * mundo)
 void Escenario::agregarPelota(CoordenadasR2 centro){
 	this->pelotas.push_back(new Pelota(centro.x,centro.y,0.5,this->world));
 }
+void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados){
+	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro.x,centro.y,radio,lados,0,this->world));
+}
 
+std::vector <Figura*> Escenario::getPoligonos(){
+	return this->cuerposEstaticos;
+}
 Escenario::~Escenario(void)
 {
 	//TODO destruir todas las figuras

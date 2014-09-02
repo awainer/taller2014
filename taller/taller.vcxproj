@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
     <IncludePath>./SDL2;./;D:\Proyectos\taller2014\taller\model;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,6 +133,7 @@
     <ClInclude Include="Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="Box2D\Rope\b2Rope.h" />
     <ClInclude Include="model\Pared.h" />
+    <ClInclude Include="pruebapoligono.cpp" />
     <ClInclude Include="SDL2\begin_code.h" />
     <ClInclude Include="SDL2\close_code.h" />
     <ClInclude Include="SDL2\SDL.h" />
@@ -207,10 +208,9 @@
     <ClInclude Include="vista\VistaRectangulo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="model\Escenario.cpp" />
     <ClCompile Include="model\CollisionHandler.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="model\CoordenadasR2.cpp" />
     <ClCompile Include="model\Figura.cpp" />
     <ClCompile Include="model\Jugador.cpp" />
