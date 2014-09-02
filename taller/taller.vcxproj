@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>./;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Proyectos\taller2014\taller\model;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="model\CoordenadasR2.h" />
     <ClInclude Include="model\Figura.h" />
     <ClInclude Include="model\Jugador.h" />
     <ClInclude Include="model\Pelota.h" />
@@ -203,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="model\CoordenadasR2.cpp" />
     <ClCompile Include="model\Figura.cpp" />
     <ClCompile Include="model\Jugador.cpp" />
     <ClCompile Include="model\Pelota.cpp" />

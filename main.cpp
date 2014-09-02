@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "taller\vista\VistaRectangulo.h"
 #include "taller\vista\VistaPoligono.h"
+#include "taller\model\CoordenadasR2.h"
 //#include <vld.h>
 
 void pruebaPoligono_rectangulo(){
@@ -18,10 +19,17 @@ void pruebaPoligono_rectangulo(){
 	VistaRectangulo* r2 = new VistaRectangulo(80,50,ren);
 	VistaRectangulo r3 = VistaRectangulo(40,640,ren);
 	VistaPoligono poligono = VistaPoligono(ren,6);
+	CoordenadasR2* vector[6];
+	vector[0] = new  CoordenadasR2(100,200);
+	vector[1] = new  CoordenadasR2(150,250);
+	vector[2] = new  CoordenadasR2(250,250);
+	vector[3] = new  CoordenadasR2(300,200);
+	vector[4] = new  CoordenadasR2(250,150);
+	vector[5] = new  CoordenadasR2(150,150);
 
-
-	int vx[6]={200-100,250-100,350-100,400-100,350-100,250-100};
-	int vy[6]={400-200,450-200,450-200,400-200,350-200,350-200};
+	 
+	//int vx[6]={200-100,250-100,350-100,400-100,350-100,250-100};
+	//int vy[6]={400-200,450-200,450-200,400-200,350-200,350-200};
 	
 	int x,y;
 	x=0;
@@ -32,8 +40,8 @@ void pruebaPoligono_rectangulo(){
 		y++;
 		
 		for(int j = 0; j<6; j++){
-		vx[j]= vx[j]+1;
-		vy[j]= vy[j]+1;
+		vector[j]->x= vector[j]->x+1;
+		vector[j]->y= vector[j]->y+1;
 		}
 		//Clear screen
 		SDL_SetRenderDrawColor( ren, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -43,7 +51,7 @@ void pruebaPoligono_rectangulo(){
 		r->render(x,y);
 		r2->render(480,200);
 		r3.render(0,430);
-		poligono.render(vx,vy);
+		poligono.render(vector);
 		
 		SDL_RenderPresent(ren);
 		SDL_PollEvent( &evento);
@@ -55,8 +63,11 @@ void pruebaPoligono_rectangulo(){
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
-	free(r);
-	free(r2);
+	delete r ;
+	delete r2 ;
+	for (int i=0; i<6; i++)
+		delete vector[i];
+
 }
 int main(int argc, char * argv[]){
 	//prueba commit Carlos Delvalle

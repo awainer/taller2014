@@ -1,18 +1,20 @@
 #pragma once
 #include <SDL.h>
 #include "SDL2_gfx\SDL2_gfxPrimitives.h"
+#include <CoordenadasR2.h>
 class VistaPoligono
 {
 public:
 	//recibe el renderer donde dibujar junto la cantidad de vertices.
 	VistaPoligono(SDL_Renderer* gRenderer, int n_vertices );
 	//cargar poligono, junto con vector con vertices
-	void render(const int* vx,const int* vy);
+	void render(CoordenadasR2* vectorVertices[]);
 
-	void transformarSint16(const int* vx,const int* vy){
+	void transformarSint16(CoordenadasR2* vectorV[]){
+
 		for(int i = 0; i<n_vertices; i++){
-			m_vx[i]=vx[i];
-			m_vy[i]=vy[i];
+			m_vx[i]=vectorV[i]->x;
+			m_vy[i]=vectorV[i]->y;
 		} 
 		
 	}
