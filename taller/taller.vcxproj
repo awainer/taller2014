@@ -193,6 +193,13 @@
     <ClInclude Include="SDL2\SDL_version.h" />
     <ClInclude Include="SDL2\SDL_video.h" />
     <ClInclude Include="testbed\Garola.h" />
+    <ClInclude Include="vista\SDL2_gfx\SDL2_framerate.h" />
+    <ClInclude Include="vista\SDL2_gfx\SDL2_gfxPrimitives.h" />
+    <ClInclude Include="vista\SDL2_gfx\SDL2_gfxPrimitives_font.h" />
+    <ClInclude Include="vista\SDL2_gfx\SDL2_imageFilter.h" />
+    <ClInclude Include="vista\SDL2_gfx\SDL2_rotozoom.h" />
+    <ClInclude Include="vista\VistaPoligono.h" />
+    <ClInclude Include="vista\VistaRectangulo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
@@ -248,6 +255,12 @@
     <ClCompile Include="Box2D\Dynamics\Joints\b2WeldJoint.cpp" />
     <ClCompile Include="Box2D\Dynamics\Joints\b2WheelJoint.cpp" />
     <ClCompile Include="Box2D\Rope\b2Rope.cpp" />
+    <ClCompile Include="vista\SDL2_gfx\SDL2_framerate.c" />
+    <ClCompile Include="vista\SDL2_gfx\SDL2_gfxPrimitives.c" />
+    <ClCompile Include="vista\SDL2_gfx\SDL2_imageFilter.c" />
+    <ClCompile Include="vista\SDL2_gfx\SDL2_rotozoom.c" />
+    <ClCompile Include="vista\VistaPoligono.cpp" />
+    <ClCompile Include="vista\VistaRectangulo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\Box2D.lib" />

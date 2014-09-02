@@ -369,6 +369,27 @@
     <ClInclude Include="testbed\Garola.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="vista\VistaPoligono.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="vista\VistaRectangulo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="vista\SDL2_gfx\SDL2_framerate.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="vista\SDL2_gfx\SDL2_gfxPrimitives.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="vista\SDL2_gfx\SDL2_gfxPrimitives_font.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="vista\SDL2_gfx\SDL2_imageFilter.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="vista\SDL2_gfx\SDL2_rotozoom.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="model\Figura.cpp">
@@ -528,6 +549,24 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="..\main.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="vista\VistaPoligono.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="vista\VistaRectangulo.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="vista\SDL2_gfx\SDL2_framerate.c">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="vista\SDL2_gfx\SDL2_gfxPrimitives.c">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="vista\SDL2_gfx\SDL2_imageFilter.c">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="vista\SDL2_gfx\SDL2_rotozoom.c">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
