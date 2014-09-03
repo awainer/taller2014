@@ -1475,7 +1475,7 @@ int filledCircleColor(SDL_Renderer * renderer, Sint16 x, Sint16 y, Sint16 rad, U
 
 \returns Returns 0 on success, -1 on failure.
 */
-int filledCircleRGBA(SDL_Renderer * renderer, Sint16 x, Sint16  y, Sint16 rad, Uint8 r, Uint8 g, Uint8 b, Uint8 a, long double grado)
+int filledCircleRGBA(SDL_Renderer * renderer, Sint16 x, Sint16  y, Sint16 rad, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
 	int result;
 	Sint16 cx = 0;
@@ -1487,16 +1487,6 @@ int filledCircleRGBA(SDL_Renderer * renderer, Sint16 x, Sint16  y, Sint16 rad, U
 	Sint16 d_se = -2 * rad + 5;
 	Sint16 xpcx, xmcx, xpcy, xmcy;
 	Sint16 ypcy, ymcy, ypcx, ymcx;
-	long double rotx = 0;
-	long double roty = 0;
-	Sint16 j = (Sint16)rotx;
-	Sint16 k = (Sint16)roty;
-	long double radio;
-	radio = (long double) rad;
-	rotx = (radio/2)*cos(grado);
-	roty = (radio/2)*sin(grado);
-	j = (Sint16)rotx;
-	k = (Sint16)roty;	
 
 	/*
 	* Sanity check radius 
@@ -1567,12 +1557,6 @@ int filledCircleRGBA(SDL_Renderer * renderer, Sint16 x, Sint16  y, Sint16 rad, U
 		}
 		cx++;
 	} while (cx <= cy);
-
-	
-	result |= SDL_SetRenderDrawColor(renderer, r, 0, b, a);
-	result |= pixel(renderer, x + rad/2 ,  y  );
-	//result |= pixel(renderer, x + j ,  y + k );
-	//result |= pixel(renderer, x + j +1 ,  y + k+1 );
 	
 	return (result);
 }

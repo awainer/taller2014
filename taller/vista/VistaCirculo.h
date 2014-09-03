@@ -6,11 +6,11 @@
 class VistaCirculo
 {
 public:
-	VistaCirculo(Pelota * pelota, SDL_Renderer* gRenderer );
+	VistaCirculo( SDL_Renderer* gRenderer, Pelota * pelota );
 	void render(); // x e y deberian ser float
 	~VistaCirculo(void);
 private:
-	float m_radio;
+	Sint16 m_radio;
 	SDL_Renderer* m_renderer;
 	Pelota * pelota;
 };
