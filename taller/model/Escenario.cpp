@@ -34,6 +34,10 @@ void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int 
 std::vector <Figura*> Escenario::getPoligonos(){
 	return this->cuerposEstaticos;
 }
+
+std::vector <Pelota*> Escenario::getPelotas(){
+	return this->pelotas;
+}
 Escenario::~Escenario(void)
 {
 	//TODO destruir todas las figuras

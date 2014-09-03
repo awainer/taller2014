@@ -12,6 +12,7 @@ public:
 	void agregarPelota(CoordenadasR2 centro);
 	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo);
 	std::vector <Figura*> getPoligonos();
+	std::vector <Pelota*> getPelotas();
 	~Escenario(void);
 private:
 	std::vector <Figura*> cuerposEstaticos;
