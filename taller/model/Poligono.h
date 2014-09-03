@@ -1,6 +1,6 @@
 #pragma once
 #include "Figura.h"
-class Poligono : Figura
+class Poligono : public Figura
 {
 public:
 	/*
@@ -10,6 +10,7 @@ public:
 	*/
 
 	Poligono(float x, float  y, float radio, unsigned int lados, int angulorot, b2World * world);
+	unsigned int getVertexCount();
 	~Poligono(void);
 };
 

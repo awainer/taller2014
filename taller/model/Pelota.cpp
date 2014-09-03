@@ -25,9 +25,17 @@ Pelota::Pelota(float x, float y,float radio, b2World * world){
 	this->body->CreateFixture(&fixtureDef);
 
 		
-
+	//((b2CircleShape*)this->body->GetFixtureList()[1].GetShape())->
 }
 
+CoordenadasR2 Pelota::getPuntoReferencia(){
+	b2Vec2 p = this->body->GetWorldPoint(b2Vec2(0,0.4));
+		return CoordenadasR2(p.x,p.y);
+}
+
+CoordenadasR2 Pelota::getCentro(){
+	return CoordenadasR2(this->body->GetWorldCenter().x,this->body->GetWorldCenter().y);
+}
 
 Pelota::~Pelota(void)
 {

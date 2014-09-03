@@ -3,17 +3,21 @@
 
 #define PI 3.14159265
 
-VistaCirculo::VistaCirculo(float radio, Uint32 color, SDL_Renderer* gRenderer )
+VistaCirculo::VistaCirculo(Pelota * pelota, SDL_Renderer* gRenderer )
 {
-	m_radio = radio;
-	m_color = color;
+	this->pelota = pelota;
 	m_renderer = gRenderer;
 }
 
-void VistaCirculo::render(int x,int y, int rotacion, float escala){
-	m_x = x;
-	m_y = y;
-	int ret = filledCircleColor(m_renderer, m_x, m_y, m_radio * escala, m_color);
+void VistaCirculo::render(){
+	int m_x = this->pelota->getCentro().x;
+	int m_y = this->pelota->getCentro().y;
+	int rotacion = 0;
+	int escala  = 1;
+	//int ret = filledCircleColor(m_renderer, m_x, m_y, m_radio, );
+	int ret = filledCircleRGBA(m_renderer,m_x,m_y,m_radio,255,255,0,255,0);
+	filledCircleRGBA(m_renderer,m_x,m_y,m_radio,255,255,0,255,0);
+	filledCircleRGBA(m_renderer,this->pelota->getPuntoReferencia().x,this->pelota->getPuntoReferencia().y,m_radio,255,255,0,255,0);
 	double res_cos, res_sin;
     res_cos = cos ( rotacion * PI / 180.0 );
     res_sin = sin ( rotacion * PI / 180.0 );

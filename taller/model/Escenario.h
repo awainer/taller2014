@@ -10,7 +10,7 @@ class Escenario
 public:
 	Escenario(float largo, float alto, b2World * mundo);
 	void agregarPelota(CoordenadasR2 centro);
-	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados);
+	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo);
 	std::vector <Figura*> getPoligonos();
 	~Escenario(void);
 private:

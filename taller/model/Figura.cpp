@@ -7,9 +7,13 @@ Figura::Figura(void)
 
 std::vector <CoordenadasR2> Figura::getVertices(){
 	std::vector <CoordenadasR2>  result;
-	b2PolygonShape * shape = (b2PolygonShape *)this->body->GetFixtureList();
-	for(int i = 0; i< shape->GetVertexCount(); i++)
-		result.push_back(CoordenadasR2(shape->GetVertex(i).x,shape->GetVertex(i).y));
+	b2Fixture * fix = this->body->GetFixtureList();
+	b2PolygonShape * shape = (b2PolygonShape *) fix->GetShape();
+	int vertexCount = shape->GetVertexCount();
+	for(int i = 0; i< vertexCount; i++){
+		b2Vec2 vert = this->body->GetWorldPoint(shape->GetVertex(i));
+		result.push_back(CoordenadasR2(vert.x,vert.y));
+	}
 	return result;
 	
 

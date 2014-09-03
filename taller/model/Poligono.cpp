@@ -39,6 +39,10 @@ Poligono::Poligono(float x, float y, float radio, unsigned int lados, int angulo
 
 }
 
+unsigned int Poligono::getVertexCount(){
+	b2PolygonShape * shape = (b2PolygonShape *)this->body->GetFixtureList()[0].GetShape();
+	return shape->GetVertexCount();
 
+}
  Poligono::~Poligono(void){
  }

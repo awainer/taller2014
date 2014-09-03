@@ -40,6 +40,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>./SDL2;./;D:\Proyectos\taller2014\taller\model;$(IncludePath)</IncludePath>
+    <LibraryPath>./lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -55,6 +56,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,7 +135,7 @@
     <ClInclude Include="Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="Box2D\Rope\b2Rope.h" />
     <ClInclude Include="model\Pared.h" />
-    <ClInclude Include="pruebapoligono.cpp" />
+    <ClInclude Include="pruebapoligono.h" />
     <ClInclude Include="SDL2\begin_code.h" />
     <ClInclude Include="SDL2\close_code.h" />
     <ClInclude Include="SDL2\SDL.h" />
@@ -204,6 +206,7 @@
     <ClInclude Include="vista\SDL2_gfx\SDL2_gfxPrimitives_font.h" />
     <ClInclude Include="vista\SDL2_gfx\SDL2_imageFilter.h" />
     <ClInclude Include="vista\SDL2_gfx\SDL2_rotozoom.h" />
+    <ClInclude Include="vista\VistaCirculo.h" />
     <ClInclude Include="vista\VistaPoligono.h" />
     <ClInclude Include="vista\VistaRectangulo.h" />
   </ItemGroup>
@@ -269,6 +272,7 @@
     <ClCompile Include="vista\SDL2_gfx\SDL2_gfxPrimitives.c" />
     <ClCompile Include="vista\SDL2_gfx\SDL2_imageFilter.c" />
     <ClCompile Include="vista\SDL2_gfx\SDL2_rotozoom.c" />
+    <ClCompile Include="vista\VistaCirculo.cpp" />
     <ClCompile Include="vista\VistaPoligono.cpp" />
     <ClCompile Include="vista\VistaRectangulo.cpp" />
   </ItemGroup>

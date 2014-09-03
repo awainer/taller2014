@@ -27,8 +27,8 @@ Escenario::Escenario(float largo, float alto,b2World * mundo)
 void Escenario::agregarPelota(CoordenadasR2 centro){
 	this->pelotas.push_back(new Pelota(centro.x,centro.y,0.5,this->world));
 }
-void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados){
-	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro.x,centro.y,radio,lados,0,this->world));
+void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados, unsigned int angulo){
+	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro.x,centro.y,radio,lados,angulo,this->world));
 }
 
 std::vector <Figura*> Escenario::getPoligonos(){
