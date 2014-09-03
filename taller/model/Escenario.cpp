@@ -38,6 +38,10 @@ std::vector <Figura*> Escenario::getPoligonos(){
 std::vector <Pelota*> Escenario::getPelotas(){
 	return this->pelotas;
 }
+
+void Escenario::step(){
+	this->world->Step(1.0f/60,3,3);
+}
 Escenario::~Escenario(void)
 {
 	//TODO destruir todas las figuras
