@@ -9,6 +9,7 @@ public:
 	Pelota(float x, float y,float radio, b2World * world);
 	CoordenadasR2 getCentro();
 	CoordenadasR2 getPuntoReferencia();
+	float getRadio();
 	~Pelota(void);
 };
 

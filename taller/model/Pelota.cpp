@@ -28,6 +28,11 @@ Pelota::Pelota(float x, float y,float radio, b2World * world){
 	//((b2CircleShape*)this->body->GetFixtureList()[1].GetShape())->
 }
 
+float Pelota::getRadio(){
+	b2CircleShape * circle = (b2CircleShape * )this->body->GetFixtureList();
+	return circle->m_radius;
+}
+
 CoordenadasR2 Pelota::getPuntoReferencia(){
 	b2Vec2 p = this->body->GetWorldPoint(b2Vec2(0,0.4));
 		return CoordenadasR2(p.x,p.y);
