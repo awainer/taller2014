@@ -405,10 +405,10 @@
     <ClInclude Include="model\Pared.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="pruebapoligono.h">
+    <ClInclude Include="vista\VistaCirculo.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="vista\VistaCirculo.h">
+    <ClInclude Include="pruebapoligono.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

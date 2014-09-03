@@ -22,3 +22,16 @@ VistaPoligono::~VistaPoligono(void)
 	delete[] m_vx;
 	delete[] m_vy;
 }
+void VistaPoligono::transformarSint16(std::vector<CoordenadasR2> vertices){
+	Sint16 posY_SDL;
+	int ancho;
+	int alto;
+	int result = SDL_GetRendererOutputSize(m_renderer,&ancho,&alto);
+		for(int i = 0; i<n_vertices; i++){
+			m_vx[i]=vertices[i].x;
+			
+			posY_SDL= alto - vertices[i].y;
+			m_vy[i]=posY_SDL;
+		} 
+		
+}
