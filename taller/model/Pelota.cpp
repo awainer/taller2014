@@ -34,7 +34,8 @@ float Pelota::getRadio(){
 }
 
 CoordenadasR2 Pelota::getPuntoReferencia(){
-	b2Vec2 p = this->body->GetWorldPoint(b2Vec2(0,0.4));
+	b2CircleShape * shape = (b2CircleShape *)this->body->GetFixtureList();
+	b2Vec2 p = this->body->GetWorldPoint(b2Vec2(0, 0.75 *shape->m_radius));
 		return CoordenadasR2(p.x,p.y);
 }
 
