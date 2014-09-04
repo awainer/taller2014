@@ -24,14 +24,14 @@ int  caca(){
 	float xratio = 640 / 6.4f;
 	float yratio = 480 / 4.8f;
 	esc->agregarPelota(CoordenadasR2(2,2));
-	/*esc->agregarPoligono(CoordenadasR2(100,100),30,3,0);
-	esc->agregarPoligono(CoordenadasR2(200,100),30,4,45);
+	esc->agregarPoligono(CoordenadasR2(4,3),1,3,0);
+	/*esc->agregarPoligono(CoordenadasR2(200,100),30,4,45);
 	esc->agregarPoligono(CoordenadasR2(300,100),30,8,90);*/
 
 
-	VistaCirculo circulo = VistaCirculo(ren,esc->getPelotas()[0],xratio,yratio); 
-	/*VistaPoligono poligono = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0]);
-	VistaPoligono poligono2 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[1]);
+	VistaFigura* circulo = new VistaCirculo(ren,esc->getPelotas()[0],xratio,yratio); 
+	VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],xratio,yratio);
+	/*VistaPoligono poligono2 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[1]);
 	VistaPoligono poligono3 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[2]);*/
 
 
@@ -47,9 +47,9 @@ int  caca(){
 		
 		SDL_SetRenderDrawColor( ren, 0xFF, 0xFF, 0xFF, 0xFF );
 		SDL_RenderClear( ren );
-		circulo.render();
-	/*	poligono.render();
-		poligono2.render();
+		circulo->render();
+		poligono->render();
+		/*poligono2.render();
 		poligono3.render();*/
 		
 		SDL_RenderPresent(ren);
@@ -72,5 +72,7 @@ int  caca(){
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
+	delete circulo;
+	delete poligono;
 return 0;
 }

@@ -12,7 +12,7 @@ VistaCirculo::VistaCirculo(SDL_Renderer* gRenderer , Pelota * pelota, float xrat
 	this->yratio = yratio;
 }
 
-void VistaCirculo::render(){
+void VistaCirculo::render() {
 	int m_x = this->pelota->getCentro().x * this->xratio;
 	int m_y = this->pelota->getCentro().y * this->yratio;
 	this->m_radio =(Sint16) (this->pelota->getRadio() * ((xratio+yratio)/2));

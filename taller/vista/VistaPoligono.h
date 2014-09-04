@@ -4,14 +4,15 @@
 #include "../model/CoordenadasR2.h"
 #include "../model/Poligono.h"
 #include "../model/Figura.h"
+#include "VistaFigura.h"
 #include <vector>
-class VistaPoligono
+class VistaPoligono: public VistaFigura
 {
 public:
 	//recibe el renderer donde dibujar junto la cantidad de vertices.
-	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono);
+	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,float xratio, float yratio);
 	
-	void render();
+	void render() ;
 
 	void transformarSint16(std::vector<CoordenadasR2> vertices);
 	~VistaPoligono(void);
@@ -22,6 +23,8 @@ private:
 	Sint16* m_vx;
 	Sint16* m_vy;
 	Poligono * poligono;
+	float xratio;
+	float yratio;
 	
 	
 };
