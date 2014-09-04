@@ -11,6 +11,8 @@ public:
 	Escenario(float largo, float alto, b2World * mundo);
 	void agregarPelota(CoordenadasR2 centro);
 	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo);
+	void step();
+	CoordenadasR2 getSize();
 	std::vector <Figura*> getPoligonos();
 	std::vector <Pelota*> getPelotas();
 	~Escenario(void);
@@ -19,5 +21,7 @@ private:
 	std::vector <Figura*> paredes;
 	std::vector <Pelota*> pelotas;
 	b2World * world;
+	float largo;
+	float alto;
 };
 

@@ -8,7 +8,7 @@ Escenario::Escenario(float largo, float alto,b2World * mundo)
 	if(mundo != NULL){
 		this->world = mundo;
 	}else{
-		b2Vec2 gravity = b2Vec2(0,-5.0f);
+		b2Vec2 gravity = b2Vec2(0.0f,10.0f);
 		this-> world = new b2World(gravity);
 	}
 
@@ -21,16 +21,20 @@ Escenario::Escenario(float largo, float alto,b2World * mundo)
 	// Pared derecha
 	this->paredes.push_back(new Pared(largo,alto/2,alto,this->world,RIGHT_WALL));
 
-
+	this->alto = alto;
+	this->largo = largo;
 }
 
 void Escenario::agregarPelota(CoordenadasR2 centro){
-	this->pelotas.push_back(new Pelota(centro.x,centro.y,20,this->world));
+	this->pelotas.push_back(new Pelota(centro.x,centro.y,0.5f,this->world));
 }
 void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados, unsigned int angulo){
 	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro.x,centro.y,radio,lados,angulo,this->world));
 }
 
+CoordenadasR2 Escenario::getSize(){
+	return CoordenadasR2(this->largo,this->alto);
+}
 std::vector <Figura*> Escenario::getPoligonos(){
 	return this->cuerposEstaticos;
 }
