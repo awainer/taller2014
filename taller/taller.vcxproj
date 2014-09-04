@@ -77,6 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="model\Color.h" />
     <ClInclude Include="model\Escenario.h" />
     <ClInclude Include="model\CollisionHandler.h" />
     <ClInclude Include="model\constantes.h" />
@@ -213,6 +214,7 @@
     <ClInclude Include="vista\VistaRectangulo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="model\Color.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model\Escenario.cpp" />
     <ClCompile Include="model\CollisionHandler.cpp" />

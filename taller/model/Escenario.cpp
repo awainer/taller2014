@@ -25,11 +25,11 @@ Escenario::Escenario(float largo, float alto,b2World * mundo)
 	this->largo = largo;
 }
 
-void Escenario::agregarPelota(CoordenadasR2 centro){
-	this->pelotas.push_back(new Pelota(centro.x,centro.y,0.5f,this->world));
+void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa){
+	this->pelotas.push_back(new Pelota(centro,color,radio,dinamica,masa,this->world));
 }
-void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados, unsigned int angulo){
-	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro.x,centro.y,radio,lados,angulo,this->world));
+void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa){
+	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro,color,radio,lados,angulo,dinamica,masa,this->world));
 }
 
 CoordenadasR2 Escenario::getSize(){

@@ -16,7 +16,7 @@ VistaPoligono::VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,float 
 void VistaPoligono::render(){
 	
 	this->transformarSint16(this->poligono->getVertices());
-	filledPolygonRGBA(m_renderer, m_vx , m_vy ,n_vertices,255,255,0,255);// color amarillo
+	filledPolygonRGBA(m_renderer, m_vx , m_vy ,n_vertices,this->poligono->color.r,this->poligono->color.g,this->poligono->color.b,this->poligono->color.a);
 }
 
 VistaPoligono::~VistaPoligono(void)

@@ -9,8 +9,8 @@ class Escenario
 {
 public:
 	Escenario(float largo, float alto, b2World * mundo);
-	void agregarPelota(CoordenadasR2 centro);
-	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo);
+	void agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa);
+	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa);
 	void step();
 	CoordenadasR2 getSize();
 	std::vector <Figura*> getPoligonos();

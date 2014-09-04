@@ -1,5 +1,7 @@
 #pragma once
 #include "Figura.h"
+#include "CoordenadasR2.h"
+#include "Color.h"
 class Poligono : public Figura
 {
 public:
@@ -9,7 +11,7 @@ public:
 	lados es la cantidad de lados (y vertices)
 	*/
 
-	Poligono(float x, float  y, float radio, unsigned int lados, int angulorot, b2World * world);
+	Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int lados, int angulorot,bool dinamico,float masa,  b2World * world);
 	unsigned int getVertexCount();
 	~Poligono(void);
 };

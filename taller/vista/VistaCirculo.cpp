@@ -24,11 +24,12 @@ void VistaCirculo::render() {
 	//int rotacion = 0;
 	//int escala  = 1;
 	//int ret = filledCircleColor(m_renderer, m_x, m_y, m_radio, );
-	Uint8 r = rand() % 255 + 1;   
-	Uint8 g = rand() % 255 + 1;   
-	Uint8 b = rand() % 255 + 1;   
-	Uint8 a = 255; 
-	int ret = filledCircleRGBA(m_renderer,m_x,m_y,m_radio,r,g,b,a); //falta la clase color
+	
+	Uint8 r = this->pelota->color.r;   
+	Uint8 g = this->pelota->color.g;   
+	Uint8 b = this->pelota->color.b;   
+	Uint8 a = this->pelota->color.a; 
+	int ret = filledCircleRGBA(m_renderer,m_x,m_y,m_radio,a,r,g,b); //falta la clase color
 	//std::cout << " x_r "<< this->pelota->getPuntoReferencia().x<< " y_r" << this->pelota->getPuntoReferencia().y << std::endl;
 	//filledCircleRGBA(m_renderer,m_x,m_y,m_radio,255,255,0,255);
 	Sint16 refx = (Sint16) (this->pelota->getPuntoReferencia().x * xratio);

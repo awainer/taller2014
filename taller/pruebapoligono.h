@@ -7,6 +7,7 @@
 #include "..\model\CoordenadasR2.h"
 #include "..\model\Escenario.h"
 #include "..\model\Poligono.h"
+#include "..\model\Color.h"
 
 
 SDL_Texture* loadTexture( std::string path );
@@ -15,6 +16,11 @@ SDL_Renderer *ren2 = NULL;
 
 
 void resizePantalla(SDL_Window* window,SDL_Renderer* renderer, int ancho,int alto){
+			Color  rojo = Color(255,0,0);
+			Color  azul = Color(0,0,255);
+			Color  verde = Color(0,255,0);
+			Color violeta = Color(150,150,0);
+
 			int alto_actual;
 			int ancho_actual;
 			SDL_GetWindowSize(window,&ancho_actual,&alto_actual);
@@ -33,7 +39,10 @@ void resizePantalla(SDL_Window* window,SDL_Renderer* renderer, int ancho,int alt
 }
 
 int  caca(){
-
+	Color  rojo = Color(255,0,0);
+	Color  azul = Color(0,0,100);
+	Color  verde = Color(0,255,0);
+	Color violeta = Color(100,100,0);
 	int r = SDL_Init(SDL_INIT_EVERYTHING);
 	printf("sdl init %d \n",r);
 	SDL_Event evento;
@@ -47,10 +56,9 @@ int  caca(){
 	// cambio de escala segun Box2D a SDL, necesaria para dibujar en el pixel correcto
 	float xratio = 640 / 6.4f;
 	float yratio = 480 / 4.8f;
-	esc->agregarPelota(CoordenadasR2(2,2));
-	esc->agregarPoligono(CoordenadasR2(4,3),1,3,0);
-	/*esc->agregarPoligono(CoordenadasR2(200,100),30,4,45);
-	esc->agregarPoligono(CoordenadasR2(300,100),30,8,90);*/
+	esc->agregarPelota(  CoordenadasR2(4,4),0.5,azul,true,1);
+	esc->agregarPoligono(CoordenadasR2(4,2),1,3,0,rojo,true,2);
+
 
 
 	VistaFigura* circulo = new VistaCirculo(ren,esc->getPelotas()[0],xratio,yratio); 
@@ -111,7 +119,10 @@ int  caca(){
 
 //Prueba de carga de imagenes con libreria SDL_image
 int  caca2(){
-
+	Color  rojo = Color(255,0,0);
+	Color  azul = Color(0,0,255);
+	Color  verde = Color(0,255,0);
+	Color violeta = Color(100,100,0);
 	int r = SDL_Init(SDL_INIT_EVERYTHING);
 	printf("sdl init %d \n",r);
 	SDL_Event evento;
@@ -123,13 +134,15 @@ int  caca2(){
 	Escenario * esc = new Escenario(6.4, 4.8,NULL);
 	float xratio = 640 / 6.4f;
 	float yratio = 480 / 4.8f;
-	esc->agregarPelota(CoordenadasR2(2,2));
+	esc->agregarPelota(CoordenadasR2(2,2),0.5,azul,true,1);
+	//esc->agregarPelota(CoordenadasR2(2.3,1),0.5,violeta,false,1);
 	/*esc->agregarPoligono(CoordenadasR2(100,100),30,3,0);
 	esc->agregarPoligono(CoordenadasR2(200,100),30,4,45);
 	esc->agregarPoligono(CoordenadasR2(300,100),30,8,90);*/
 
 
 	VistaCirculo circulo = VistaCirculo(ren2,esc->getPelotas()[0],xratio,yratio); 
+	//VistaCirculo circulo2 = VistaCirculo(ren2,esc->getPelotas()[1],xratio,yratio); 
 	/*VistaPoligono poligono = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0]);
 	VistaPoligono poligono2 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[1]);
 	VistaPoligono poligono3 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[2]);*/

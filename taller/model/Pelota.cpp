@@ -1,7 +1,7 @@
 #include "Pelota.h"
 
 
-Pelota::Pelota(float x, float y,float radio, b2World * world){
+Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float masa, b2World * world){
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
 	b2CircleShape shape;
@@ -9,23 +9,20 @@ Pelota::Pelota(float x, float y,float radio, b2World * world){
 	this->world = world;
 	shape.m_radius = radio;
 	shape.m_p.Set(0,0); // respecto del body
-	bodyDef.position.Set(x,y);
-	bodyDef.type = b2_dynamicBody;
-	fixtureDef.density = 1.2f;
-	fixtureDef.restitution = 0.9;
-	fixtureDef.friction = 0.3;
+	bodyDef.position.Set(centro.x,centro.y);
+	if (dinamica){
+		bodyDef.type = b2_dynamicBody;
+		fixtureDef.density = 1.2f;
+		fixtureDef.restitution = 0.9;
+		fixtureDef.friction = 0.3;
+	}else
+		bodyDef.type = b2_staticBody;
+
 	fixtureDef.shape = &shape;
 	this->body = this->world->CreateBody(&bodyDef);
 	this->body->CreateFixture(&fixtureDef);
 
-	//pelotita chiquita para trackear el movimiento
-	/*shape.m_radius = radio / 4;
-	shape.m_p.Set(0,radio/2); // respecto del body
-	fixtureDef.density = 0;
-	this->body->CreateFixture(&fixtureDef);*/
-
-		
-	//((b2CircleShape*)this->body->GetFixtureList()[1].GetShape())->
+	this->color = color;
 }
 
 float Pelota::getRadio(){
