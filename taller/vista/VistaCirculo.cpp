@@ -17,9 +17,9 @@ void VistaCirculo::render(){
 	int m_y = this->pelota->getCentro().y * this->yratio;
 	this->m_radio =(Sint16) (this->pelota->getRadio() * ((xratio+yratio)/2));
 	//this->m_radio =20;
-	std::cout << " radio "<< this->m_radio << std::endl;
-	std::cout << " ref"<< this->pelota->getPuntoReferencia().x << this->pelota->getPuntoReferencia().x  << std::endl;
-	std::cout << " x "<< this->pelota->getCentro().x << " y " << this->pelota->getCentro().y << std::endl; 
+	//std::cout << " radio "<< this->m_radio << std::endl;
+	//std::cout << " ref"<< this->pelota->getPuntoReferencia().x << this->pelota->getPuntoReferencia().x  << std::endl;
+	//std::cout << " x "<< this->pelota->getCentro().x << " y " << this->pelota->getCentro().y << std::endl; 
 	//int rotacion = 0;
 	//int escala  = 1;
 	//int ret = filledCircleColor(m_renderer, m_x, m_y, m_radio, );
