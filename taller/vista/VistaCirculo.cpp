@@ -1,6 +1,7 @@
 #include "VistaCirculo.h"
 #include <math.h>
 #include <iostream>
+#include <stdlib.h> 
 
 #define PI 3.14159265
 
@@ -23,12 +24,16 @@ void VistaCirculo::render(){
 	//int rotacion = 0;
 	//int escala  = 1;
 	//int ret = filledCircleColor(m_renderer, m_x, m_y, m_radio, );
-	int ret = filledCircleRGBA(m_renderer,m_x,m_y,m_radio,255,255,0,255);
+	Uint8 r = rand() % 255 + 1;   
+	Uint8 g = rand() % 255 + 1;   
+	Uint8 b = rand() % 255 + 1;   
+	Uint8 a = 255; 
+	int ret = filledCircleRGBA(m_renderer,m_x,m_y,m_radio,r,g,b,a); //falta la clase color
 	//std::cout << " x_r "<< this->pelota->getPuntoReferencia().x<< " y_r" << this->pelota->getPuntoReferencia().y << std::endl;
 	//filledCircleRGBA(m_renderer,m_x,m_y,m_radio,255,255,0,255);
 	Sint16 refx = (Sint16) (this->pelota->getPuntoReferencia().x * xratio);
 	Sint16 refy = (Sint16) (this->pelota->getPuntoReferencia().y * yratio);
-	filledCircleRGBA(m_renderer,refx,refy,m_radio/4,255,0,0,255);
+	filledCircleRGBA(m_renderer,refx,refy,m_radio/4, 255 - r, 255 - g, 255 - b, a); // color negativo al original
 	//double res_cos, res_sin;
     //res_cos = cos ( rotacion * PI / 180.0 );
     //res_sin = sin ( rotacion * PI / 180.0 );
