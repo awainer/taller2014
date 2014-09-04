@@ -13,12 +13,31 @@ SDL_Texture* loadTexture( std::string path );
 
 SDL_Renderer *ren2 = NULL;
 
+
+void resizePantalla(SDL_Window* window,SDL_Renderer* renderer, int ancho,int alto){
+			int alto_actual;
+			int ancho_actual;
+			SDL_GetWindowSize(window,&ancho_actual,&alto_actual);
+			
+			float ancho_2= (float)ancho;
+			float ancho_1= (float)ancho_actual;
+			float alto_2= (float)alto;
+			float alto_1= (float)alto_actual;
+
+			float resizeX = ancho_2/ancho_1;
+			float resizeY = alto_2/alto_1;
+
+			SDL_RenderSetScale(renderer,resizeX,resizeY);
+			
+			SDL_SetWindowSize(window,ancho,alto);
+}
+
 int  caca(){
 
 	int r = SDL_Init(SDL_INIT_EVERYTHING);
 	printf("sdl init %d \n",r);
 	SDL_Event evento;
-	const Uint8* m_keys = SDL_GetKeyboardState(NULL);
+	SDL_Scancode sc;
 	bool juegoEnMarcha = true;
 	//creo la pantalla
 	SDL_Window *win = SDL_CreateWindow("Prueba poligono, rectangulo", 100, 100, 640, 480, SDL_WINDOW_SHOWN);	
@@ -38,20 +57,14 @@ int  caca(){
 	VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],xratio,yratio);
 	/*VistaPoligono poligono2 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[1]);
 	VistaPoligono poligono3 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[2]);*/
-
-
 	
-	int x,y;
-	x=0;
-	y=0;
-	
-	//std::vector<CoordenadasR2> vector = esc->getPoligonos()[0]->getVertices();
 	while( juegoEnMarcha ){
-				
-		//Clear screen
-		
-		SDL_SetRenderDrawColor( ren, 0xFF, 0xFF, 0xFF, 0xFF );
+			
+		//Clear screen		
+		SDL_SetRenderDrawColor( ren, 0, 255, 0, 255 );
 		SDL_RenderClear( ren );
+		
+		//Dibujo figuras
 		circulo->render();
 		poligono->render();
 		/*poligono2.render();
@@ -60,17 +73,30 @@ int  caca(){
 		SDL_RenderPresent(ren);
 		SDL_PollEvent( &evento);
 		esc->step();
-		SDL_Delay(20);
-		if(evento.type == SDL_QUIT){
-			juegoEnMarcha= false;
-		} 
+		SDL_Delay(30);
 
-		//magia
-		if (m_keys[SDL_SCANCODE_C]){
-			SDL_SetWindowSize(win,300,100);
-			float resizeX = 300.0f/640.0f;
-			float resizeY = 100.0f/480.0f;
-			SDL_RenderSetScale(ren,resizeX,resizeY);
+		switch(evento.type)
+		{
+		case SDL_QUIT:
+			juegoEnMarcha= false;
+			break;
+		case SDL_KEYDOWN:
+			sc = evento.key.keysym.scancode;
+			if( sc == SDL_SCANCODE_C)
+				//se ejecuta instruccion mientras la tecla esta presionada
+			break;
+		case SDL_KEYUP:
+			//se ejecuta instruccion cuando la tecla deja de ser presionada
+			sc = evento.key.keysym.scancode;
+			// si se presiona por segunda vez C la segunda redimensiona al formato original porque 300/300 =1 es decir escala original 
+			if( sc == SDL_SCANCODE_C) 
+				resizePantalla(win,ren,300,100);
+			// Aca verifique que si se pone escala (1,1) en el renderder vuelve al estado original de la pantalla si presiono D.
+			if( sc == SDL_SCANCODE_D)
+				SDL_SetWindowSize(win,640,480);
+			
+			break;
+
 		}
 	}
 
@@ -79,9 +105,11 @@ int  caca(){
 	SDL_Quit();
 	delete circulo;
 	delete poligono;
-return 0;
+	return 0;
 }
 
+
+//Prueba de carga de imagenes con libreria SDL_image
 int  caca2(){
 
 	int r = SDL_Init(SDL_INIT_EVERYTHING);
@@ -89,7 +117,7 @@ int  caca2(){
 	SDL_Event evento;
 	bool juegoEnMarcha = true;
 	//creo la pantalla
-	SDL_Window *win = SDL_CreateWindow("Prueba poligono, rectangulo", 100, 100, 640, 480, SDL_WINDOW_SHOWN);	
+	SDL_Window *win = SDL_CreateWindow("Prueba carga de imagen", 100, 100, 640, 480, SDL_WINDOW_SHOWN);	
 	ren2 = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
 
 	Escenario * esc = new Escenario(6.4, 4.8,NULL);
@@ -132,6 +160,7 @@ int  caca2(){
 
 	while( juegoEnMarcha ){
 		//Clear screen
+		SDL_SetRenderDrawColor( ren2, 0xFF, 0xFF, 0xFF, 0xFF );
 		SDL_RenderClear( ren2 );
 		
 		//Render texture to screen

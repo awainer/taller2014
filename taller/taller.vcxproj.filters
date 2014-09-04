@@ -414,6 +414,9 @@
     <ClInclude Include="vista\VistaFigura.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="SDL2\SDL_image.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="model\Figura.cpp">
@@ -615,5 +618,17 @@
   <ItemGroup>
     <Library Include="lib\Box2D.lib" />
     <Library Include="lib\SDL2.lib" />
+    <Library Include="lib\SDL2_image.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imagenes\tablero.png">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="imagenes\homero.png">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="imagenes\fondo.png">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
 </Project>
