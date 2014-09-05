@@ -13,7 +13,7 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 	if (dinamica){
 		bodyDef.type = b2_dynamicBody;
 		fixtureDef.density = 1.2f;
-		fixtureDef.restitution = 0.9;
+		fixtureDef.restitution = 0.7;
 		fixtureDef.friction = 0.3;
 	}else
 		bodyDef.type = b2_staticBody;
@@ -21,7 +21,7 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 	fixtureDef.shape = &shape;
 	this->body = this->world->CreateBody(&bodyDef);
 	this->body->CreateFixture(&fixtureDef);
-
+	this->setDensidad(masa);
 	this->color = color;
 }
 

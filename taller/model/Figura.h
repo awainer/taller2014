@@ -14,6 +14,7 @@ public:
 	std::vector <CoordenadasR2> getVertices();
 	Color color;
 protected:
+	void setDensidad(float masa);
 	b2Body * body;
 	b2World * world;
 	int type;

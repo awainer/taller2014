@@ -86,7 +86,6 @@
     <ClInclude Include="model\Figura.h" />
     <ClInclude Include="model\Jugador.h" />
     <ClInclude Include="model\Pelota.h" />
-    <ClInclude Include="model\Plataforma.h" />
     <ClInclude Include="model\Poligono.h" />
     <ClInclude Include="model\Rectangulo.h" />
     <ClInclude Include="Box2D\Box2D.h" />
@@ -226,7 +225,6 @@
     <ClCompile Include="model\Figura.cpp" />
     <ClCompile Include="model\Jugador.cpp" />
     <ClCompile Include="model\Pelota.cpp" />
-    <ClCompile Include="model\Plataforma.cpp" />
     <ClCompile Include="model\Poligono.cpp" />
     <ClCompile Include="model\Rectangulo.cpp" />
     <ClCompile Include="Box2D\Collision\b2BroadPhase.cpp" />

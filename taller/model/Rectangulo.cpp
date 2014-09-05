@@ -2,20 +2,19 @@
 #include  <Box2d/Box2d.h>
 
 // x e y se refieren a la posicion del centro de masa
-Rectangulo::Rectangulo(unsigned int x, unsigned int y, unsigned int alto, unsigned int ancho, b2World * world, bool dinamico)
+Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinamico,Color color,float masa,b2World * world)
 {
 	this->world = world;
 
 	b2BodyDef bd;
 	b2FixtureDef fixtureDef;
 
-	bd.position.Set(x,y);
+	bd.position.Set(centro.x,centro.y);
 
 	if (dinamico){
 		bd.type = b2_dynamicBody;
-		fixtureDef.density = 1.0f;
         fixtureDef.friction = 0.5f;
-        fixtureDef.restitution = 1.0f;
+        fixtureDef.restitution = 0.4f;
 	}
 	else
 		bd.type = b2_staticBody;
@@ -25,7 +24,8 @@ Rectangulo::Rectangulo(unsigned int x, unsigned int y, unsigned int alto, unsign
 	shape.SetAsBox(ancho/2,alto/2); //,b2Vec2(x,y)
 	fixtureDef.shape = &shape;
 	this->body->CreateFixture(&fixtureDef);
-
+	this->setDensidad(masa);
+	this->color = color;
 }
 
 

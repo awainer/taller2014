@@ -15,7 +15,6 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	int i = 0;
 	if (dinamico){
 		bodyDef.type = b2_dynamicBody;
-		fixtureDef.density = 1; // CAMBIAR ESTO POR EL COMPUTO DE DENSIDAD
 	}
 	else
 		bodyDef.type = b2_staticBody;
@@ -37,7 +36,7 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	this->body = this->world->CreateBody(&bodyDef);
 	fixtureDef.shape = (&shape);
 	this->body->CreateFixture(&fixtureDef); 
-
+	this->setDensidad(masa);
 	this->color = color;
 }
 

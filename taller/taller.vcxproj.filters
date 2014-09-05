@@ -24,9 +24,6 @@
     <ClInclude Include="model\Pelota.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="model\Plataforma.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="model\Poligono.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -438,9 +435,6 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="model\Pelota.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="model\Plataforma.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="model\Poligono.cpp">
