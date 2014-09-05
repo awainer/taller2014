@@ -1,7 +1,6 @@
 #include "vista\VistaRectangulo.h"
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
-
 #include "..\vista\VistaCirculo.h"
 #include "..\vista\VistaPoligono.h"
 #include "..\model\CoordenadasR2.h"
@@ -60,7 +59,6 @@ int  caca(){
 	esc->agregarPoligono(CoordenadasR2(4,2),1,3,0,rojo,true,2);
 
 
-
 	VistaFigura* circulo = new VistaCirculo(ren,esc->getPelotas()[0],xratio,yratio); 
 	VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],xratio,yratio);
 	/*VistaPoligono poligono2 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[1]);
@@ -77,7 +75,7 @@ int  caca(){
 		poligono->render();
 		/*poligono2.render();
 		poligono3.render();*/
-		
+
 		SDL_RenderPresent(ren);
 		SDL_PollEvent( &evento);
 		esc->step();

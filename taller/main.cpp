@@ -1,13 +1,12 @@
 #include <SDL2\SDL.h>
 #undef main
-#include "vista\VistaPoligono.h"
-#include "model\CoordenadasR2.h"
-#include "model\Escenario.h"
-#include "model\Poligono.h"
+#include "prueba_VistaEscenario.h"
 #include "pruebapoligono.h"
 #undef main
+//#include <vld.h>
 int main(int argc, char ** argv){
-	caca();
-	caca2();
+	prueba_vistaEscenario();
+	//caca();
+	//caca2();
 	return 0;
 }

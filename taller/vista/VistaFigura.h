@@ -4,6 +4,6 @@ class VistaFigura
 public:
 	VistaFigura(void);
 	virtual void render() = 0;
-	~VistaFigura(void);
+	virtual ~VistaFigura(void) = 0;
 };
 

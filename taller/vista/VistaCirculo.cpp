@@ -29,7 +29,7 @@ void VistaCirculo::render() {
 	Uint8 g = this->pelota->color.g;   
 	Uint8 b = this->pelota->color.b;   
 	Uint8 a = this->pelota->color.a; 
-	int ret = filledCircleRGBA(m_renderer,m_x,m_y,m_radio,a,r,g,b); //falta la clase color
+	int ret = filledCircleRGBA(m_renderer,m_x,m_y,m_radio,r,g,b,a); //falta la clase color
 	//std::cout << " x_r "<< this->pelota->getPuntoReferencia().x<< " y_r" << this->pelota->getPuntoReferencia().y << std::endl;
 	//filledCircleRGBA(m_renderer,m_x,m_y,m_radio,255,255,0,255);
 	Sint16 refx = (Sint16) (this->pelota->getPuntoReferencia().x * xratio);
