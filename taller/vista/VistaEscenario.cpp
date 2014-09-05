@@ -1,18 +1,17 @@
 #include "VistaEscenario.h"
 
 
-VistaEscenario::VistaEscenario(Escenario* escenario , float xratio, float yratio)
+VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 {
-	m_ancho = 640;
-	m_alto = 480;
+	m_ancho = datos->getAnchoPixel();
+	m_alto = datos->getAltoPixel();
 	if( iniciarSDL() == false){
 		std::cout << "no inicio SDL" << std::endl;
 	}
 	else
 	{
 		m_escenario = escenario;
-		m_xratio = xratio;
-		m_yratio = yratio;
+		m_datos_pantalla = datos;
 		m_fondo =NULL;
 		this->cargarFiguras();
 	}
@@ -141,9 +140,9 @@ void VistaEscenario::cargarFiguras(){
 
 
 void VistaEscenario::agregarPelota(Pelota* pelota){
-	this->figuras.push_back(new VistaCirculo(m_renderer,pelota,m_xratio,m_yratio));
+	this->figuras.push_back(new VistaCirculo(m_renderer,pelota,this->m_datos_pantalla));
 }
 
 void VistaEscenario::agregarPoligonos(Poligono* poligono){
-	this->figuras.push_back(new VistaPoligono(m_renderer,poligono,m_xratio,m_yratio));
+	this->figuras.push_back(new VistaPoligono(m_renderer,poligono,this->m_datos_pantalla));
 }

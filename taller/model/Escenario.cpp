@@ -8,7 +8,7 @@ Escenario::Escenario(float largo, float alto,b2World * mundo)
 	if(mundo != NULL){
 		this->world = mundo;
 	}else{
-		b2Vec2 gravity = b2Vec2(0.0f,10.0f);
+		b2Vec2 gravity = b2Vec2(0.0f,-10.0f);
 		this-> world = new b2World(gravity);
 	}
 

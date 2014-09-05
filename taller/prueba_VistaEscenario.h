@@ -7,7 +7,7 @@
 #include "..\model\Poligono.h"
 #include "..\model\Color.h"
 #include "vista\VistaEscenario.h"
-
+#include "vista\DatosPantalla.h"
 int  prueba_vistaEscenario(){
 	Color  rojo = Color(255,0,0);
 	Color  azul = Color(0,0,255);
@@ -20,14 +20,16 @@ int  prueba_vistaEscenario(){
 	Escenario * esc = new Escenario(6.4, 4.8,NULL);
 	
 	// cambio de escala segun Box2D a SDL, necesaria para dibujar en el pixel correcto
-	float xratio = 640 / 6.4f;
-	float yratio = 480 / 4.8f;
+	//float xratio = 640 / 6.4f;
+	//float yratio = 480 / 4.8f;
+	DatosPantalla datos = DatosPantalla(640,480,6.4f,4.8f);
 	esc->agregarPelota(  CoordenadasR2(4,4),0.5,azul,true,1);
 	esc->agregarPoligono(CoordenadasR2(4,2),1,3,0,rojo,true,2);
 	esc->agregarPelota(  CoordenadasR2(2,2),0.2,verde,true,1);
+	esc->agregarPelota(  CoordenadasR2(1,0),0.2,violeta,true,1);
 
 	//creo vista del escenario
-	VistaEscenario escenario_vista = VistaEscenario(esc,xratio,yratio);
+	VistaEscenario escenario_vista = VistaEscenario(esc,&datos);
 	
 	escenario_vista.agregarFondo("imagenes/homero.png");
 	

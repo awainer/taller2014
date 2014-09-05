@@ -4,16 +4,14 @@
 #include <cmath>
 #include "VistaFigura.h"
 #include "../model/Pelota.h"
+#include "DatosPantalla.h"
 class VistaCirculo : public VistaFigura
 {
 public:
-	VistaCirculo( SDL_Renderer* gRenderer, Pelota * pelota,float xratio, float yratio );
+	VistaCirculo( SDL_Renderer* gRenderer, Pelota * pelota, DatosPantalla* datos  );
 	void render() ;
 	~VistaCirculo(void);
 private:
 	Sint16 m_radio;
-	SDL_Renderer* m_renderer;
 	Pelota * pelota;
-	float xratio;
-	float yratio;
 };

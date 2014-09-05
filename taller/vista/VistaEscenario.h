@@ -8,12 +8,13 @@
 #include "..\model\Pelota.h"
 #include "..\model\Poligono.h"
 #include "../model/Escenario.h"
+#include "DatosPantalla.h"
 
 #include <iostream>
 class VistaEscenario
 {
 public:
-	VistaEscenario(Escenario* escenario, float xratio, float yratio);
+	VistaEscenario(Escenario* escenario, DatosPantalla* datos);
 	void agregarFondo(std::string path);	
 	void mostrar();
 	void resize(int ancho,int alto);
@@ -28,8 +29,7 @@ private:
 	SDL_Renderer* m_renderer;
 	SDL_Window* m_window;
 	SDL_Texture* m_fondo;
-	float m_xratio;
-	float m_yratio;
+	DatosPantalla* m_datos_pantalla;
 	int m_ancho;
 	int m_alto;
 };

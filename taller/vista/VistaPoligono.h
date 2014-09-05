@@ -5,12 +5,13 @@
 #include "../model/Poligono.h"
 #include "../model/Figura.h"
 #include "VistaFigura.h"
+#include "DatosPantalla.h"
 #include <vector>
 class VistaPoligono: public VistaFigura
 {
 public:
 	//recibe el renderer donde dibujar junto la cantidad de vertices.
-	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,float xratio, float yratio);
+	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosPantalla* datos);
 	
 	void render() ;
 
@@ -19,13 +20,9 @@ public:
 private:
 	
 	int n_vertices;
-	SDL_Renderer* m_renderer;
 	Sint16* m_vx;
 	Sint16* m_vy;
-	Poligono * poligono;
-	float xratio;
-	float yratio;
-	
+	Poligono * poligono;	
 	
 };
 
