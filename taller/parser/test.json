@@ -2,8 +2,8 @@
    "escenario":{
       "alto-px":768,
       "ancho-px":1024,
-	  "alto-un":5,
 	  "ancho-un":7,
+	  "alto-un":5,
       "imagen_fondo":"fondo1.png",
       "personaje":{
          "x":100,
@@ -46,7 +46,7 @@
          {
             "tipo":"poli",
             "lados":6,
-            "x":1,
+            "x":4,
             "y":1,
             "escala":0.4,
             "color":"#34CCCC",
@@ -80,10 +80,10 @@
             "tipo":"circ",
             "x":2,
             "y":3,
-            "escala":1,
+            "radio":1,
             "color":"#FF1234",
             "masa":1,
-            "estatico":true
+            "estatico":false
          }
       ]
    }
