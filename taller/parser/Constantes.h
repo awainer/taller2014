@@ -38,6 +38,33 @@ struct rect {
 		bool estatico;
 };
 
+struct paralel {
+		string tipo;
+		int x;
+		int y;
+		int lado1;
+		int lado2;
+		int altura;
+		colorRGB color;
+		int rot;
+		int masa;
+		bool estatico;
+};
+
+struct trap {
+		string tipo;
+		int x;
+		int y;
+		int lado1;
+		int lado2;
+		int lado3;
+		int altura;
+		colorRGB color;
+		int rot;
+		int masa;
+		bool estatico;
+};
+
 struct circ {
 		string tipo;
 		int radio;
@@ -75,6 +102,8 @@ struct StEscenario {
 	  list <rect> rectangulos;	
 	  list <poli> poligonos;
 	  list <circ> circulos;
+	  list <paralel> paralelogramos;
+	  list <trap> trapecios;
 };
 
 typedef char 	Char; 
@@ -106,6 +135,32 @@ typedef const Char * 	Location;
 #define RECTANGULO_ROT_DEFAULT 0
 #define RECTANGULO_MASA_DEFAULT 15
 #define RECTANGULO_ESTATICO_DEFAULT 0
+
+
+#define PARALELOGRAMO_X_DEFAULT 5
+#define PARALELOGRAMO_Y_DEFAULT 5
+
+#define PARALELOGRAMO_LONGLADO1_DEFAULT 5
+#define PARALELOGRAMO_LONGLADO2_DEFAULT 5
+#define PARALELOGRAMO_ALTURA_DEFAULT 5
+
+#define PARALELOGRAMO_ROT_DEFAULT 0
+#define PARALELOGRAMO_MASA_DEFAULT 15
+#define PARALELOGRAMO_ESTATICO_DEFAULT 0
+
+
+
+#define TRAPECIO_X_DEFAULT 5
+#define TRAPECIO_Y_DEFAULT 5
+
+#define TRAPECIO_LONGLADO1_DEFAULT 5
+#define TRAPECIO_LONGLADO2_DEFAULT 5
+#define TRAPECIO_LONGLADO3_DEFAULT 5
+#define TRAPECIO_ALTURA_DEFAULT 5
+
+#define TRAPECIO_ROT_DEFAULT 0
+#define TRAPECIO_MASA_DEFAULT 15
+#define TRAPECIO_ESTATICO_DEFAULT 0
 
 
 #define CIRCULO_X_DEFAULT 5
