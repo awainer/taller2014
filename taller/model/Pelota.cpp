@@ -1,5 +1,5 @@
 #include "Pelota.h"
-
+#include <iostream>
 
 Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float masa, b2World * world){
 	b2BodyDef bodyDef;
@@ -40,6 +40,7 @@ CoordenadasR2 Pelota::getCentro(){
 	return CoordenadasR2(this->body->GetWorldCenter().x,this->body->GetWorldCenter().y);
 }
 
-Pelota::~Pelota(void)
-{
+Pelota::~Pelota(void){
+//	std::cout << "Destructor pelota" << std::endl;
+	//this->body->GetWorld()->DestroyBody(this->body);
 }

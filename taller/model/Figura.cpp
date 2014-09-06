@@ -36,5 +36,8 @@ void Figura::setDensidad(float masa){
 
 Figura::~Figura(void)
 {
-	this->world->DestroyBody(this->body);
+	std::cout << "Lllamando destructor de figura" << std::endl;
+	//this->world->DestroyBody(this->body);
+	this->body->GetWorld()->DestroyBody(this->body);
+
 }

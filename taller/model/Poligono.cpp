@@ -1,4 +1,5 @@
 #include "Poligono.h"
+#include <iostream>
 #include <math.h>
 #include <stdio.h>
 #include <vector>
@@ -45,5 +46,9 @@ unsigned int Poligono::getVertexCount(){
 	return shape->GetVertexCount();
 
 }
- Poligono::~Poligono(void){
- }
+Poligono::~Poligono(void){
+//	std::cout << "Destructor poligono" << std::endl;
+//	this->body->GetWorld()->DestroyBody(this->body);
+
+
+}

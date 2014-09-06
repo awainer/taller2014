@@ -7,5 +7,6 @@ class Pared :
 public:
 	Pared(float x, float y, float largo, b2World * world, int tipo);
 	~Pared(void);
+
 };
 

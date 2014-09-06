@@ -10,7 +10,7 @@ class Figura
 {
 public:
 	Figura(void);
-	~Figura(void);
+	virtual ~Figura(void) = 0;
 	std::vector <CoordenadasR2> getVertices();
 	Color color;
 protected:

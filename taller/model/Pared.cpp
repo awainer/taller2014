@@ -1,6 +1,6 @@
 #include "Pared.h"
 #include "constantes.h"
-
+#include <iostream>
 Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 {
 
@@ -27,7 +27,6 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 
 }
 
-
-Pared::~Pared(void)
-{
+Pared::~Pared(){
 }
+

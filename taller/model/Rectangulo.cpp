@@ -28,7 +28,3 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	this->color = color;
 }
 
-
-Rectangulo::~Rectangulo(void)
-{
-}

@@ -8,6 +8,8 @@
 #include "..\model\Color.h"
 #include "vista\VistaEscenario.h"
 #include "vista\DatosPantalla.h"
+
+#include <vld.h>
 int  prueba_vistaEscenario(){
 	Color  rojo = Color(255,0,0);
 	Color  azul = Color(0,0,255);
@@ -69,5 +71,7 @@ int  prueba_vistaEscenario(){
 		}
 	}
 
+
+	delete esc;
 	return 0;
 }

@@ -5,12 +5,13 @@
 #include "Color.h"
 class Pelota :
 	public Figura
+
 {
 public:
 	Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float masa, b2World * world);
+	~Pelota(void);
 	CoordenadasR2 getCentro();
 	CoordenadasR2 getPuntoReferencia();
 	float getRadio();
-	~Pelota(void);
 };
 

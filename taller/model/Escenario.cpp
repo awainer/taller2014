@@ -3,7 +3,7 @@
 #include "Rectangulo.h"
 #include "Poligono.h"
 #include <Box2d/Box2d.h>
-
+#include <iostream>
 Escenario::Escenario(float largo, float alto,b2World * mundo)
 {
 	if(mundo != NULL){
@@ -54,7 +54,18 @@ void Escenario::step(){
 }
 Escenario::~Escenario(void)
 {
-	//TODO destruir todas las figuras
+	int i;
+	std::cout << "Dstructor escenario" << std::cout;
+	for (i=0; i< this->paredes.size(); i++)
+		delete this->paredes[i];
+	for (i=0; i< this->pelotas.size(); i++)
+		delete this->pelotas[i];
+	for (i=0; i< this->cuerposEstaticos.size(); i++)
+		delete this->cuerposEstaticos[i];	
+
+
+	//this->paredes.clear();
 	delete this->world;
+	
 	
 }
