@@ -9,8 +9,12 @@ public:
 	void moverIzquierda();
 	CoordenadasR2 getSize();
 	void saltar();
+	void sumarContacto();
+	void restarContacto();
 	~Jugador(void);
 private:
 	void moverLateral(int lado);
+	int contacts;
+	int  puedeMover;
 };
 

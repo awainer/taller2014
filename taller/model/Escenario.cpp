@@ -3,6 +3,7 @@
 #include "Rectangulo.h"
 #include "Poligono.h"
 #include <Box2d/Box2d.h>
+#include "CollisionHandler.h"
 #include <iostream>
 Escenario::Escenario(float largo, float alto,b2World * mundo)
 {
@@ -24,6 +25,8 @@ Escenario::Escenario(float largo, float alto,b2World * mundo)
 
 	this->alto = alto;
 	this->largo = largo;
+
+	this->world->SetContactListener(new CollisionHandler());
 }
 
 void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa){

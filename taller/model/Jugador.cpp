@@ -1,6 +1,6 @@
 #include "Jugador.h"
 #include "constantes.h"
-
+#include <iostream>
 //Constantes del Jugador
 #define ALTO_JUGADOR     1.5
 #define ANCHO_JUGADOR    0.25
@@ -15,28 +15,40 @@ Jugador::Jugador(float x, float y,b2World * world)
 {
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
-	b2PolygonShape shape;
+	b2PolygonShape shape,shapeSensor;
 
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x,y);
-	//bodyDef.angularDamping = 200;
 	bodyDef.fixedRotation = true;
 	bodyDef.bullet = true;
 	this->body = world->CreateBody(&bodyDef);
+
+	// sensor de piso
+	shapeSensor.SetAsBox(ANCHO_JUGADOR, ANCHO_JUGADOR, b2Vec2(0,-ALTO_JUGADOR/2), 0);
+	fixtureDef.isSensor = true;
+	fixtureDef.shape = &shapeSensor;
+	fixtureDef.userData = (void*) FOOT_SENSOR;
+	this->body->CreateFixture(&fixtureDef);
+
+
 	shape.SetAsBox(ANCHO_JUGADOR/2,ALTO_JUGADOR/2);
 	fixtureDef.shape = &shape;
-	fixtureDef.friction=5;
+	fixtureDef.isSensor = false;
+	fixtureDef.friction=2;
+	fixtureDef.userData = NULL;
 	
 	fixtureDef.density = 7;
 	this->body->CreateFixture(&fixtureDef);
 	this->body->SetUserData((void*)this);
 	this->type = CHARACTER;
 
-
-
+	this->puedeMover = 0;
 }
 
 void Jugador::moverLateral(int lado){
+	std::cout << "lateral puedemover: " << this->puedeMover << std::endl;
+	if (this->puedeMover == 0)
+		return;
 	float intensidad = 1;
 	b2Vec2 velocidad = this->body->GetLinearVelocity();
 	if (abs(velocidad.y) > 0.5) //estamos en el aire, que el impulso sea menor
@@ -62,6 +74,9 @@ void Jugador::moverIzquierda(){
 }
 
 void Jugador::saltar(){
+	std::cout << "salto puedemover: " << this->puedeMover << std::endl;
+	if (this->puedeMover == 0)
+		return;
 	float verticalVelocity = this->body->GetLinearVelocity().y;
 	// Solo se puede saltar cuando estas en el piso.
 	if(abs(verticalVelocity) < UMBRAL_SALTO)
@@ -70,6 +85,14 @@ void Jugador::saltar(){
 
 CoordenadasR2 Jugador::getSize(){
 	return CoordenadasR2(ANCHO_JUGADOR,ALTO_JUGADOR);
+}
+
+void Jugador::sumarContacto(){
+	this->puedeMover += 1;
+}
+
+void Jugador::restarContacto(){
+	this->puedeMover -= 1;
 }
 Jugador::~Jugador(void)
 {
