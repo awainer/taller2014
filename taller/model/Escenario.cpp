@@ -53,6 +53,10 @@ void Escenario::agregarJugador(CoordenadasR2 centro){
 	this->jugadores.push_back(new Jugador(centro.x,centro.y,this->world));
 }
 
+std::vector <Jugador *> Escenario::getJugadores(){
+	return this->jugadores;
+}
+
 void Escenario::step(){
 	this->world->Step(1.0f/60,3,3);
 }

@@ -146,3 +146,7 @@ void VistaEscenario::agregarPelota(Pelota* pelota){
 void VistaEscenario::agregarPoligonos(Poligono* poligono){
 	this->figuras.push_back(new VistaPoligono(m_renderer,poligono,this->m_datos_pantalla));
 }
+
+void VistaEscenario::agregarJugador(Jugador* jugador){
+	this->figuras.push_back(new VistaJugador(m_renderer,jugador,m_datos_pantalla));
+}

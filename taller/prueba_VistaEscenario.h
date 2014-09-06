@@ -9,7 +9,7 @@
 #include "vista\VistaEscenario.h"
 #include "vista\DatosPantalla.h"
 
-#include <vld.h>
+//#include <vld.h>
 int  prueba_vistaEscenario(){
 	Color  rojo = Color(255,0,0);
 	Color  azul = Color(0,0,255);
@@ -31,11 +31,14 @@ int  prueba_vistaEscenario(){
 	esc->agregarPelota(  CoordenadasR2(2,2),0.2,verde,true,1);
 	esc->agregarPelota(  CoordenadasR2(1,0),0.2,violeta,true,1);
 	//esc->agregarPelota(  CoordenadasR2(1,0),4.3,azul,true,6);
-	esc->agregarRectangulo(CoordenadasR2(1.5,2),1,1.9,50,rojo,true,0.05);
+	//esc->agregarRectangulo(CoordenadasR2(1.5,2),1,1.9,50,rojo,true,0.05);
+	esc->agregarPoligono(CoordenadasR2(1.5,2),1.5,4,90,verde,true,2);
+	esc->agregarJugador(CoordenadasR2(4,1));
 
 	//creo vista del escenario
 	VistaEscenario escenario_vista = VistaEscenario(esc,&datos);
-	
+	escenario_vista.agregarJugador(esc->getJugadores()[0]);
+	Jugador* jugador = esc->getJugadores()[0];
 	escenario_vista.agregarFondo("imagenes/homero.png");
 	
 	while( juegoEnMarcha ){
@@ -54,23 +57,44 @@ int  prueba_vistaEscenario(){
 			break;
 		case SDL_KEYDOWN:
 			sc = evento.key.keysym.scancode;
-			if( sc == SDL_SCANCODE_C)
+			switch(sc)
+			{
+			case SDL_SCANCODE_LEFT:
+				jugador->moverIzquierda();
+				break;
+			case SDL_SCANCODE_RIGHT:
+				jugador->moverDerecha();
+				break;
+			case SDL_SCANCODE_UP:
+				jugador->saltar();
+				break;
+			}
 				//se ejecuta instruccion mientras la tecla esta presionada
 			break;
 		case SDL_KEYUP:
 			//se ejecuta instruccion cuando la tecla deja de ser presionada
 			sc = evento.key.keysym.scancode;
+			switch(sc)
+			{
+			case SDL_SCANCODE_LEFT:
+				break;
+			case SDL_SCANCODE_RIGHT:
+				break;
+			case SDL_SCANCODE_UP:
+				break;
+			
 			// si se presiona por segunda vez C la segunda redimensiona al formato original porque 300/300 =1 es decir escala original 
-			if( sc == SDL_SCANCODE_C) 
+			case SDL_SCANCODE_C: 
 				escenario_vista.resize(300,100);
+				break;
 			// Aca verifique que si se pone escala (1,1) en el renderder vuelve al estado original de la pantalla si presiono D.
-			if( sc == SDL_SCANCODE_D)
+			case SDL_SCANCODE_D:
 				escenario_vista.resize(640,480);
+				break;
+			}
 			break;
-
 		}
 	}
-
 
 	delete esc;
 	return 0;
