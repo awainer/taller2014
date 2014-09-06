@@ -1235,7 +1235,7 @@ Escenario * Parser::CrearObjetos()
 							objetoActualPoli.lados,
 							objetoActualPoli.rot,
 							Color(objetoActualPoli.color.r,objetoActualPoli.color.g,objetoActualPoli.color.b),
-							objetoActualPoli.estatico,
+							!objetoActualPoli.estatico,
 							objetoActualPoli.masa);
 
 	}
@@ -1267,6 +1267,28 @@ Escenario * Parser::CrearObjetos()
 		cout<<"Rot: " <<objetoActualRect.rot << endl;
 		cout<<"X: " <<objetoActualRect.x << endl;
 		cout<<"Y: " <<objetoActualRect.y << endl;
+
+		esc->agregarRectangulo(CoordenadasR2(objetoActualRect.x,objetoActualRect.y),
+			objetoActualRect.alto,
+			objetoActualRect.ancho,
+			objetoActualRect.rot,
+			Color(objetoActualRect.color.r,objetoActualRect.color.g,objetoActualRect.color.b),
+			!objetoActualRect.estatico,
+			objetoActualRect.masa);
+
+
+	}
+
+	list <circ> objetosCirc;
+	circ objetoActualCirc;
+	objetosCirc = miEscenario.circulos;
+	for (list <circ> ::iterator it= miEscenario.circulos.begin(); it!= miEscenario.circulos.end(); it++) {
+		circ unCirculo= *it;
+		esc->agregarPelota(CoordenadasR2(unCirculo.x,unCirculo.y),
+			unCirculo.radio,
+			Color(unCirculo.color.r, unCirculo.color.g, unCirculo.color.b),
+			!unCirculo.estatico,
+			unCirculo.masa);
 
 	}
 	return esc;
