@@ -20,7 +20,6 @@ void VistaPoligono::render(){
 
 VistaPoligono::~VistaPoligono(void)
 {
-	std::cout << " llamo a destructor poligono" << std::endl;
 	delete[] m_vx;
 	delete[] m_vy;
 }
