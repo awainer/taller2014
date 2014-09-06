@@ -75,6 +75,15 @@
             "rot":90,
             "masa":1,
             "estatico":true
+         },
+		 		 {
+            "tipo":"circ",
+            "x":2,
+            "y":3,
+            "escala":1,
+            "color":"#FF1234",
+            "masa":1,
+            "estatico":true
          }
       ]
    }

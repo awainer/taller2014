@@ -5,6 +5,10 @@ Figura::Figura(void)
 {
 }
 
+CoordenadasR2 Figura::getPosicion(){
+	return CoordenadasR2(this->body->GetPosition().x, this->body->GetPosition().y);
+}
+
 std::vector <CoordenadasR2> Figura::getVertices(){
 	std::vector <CoordenadasR2>  result;
 	b2Fixture * fix = this->body->GetFixtureList();

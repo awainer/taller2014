@@ -21,7 +21,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	bodyDef.position.Set(x,y);
 	//bodyDef.angularDamping = 200;
 	bodyDef.fixedRotation = true;
-	
+	bodyDef.bullet = true;
 	this->body = world->CreateBody(&bodyDef);
 	shape.SetAsBox(ANCHO_JUGADOR/2,ALTO_JUGADOR/2);
 	fixtureDef.shape = &shape;
@@ -68,6 +68,9 @@ void Jugador::saltar(){
 		this->body->ApplyLinearImpulse(b2Vec2(0,IMPULSO_SALTAR),this->body->GetWorldCenter(),true);
 }
 
+CoordenadasR2 Jugador::getSize(){
+	return CoordenadasR2(ANCHO_JUGADOR,ALTO_JUGADOR);
+}
 Jugador::~Jugador(void)
 {
 	b2World* world= this->body->GetWorld();

@@ -1,12 +1,13 @@
 #pragma once
 #include  <Box2d/Box2d.h>
 #include "Figura.h"
-class Jugador : Figura
+class Jugador : public Figura
 {
 public:
 	Jugador(float x, float y,b2World * world);
 	void moverDerecha();
 	void moverIzquierda();
+	CoordenadasR2 getSize();
 	void saltar();
 	~Jugador(void);
 private:

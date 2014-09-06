@@ -11,6 +11,7 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 	bodyDef.type = b2_staticBody;
 	bodyDef.position.Set(x,y);
 	bodyDef.userData = (void*)this;
+	bodyDef.bullet = true;
 
 	this->type = tipo;
 

@@ -1301,6 +1301,7 @@ void Parser::Inicializar()
                             //SI EXISTE
                             if(!root["escenario"]["objetos"][i]["y"].isNull()){
 
+<<<<<<< HEAD
                                 //SI ES UN ENTERO
                                 if(root["escenario"]["objetos"][i]["y"].isDouble()){
 
@@ -2107,6 +2108,112 @@ Escenario * Parser::CrearObjetos()
 
     }
     return esc;
+
+Escenario * Parser::CrearObjetos()
+{
+	// CREARESCENARIO
+
+	    cout << "altopx " << miEscenario.altopx << endl;
+        cout <<"anchopx " << miEscenario.anchopx << endl;
+        cout << "altoun " << miEscenario.altoun << endl;
+        cout << "anchoun " << miEscenario.anchoun << endl;
+        cout << "imagen_fondo " << miEscenario.imagen_fondo << endl;
+        cout << "personajeX " << miEscenario.personajeX << endl;
+        cout << "personajeY " << miEscenario.personajeY << endl;
+	 
+		Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,NULL);
+	// CREAR POLIGONOS
+		list <poli> objetosPoli;
+	poli objetoActualPoli;
+	objetosPoli = miEscenario.poligonos;
+
+	for (list <poli> ::iterator it= objetosPoli.begin(); it!= objetosPoli.end(); it++) {
+		objetoActualPoli =  *it;
+		objetoActualPoli.lados;
+		objetoActualPoli.escala;
+		objetoActualPoli.color;
+		objetoActualPoli.estatico;
+		objetoActualPoli.masa;
+		objetoActualPoli.rot;
+		objetoActualPoli.tipo;
+		objetoActualPoli.x;
+		objetoActualPoli.y;
+
+		cout<<"Tipo: " << objetoActualPoli.tipo  << endl;
+		cout<<"Lados: " <<objetoActualPoli.lados  << endl;
+		cout<<"Escala: " <<objetoActualPoli.escala  << endl;
+		cout<<"Color R: " << objetoActualPoli.color.r << endl;
+		cout<<"Color G: " << objetoActualPoli.color.g << endl;
+		cout<<"Color B: " << objetoActualPoli.color.b << endl;
+		cout<<"Estatico: " <<objetoActualPoli.estatico << endl;
+		cout<<"Masa: " <<objetoActualPoli.masa << endl;
+		cout<<"Rot: " <<objetoActualPoli.rot << endl;
+		cout<<"X: " <<objetoActualPoli.x << endl;
+		cout<<"Y: " <<objetoActualPoli.y << endl;
+
+		esc->agregarPoligono(CoordenadasR2(objetoActualPoli.x,objetoActualPoli.y),
+							objetoActualPoli.escala,
+							objetoActualPoli.lados,
+							objetoActualPoli.rot,
+							Color(objetoActualPoli.color.r,objetoActualPoli.color.g,objetoActualPoli.color.b),
+							!objetoActualPoli.estatico,
+							objetoActualPoli.masa);
+
+	}
+
+	//CREAR RECTANGULOS
+	list <rect> objetosRect;
+	rect objetoActualRect;
+	objetosRect = miEscenario.rectangulos;
+	for (list <rect> ::iterator it= objetosRect.begin(); it!= objetosRect.end(); it++) {
+		objetoActualRect =  *it;
+		objetoActualRect.alto;
+		objetoActualRect.ancho;
+		objetoActualRect.color;
+		objetoActualRect.estatico;
+		objetoActualRect.masa;
+		objetoActualRect.rot;
+		objetoActualRect.tipo;
+		objetoActualRect.x;
+		objetoActualRect.y;
+
+		cout<<"Tipo: " << objetoActualRect.tipo  << endl;
+		cout<<"Alto: " <<objetoActualRect.alto  << endl;
+		cout<<"Ancho: " <<objetoActualRect.ancho  << endl;
+		cout<<"Color R: " << objetoActualRect.color.r << endl;
+		cout<<"Color G: " << objetoActualRect.color.g << endl;
+		cout<<"Color B: " << objetoActualRect.color.b << endl;
+		cout<<"Estatico: " <<objetoActualRect.estatico << endl;
+		cout<<"Masa: " <<objetoActualRect.masa << endl;
+		cout<<"Rot: " <<objetoActualRect.rot << endl;
+		cout<<"X: " <<objetoActualRect.x << endl;
+		cout<<"Y: " <<objetoActualRect.y << endl;
+
+		esc->agregarRectangulo(CoordenadasR2(objetoActualRect.x,objetoActualRect.y),
+			objetoActualRect.alto,
+			objetoActualRect.ancho,
+			objetoActualRect.rot,
+			Color(objetoActualRect.color.r,objetoActualRect.color.g,objetoActualRect.color.b),
+			!objetoActualRect.estatico,
+			objetoActualRect.masa);
+
+
+	}
+
+	list <circ> objetosCirc;
+	circ objetoActualCirc;
+	objetosCirc = miEscenario.circulos;
+	for (list <circ> ::iterator it= miEscenario.circulos.begin(); it!= miEscenario.circulos.end(); it++) {
+		circ unCirculo= *it;
+		esc->agregarPelota(CoordenadasR2(unCirculo.x,unCirculo.y),
+			unCirculo.radio,
+			Color(unCirculo.color.r, unCirculo.color.g, unCirculo.color.b),
+			!unCirculo.estatico,
+			unCirculo.masa);
+
+	}
+	return esc;
+
 }
 
 

@@ -9,6 +9,7 @@
 #include "..\model\Poligono.h"
 #include "../model/Escenario.h"
 #include "DatosPantalla.h"
+#include "VistaJugador.h"
 
 #include <iostream>
 class VistaEscenario
@@ -18,6 +19,7 @@ public:
 	void agregarFondo(std::string path);	
 	void mostrar();
 	void resize(int ancho,int alto);
+	void agregarJugador(Jugador* jugador);
 	~VistaEscenario(void);
 private:
 	void cargarFiguras();
