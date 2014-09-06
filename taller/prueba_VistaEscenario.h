@@ -31,8 +31,8 @@ int  prueba_vistaEscenario(){
 	esc->agregarPelota(  CoordenadasR2(2,2),0.2,verde,true,1);
 	esc->agregarPelota(  CoordenadasR2(1,0),0.2,violeta,true,1);
 	//esc->agregarPelota(  CoordenadasR2(1,0),4.3,azul,true,6);
-	//esc->agregarRectangulo(CoordenadasR2(1.5,2),1,1.9,50,rojo,true,0.05);
-	esc->agregarPoligono(CoordenadasR2(1.5,2),1.5,4,90,verde,true,2);
+	esc->agregarRectangulo(CoordenadasR2(1.5,2),1,1.9,50,rojo,true,0.05);
+	//esc->agregarPoligono(CoordenadasR2(1.5,2),1.5,4,90,verde,true,2);
 	esc->agregarJugador(CoordenadasR2(4,1));
 
 	//creo vista del escenario

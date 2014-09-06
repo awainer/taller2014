@@ -21,7 +21,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	bodyDef.position.Set(x,y);
 	//bodyDef.angularDamping = 200;
 	bodyDef.fixedRotation = true;
-	
+	bodyDef.bullet = true;
 	this->body = world->CreateBody(&bodyDef);
 	shape.SetAsBox(ANCHO_JUGADOR/2,ALTO_JUGADOR/2);
 	fixtureDef.shape = &shape;
