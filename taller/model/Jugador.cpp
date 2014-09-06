@@ -68,6 +68,9 @@ void Jugador::saltar(){
 		this->body->ApplyLinearImpulse(b2Vec2(0,IMPULSO_SALTAR),this->body->GetWorldCenter(),true);
 }
 
+CoordenadasR2 Jugador::getSize(){
+	return CoordenadasR2(ANCHO_JUGADOR,ALTO_JUGADOR);
+}
 Jugador::~Jugador(void)
 {
 	b2World* world= this->body->GetWorld();

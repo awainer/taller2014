@@ -12,6 +12,7 @@ public:
 	Figura(void);
 	virtual ~Figura(void) = 0;
 	std::vector <CoordenadasR2> getVertices();
+	CoordenadasR2 getPosicion();
 	Color color;
 protected:
 	void setDensidad(float masa);
