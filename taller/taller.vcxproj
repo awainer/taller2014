@@ -56,7 +56,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;Box2D.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;Box2D.lib;SDL2_image.lib;lib_json.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -77,6 +77,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="json\assertions.h" />
+    <ClInclude Include="json\autolink.h" />
+    <ClInclude Include="json\config.h" />
+    <ClInclude Include="json\features.h" />
+    <ClInclude Include="json\forwards.h" />
+    <ClInclude Include="json\json.h" />
+    <ClInclude Include="json\reader.h" />
+    <ClInclude Include="json\value.h" />
+    <ClInclude Include="json\writer.h" />
+    <ClInclude Include="parser\Constantes.h" />
+    <ClInclude Include="parser\EventLogger.h" />
+    <ClInclude Include="parser\Funciones.h" />
+    <ClInclude Include="parser\Parser.h" />
+    <ClInclude Include="pruebaParser.h" />
     <ClInclude Include="vista\DatosPantalla.h" />
     <ClInclude Include="model\Color.h" />
     <ClInclude Include="model\Escenario.h" />
@@ -216,6 +230,9 @@
     <ClInclude Include="vista\VistaRectangulo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="parser\EventLogger.cpp" />
+    <ClCompile Include="parser\Funciones.cpp" />
+    <ClCompile Include="parser\Parser.cpp" />
     <ClCompile Include="vista\DatosPantalla.cpp" />
     <ClCompile Include="model\Color.cpp" />
     <ClCompile Include="main.cpp" />
@@ -286,6 +303,7 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\Box2D.lib" />
+    <Library Include="lib\lib_json.lib" />
     <Library Include="lib\SDL2.lib" />
     <Library Include="lib\SDL2_image.lib" />
   </ItemGroup>
@@ -293,6 +311,9 @@
     <None Include="imagenes\fondo.png" />
     <None Include="imagenes\homero.png" />
     <None Include="imagenes\tablero.png" />
+    <None Include="parser\fondo1.png" />
+    <None Include="parser\Log.txt" />
+    <None Include="parser\test.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

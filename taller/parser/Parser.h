@@ -8,7 +8,7 @@
 #include <fstream>
 #include <string>
 #include <sstream> 
-
+#include "../model/Escenario.h"
 #include "Constantes.h"
 
 
@@ -23,7 +23,7 @@ public:
 	Parser(void);
 	~Parser(void);
 	void Inicializar();
-	void CrearObjetos();
+	Escenario * CrearObjetos();
 
 
 };

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "Funciones.h"
 #include <fstream>
 #include <sstream>

@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "EventLogger.h"
 
 using namespace std;

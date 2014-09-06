@@ -1,7 +1,12 @@
-#include "StdAfx.h"
 #include "Parser.h"
 #include "EventLogger.h"
 #include "Funciones.h"
+#include "../model/Escenario.h"
+#include "../model/Rectangulo.h"
+#include "../model/Pelota.h"
+#include "../model/Poligono.h"
+#include "../model/CoordenadasR2.h"
+#include "../model/Color.h"
 
 Parser::Parser(void)
 {
@@ -20,7 +25,7 @@ void Parser::Inicializar()
 
     //Ubicacion Archivo
 
-    const char* filename= "test.json";;
+    const char* filename= "parser/test.json";;
     std::ifstream archivoJson;  
     archivoJson.open (filename, std::ios::binary );    
 
@@ -1183,7 +1188,7 @@ void Parser::Inicializar()
 
 }
 
-void Parser::CrearObjetos()
+Escenario * Parser::CrearObjetos()
 {
 	// CREARESCENARIO
 
@@ -1195,7 +1200,7 @@ void Parser::CrearObjetos()
         cout << "personajeX " << miEscenario.personajeX << endl;
         cout << "personajeY " << miEscenario.personajeY << endl;
 	 
-
+		Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,NULL);
 	// CREAR POLIGONOS
 		list <poli> objetosPoli;
 	poli objetoActualPoli;
@@ -1224,6 +1229,14 @@ void Parser::CrearObjetos()
 		cout<<"Rot: " <<objetoActualPoli.rot << endl;
 		cout<<"X: " <<objetoActualPoli.x << endl;
 		cout<<"Y: " <<objetoActualPoli.y << endl;
+
+		esc->agregarPoligono(CoordenadasR2(objetoActualPoli.x,objetoActualPoli.y),
+							objetoActualPoli.escala,
+							objetoActualPoli.lados,
+							objetoActualPoli.rot,
+							Color(objetoActualPoli.color.r,objetoActualPoli.color.g,objetoActualPoli.color.b),
+							objetoActualPoli.estatico,
+							objetoActualPoli.masa);
 
 	}
 
@@ -1256,7 +1269,7 @@ void Parser::CrearObjetos()
 		cout<<"Y: " <<objetoActualRect.y << endl;
 
 	}
-
+	return esc;
 }
 
 
