@@ -25,8 +25,11 @@ int  prueba_vistaEscenario(){
 	DatosPantalla datos = DatosPantalla(640,480,6.4f,4.8f);
 	esc->agregarPelota(  CoordenadasR2(4,4),0.5,azul,true,1);
 	esc->agregarPoligono(CoordenadasR2(4,2),1,5,0,rojo,false,2);
+	esc->agregarPoligono(CoordenadasR2(5,0.1),0.2,3,90,verde,false,2);
 	esc->agregarPelota(  CoordenadasR2(2,2),0.2,verde,true,1);
 	esc->agregarPelota(  CoordenadasR2(1,0),0.2,violeta,true,1);
+	esc->agregarPelota(  CoordenadasR2(1,0),4.3,azul,true,6);
+	esc->agregarRectangulo(CoordenadasR2(1.5,2),1,1.9,50,rojo,true,0.05);
 
 	//creo vista del escenario
 	VistaEscenario escenario_vista = VistaEscenario(esc,&datos);

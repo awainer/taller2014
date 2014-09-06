@@ -1,5 +1,6 @@
 #include "Escenario.h"
 #include "Pared.h"
+#include "Rectangulo.h"
 #include "Poligono.h"
 #include <Box2d/Box2d.h>
 
@@ -31,6 +32,11 @@ void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bo
 void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa){
 	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro,color,radio,lados,angulo,dinamica,masa,this->world));
 }
+
+void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,unsigned int angulo, Color color, bool dinamica, float masa){
+	this->cuerposEstaticos.push_back((Figura*) new Rectangulo(centro,alto,ancho,dinamica,color,masa,angulo,this->world));
+}
+
 
 CoordenadasR2 Escenario::getSize(){
 	return CoordenadasR2(this->largo,this->alto);

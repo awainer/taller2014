@@ -1,5 +1,5 @@
 #include "Figura.h"
-
+#include <iostream>
 
 Figura::Figura(void)
 {
@@ -30,7 +30,8 @@ void Figura::setDensidad(float masa){
 	fix->GetMassData(&m);
 	float area = m.mass;
 	fix->SetDensity(masa/area);
-
+	this->body->ResetMassData();
+	std::cout << "Masa: " << masa << " area: "<< area << " densidad " << fix->GetDensity() << std::endl; 
 }
 
 Figura::~Figura(void)

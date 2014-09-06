@@ -11,12 +11,14 @@ public:
 	Escenario(float largo, float alto, b2World * mundo);
 	void agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa);
 	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa);
+	void agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,unsigned int angulo, Color color, bool dinamica, float masa);
 	void step();
 	CoordenadasR2 getSize();
 	std::vector <Figura*> getPoligonos();
 	std::vector <Pelota*> getPelotas();
 	~Escenario(void);
 private:
+	// TODO separar entre estaticos y dinamicos
 	std::vector <Figura*> cuerposEstaticos;
 	std::vector <Figura*> paredes;
 	std::vector <Pelota*> pelotas;

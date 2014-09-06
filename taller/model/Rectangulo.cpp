@@ -2,7 +2,7 @@
 #include  <Box2d/Box2d.h>
 
 // x e y se refieren a la posicion del centro de masa
-Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinamico,Color color,float masa,b2World * world)
+Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinamico,Color color,float masa,unsigned int angulo,b2World * world)
 {
 	this->world = world;
 
@@ -10,7 +10,7 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	b2FixtureDef fixtureDef;
 
 	bd.position.Set(centro.x,centro.y);
-
+	bd.angle = angulo * b2_pi /180;
 	if (dinamico){
 		bd.type = b2_dynamicBody;
         fixtureDef.friction = 0.5f;
