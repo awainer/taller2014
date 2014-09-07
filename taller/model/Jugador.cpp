@@ -95,6 +95,6 @@ void Jugador::restarContacto(){
 }
 Jugador::~Jugador(void)
 {
-	b2World* world= this->body->GetWorld();
-	world->DestroyBody(this->body);
+	//b2World* world= this->body->GetWorld();
+	//world->DestroyBody(this->body);
 }

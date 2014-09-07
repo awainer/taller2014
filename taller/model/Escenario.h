@@ -31,5 +31,6 @@ private:
 	float largo;
 	float alto;
 	std::string fondo;
+	b2ContactListener * handler;
 };
 

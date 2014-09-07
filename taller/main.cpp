@@ -4,6 +4,7 @@
 #include "pruebapoligono.h"
 #include "pruebaParser.h"
 #include "pruebaReiniciar.h"
+#include <vld.h>
 #undef main
 //#include <vld.h>
 int main(int argc, char ** argv){

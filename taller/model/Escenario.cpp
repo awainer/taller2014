@@ -26,8 +26,8 @@ Escenario::Escenario(float largo, float alto,CoordenadasR2 gravedad, std::string
 
 	this->alto = alto;
 	this->largo = largo;
-
-	this->world->SetContactListener(new CollisionHandler());
+	this->handler = new CollisionHandler();
+	this->world->SetContactListener(handler);
 }
 
 void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa){
@@ -77,12 +77,12 @@ Escenario::~Escenario(void)
 		delete this->pelotas[i];
 	for (unsigned  i=0; i< this->cuerposEstaticos.size(); i++)
 		delete this->cuerposEstaticos[i];	
-	//for (i=0; i< this->jugadores.size(); i++)
-	//	delete this->jugadores[i];	
+	for (unsigned int i=0; i< this->jugadores.size(); i++)
+		delete this->jugadores[i];	
 
 	
 	//this->paredes.clear();
 	delete this->world;
-	
+	delete this->handler; //world deberia encargarse de esto, pero no lo hace...
 	
 }
