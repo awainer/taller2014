@@ -87,12 +87,14 @@
     <ClInclude Include="json\reader.h" />
     <ClInclude Include="json\value.h" />
     <ClInclude Include="json\writer.h" />
+    <ClInclude Include="model\Paralelogramo.h" />
     <ClInclude Include="parser\Constantes.h" />
     <ClInclude Include="parser\EventLogger.h" />
     <ClInclude Include="parser\Funciones.h" />
     <ClInclude Include="parser\Parser.h" />
     <ClInclude Include="pruebaParser.h" />
     <ClInclude Include="pruebaReiniciar.h" />
+    <ClInclude Include="prueba_paralelogramo.h" />
     <ClInclude Include="vista\DatosPantalla.h" />
     <ClInclude Include="model\Color.h" />
     <ClInclude Include="model\Escenario.h" />
@@ -233,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="control\ControladorJugador.cpp" />
+    <ClCompile Include="model\Paralelogramo.cpp" />
     <ClCompile Include="parser\EventLogger.cpp" />
     <ClCompile Include="parser\Funciones.cpp" />
     <ClCompile Include="parser\Parser.cpp" />

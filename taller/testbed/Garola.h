@@ -19,32 +19,34 @@
 #ifndef GAROLA_H
 #define GAROLA_H
 #include "Poligono.h"
+#include "Paralelogramo.h"
 #include "Pelota.h"
 #include "Jugador.h"
+#include "CoordenadasR2.h"
+#include "Color.h"
+
 // This tests distance joints, body destruction, and joint destruction.
 class Garola : public Test
 {
 public:
-	Jugador * j;
+	//Jugador * j;
 	Garola()
-	{
-		Poligono * p = new Poligono(-8,-3.5,5,6,45,m_world);
-		//Poligono * q = new Poligono(4,1,2,4,45,m_world);
-		Pelota * pe = new Pelota(0,8,0.7,m_world);
-		j = new Jugador(0,5,m_world);
-
-		b2BodyDef bodyDef;
-		b2FixtureDef fixtureDef;
-		b2EdgeShape shape;
-		bodyDef.type=b2_staticBody;
-		shape.Set(b2Vec2(-100,0),b2Vec2(100,0));
-		fixtureDef.shape=&shape;
-
-		b2Body * piso = m_world->CreateBody(&bodyDef);
-		piso->CreateFixture(&fixtureDef);
-
-	}
-	void Keyboard(unsigned char key)
+    {
+           //Poligono * p = new Poligono(-8,-3.5,5,6,45,m_world);
+           //Poligono * q = new Poligono(4,1,2,4,45,m_world);
+           //Pelota * pe = new Pelota(0,8,0.7,m_world);
+           //j = new Jugador(0,5,m_world);
+           Paralelogramo * p = new Paralelogramo(CoordenadasR2(8,16),3,4,2,Color(255,0,0),0,false,2,m_world);
+           b2BodyDef bodyDef;
+           b2FixtureDef fixtureDef;
+           b2EdgeShape shape;
+           bodyDef.type=b2_staticBody;
+           shape.Set(b2Vec2(-100,0),b2Vec2(100,0));
+           fixtureDef.shape=&shape;
+           b2Body * piso = m_world->CreateBody(&bodyDef);
+           piso->CreateFixture(&fixtureDef);
+    }
+/*	void Keyboard(unsigned char key)
 	{
 		switch (key)
 		{
@@ -66,7 +68,7 @@ public:
 			}
 			break;
 		}
-	}
+	}*/
 	static Test* Create()
 	{
 		return new Garola;

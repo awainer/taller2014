@@ -3,8 +3,9 @@
 #include "prueba_VistaEscenario.h"
 #include "pruebapoligono.h"
 #include "pruebaParser.h"
+#include "prueba_paralelogramo.h"
 #include "pruebaReiniciar.h"
-#include <vld.h>
+//#include <vld.h>
 #undef main
 //#include <vld.h>
 int main(int argc, char ** argv){
@@ -12,6 +13,7 @@ int main(int argc, char ** argv){
 	//caca();
 	//caca2();
 	//pruebaParser();
-	pruebaReiniciar();
+	//pruebaReiniciar();
+	prueba_paralelogramo();
 	return 0;
 }

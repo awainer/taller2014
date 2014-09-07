@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <vector>
 
+Poligono::Poligono(){
+}
+
 Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int lados, int angulorot,bool dinamico,float masa,  b2World * world)
 {
 	this->world = world;

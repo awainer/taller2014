@@ -13,6 +13,7 @@ public:
 	void agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa);
 	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa);
 	void agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,unsigned int angulo, Color color, bool dinamica, float masa);
+	void agregarParalelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float altura, Color color, int angulorot,bool dinamico,float masa);
 	void agregarJugador(CoordenadasR2 centro);
 	void step();
 	CoordenadasR2 getSize();
