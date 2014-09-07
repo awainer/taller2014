@@ -18,12 +18,15 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 	this->body = world->CreateBody(&bodyDef);
 
 
-	if((tipo == FLOOR) || (tipo == ROOF)) //horizontal
+	if((tipo == FLOOR) || (tipo == ROOF)){ //paredes horizontales
 		edge.Set(b2Vec2(-largo/2,0),b2Vec2(largo/2,0));
-	else // vertical
+			fixtureDef.friction = 1.0f;
+	}else{  // paredes verticales
 		edge.Set(b2Vec2(0,largo/2),b2Vec2(0,-largo/2));
-
+		fixtureDef.friction = 0;
+	}
 	fixtureDef.shape = &edge;
+	fixtureDef.userData = (void*)tipo;
 	this->body->CreateFixture(&fixtureDef);
 
 }

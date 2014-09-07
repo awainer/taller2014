@@ -4,8 +4,8 @@
 //Constantes del Jugador
 #define ALTO_JUGADOR     1.5
 #define ANCHO_JUGADOR    0.25
-#define IMPULSO_CAMINAR  6
-#define	IMPULSO_SALTAR	 20
+#define IMPULSO_CAMINAR  1
+#define	IMPULSO_SALTAR	 12
 #define VELOCIDAD_MAXIMA 8
 #define UMBRAL_SALTO 0.1// velocidad vertical maxima para iniciar salto
 #define IZQUIERDA -1
@@ -21,27 +21,28 @@ Jugador::Jugador(float x, float y,b2World * world)
 	bodyDef.position.Set(x,y);
 	bodyDef.fixedRotation = true;
 	bodyDef.bullet = true;
+	bodyDef.linearDamping = 0.8f;
 	this->body = world->CreateBody(&bodyDef);
 
 	// sensor de piso
-	shapeSensor.SetAsBox(ANCHO_JUGADOR, ANCHO_JUGADOR, b2Vec2(0,-ALTO_JUGADOR/2), 0);
+	shapeSensor.SetAsBox(ANCHO_JUGADOR - 0.4 * ANCHO_JUGADOR, ANCHO_JUGADOR, b2Vec2(0,0-ALTO_JUGADOR/2), 0);
 	fixtureDef.isSensor = true;
 	fixtureDef.shape = &shapeSensor;
 	fixtureDef.userData = (void*) FOOT_SENSOR;
 	this->body->CreateFixture(&fixtureDef);
 
-
+	// jugador propiamente dicho
 	shape.SetAsBox(ANCHO_JUGADOR/2,ALTO_JUGADOR/2);
 	fixtureDef.shape = &shape;
 	fixtureDef.isSensor = false;
-	fixtureDef.friction=2;
+	fixtureDef.friction = 10;
 	fixtureDef.userData = NULL;
 	
 	fixtureDef.density = 7;
 	this->body->CreateFixture(&fixtureDef);
 	this->body->SetUserData((void*)this);
 	this->type = CHARACTER;
-
+	
 	this->puedeMover = 0;
 }
 

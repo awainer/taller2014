@@ -77,9 +77,9 @@ void ControladorJugador::actualizar(){
 		{
 			this->m_jugador->moverDerecha();
 		}
-	}else{// si no toque nada me quedo inmovil en X 
+	}/*else{// si no toque nada me quedo inmovil en X 
 		m_jugador->frenar();
-	}
+	}*/
 }
 
 ControladorJugador::~ControladorJugador(void)

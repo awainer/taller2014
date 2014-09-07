@@ -8,13 +8,24 @@ CollisionHandler::~CollisionHandler(void){}
 void CollisionHandler::BeginContact(b2Contact* contact){
 	b2Fixture * A = contact->GetFixtureA();
 	b2Fixture * B = contact->GetFixtureB();
+	 if (!contact->IsTouching())
+		return;
+
+	 // No me interesan las paredes
+	if ((int)A->GetUserData() == LEFT_WALL ||
+		(int)A->GetUserData() == RIGHT_WALL||
+		(int)B->GetUserData() == LEFT_WALL ||
+		(int)B->GetUserData() == RIGHT_WALL)
+			return;
+
+
 	if ((int)A->GetUserData() == FOOT_SENSOR){
 		((Jugador*) A->GetBody()->GetUserData())->sumarContacto();
-		std::cout << "begin contact A" << std::endl;
+		//std::cout << "begin contact A" << std::endl;
 	}
 	else if((int)B->GetUserData() == FOOT_SENSOR){
 		((Jugador*) B->GetBody()->GetUserData())->sumarContacto();
-		std::cout << "begin contact B" << std::endl;
+		//std::cout << "begin contact B" << std::endl;
 	}
 
 }
@@ -22,11 +33,20 @@ void CollisionHandler::BeginContact(b2Contact* contact){
 void CollisionHandler::EndContact(b2Contact* contact){
 	b2Fixture * A = contact->GetFixtureA();
 	b2Fixture * B = contact->GetFixtureB();
+
+	// No me interesan las paredes
+	if ((int)A->GetUserData() == LEFT_WALL ||
+		(int)A->GetUserData() == RIGHT_WALL||
+		(int)B->GetUserData() == LEFT_WALL ||
+		(int)B->GetUserData() == RIGHT_WALL)
+			return;
+
 	if ((int)A->GetUserData() == FOOT_SENSOR){
 		((Jugador*) A->GetBody()->GetUserData())->restarContacto();
-		std::cout << "end contact A" << std::endl;
+		//std::cout << "end contact A" << std::endl;
 	}
 	else if((int)B->GetUserData() == FOOT_SENSOR){
 		((Jugador*) B->GetBody()->GetUserData())->restarContacto();
-		std::cout << "end contact B" << std::endl;
-	}}
+		//std::cout << "end contact B" << std::endl;
+	}
+}

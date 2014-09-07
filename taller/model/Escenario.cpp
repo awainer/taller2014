@@ -73,8 +73,10 @@ Escenario::~Escenario(void)
 		delete this->pelotas[i];
 	for (i=0; i< this->cuerposEstaticos.size(); i++)
 		delete this->cuerposEstaticos[i];	
+	//for (i=0; i< this->jugadores.size(); i++)
+	//	delete this->jugadores[i];	
 
-
+	
 	//this->paredes.clear();
 	delete this->world;
 	
