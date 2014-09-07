@@ -230,7 +230,6 @@
     <ClInclude Include="vista\VistaCirculo.h" />
     <ClInclude Include="vista\VistaJugador.h" />
     <ClInclude Include="vista\VistaPoligono.h" />
-    <ClInclude Include="vista\VistaRectangulo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="control\ControladorJugador.cpp" />
@@ -304,7 +303,6 @@
     <ClCompile Include="vista\VistaCirculo.cpp" />
     <ClCompile Include="vista\VistaJugador.cpp" />
     <ClCompile Include="vista\VistaPoligono.cpp" />
-    <ClCompile Include="vista\VistaRectangulo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\Box2D.lib" />

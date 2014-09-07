@@ -369,9 +369,6 @@
     <ClInclude Include="vista\VistaPoligono.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="vista\VistaRectangulo.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="vista\SDL2_gfx\SDL2_framerate.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -633,9 +630,6 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="vista\VistaPoligono.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="vista\VistaRectangulo.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="vista\SDL2_gfx\SDL2_framerate.c">
