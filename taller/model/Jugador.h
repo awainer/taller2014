@@ -11,6 +11,11 @@ public:
 	void saltar();
 	void sumarContacto();
 	void restarContacto();
+	void frenar(){
+		b2Vec2 velocidad = this->body->GetLinearVelocity();
+		velocidad.x=0;
+		this->body->SetLinearVelocity(velocidad);
+	};
 	~Jugador(void);
 private:
 	void moverLateral(int lado);

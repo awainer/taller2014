@@ -77,6 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="control\ControladorJugador.h" />
     <ClInclude Include="json\assertions.h" />
     <ClInclude Include="json\autolink.h" />
     <ClInclude Include="json\config.h" />
@@ -231,6 +232,7 @@
     <ClInclude Include="vista\VistaRectangulo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="control\ControladorJugador.cpp" />
     <ClCompile Include="parser\EventLogger.cpp" />
     <ClCompile Include="parser\Funciones.cpp" />
     <ClCompile Include="parser\Parser.cpp" />
