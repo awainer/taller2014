@@ -7,14 +7,12 @@
 #include "vista\VistaEscenario.h"
 #include "vista\DatosPantalla.h"
 
-VistaEscenario* iniciar(Escenario* esc){
+Escenario* iniciar(){
 	Parser parser = Parser();
 	parser.Inicializar();
-	esc = parser.CrearObjetos();
-	DatosPantalla datos = DatosPantalla(700,500,7.0f,5.0f);
-	VistaEscenario* escenario_vista = new VistaEscenario(esc,&datos);
-	escenario_vista->agregarFondo("imagenes/homero.png");
-	return escenario_vista;
+	Escenario* esc = parser.CrearObjetos();
+	
+	return esc;
 }
 
 int pruebaReiniciar(){
@@ -22,11 +20,16 @@ int pruebaReiniciar(){
 	Color  azul = Color(0,0,255);
 	Color  verde = Color(0,255,0);
 	Color violeta = Color(100,100,0);
+	//SDL_Init( SDL_INIT_VIDEO );
+	//int imgFlags = IMG_INIT_JPG|IMG_INIT_PNG;
+	//IMG_Init( imgFlags );
 	SDL_Event evento;
 	SDL_Scancode sc;
 	bool juegoEnMarcha = true;
-	Escenario* esc;
-	VistaEscenario* escenario_vista = iniciar(esc);
+	Escenario* esc = iniciar();
+	DatosPantalla datos = DatosPantalla(700,500,7.0f,5.0f);
+	VistaEscenario* escenario_vista = new VistaEscenario(esc,&datos);
+	//escenario_vista->agregarFondo("imagenes/homero.png");
 	
 	while( juegoEnMarcha ){
 					
@@ -50,18 +53,20 @@ int pruebaReiniciar(){
 			//se ejecuta instruccion cuando la tecla deja de ser presionada
 			sc = evento.key.keysym.scancode;
 			if( sc == SDL_SCANCODE_R){
-				std::cout << " R " << std::endl;
+				
 				delete escenario_vista;
 				delete esc;
-				escenario_vista = iniciar(esc);
+				esc= iniciar();
+				escenario_vista = new VistaEscenario(esc,&datos);
 			}
 			break;
 
 		}
 	}
 
-
+	//delete escenario_vista;
 	delete esc;
-
+	//IMG_Quit();
+	//SDL_Quit();
 	return 0;
 }

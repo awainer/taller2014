@@ -5,6 +5,7 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 {
 	m_ancho = datos->getAnchoPixel();
 	m_alto = datos->getAltoPixel();
+	m_fondo =NULL;
 	if( iniciarSDL() == false){
 		std::cout << "no inicio SDL" << std::endl;
 	}
@@ -12,7 +13,7 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	{
 		m_escenario = escenario;
 		m_datos_pantalla = datos;
-		m_fondo =NULL;
+		
 		this->cargarFiguras();
 	}
 }
@@ -27,7 +28,7 @@ bool VistaEscenario::iniciarSDL() {
 		success = false; 
 	} else { 
 		//window 640x480
-		m_window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_ancho, m_alto, SDL_WINDOW_SHOWN );
+		m_window = SDL_CreateWindow( "TP taller", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_ancho, m_alto, SDL_WINDOW_SHOWN );
 		if( m_window == NULL ) 
 		{ 
 			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() ); 
@@ -119,6 +120,7 @@ VistaEscenario::~VistaEscenario(void)
 		delete figuras[i];
 	}
 	if(m_fondo !=NULL){
+		std::cout << " entro a destruir fondo" << std::endl;
 		SDL_DestroyTexture( m_fondo );
 	}
 	SDL_DestroyRenderer(m_renderer);
