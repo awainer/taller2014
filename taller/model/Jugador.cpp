@@ -47,8 +47,8 @@ Jugador::Jugador(float x, float y,b2World * world)
 }
 
 void Jugador::moverLateral(int lado){
-	std::cout << "lateral puedemover: " << this->puedeMover << std::endl;
-	float factor = 1;
+	//std::cout << "lateral puedemover: " << this->puedeMover << std::endl;
+	double factor = 1;
 	if (this->puedeMover == 0)
 		factor = 0.2;
 
@@ -73,7 +73,7 @@ void Jugador::moverIzquierda(){
 }
 
 void Jugador::saltar(){
-	std::cout << "salto puedemover: " << this->puedeMover << std::endl;
+	//std::cout << "salto puedemover: " << this->puedeMover << std::endl;
 	if (this->puedeMover == 0)
 		return;
 	float verticalVelocity = this->body->GetLinearVelocity().y;

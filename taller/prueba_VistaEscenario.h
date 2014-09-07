@@ -1,3 +1,4 @@
+#include <string>
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
 #include "..\vista\VistaCirculo.h"
@@ -20,7 +21,7 @@ int  prueba_vistaEscenario(){
 	SDL_Scancode sc;
 	bool juegoEnMarcha = true;
 	//creo la pantalla
-	Escenario * esc = new Escenario(6.4, 4.8,NULL);
+	Escenario * esc = new Escenario(6.4, 4.8,CoordenadasR2(0,-10),std::string("pathfondo"),NULL);
 	
 	// cambio de escala segun Box2D a SDL, necesaria para dibujar en el pixel correcto
 	//float xratio = 640 / 6.4f;

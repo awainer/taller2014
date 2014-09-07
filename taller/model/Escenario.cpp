@@ -5,12 +5,13 @@
 #include <Box2d/Box2d.h>
 #include "CollisionHandler.h"
 #include <iostream>
-Escenario::Escenario(float largo, float alto,b2World * mundo)
+#include <string>
+Escenario::Escenario(float largo, float alto,CoordenadasR2 gravedad, std::string fondo, b2World * mundo)
 {
 	if(mundo != NULL){
 		this->world = mundo;
 	}else{
-		b2Vec2 gravity = b2Vec2(0.0f,-10.0f);
+		b2Vec2 gravity = b2Vec2(gravedad.x,gravedad.y);
 		this-> world = new b2World(gravity);
 	}
 
@@ -60,6 +61,10 @@ std::vector <Jugador *> Escenario::getJugadores(){
 	return this->jugadores;
 }
 
+std::string Escenario::getPathFondo(){
+	return this->fondo;
+}
+
 void Escenario::step(){
 	this->world->Step(1.0f/60,10,10);
 }
@@ -67,11 +72,11 @@ Escenario::~Escenario(void)
 {
 	int i;
 	std::cout << "Dstructor escenario" << std::cout;
-	for (i=0; i< this->paredes.size(); i++)
+	for (unsigned i=0; i< this->paredes.size(); i++)
 		delete this->paredes[i];
-	for (i=0; i< this->pelotas.size(); i++)
+	for (unsigned i=0; i< this->pelotas.size(); i++)
 		delete this->pelotas[i];
-	for (i=0; i< this->cuerposEstaticos.size(); i++)
+	for (unsigned  i=0; i< this->cuerposEstaticos.size(); i++)
 		delete this->cuerposEstaticos[i];	
 	//for (i=0; i< this->jugadores.size(); i++)
 	//	delete this->jugadores[i];	

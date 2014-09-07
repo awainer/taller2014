@@ -2036,7 +2036,7 @@ Escenario * Parser::CrearObjetos()
         cout << "personajeX " << miEscenario.personajeX << endl;
         cout << "personajeY " << miEscenario.personajeY << endl;
 	 
-		Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,NULL);
+		Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,-10),miEscenario.imagen_fondo,NULL);
 	// CREAR POLIGONOS
 		list <poli> objetosPoli;
 	poli objetoActualPoli;

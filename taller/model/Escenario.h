@@ -5,17 +5,18 @@
 #include "CoordenadasR2.h"
 #include <Box2D/Box2D.h>
 #include "Jugador.h"
-
+#include <string>
 class Escenario
 {
 public:
-	Escenario(float largo, float alto, b2World * mundo);
+	Escenario(float largo, float alto,CoordenadasR2 gravedad, std::string fondo, b2World * mundo);
 	void agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa);
 	void agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa);
 	void agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,unsigned int angulo, Color color, bool dinamica, float masa);
 	void agregarJugador(CoordenadasR2 centro);
 	void step();
 	CoordenadasR2 getSize();
+	std::string getPathFondo();
 	std::vector <Figura*> getPoligonos();
 	std::vector <Pelota*> getPelotas();
 	std::vector <Jugador *> getJugadores();
@@ -29,5 +30,6 @@ private:
 	b2World * world;
 	float largo;
 	float alto;
+	std::string fondo;
 };
 
