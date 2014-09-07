@@ -92,6 +92,7 @@
     <ClInclude Include="parser\Funciones.h" />
     <ClInclude Include="parser\Parser.h" />
     <ClInclude Include="pruebaParser.h" />
+    <ClInclude Include="pruebaReiniciar.h" />
     <ClInclude Include="vista\DatosPantalla.h" />
     <ClInclude Include="model\Color.h" />
     <ClInclude Include="model\Escenario.h" />
