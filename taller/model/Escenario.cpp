@@ -70,7 +70,6 @@ void Escenario::step(){
 }
 Escenario::~Escenario(void)
 {
-	int i;
 	std::cout << "Dstructor escenario" << std::cout;
 	for (unsigned i=0; i< this->paredes.size(); i++)
 		delete this->paredes[i];
