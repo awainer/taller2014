@@ -48,20 +48,18 @@ Jugador::Jugador(float x, float y,b2World * world)
 
 void Jugador::moverLateral(int lado){
 	std::cout << "lateral puedemover: " << this->puedeMover << std::endl;
+	float factor = 1;
 	if (this->puedeMover == 0)
-		return;
-	float intensidad = 1;
-	b2Vec2 velocidad = this->body->GetLinearVelocity();
-	if (abs(velocidad.y) > 0.5) //estamos en el aire, que el impulso sea menor
-		intensidad = 0.25 * intensidad;
-		//return;
-		
-	if (abs(velocidad.x) < VELOCIDAD_MAXIMA){
-			velocidad.x = velocidad.x	+ lado * IMPULSO_CAMINAR * intensidad;
-			this->body->SetLinearVelocity(velocidad);
-		}
+		factor = 0.2;
 
-	
+	b2Vec2 velocidad = this->body->GetLinearVelocity();
+	float nuevaVelocidadX = velocidad.x	+ lado * IMPULSO_CAMINAR * factor;
+	if (abs(nuevaVelocidadX) <= VELOCIDAD_MAXIMA)
+		velocidad.x = nuevaVelocidadX;
+	//else
+	//	velocidad.x = VELOCIDAD_MAXIMA;
+
+	this->body->SetLinearVelocity(velocidad);
 		//this->body->ApplyForceToCenter(b2Vec2(lado * IMPULSO_CAMINAR,0),true);
 		//this->body->ApplyLinearImpulse(b2Vec2(intensidad,0),this->body->GetWorldCenter(),true);
 }
