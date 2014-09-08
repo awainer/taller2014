@@ -98,6 +98,8 @@ int Jugador::getDireccion(){
 	b2Vec2 vel = this->body->GetLinearVelocity();
 	if(vel.x == 0 && vel.y == 0)
 		return ESTATICO;
+	if(vel.x == 0 && vel.y != 0)
+		return ARRIBA;
 	if(vel.y == 0){
 		if (vel.x > 0)
 			return DERECHA;
