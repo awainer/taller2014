@@ -8,8 +8,8 @@
 #define	IMPULSO_SALTAR	 12
 #define VELOCIDAD_MAXIMA 8
 #define UMBRAL_SALTO 0.1// velocidad vertical maxima para iniciar salto
-#define IZQUIERDA -1
-#define DERECHA    1
+#define IZQ -1
+#define DER  1
 
 Jugador::Jugador(float x, float y,b2World * world)
 {
@@ -64,12 +64,12 @@ void Jugador::moverLateral(int lado){
 		//this->body->ApplyLinearImpulse(b2Vec2(intensidad,0),this->body->GetWorldCenter(),true);
 }
 void Jugador::moverDerecha(){
-	this->moverLateral(DERECHA);
+	this->moverLateral(DER);
 	
 }
 
 void Jugador::moverIzquierda(){
-	this->moverLateral(IZQUIERDA);
+	this->moverLateral(IZQ);
 }
 
 void Jugador::saltar(){
@@ -93,8 +93,23 @@ void Jugador::sumarContacto(){
 void Jugador::restarContacto(){
 	this->puedeMover -= 1;
 }
+
+int Jugador::getDireccion(){
+	b2Vec2 vel = this->body->GetLinearVelocity();
+	if(vel.x == 0 && vel.y == 0)
+		return ESTATICO;
+	if(vel.y == 0){
+		if (vel.x > 0)
+			return DERECHA;
+		else
+			return IZQUIERDA;
+	}
+	// vel.y != 0 => en el aire
+	if (vel.x > 0)
+		return ARRIBA_DERECHA;
+	else
+		return ARRIBA_IZQUIERDA;
+}
 Jugador::~Jugador(void)
 {
-	//b2World* world= this->body->GetWorld();
-	//world->DestroyBody(this->body);
 }
