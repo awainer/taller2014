@@ -8,8 +8,15 @@ class Paralelogramo : public Poligono
 public:
 	/*
 	x,y es la posicion del centro de masa del poligono regular
-	radio es la distancia desde el centro de masa a cualquier vertice
-	lados es la cantidad de lados (y vertices)
+	Datos a proporcionar: longitud lado1, longitud lado2 y altura.
+
+	              lado2
+	        V2 _____________ V3
+	          /  |         /
+	  lado1  /   |        /  lado3
+	        /    | H     /
+	       /_____|______/
+	      V1    lado4    V4
 	*/
 	Paralelogramo();
 	Paralelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float altura, Color color, int angulorot,bool dinamico,float masa,  b2World * world);

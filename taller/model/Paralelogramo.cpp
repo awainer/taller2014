@@ -77,10 +77,9 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	float diferinfder = longlado2 - diferinfizq;
 
 	// Sacar
-	std::cout << "diferinfder: " << diferinfder << std::endl;
-
-	vertice1.x = diferinfizq;
-	vertice2.x = diferinfder;
+	//std::cout << "diferinfder: " << diferinfder << std::endl;
+	vertice1.x = - diferinfizq;
+	vertice2.x = - diferinfder;
 	vertice3.x = diferinfizq;
 	vertice4.x = diferinfder;
 
@@ -92,10 +91,10 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	std::cout << "vertice4.x: " << vertice4.x + centro.x<< std::endl;
 
 	// Paso los vertices en sentido anti-horario
-	vertices[3].Set(vertice1.x,vertice1.y);
-	vertices[2].Set(vertice2.x,vertice2.y);
-	vertices[1].Set(vertice3.x,vertice3.y);
 	vertices[0].Set(vertice4.x,vertice4.y);
+	vertices[1].Set(vertice3.x,vertice3.y);
+	vertices[2].Set(vertice2.x,vertice2.y);
+	vertices[3].Set(vertice1.x,vertice1.y);	
 
 	shape.Set(vertices,4);
 	
