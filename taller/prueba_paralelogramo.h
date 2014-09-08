@@ -32,22 +32,23 @@ int  prueba_paralelogramo(){
 	//float yratio = 480 / 4.8f;
 	DatosPantalla datos = DatosPantalla(640,480,6.4f,4.8f);
 
-	esc->agregarParalelogramo(CoordenadasR2(4,2),3,4,2,rojo,0,true,2);
+	esc->agregarParalelogramo(CoordenadasR2(2,2),1,1,1,rojo,0,false,2);
 
 	VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],&datos);
-	
-	while( juegoEnMarcha ){
-			
-		//Clear screen		
-		SDL_SetRenderDrawColor( ren, 0, 255, 0, 255 );
+	//Clear screen		
+		SDL_SetRenderDrawColor( ren, 255, 255, 255, 255 );
 		SDL_RenderClear( ren );
 		
 		//Dibujo figuras
 		poligono->render();
-
 		SDL_RenderPresent(ren);
+	
+	while( juegoEnMarcha ){
+			
+		
+
+		
 		SDL_PollEvent( &evento);
-		esc->step();
 		SDL_Delay(30);
 
 		switch(evento.type)
