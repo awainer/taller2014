@@ -46,16 +46,16 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	bodyDef.angle=angulorot * b2_pi /180;
 	b2Vec2 vertices[8]; 
 
-	vertice1.y = centro.y - (altura /2);
+	vertice1.y = -altura / 2;
 	vertice4.y = vertice1.y;
-	vertice2.y = centro.y + (altura /2);
+	vertice2.y = altura / 2;
 	vertice3.y = vertice2.y;
 
 	// Sacar
-	std::cout << "vertice1.y: " << vertice1.y << std::endl;
-	std::cout << "vertice2.y: " << vertice2.y << std::endl;
-	std::cout << "vertice3.y: " << vertice3.y << std::endl;
-	std::cout << "vertice4.y: " << vertice4.y << std::endl;
+	std::cout << "vertice1.y: " << vertice1.y + centro.y << std::endl;
+	std::cout << "vertice2.y: " << vertice2.y + centro.y << std::endl;
+	std::cout << "vertice3.y: " << vertice3.y + centro.y << std::endl;
+	std::cout << "vertice4.y: " << vertice4.y + centro.y << std::endl;
 
 	//  angulo V1 = arcsin(H/lado1)
 	// resultado en radianes
@@ -65,31 +65,31 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	float p = sqrt( pow(longlado1,2) + pow(longlado2,2) - 2 * longlado1 * longlado2 * cos(anguloV1) );
 	
 	// Sacar
-	std::cout << "p: " << p << std::endl;
+	//std::cout << "p: " << p << std::endl;
 
 	// Auxiliares para calcular los x para los vertices superiores e inferiores
 	// Saco diferencia izquierda y derecha en base a suponer que la (altura/2) y la mitad de p
 	float diferinfizq = sqrt ( pow(p/2,2) + pow(altura/2,2));
 
 	// Sacar
-	std::cout << "diferinfizq: " << diferinfizq << std::endl;
+	//std::cout << "diferinfizq: " << diferinfizq << std::endl;
 
 	float diferinfder = longlado2 - diferinfizq;
 
 	// Sacar
 	std::cout << "diferinfder: " << diferinfder << std::endl;
 
-	vertice1.x = centro.x - diferinfizq;
-	vertice2.x = centro.x - diferinfder;
-	vertice3.x = centro.x + diferinfizq;
-	vertice4.x = centro.x + diferinfder;
+	vertice1.x = diferinfizq;
+	vertice2.x = diferinfder;
+	vertice3.x = diferinfizq;
+	vertice4.x = diferinfder;
 
 
 	// Sacar
-	std::cout << "vertice1.x: " << vertice1.x << std::endl;
-	std::cout << "vertice2.x: " << vertice2.x << std::endl;
-	std::cout << "vertice3.x: " << vertice3.x << std::endl;
-	std::cout << "vertice4.x: " << vertice4.x << std::endl;
+	std::cout << "vertice1.x: " << vertice1.x + centro.x<< std::endl;
+	std::cout << "vertice2.x: " << vertice2.x + centro.x<< std::endl;
+	std::cout << "vertice3.x: " << vertice3.x + centro.x<< std::endl;
+	std::cout << "vertice4.x: " << vertice4.x + centro.x<< std::endl;
 
 	// Paso los vertices en sentido anti-horario
 	vertices[3].Set(vertice1.x,vertice1.y);
