@@ -9,6 +9,7 @@ VistaJugador::VistaJugador(SDL_Renderer* renderer,Jugador* jugador,DatosPantalla
 	m_vy = new Sint16[4];
 	this->m_datos = datos;
 	paso=0;
+	delay=0;
 }
 
 void VistaJugador::render(){
@@ -61,16 +62,28 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 		if(paso==0){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+
 			
 		} else if(paso==1){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==2){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso=0;
+			delay = 0;
+			}else{ delay++;}
+			//paso=0;
 		}
 		/*for(i=0;i<3;i++){
 			//for (j=0;j<4;j++){
@@ -104,16 +117,28 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 		if(paso==0){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 			
 		} else if(paso==1){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==2){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso=0;
+			delay = 0;
+			}else{ delay++;}
+			//paso=0;
 		}
 		/*for(i=0;i<3;i++){
 			//for (j=0;j<4;j++){
@@ -158,19 +183,35 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 		} else if(paso==1){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==2){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==3){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[3], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==4){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[4], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso=0;
+			delay = 0;
+			}else{ delay++;}
+			//paso=0;
 		}
 		/*for(i=0;i<5;i++){
 			for (j=0;j<4;j++){
@@ -209,24 +250,44 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 		if(paso==0){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 			
 		} else if(paso==1){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==2){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==3){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[3], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==4){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[4], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso=0;
+			delay = 0;
+			}else{ delay++;}
+			//paso=0;
 		}
 		/*for(i=0;i<5;i++){
 			for (j=0;j<4;j++){
@@ -292,24 +353,44 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 		if(paso==0){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 			
 		} else if(paso==1){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==2){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==3){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[3], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso++;
+			delay = 0;
+			}else{ delay++;}
+			//paso++;
 		}else if(paso==4){ 
 			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[4], &renderQuad );
 			std::cout << "paso " << paso << std::endl;
+			if( delay == 3){
 			paso=0;
+			delay = 0;
+			}else{ delay++;}
+			//paso=0;
 		}
 		/*for(i=0;i<5;i++){
 			for (j=0;j<4;j++){

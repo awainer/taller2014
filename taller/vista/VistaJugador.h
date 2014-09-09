@@ -27,4 +27,5 @@ private:
 	int ms_alto;
 	int m_dirAnterior;
 	int paso;
+	int delay;
 };
