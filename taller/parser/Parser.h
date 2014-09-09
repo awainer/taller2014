@@ -10,7 +10,8 @@
 #include <sstream> 
 #include "../model/Escenario.h"
 #include "Constantes.h"
-
+#include "vista\VistaEscenario.h"
+#include "vista\DatosPantalla.h"
 
 using namespace std;
 
@@ -24,7 +25,8 @@ public:
 	~Parser(void);
 	void Inicializar();
 	Escenario * CrearObjetos();
-
-
+	void CargarDefault();
+	VistaEscenario * CrearVista();
+	DatosPantalla CargarDatosPantalla();
 };
 

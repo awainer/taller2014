@@ -16,8 +16,12 @@ int pruebaParser(){
 	Parser parser = Parser();
 	parser.Inicializar();
 	Escenario * esc = parser.CrearObjetos();
-	DatosPantalla datos = DatosPantalla(700,500,7.0f,5.0f);
+	
+	//DatosPantalla datos = DatosPantalla(700,500,7.0f,5.0f);
+	DatosPantalla datos = parser.CargarDatosPantalla();
+
 	VistaEscenario escenario_vista = VistaEscenario(esc,&datos);
+
 	bool juegoEnMarcha = true;
 		escenario_vista.agregarFondo("imagenes/homero.png");
 	

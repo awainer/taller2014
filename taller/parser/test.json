@@ -1,9 +1,9 @@
 {
    "escenario":{
-      "alto-px":768,
-      "ancho-px":1024,
-	  "ancho-un":7,
-	  "alto-un":5,
+      "alto-px":700,
+      "ancho-px":500,
+	  "ancho-un":5,
+	  "alto-un":7,
       "imagen_fondo":"fondo1.png",
       "personaje":{
          "x":100,

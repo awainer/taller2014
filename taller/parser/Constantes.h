@@ -15,63 +15,63 @@ struct colorRGB {
 
 struct StObjeto {
 		string tipo;
-		int x;
-		int y;
-		int ancho;
-		int alto;
+		float x;
+		float y;
+		float ancho;
+		float alto;
 		colorRGB color;
 		int rot;
-		int masa;
+		float masa;
 		bool estatico;
 };
 
 
 struct rect {
 		string tipo;
-		int x;
-		int y;
-		int ancho;
-		int alto;
+		float x;
+		float y;
+		float ancho;
+		float alto;
 		colorRGB color;
 		int rot;
-		int masa;
+		float masa;
 		bool estatico;
 };
 
 struct paralel {
 		string tipo;
-		int x;
-		int y;
-		int lado1;
-		int lado2;
-		int altura;
+		float x;
+		float y;
+		float lado1;
+		float lado2;
+		float altura;
 		colorRGB color;
 		int rot;
-		int masa;
+		float masa;
 		bool estatico;
 };
 
 struct trap {
 		string tipo;
-		int x;
-		int y;
-		int lado1;
-		int lado2;
-		int lado3;
-		int altura;
+		float x;
+		float y;
+		float lado1;
+		float lado2;
+		float lado3;
+		float altura;
 		colorRGB color;
 		int rot;
-		int masa;
+		float masa;
 		bool estatico;
 };
 
 struct circ {
 		string tipo;
-		int radio;
-		int x;
-		int y;			
+		float radio;
+		float x;
+		float y;			
 		colorRGB color;		
-		int masa;
+		float masa;
 		bool estatico;
 };
 
@@ -80,24 +80,24 @@ struct circ {
 struct poli {
 		string tipo;
 		int lados;
-		int x;
-		int y;
+		float x;
+		float y;
 		float escala;		
 		colorRGB color;
 		int rot;
-		int masa;
+		float masa;
 		bool estatico;
 };
 
 
 struct StEscenario {
-	  int altopx;
-	  int anchopx;
-	  int altoun;
-	  int anchoun;
+	  float altopx;
+	  float anchopx;
+	  float altoun;
+	  float anchoun;
 	  string imagen_fondo;
-	  int personajeX;
-	  int personajeY;
+	  float personajeX;
+	  float personajeY;
 
 	  list <rect> rectangulos;	
 	  list <poli> poligonos;
