@@ -3,6 +3,7 @@
 #include "Rectangulo.h"
 #include "Poligono.h"
 #include "Paralelogramo.h"
+#include "Trapecio.h"
 #include <Box2d/Box2d.h>
 #include "CollisionHandler.h"
 #include <iostream>
@@ -44,6 +45,10 @@ void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,
 
 void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float altura, Color color, int angulorot,bool dinamico,float masa){
 	this->cuerposEstaticos.push_back((Figura*) new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world));
+}
+
+void Escenario::agregarTrapecio(CoordenadasR2 centro,float longpiso, float longtecho, float altura, Color color, int angulorot,bool dinamico,float masa){
+	this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longpiso,longtecho, altura, color,angulorot,dinamico,masa, this->world));
 }
 
 CoordenadasR2 Escenario::getSize(){

@@ -4,6 +4,7 @@
 #include "pruebapoligono.h"
 #include "pruebaParser.h"
 #include "prueba_paralelogramo.h"
+#include "prueba_trapecio.h"
 #include "pruebaReiniciar.h"
 //#include <vld.h>
 #undef main
@@ -15,5 +16,6 @@ int main(int argc, char ** argv){
 	//pruebaParser();
 	//pruebaReiniciar();
 	prueba_paralelogramo();
+	prueba_trapecio();
 	return 0;
 }

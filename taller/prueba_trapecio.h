@@ -3,7 +3,7 @@
 #include "..\vista\VistaPoligono.h"
 #include "..\model\CoordenadasR2.h"
 #include "..\model\Escenario.h"
-#include "..\model\Paralelogramo.h"
+#include "..\model\Trapecio.h"
 #include "..\model\Color.h"
 
 
@@ -12,7 +12,7 @@ SDL_Texture* loadTexture( std::string path );
 //SDL_Renderer *ren2 = NULL;
 
 
-int  prueba_paralelogramo(){
+int  prueba_trapecio(){
 	Color  rojo = Color(255,0,0);
 	Color  azul = Color(0,0,100);
 	Color  verde = Color(0,255,0);
@@ -23,7 +23,7 @@ int  prueba_paralelogramo(){
 	SDL_Scancode sc;
 	bool juegoEnMarcha = true;
 	//creo la pantalla
-	SDL_Window *win = SDL_CreateWindow("Prueba Paralelogramo", 100, 100, 640, 480, SDL_WINDOW_SHOWN);	
+	SDL_Window *win = SDL_CreateWindow("Prueba Trapecio", 100, 100, 640, 480, SDL_WINDOW_SHOWN);	
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
 	Escenario * esc = new Escenario(6.4, 4.8,CoordenadasR2(0,-10),std::string("pathfondo"),NULL);
 
@@ -32,7 +32,7 @@ int  prueba_paralelogramo(){
 	//float yratio = 480 / 4.8f;
 	DatosPantalla datos = DatosPantalla(640,480,6.4f,4.8f);
 
-	esc->agregarParalelogramo(CoordenadasR2(2,2),2,2,2,rojo,0,false,2);
+	esc->agregarTrapecio(CoordenadasR2(3,3),4,2,1,rojo,0,false,2);
 
 	VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],&datos);
 	//Clear screen		
