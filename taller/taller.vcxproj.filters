@@ -729,5 +729,8 @@
     </None>
     <None Include="parser\Log.txt" />
     <None Include="parser\test.json" />
+    <None Include="imagenes\sprite.PNG">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
 </Project>

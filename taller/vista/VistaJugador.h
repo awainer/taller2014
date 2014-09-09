@@ -26,4 +26,5 @@ private:
 	int ms_ancho;
 	int ms_alto;
 	int m_dirAnterior;
+	int paso;
 };
