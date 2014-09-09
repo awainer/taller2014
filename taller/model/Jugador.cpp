@@ -2,8 +2,8 @@
 #include "constantes.h"
 #include <iostream>
 //Constantes del Jugador
-#define ALTO_JUGADOR     1.5
-#define ANCHO_JUGADOR    0.25
+#define ALTO_JUGADOR     1.0
+#define ANCHO_JUGADOR    0.8
 #define IMPULSO_CAMINAR  1
 #define	IMPULSO_SALTAR	 12
 #define VELOCIDAD_MAXIMA 8
