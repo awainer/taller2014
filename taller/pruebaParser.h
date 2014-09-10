@@ -23,39 +23,18 @@ int pruebaParser(){
 	VistaEscenario escenario_vista = VistaEscenario(esc,&datos);
 
 	bool juegoEnMarcha = true;
-		escenario_vista.agregarFondo("imagenes/homero.png");
-	
+	Jugador* jugador = esc->getJugadores()[0];
+	ControladorJugador control_jugador = ControladorJugador(jugador);
+	escenario_vista.agregarJugador(esc->getJugadores()[0]);
 	while( juegoEnMarcha ){
 					
 		//Dibujo figuras
 		escenario_vista.mostrar();
 
-		SDL_PollEvent( &evento);
+		control_jugador.actualizar();
+
 		esc->step();
 		SDL_Delay(10);
-
-		switch(evento.type)
-		{
-		case SDL_QUIT:
-			juegoEnMarcha= false;
-			break;
-		case SDL_KEYDOWN:
-			sc = evento.key.keysym.scancode;
-			if( sc == SDL_SCANCODE_C)
-				//se ejecuta instruccion mientras la tecla esta presionada
-			break;
-		case SDL_KEYUP:
-			//se ejecuta instruccion cuando la tecla deja de ser presionada
-			sc = evento.key.keysym.scancode;
-			// si se presiona por segunda vez C la segunda redimensiona al formato original porque 300/300 =1 es decir escala original 
-			if( sc == SDL_SCANCODE_C) 
-				escenario_vista.resize(300,100);
-			// Aca verifique que si se pone escala (1,1) en el renderder vuelve al estado original de la pantalla si presiono D.
-			if( sc == SDL_SCANCODE_D)
-				escenario_vista.resize(640,480);
-			break;
-
-		}
 	}
 
 

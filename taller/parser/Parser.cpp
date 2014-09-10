@@ -2260,6 +2260,7 @@ Escenario * Parser::CrearObjetos()
         cout << "personajeY " << miEscenario.personajeY << endl;
 	 
 		Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,-10),miEscenario.imagen_fondo,NULL);
+		esc->agregarJugador(CoordenadasR2(miEscenario.personajeX,miEscenario.personajeY));
 	// CREAR POLIGONOS
 		list <poli> objetosPoli;
 	poli objetoActualPoli;
