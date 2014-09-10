@@ -142,8 +142,10 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 	case ESTATICO : 
 		if (m_dirAnterior == IZQUIERDA) {
 			dibujar(16, x,  y,  w, h);
+			paso=0;
 		} else {
 			dibujar(17, x,  y,  w, h);
+			paso=0;
 		}
 		break;
 	}
