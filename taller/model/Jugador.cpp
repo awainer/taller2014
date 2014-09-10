@@ -8,6 +8,7 @@
 #define	IMPULSO_SALTAR	 50
 #define VELOCIDAD_MAXIMA 8
 #define UMBRAL_SALTO 0.1// velocidad vertical maxima para iniciar salto
+#define UMBRAL_ESTATICO 0.5
 #define IZQ -1
 #define DER  1
 
@@ -96,7 +97,8 @@ void Jugador::restarContacto(){
 
 int Jugador::getDireccion(){
 	b2Vec2 vel = this->body->GetLinearVelocity();
-	if(vel.x == 0 && vel.y == 0)
+	//std::cout << vel.y << " " <<vel.y << std::endl;
+	if(abs(vel.x)  < UMBRAL_ESTATICO && abs(vel.y) < UMBRAL_ESTATICO)
 		return ESTATICO;
 	if(vel.x == 0 && vel.y != 0)
 		return ARRIBA;
