@@ -21,12 +21,12 @@ Jugador::Jugador(float x, float y,b2World * world)
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x,y);
 	bodyDef.fixedRotation = true;
-	bodyDef.bullet = true;
+	//bodyDef.bullet = true;
 	bodyDef.linearDamping = 0.8f;
 	this->body = world->CreateBody(&bodyDef);
 
 	// sensor de piso
-	shapeSensor.SetAsBox(0.2 * ANCHO_JUGADOR, 0.2 * ANCHO_JUGADOR, b2Vec2(0,0-ALTO_JUGADOR/2), 0);
+	shapeSensor.SetAsBox(0.5 * ANCHO_JUGADOR, 0.2 * ANCHO_JUGADOR, b2Vec2(0,0-ALTO_JUGADOR/2), 0);
 	fixtureDef.isSensor = true;
 	fixtureDef.shape = &shapeSensor;
 	fixtureDef.userData = (void*) FOOT_SENSOR;
@@ -36,7 +36,8 @@ Jugador::Jugador(float x, float y,b2World * world)
 	shape.SetAsBox(ANCHO_JUGADOR/2,ALTO_JUGADOR/2);
 	fixtureDef.shape = &shape;
 	fixtureDef.isSensor = false;
-	fixtureDef.friction = 10;
+	fixtureDef.friction = 5;
+	fixtureDef.restitution = 0.1;
 	fixtureDef.userData = NULL;
 	
 	fixtureDef.density = 12;

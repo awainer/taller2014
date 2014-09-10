@@ -10,10 +10,10 @@
 #undef main
 //#include <vld.h>
 int main(int argc, char ** argv){
-	prueba_vistaEscenario();
+	//prueba_vistaEscenario();
 	//caca();
 	//caca2();
-	//pruebaParser();
+	pruebaParser();
 	//pruebaReiniciar();
 	//prueba_paralelogramo();
 	//prueba_trapecio();

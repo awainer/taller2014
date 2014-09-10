@@ -13,7 +13,7 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	//bd.angle = angulo * b2_pi /180;
 	if (dinamico){
 		bd.type = b2_dynamicBody;
-        //fixtureDef.friction = 0.5f;
+        fixtureDef.friction = 0;
         //fixtureDef.restitution = 0.4f;
 	}
 	else

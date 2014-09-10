@@ -1,9 +1,9 @@
 {
    "escenario":{
-      "alto-px":700,
-      "ancho-px":500,
-	  "alto-un":7,
-	  "ancho-un":5,
+      "ancho-px":800,
+      "alto-px":600,
+	  "ancho-un":8,
+	  "alto-un":6,
       "imagen_fondo":"../imagenes/caja.png",
       "personaje":{
          "x":1,
@@ -12,9 +12,9 @@
       "objetos":[
          {
             "tipo":"rect",
-            "x":5.31,
-            "y":90,
-            "ancho":2,
+            "x":3.6,
+            "y":2,
+            "ancho":0.8,
             "alto":1,
             "color":"#66009",
             "rot":45,

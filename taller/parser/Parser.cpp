@@ -2226,7 +2226,7 @@ void Parser::CargarDefault()
 
 DatosPantalla Parser::CargarDatosPantalla() {
 	
-	DatosPantalla datos = DatosPantalla(miEscenario.altopx,miEscenario.anchopx,miEscenario.altoun, miEscenario.anchoun);
+	DatosPantalla datos = DatosPantalla(miEscenario.anchopx,miEscenario.altopx,miEscenario.anchoun,miEscenario.altoun);
 
 	return datos;
 
