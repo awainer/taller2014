@@ -52,7 +52,7 @@ int  prueba_vistaEscenario(){
 		control_jugador.actualizar();
 		SDL_PollEvent( &evento);
 		esc->step();
-		SDL_Delay(10);
+		SDL_Delay(50);
 		switch(evento.type)
 		{
 		case SDL_QUIT:

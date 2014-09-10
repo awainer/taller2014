@@ -5,8 +5,6 @@ VistaJugador::VistaJugador(SDL_Renderer* renderer,Jugador* jugador,DatosPantalla
 {
 	this->m_jugador= jugador;
 	this->m_renderer = renderer;
-	m_vx = new Sint16[4];
-	m_vy = new Sint16[4];
 	this->m_datos = datos;
 	paso=0;
 	delay=0;
@@ -36,383 +34,118 @@ void VistaJugador::render(){
 
 }
 
+void VistaJugador::dibujar(int numSprite,int x, int y, int w, int h){
+	SDL_Rect renderQuad = { x, y, w, h };
+	SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[numSprite], &renderQuad );
+	if( delay == 3){
+		paso++;
+		delay = 0;
+	}else{ delay++;}
+}
+
 void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 	int i,j;
-	SDL_Rect renderQuad = { x, y, w, h };
 	switch(dire) 
 	{
 	case IZQUIERDA : 
-		m_spriteClips[ 0 ].x =  32;
-		m_spriteClips[ 0 ].y =  58;
-		m_spriteClips[ 0 ].w =  21;
-		m_spriteClips[ 0 ].h =  24;
-		
-		m_spriteClips[ 1 ].x =  56;
-		m_spriteClips[ 1 ].y =  58;
-		m_spriteClips[ 1 ].w =  21;
-		m_spriteClips[ 1 ].h =  24;
 
-		m_spriteClips[ 2 ].x =  87;
-		m_spriteClips[ 2 ].y =  58;
-		m_spriteClips[ 2 ].w =  21;
-		m_spriteClips[ 2 ].h =  24;
 		if(paso>2){
 			paso=0;
 		}
 		if(paso==0){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-
-			
+			dibujar(0, x,  y,  w, h);			
 		} else if(paso==1){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
+			dibujar(1, x,  y,  w, h);
 		}else if(paso==2){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso=0;
-			delay = 0;
-			}else{ delay++;}
-			//paso=0;
+			dibujar(2, x,  y,  w, h);
+			paso = 0;
 		}
-		/*for(i=0;i<3;i++){
-			//for (j=0;j<4;j++){
-				//SDL_SetRenderDrawColor( this->m_renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-				//SDL_RenderClear( this->m_renderer );
-				SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1+i], &renderQuad );
-				SDL_RenderPresent(this->m_renderer);
-				
-			//}
-		}*/
+
 		break;
 	case DERECHA :
-		m_spriteClips[ 0 ].x =  56; 
-		m_spriteClips[ 0 ].y =  82;
-		m_spriteClips[ 0 ].w =  21;
-		m_spriteClips[ 0 ].h =  24;
-		
-		m_spriteClips[ 1 ].x =  32; 
-		m_spriteClips[ 1 ].y =  82;
-		m_spriteClips[ 1 ].w =  21;
-		m_spriteClips[ 1 ].h =  24;
-
-		m_spriteClips[ 2 ].x =   0; 
-		m_spriteClips[ 2 ].y =  82;
-		m_spriteClips[ 2 ].w =  21;
-		m_spriteClips[ 2 ].h =  24;
+	
 		if(paso>2){
 			paso=0;
 		}
 
 		if(paso==0){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
-			
+			dibujar(3, x,  y,  w, h);		
 		} else if(paso==1){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
+			dibujar(4, x,  y,  w, h);
 		}else if(paso==2){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso=0;
-			delay = 0;
-			}else{ delay++;}
-			//paso=0;
+			dibujar(5, x,  y,  w, h);
+			paso = 0;
 		}
-		/*for(i=0;i<3;i++){
-			//for (j=0;j<4;j++){
-				//SDL_SetRenderDrawColor( this->m_renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-				//SDL_RenderClear( this->m_renderer );
-				SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[i], &renderQuad );
-				SDL_RenderPresent(this->m_renderer);
-			//}
-		}*/
+		
 		break;
 	case ARRIBA_IZQUIERDA:
-		m_spriteClips[ 0 ].x =   0;
-		m_spriteClips[ 0 ].y =   0;
-		m_spriteClips[ 0 ].w =  23;
-		m_spriteClips[ 0 ].h =  29;
-
-		m_spriteClips[ 1 ].x =  32;
-		m_spriteClips[ 1 ].y =   0;
-		m_spriteClips[ 1 ].w =  23;
-		m_spriteClips[ 1 ].h =  29;
-		
-		m_spriteClips[ 2 ].x =  64;
-		m_spriteClips[ 2 ].y =   0;
-		m_spriteClips[ 2 ].w =  23;
-		m_spriteClips[ 2 ].h =  29;
-
-		m_spriteClips[ 3 ].x =  96;
-		m_spriteClips[ 3 ].y =   0;
-		m_spriteClips[ 3 ].w =  23;
-		m_spriteClips[ 3 ].h =  29;
-		
-		m_spriteClips[ 4 ].x = 128;
-		m_spriteClips[ 4 ].y =   0;
-		m_spriteClips[ 4 ].w =  23;
-		m_spriteClips[ 4 ].h =  29;
 		
 		if(paso==0){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			paso++;
-			
+			dibujar(6, x,  y,  w, h);	
 		} else if(paso==1){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
+			dibujar(7, x,  y,  w, h);
 		}else if(paso==2){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
+			dibujar(8, x,  y,  w, h);
 		}else if(paso==3){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[3], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
+			dibujar(9, x,  y,  w, h);
 		}else if(paso==4){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[4], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso=0;
-			delay = 0;
-			}else{ delay++;}
-			//paso=0;
+			dibujar(10, x,  y,  w, h);
+			paso = 0;
 		}
-		/*for(i=0;i<5;i++){
-			for (j=0;j<4;j++){
-				SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[i], &renderQuad );
-				SDL_RenderPresent(this->m_renderer);
-			}
-		}*/
 		break;
 
 	case ARRIBA_DERECHA:
-		m_spriteClips[ 0 ].x = 128;
-		m_spriteClips[ 0 ].y =   0;
-		m_spriteClips[ 0 ].w =  23;
-		m_spriteClips[ 0 ].h =  29;
-
-		m_spriteClips[ 1 ].x =  96;
-		m_spriteClips[ 1 ].y =   0;
-		m_spriteClips[ 1 ].w =  23;
-		m_spriteClips[ 1 ].h =  29;
-		
-		m_spriteClips[ 2 ].x =  64;
-		m_spriteClips[ 2 ].y =   0;
-		m_spriteClips[ 2 ].w =  23;
-		m_spriteClips[ 2 ].h =  29;
-
-		m_spriteClips[ 3 ].x =  32;
-		m_spriteClips[ 3 ].y =   0;
-		m_spriteClips[ 3 ].w =  23;
-		m_spriteClips[ 3 ].h =  29;
-		
-		m_spriteClips[ 4 ].x =   0;
-		m_spriteClips[ 4 ].y =   0;
-		m_spriteClips[ 4 ].w =  23;
-		m_spriteClips[ 4 ].h =  29;
 		
 		if(paso==0){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
-			
+			dibujar(11, x,  y,  w, h);	
 		} else if(paso==1){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
+			dibujar(12, x,  y,  w, h);
 		}else if(paso==2){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
+			dibujar(13, x,  y,  w, h);
 		}else if(paso==3){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[3], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
+			dibujar(14, x,  y,  w, h);
 		}else if(paso==4){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[4], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso=0;
-			delay = 0;
-			}else{ delay++;}
-			//paso=0;
+			dibujar(15, x,  y,  w, h);
+			paso = 0;
 		}
-		/*for(i=0;i<5;i++){
-			for (j=0;j<4;j++){
-				SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[i], &renderQuad );
-				SDL_RenderPresent(this->m_renderer);
-			}
-		}*/
 		break;
 		
 	case ARRIBA:
 		if (m_dirAnterior = IZQUIERDA) {
-		m_spriteClips[ 0 ].x =   0;
-		m_spriteClips[ 0 ].y =   0;
-		m_spriteClips[ 0 ].w =  23;
-		m_spriteClips[ 0 ].h =  29;
-
-		m_spriteClips[ 1 ].x =  32;
-		m_spriteClips[ 1 ].y =   0;
-		m_spriteClips[ 1 ].w =  23;
-		m_spriteClips[ 1 ].h =  29;
-		
-		m_spriteClips[ 2 ].x =  64;
-		m_spriteClips[ 2 ].y =   0;
-		m_spriteClips[ 2 ].w =  23;
-		m_spriteClips[ 2 ].h =  29;
-
-		m_spriteClips[ 3 ].x =  96;
-		m_spriteClips[ 3 ].y =   0;
-		m_spriteClips[ 3 ].w =  23;
-		m_spriteClips[ 3 ].h =  29;
-		
-		m_spriteClips[ 4 ].x = 128;
-		m_spriteClips[ 4 ].y =   0;
-		m_spriteClips[ 4 ].w =  23;
-		m_spriteClips[ 4 ].h =  29;
+			if(paso==0){ 
+				dibujar(6, x,  y,  w, h);	
+			} else if(paso==1){ 
+				dibujar(7, x,  y,  w, h);
+			}else if(paso==2){ 
+				dibujar(8, x,  y,  w, h);
+			}else if(paso==3){ 
+				dibujar(9, x,  y,  w, h);
+			}else if(paso==4){ 
+				dibujar(10, x,  y,  w, h);
+				paso = 0;
+			}
 		}
 		else{
-		m_spriteClips[ 0 ].x = 128;
-		m_spriteClips[ 0 ].y =   0;
-		m_spriteClips[ 0 ].w =  23;
-		m_spriteClips[ 0 ].h =  29;
-
-		m_spriteClips[ 1 ].x =  96;
-		m_spriteClips[ 1 ].y =   0;
-		m_spriteClips[ 1 ].w =  23;
-		m_spriteClips[ 1 ].h =  29;
-		
-		m_spriteClips[ 2 ].x =  64;
-		m_spriteClips[ 2 ].y =   0;
-		m_spriteClips[ 2 ].w =  23;
-		m_spriteClips[ 2 ].h =  29;
-
-		m_spriteClips[ 3 ].x =  32;
-		m_spriteClips[ 3 ].y =   0;
-		m_spriteClips[ 3 ].w =  23;
-		m_spriteClips[ 3 ].h =  29;
-		
-		m_spriteClips[ 4 ].x =   0;
-		m_spriteClips[ 4 ].y =   0;
-		m_spriteClips[ 4 ].w =  23;
-		m_spriteClips[ 4 ].h =  29;
-		}
-		if(paso==0){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
-			
-		} else if(paso==1){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[1], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
-		}else if(paso==2){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[2], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
-		}else if(paso==3){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[3], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso++;
-			delay = 0;
-			}else{ delay++;}
-			//paso++;
-		}else if(paso==4){ 
-			SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[4], &renderQuad );
-			std::cout << "paso " << paso << std::endl;
-			if( delay == 3){
-			paso=0;
-			delay = 0;
-			}else{ delay++;}
-			//paso=0;
-		}
-		/*for(i=0;i<5;i++){
-			for (j=0;j<4;j++){
-				SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[i], &renderQuad );
-				SDL_RenderPresent(this->m_renderer);
+			if(paso==0){ 
+				dibujar(11, x,  y,  w, h);	
+			} else if(paso==1){ 
+				dibujar(12, x,  y,  w, h);
+			}else if(paso==2){ 
+				dibujar(13, x,  y,  w, h);
+			}else if(paso==3){ 
+				dibujar(14, x,  y,  w, h);
+			}else if(paso==4){ 
+				dibujar(15, x,  y,  w, h);
+				paso = 0;
 			}
-		}*/
+		}
 		break;
 	case ESTATICO : 
 		if (m_dirAnterior == IZQUIERDA) {
-			m_spriteClips[ 0 ].x =   0;
-			m_spriteClips[ 0 ].y =  58;
-			m_spriteClips[ 0 ].w =  21;
-			m_spriteClips[ 0 ].h =  24;
+			dibujar(16, x,  y,  w, h);
 		} else {
-			m_spriteClips[ 0 ].x =  88; 
-			m_spriteClips[ 0 ].y =  82;
-			m_spriteClips[ 0 ].w =  21;
-			m_spriteClips[ 0 ].h =  24;
+			dibujar(17, x,  y,  w, h);
 		}
-		SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[0], &renderQuad );
-		//SDL_RenderPresent(this->m_renderer);
 		break;
 	}
 
@@ -421,17 +154,6 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 
 VistaJugador::~VistaJugador(void)
 {
-	delete[] m_vx;
-	delete[] m_vy;
-}
-
-void VistaJugador::transformarSint16(std::vector<CoordenadasR2> vertices){
-
-		for(int i = 0; i<4; i++){
-			m_vx[i]=vertices[i].x *  this->m_datos->getXratio();
-			m_vy[i]= this->m_datos->getAltoPixel() -(vertices[i].y *  this->m_datos->getYratio());
-		} 
-		
 }
 
 void VistaJugador::agregarSprite(std::string path){
@@ -465,6 +187,96 @@ void VistaJugador::agregarSprite(std::string path){
 
 		//Elimino la surface temporal
 		SDL_FreeSurface( loadedSurface );
+
+		m_spriteClips[ 0 ].x =  32;
+		m_spriteClips[ 0 ].y =  58;
+		m_spriteClips[ 0 ].w =  21;
+		m_spriteClips[ 0 ].h =  24;
+		
+		m_spriteClips[ 1 ].x =  56;
+		m_spriteClips[ 1 ].y =  58;
+		m_spriteClips[ 1 ].w =  21;
+		m_spriteClips[ 1 ].h =  24;
+
+		m_spriteClips[ 2 ].x =  87;
+		m_spriteClips[ 2 ].y =  58;
+		m_spriteClips[ 2 ].w =  21;
+		m_spriteClips[ 2 ].h =  24;
+
+		m_spriteClips[ 3 ].x =  56; 
+		m_spriteClips[ 3 ].y =  82;
+		m_spriteClips[ 3 ].w =  21;
+		m_spriteClips[ 3 ].h =  24;
+		
+		m_spriteClips[ 4 ].x =  32; 
+		m_spriteClips[ 4 ].y =  82;
+		m_spriteClips[ 4 ].w =  21;
+		m_spriteClips[ 4 ].h =  24;
+
+		m_spriteClips[ 5 ].x =   0; 
+		m_spriteClips[ 5 ].y =  82;
+		m_spriteClips[ 5 ].w =  21;
+		m_spriteClips[ 5 ].h =  24;
+
+		m_spriteClips[ 6 ].x =   0;
+		m_spriteClips[ 6 ].y =   0;
+		m_spriteClips[ 6 ].w =  23;
+		m_spriteClips[ 6 ].h =  29;
+
+		m_spriteClips[ 7 ].x =  32;
+		m_spriteClips[ 7 ].y =   0;
+		m_spriteClips[ 7 ].w =  23;
+		m_spriteClips[ 7 ].h =  29;
+		
+		m_spriteClips[ 8 ].x =  64;
+		m_spriteClips[ 8 ].y =   0;
+		m_spriteClips[ 8 ].w =  23;
+		m_spriteClips[ 8 ].h =  29;
+
+		m_spriteClips[ 9 ].x =  96;
+		m_spriteClips[ 9 ].y =   0;
+		m_spriteClips[ 9 ].w =  23;
+		m_spriteClips[ 9 ].h =  29;
+	
+		m_spriteClips[ 10 ].x = 128;
+		m_spriteClips[ 10 ].y =   0;
+		m_spriteClips[ 10 ].w =  23;
+		m_spriteClips[ 10 ].h =  29;
+
+		m_spriteClips[ 11 ].x = 128;
+		m_spriteClips[ 11 ].y =   0;
+		m_spriteClips[ 11 ].w =  23;
+		m_spriteClips[ 11 ].h =  29;
+
+		m_spriteClips[ 12 ].x =  96;
+		m_spriteClips[ 12 ].y =   0;
+		m_spriteClips[ 12 ].w =  23;
+		m_spriteClips[ 12 ].h =  29;
+		
+		m_spriteClips[ 13 ].x =  64;
+		m_spriteClips[ 13 ].y =   0;
+		m_spriteClips[ 13 ].w =  23;
+		m_spriteClips[ 13 ].h =  29;
+
+		m_spriteClips[ 14 ].x =  32;
+		m_spriteClips[ 14 ].y =   0;
+		m_spriteClips[ 14 ].w =  23;
+		m_spriteClips[ 14 ].h =  29;
+		
+		m_spriteClips[ 15 ].x =   0;
+		m_spriteClips[ 15 ].y =   0;
+		m_spriteClips[ 15 ].w =  23;
+		m_spriteClips[ 15 ].h =  29;
+
+		m_spriteClips[ 16 ].x =   0;
+		m_spriteClips[ 16 ].y =  58;
+		m_spriteClips[ 16 ].w =  21;
+		m_spriteClips[ 16 ].h =  24;
+
+		m_spriteClips[ 17 ].x =  88; 
+		m_spriteClips[ 17 ].y =  82;
+		m_spriteClips[ 17 ].w =  21;
+		m_spriteClips[ 17 ].h =  24;
 	}
 
 

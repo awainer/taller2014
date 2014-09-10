@@ -18,11 +18,10 @@ public:
 private:
 	void transformarSint16(std::vector<CoordenadasR2> vertices);
 	void cargarSprites(int dire, int x, int y, int w, int h);
+	void dibujar(int numSprite,int x, int y, int w, int h);
 	Jugador* m_jugador;
-	SDL_Rect m_spriteClips[ 5 ];
+	SDL_Rect m_spriteClips[ 18 ];
 	SDL_Texture* m_sprite;
-	Sint16* m_vx;
-	Sint16* m_vy;
 	int ms_ancho;
 	int ms_alto;
 	int m_dirAnterior;
