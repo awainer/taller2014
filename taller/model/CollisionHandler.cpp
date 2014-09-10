@@ -41,11 +41,11 @@ void CollisionHandler::EndContact(b2Contact* contact){
 		(int)B->GetUserData() == RIGHT_WALL)
 			return;
 
-	if ((int)A->GetUserData() == FOOT_SENSOR){
+	if ((int)A->GetUserData() == FOOT_SENSOR && !contact->IsTouching()){
 		((Jugador*) A->GetBody()->GetUserData())->restarContacto();
 		//std::cout << "end contact A" << std::endl;
 	}
-	else if((int)B->GetUserData() == FOOT_SENSOR){
+	else if((int)B->GetUserData() == FOOT_SENSOR && !contact->IsTouching()){
 		((Jugador*) B->GetBody()->GetUserData())->restarContacto();
 		//std::cout << "end contact B" << std::endl;
 	}
