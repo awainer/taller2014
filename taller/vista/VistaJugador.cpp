@@ -6,6 +6,7 @@ VistaJugador::VistaJugador(SDL_Renderer* renderer,Jugador* jugador,DatosPantalla
 	this->m_jugador= jugador;
 	this->m_renderer = renderer;
 	this->m_datos = datos;
+	this->agregarSprite("imagenes/sprite.png");
 	paso=0;
 	delay=0;
 }
@@ -13,38 +14,36 @@ VistaJugador::VistaJugador(SDL_Renderer* renderer,Jugador* jugador,DatosPantalla
 void VistaJugador::render(){
 	CoordenadasR2 size = m_jugador->getSize(); //ancho,alto
 	CoordenadasR2 pos = m_jugador->getPosicion();//x,y
-	this->agregarSprite("imagenes/sprite.png");
 	int x,y,w,h;
 	x = ( pos.x - ( size.x / 2 ) ) * this->m_datos->getXratio();
 	y = this->m_datos->getAltoPixel() - ( (pos.y + ( size.y / 2 ) ) * this->m_datos->getYratio());
 	w = size.x * this->m_datos->getXratio();
 	h = size.y * this->m_datos->getYratio();
-	//SDL_Rect* renderQuad = new SDL_Rect;
-	//renderQuad->x = x;
-	//renderQuad->y = y;
-	//renderQuad->h = h;
-	//renderQuad->w = w;
 	this->cargarSprites(m_jugador->getDireccion(), x, y, w, h); // se podrian cargar todas antes, teniendo un SDL_rect para cada posicion
 	if ((this->m_jugador->getDireccion() == IZQUIERDA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
 		m_dirAnterior = IZQUIERDA;
 	}else if ((this->m_jugador->getDireccion() == DERECHA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
 		m_dirAnterior = DERECHA;
 	}
-	//delete renderQuad;
 
 }
 
 void VistaJugador::dibujar(int numSprite,int x, int y, int w, int h){
-	SDL_Rect renderQuad = { x, y, w, h };
-	SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[numSprite], &renderQuad );
+	SDL_Rect* renderQuad = new SDL_Rect;
+	renderQuad->x = x;
+	renderQuad->y = y;
+	renderQuad->h = h;
+	renderQuad->w = w;
+	SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[numSprite], renderQuad );
 	if( delay == 3){
 		paso++;
 		delay = 0;
 	}else{ delay++;}
+	delete renderQuad;
 }
 
 void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
-	int i,j;
+	
 	switch(dire) 
 	{
 	case IZQUIERDA : 
@@ -154,6 +153,7 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 
 VistaJugador::~VistaJugador(void)
 {
+	SDL_DestroyTexture(this->m_sprite);
 }
 
 void VistaJugador::agregarSprite(std::string path){

@@ -16,7 +16,7 @@ public:
 	void agregarSprite(std::string path);
 	~VistaJugador(void);
 private:
-	void transformarSint16(std::vector<CoordenadasR2> vertices);
+	
 	void cargarSprites(int dire, int x, int y, int w, int h);
 	void dibujar(int numSprite,int x, int y, int w, int h);
 	Jugador* m_jugador;
