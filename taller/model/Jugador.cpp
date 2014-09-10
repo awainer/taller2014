@@ -5,7 +5,7 @@
 #define ALTO_JUGADOR     1.0
 #define ANCHO_JUGADOR    0.8
 #define IMPULSO_CAMINAR  1
-#define	IMPULSO_SALTAR	 12
+#define	IMPULSO_SALTAR	 50
 #define VELOCIDAD_MAXIMA 8
 #define UMBRAL_SALTO 0.1// velocidad vertical maxima para iniciar salto
 #define IZQ -1
@@ -25,7 +25,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	this->body = world->CreateBody(&bodyDef);
 
 	// sensor de piso
-	shapeSensor.SetAsBox(ANCHO_JUGADOR - 0.4 * ANCHO_JUGADOR, ANCHO_JUGADOR, b2Vec2(0,0-ALTO_JUGADOR/2), 0);
+	shapeSensor.SetAsBox(0.2 * ANCHO_JUGADOR, 0.2 * ANCHO_JUGADOR, b2Vec2(0,0-ALTO_JUGADOR/2), 0);
 	fixtureDef.isSensor = true;
 	fixtureDef.shape = &shapeSensor;
 	fixtureDef.userData = (void*) FOOT_SENSOR;
@@ -38,7 +38,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	fixtureDef.friction = 10;
 	fixtureDef.userData = NULL;
 	
-	fixtureDef.density = 7;
+	fixtureDef.density = 12;
 	this->body->CreateFixture(&fixtureDef);
 	this->body->SetUserData((void*)this);
 	this->type = CHARACTER;
@@ -73,7 +73,7 @@ void Jugador::moverIzquierda(){
 }
 
 void Jugador::saltar(){
-	//std::cout << "salto puedemover: " << this->puedeMover << std::endl;
+	std::cout << "salto puedemover: " << this->puedeMover << std::endl;
 	if (this->puedeMover == 0)
 		return;
 	float verticalVelocity = this->body->GetLinearVelocity().y;
