@@ -22,8 +22,10 @@ void VistaJugador::render(){
 	this->cargarSprites(m_jugador->getDireccion(), x, y, w, h); // se podrian cargar todas antes, teniendo un SDL_rect para cada posicion
 	if ((this->m_jugador->getDireccion() == IZQUIERDA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
 		m_dirAnterior = IZQUIERDA;
-	}else if ((this->m_jugador->getDireccion() == DERECHA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
+		std::cout << " ultimo izquierda" << std::endl;
+	}else if ((this->m_jugador->getDireccion() == DERECHA) || (this->m_jugador->getDireccion() == ARRIBA_DERECHA) ){
 		m_dirAnterior = DERECHA;
+		std::cout << " ultimo derecha" << std::endl;
 	}
 
 }
@@ -89,7 +91,7 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 			dibujar(9, x,  y,  w, h);
 		}else if(paso==4){ 
 			dibujar(10, x,  y,  w, h);
-			paso = 0;
+			paso = 1;
 		}
 		break;
 
@@ -105,7 +107,7 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 			dibujar(14, x,  y,  w, h);
 		}else if(paso==4){ 
 			dibujar(15, x,  y,  w, h);
-			paso = 0;
+			paso = 1;
 		}
 		break;
 		
@@ -121,7 +123,7 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 				dibujar(9, x,  y,  w, h);
 			}else if(paso==4){ 
 				dibujar(10, x,  y,  w, h);
-				paso = 0;
+				paso = 1;
 			}
 		}
 		else{
@@ -135,7 +137,7 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 				dibujar(14, x,  y,  w, h);
 			}else if(paso==4){ 
 				dibujar(15, x,  y,  w, h);
-				paso = 0;
+				paso = 1;
 			}
 		}
 		break;
@@ -246,27 +248,27 @@ void VistaJugador::agregarSprite(std::string path){
 		m_spriteClips[ 10 ].h =  29;
 
 		m_spriteClips[ 11 ].x = 128;
-		m_spriteClips[ 11 ].y =   0;
+		m_spriteClips[ 11 ].y =  29; //0
 		m_spriteClips[ 11 ].w =  23;
 		m_spriteClips[ 11 ].h =  29;
 
 		m_spriteClips[ 12 ].x =  96;
-		m_spriteClips[ 12 ].y =   0;
+		m_spriteClips[ 12 ].y =  29; //0
 		m_spriteClips[ 12 ].w =  23;
 		m_spriteClips[ 12 ].h =  29;
 		
 		m_spriteClips[ 13 ].x =  64;
-		m_spriteClips[ 13 ].y =   0;
+		m_spriteClips[ 13 ].y =  29; //0
 		m_spriteClips[ 13 ].w =  23;
 		m_spriteClips[ 13 ].h =  29;
 
 		m_spriteClips[ 14 ].x =  32;
-		m_spriteClips[ 14 ].y =   0;
+		m_spriteClips[ 14 ].y =  29; //0
 		m_spriteClips[ 14 ].w =  23;
 		m_spriteClips[ 14 ].h =  29;
 		
 		m_spriteClips[ 15 ].x =   0;
-		m_spriteClips[ 15 ].y =   0;
+		m_spriteClips[ 15 ].y =  29; //0
 		m_spriteClips[ 15 ].w =  23;
 		m_spriteClips[ 15 ].h =  29;
 
