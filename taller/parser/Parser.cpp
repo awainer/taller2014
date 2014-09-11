@@ -12,6 +12,10 @@ Parser::Parser(void)
 {
 }
 
+Parser::Parser(string path)
+{
+	jsonpath = path;
+}
 
 void Parser::Inicializar()
 {
@@ -25,17 +29,44 @@ void Parser::Inicializar()
 
     //Ubicacion Archivo
 
-    const char* filename= "parser/test.json";;
+    //const char* filename= "parser/test.json";
+	const char* filename= jsonpath.c_str();
+
+	
+
     std::ifstream archivoJson;  
-    archivoJson.open (filename, std::ios::binary );    
+    
+	bool errorpath = false;
+	bool parseadoOK;
 
-    // Devuelvo si hubo error en el parseado a nivel de la libreria!
-    bool parseadoOK = reader.parse(archivoJson, root, false);
 
+	if( Funciones::estaCreado(filename) ) {
+		
+		archivoJson.open (filename, std::ios::binary );
+		// Devuelvo si hubo error en el parseado a nivel de la libreria!
+		parseadoOK = reader.parse(archivoJson, root, false);
+		errorpath = false;
+
+	} else {
+
+		EventLogger::AgregarEvento("ERROR: PATH INVALIDO: El archivo en formato JSON especificado no existe, se cargaran los valores por defecto.");
+		errorpath = true;
+		parseadoOK = true;
+		this->CargarDefault();
+	}
+   
 
 
     if(!parseadoOK){
-        EventLogger::AgregarEvento(reader.getFormatedErrorMessages());
+
+		string errormsg = reader.getFormatedErrorMessages();
+		errormsg.erase(std::remove(errormsg.begin(), errormsg.end(), '\n'), errormsg.end());
+		string error;
+		error = "ERROR EN ARCHIVO JSON: ";
+		error.append(errormsg);
+		error.append(" Se cargara la configuracion por defecto.");
+
+        EventLogger::AgregarEvento(error);
 		
         //TODO:CARGAR JSON POR DEFECTO   
 		this->CargarDefault();
@@ -43,7 +74,7 @@ void Parser::Inicializar()
 
     }
 
-    if (parseadoOK)  
+    if (parseadoOK && !errorpath)  
     { 
         // Valores por defecto_?
         /*
