@@ -23,7 +23,7 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	else
 		bodyDef.type = b2_staticBody;
 
-	fixtureDef.friction=0;
+	fixtureDef.friction=0.1;
 	bodyDef.position.Set(centro.x,centro.y);
 	bodyDef.angle=angulorot * b2_pi /180;
 	b2Vec2 vertices[8]; 

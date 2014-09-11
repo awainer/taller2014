@@ -26,7 +26,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	this->body = world->CreateBody(&bodyDef);
 
 	// sensor de piso
-	shapeSensor.SetAsBox(0.5 * ANCHO_JUGADOR, 0.2 * ANCHO_JUGADOR, b2Vec2(0,0-ALTO_JUGADOR/2), 0);
+	shapeSensor.SetAsBox(0.48 * ANCHO_JUGADOR, 0.2 * ANCHO_JUGADOR, b2Vec2(0,0-ALTO_JUGADOR/2), 0);
 	fixtureDef.isSensor = true;
 	fixtureDef.shape = &shapeSensor;
 	fixtureDef.userData = (void*) FOOT_SENSOR;
@@ -36,7 +36,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	shape.SetAsBox(ANCHO_JUGADOR/2,ALTO_JUGADOR/2);
 	fixtureDef.shape = &shape;
 	fixtureDef.isSensor = false;
-	fixtureDef.friction = 5;
+	fixtureDef.friction = 1;
 	fixtureDef.restitution = 0.1;
 	fixtureDef.userData = NULL;
 	
@@ -103,7 +103,7 @@ int Jugador::getDireccion(){
 		return ESTATICO;
 	if(vel.x == 0 && vel.y != 0)
 		return ARRIBA;
-	if(vel.y == 0){
+	if(vel.y == 0  || this->puedeMover > 0){ //cuando esta resbalando tiene velocidad en y, pero no esta en el aire
 		if (vel.x > 0)
 			return DERECHA;
 		else
