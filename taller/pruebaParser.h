@@ -23,15 +23,15 @@ int pruebaParser(string path){
 	VistaEscenario escenario_vista = VistaEscenario(esc,&datos);
 
 	bool juegoEnMarcha = true;
-	Jugador* jugador = esc->getJugadores()[0];
-	ControladorJugador control_jugador = ControladorJugador(jugador);
-	escenario_vista.agregarJugador(esc->getJugadores()[0]);
+	//Jugador* jugador = esc->getJugadores()[0];
+	//ControladorJugador control_jugador = ControladorJugador(jugador);
+	//escenario_vista.agregarJugador(esc->getJugadores()[0]);
 	while( juegoEnMarcha ){
 					
 		//Dibujo figuras
 		escenario_vista.mostrar();
 
-		control_jugador.actualizar();
+		//control_jugador.actualizar();
 
 		esc->step();
 		SDL_Delay(10);

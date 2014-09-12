@@ -94,6 +94,7 @@
     <ClInclude Include="parser\Funciones.h" />
     <ClInclude Include="parser\Parser.h" />
     <ClInclude Include="pruebaParser.h" />
+    <ClInclude Include="pruebapoligono.h" />
     <ClInclude Include="pruebaReiniciar.h" />
     <ClInclude Include="pruebaSuperposicion.h" />
     <ClInclude Include="prueba_paralelogramo.h" />
@@ -157,7 +158,6 @@
     <ClInclude Include="Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="Box2D\Rope\b2Rope.h" />
     <ClInclude Include="model\Pared.h" />
-    <ClInclude Include="pruebapoligono.h" />
     <ClInclude Include="prueba_VistaEscenario.h" />
     <ClInclude Include="SDL2\begin_code.h" />
     <ClInclude Include="SDL2\close_code.h" />

@@ -59,8 +59,8 @@ int  caca(){
 	esc->agregarPoligono(CoordenadasR2(4,2),1,3,0,rojo,true,2);
 
 
-	VistaFigura* circulo = new VistaCirculo(ren,esc->getPelotas()[0],&datos); 
-	VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],&datos);
+	//VistaFigura* circulo = new VistaCirculo(ren,esc->getPelotas()[0],&datos); 
+	//VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],&datos);
 	/*VistaPoligono poligono2 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[1]);
 	VistaPoligono poligono3 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[2]);*/
 	
@@ -71,8 +71,8 @@ int  caca(){
 		SDL_RenderClear( ren );
 		
 		//Dibujo figuras
-		circulo->render();
-		poligono->render();
+		//circulo->render();
+		//poligono->render();
 		/*poligono2.render();
 		poligono3.render();*/
 
@@ -109,8 +109,8 @@ int  caca(){
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
-	delete circulo;
-	delete poligono;
+	//delete circulo;
+	//delete poligono;
 	return 0;
 }
 
@@ -140,7 +140,7 @@ int  caca2(){
 	esc->agregarPoligono(CoordenadasR2(300,100),30,8,90);*/
 
 
-	VistaCirculo circulo = VistaCirculo(ren2,esc->getPelotas()[0],&datos); 
+	//VistaCirculo circulo = VistaCirculo(ren2,esc->getPelotas()[0],&datos); 
 	//VistaCirculo circulo2 = VistaCirculo(ren2,esc->getPelotas()[1],xratio,yratio); 
 	/*VistaPoligono poligono = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0]);
 	VistaPoligono poligono2 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[1]);
@@ -178,7 +178,7 @@ int  caca2(){
 		//Render texture to screen
 		SDL_RenderCopy( ren2, gTexture, NULL, NULL );
 
-		circulo.render();
+	//	circulo.render();
 	/*	poligono.render();
 		poligono2.render();
 		poligono3.render();*/
