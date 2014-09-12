@@ -8,12 +8,12 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 
 	b2BodyDef bd;
 	b2FixtureDef fixtureDef;
-	bd.bullet = true;
+	bd.bullet = false;
 	bd.position.Set(centro.x,centro.y);
 	//bd.angle = angulo * b2_pi /180;
 	if (dinamico){
 		bd.type = b2_dynamicBody;
-        fixtureDef.friction = 0;
+        fixtureDef.friction = 0.8f;
         //fixtureDef.restitution = 0.4f;
 	}
 	else

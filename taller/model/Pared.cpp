@@ -20,7 +20,7 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 
 	if((tipo == FLOOR) || (tipo == ROOF)){ //paredes horizontales
 		edge.Set(b2Vec2(-largo/2,0),b2Vec2(largo/2,0));
-			fixtureDef.friction = 1.0f;
+			fixtureDef.friction = 10.0f;
 	}else{  // paredes verticales
 		edge.Set(b2Vec2(0,largo/2),b2Vec2(0,-largo/2));
 		fixtureDef.friction = 0;

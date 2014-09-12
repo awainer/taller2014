@@ -6,14 +6,14 @@
 #include "parser\EventLogger.h"
 #include "model\Escenario.h"
 
-int pruebaParser(){
+int pruebaParser(string path){
 	Color  rojo = Color(255,0,0);
 	Color  azul = Color(0,0,255);
 	Color  verde = Color(0,255,0);
 	Color violeta = Color(100,100,0);
 	SDL_Event evento;
 	SDL_Scancode sc;
-	Parser parser = Parser();
+	Parser parser = Parser(path);
 	parser.Inicializar();
 	Escenario * esc = parser.CrearObjetos();
 	

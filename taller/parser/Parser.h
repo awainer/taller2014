@@ -19,8 +19,9 @@ class Parser
 {
 private:
 	StEscenario miEscenario;
-
+	string jsonpath;
 public:
+	Parser(string path);
 	Parser(void);
 	~Parser(void);
 	void Inicializar();
