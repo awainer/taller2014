@@ -17,6 +17,7 @@ public:
 	void agregarTrapecio(CoordenadasR2 centro,float longpiso, float longtecho, float altura, Color color, int angulorot,bool dinamico,float masa);
 	void agregarJugador(CoordenadasR2 centro);
 	void step();
+	void checkOverlap();
 	CoordenadasR2 getSize();
 	std::string getPathFondo();
 	std::vector <Figura*> getPoligonos();

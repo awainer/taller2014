@@ -95,6 +95,7 @@
     <ClInclude Include="parser\Parser.h" />
     <ClInclude Include="pruebaParser.h" />
     <ClInclude Include="pruebaReiniciar.h" />
+    <ClInclude Include="pruebaSuperposicion.h" />
     <ClInclude Include="prueba_paralelogramo.h" />
     <ClInclude Include="prueba_trapecio.h" />
     <ClInclude Include="vista\DatosPantalla.h" />

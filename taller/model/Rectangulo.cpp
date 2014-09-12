@@ -26,5 +26,6 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	this->body->CreateFixture(&fixtureDef);
 	this->setDensidad(masa);
 	this->color = color;
+	this->body->SetUserData((void*)this);
 }
 

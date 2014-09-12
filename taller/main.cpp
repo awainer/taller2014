@@ -6,14 +6,16 @@
 #include "prueba_paralelogramo.h"
 #include "prueba_trapecio.h"
 #include "pruebaReiniciar.h"
+#include "pruebaSuperposicion.h"
 //#include <vld.h>
 #undef main
 //#include <vld.h>
 int main(int argc, char ** argv){
+	pruebaSuperposicion();
 	//prueba_vistaEscenario();
 	//caca();
 	//caca2();
-	pruebaParser();
+	//pruebaParser();
 	//pruebaReiniciar();
 	//prueba_paralelogramo();
 	//prueba_trapecio();

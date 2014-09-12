@@ -19,6 +19,7 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 		bodyDef.type = b2_staticBody;
 
 	fixtureDef.shape = &shape;
+	fixtureDef.isSensor = false;
 	this->body = this->world->CreateBody(&bodyDef);
 	this->body->CreateFixture(&fixtureDef);
 	this->setDensidad(masa);

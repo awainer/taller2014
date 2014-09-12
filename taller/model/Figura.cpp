@@ -38,6 +38,11 @@ void Figura::setDensidad(float masa){
 	std::cout << "Masa: " << masa << " area: "<< area << " densidad " << fix->GetDensity() << std::endl; 
 }
 
+
+
+void Figura::activar(){
+	this->body->GetFixtureList()->SetSensor(false);
+}
 Figura::~Figura(void)
 {
 	std::cout << "Lllamando destructor de figura" << std::endl;

@@ -42,6 +42,7 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	this->body->CreateFixture(&fixtureDef); 
 	this->setDensidad(masa);
 	this->color = color;
+	this->body->SetUserData((void*)this);
 }
 
 unsigned int Poligono::getVertexCount(){

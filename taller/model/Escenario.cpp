@@ -77,6 +77,19 @@ std::string Escenario::getPathFondo(){
 void Escenario::step(){
 	this->world->Step(1.0f/60,10,10);
 }
+void Escenario::checkOverlap(){
+	// Un step es necesario para que el contact list no sea NULL
+	this->step();
+	b2Contact * c = this->world->GetContactList();
+	while(c){
+		b2Fixture *fa,*fb;
+		fa = c->GetFixtureA();
+		fb = c->GetFixtureB();
+		c = c->GetNext();
+	}
+
+
+}
 Escenario::~Escenario(void)
 {
 	std::cout << "Dstructor escenario" << std::cout;
