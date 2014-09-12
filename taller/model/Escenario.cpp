@@ -58,7 +58,7 @@ std::list <Figura*> Escenario::getPoligonos(){
 	return this->cuerposEstaticos;
 }
 
-std::list  <Pelota*> Escenario::getPelotas(){
+std::list  <Figura*> Escenario::getPelotas(){
 	return this->pelotas;
 }
 std::list <Jugador *> Escenario::getJugadores(){

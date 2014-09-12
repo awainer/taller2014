@@ -132,10 +132,10 @@ VistaEscenario::~VistaEscenario(void)
 void VistaEscenario::cargarFiguras(){
 	int total_pelotas =m_escenario->getPelotas().size();
 	int total_poligonos =m_escenario->getPoligonos().size();
-	for(std::list<Pelota*>::iterator it=m_escenario->getPelotas().begin(); it != m_escenario->getPelotas().end(); ++it){
-		agregarPelota(*it);
+	for(std::list<Figura*>::iterator it=m_escenario->getPelotas().begin(); it != m_escenario->getPelotas().end(); ++it){
+		agregarPelota((Pelota*)*it);
 	}
-	for(std::list<Pelota*>::iterator it=m_escenario->getPelotas().begin(); it != m_escenario->getPelotas().end(); ++it){
+	for(std::list<Figura*>::iterator it=m_escenario->getPelotas().begin(); it != m_escenario->getPelotas().end(); ++it){
 		agregarPoligonos((Poligono*)(*it));
 	}
 }

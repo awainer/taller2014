@@ -23,14 +23,14 @@ public:
 	CoordenadasR2 getSize();
 	std::string getPathFondo();
 	std::list <Figura*> getPoligonos();
-	std::list <Pelota*> getPelotas();
+	std::list <Figura*> getPelotas();
 	std::list <Jugador *> getJugadores();
 	~Escenario(void);
 private:
 	// TODO separar entre estaticos y dinamicos
 	std::list <Figura*> cuerposEstaticos;
 	std::list <Figura*> paredes;
-	std::list <Pelota*> pelotas;
+	std::list <Figura*> pelotas;
 	std::list <Jugador*> jugadores;
 	b2World * world;
 	float largo;
