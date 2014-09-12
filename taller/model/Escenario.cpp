@@ -54,21 +54,22 @@ void Escenario::agregarTrapecio(CoordenadasR2 centro,float longpiso, float longt
 CoordenadasR2 Escenario::getSize(){
 	return CoordenadasR2(this->largo,this->alto);
 }
-std::vector <Figura*> Escenario::getPoligonos(){
+std::list <Figura*> Escenario::getPoligonos(){
 	return this->cuerposEstaticos;
 }
 
-std::vector <Pelota*> Escenario::getPelotas(){
+std::list  <Pelota*> Escenario::getPelotas(){
 	return this->pelotas;
+}
+std::list <Jugador *> Escenario::getJugadores(){
+	return this->jugadores;
 }
 
 void Escenario::agregarJugador(CoordenadasR2 centro){
 	this->jugadores.push_back(new Jugador(centro.x,centro.y,this->world));
 }
 
-std::vector <Jugador *> Escenario::getJugadores(){
-	return this->jugadores;
-}
+
 
 std::string Escenario::getPathFondo(){
 	return this->fondo;
@@ -77,19 +78,49 @@ std::string Escenario::getPathFondo(){
 void Escenario::step(){
 	this->world->Step(1.0f/60,10,10);
 }
+
+void Escenario::deleteFigura(Figura * f){
+	bool terminar = false;
+	for ( std::list<Figura*>::iterator i = this->cuerposEstaticos.begin(); i != this->cuerposEstaticos.end(); i++){
+		if ( *i == f){
+			delete *i;
+			this->cuerposEstaticos.erase(i);
+			terminar = true;
+		}
+	}
+	if(!terminar){
+		for ( std::list<Figura*>::iterator i = this->pelotas.begin(); i != this->pelotas.end(); i++){
+			if ( *i == f){
+				delete *i;
+				this->pelotas.erase(i);
+			}
+
+		}
+	}
+
+}
+
 void Escenario::checkOverlap(){
 	// Un step es necesario para que el contact list no sea NULL
 	this->step();
 	b2Contact * c = this->world->GetContactList();
+	Figura * figuraConflictiva;
 	while(c){
-		b2Fixture *fa,*fb;
-		fa = c->GetFixtureA();
-		fb = c->GetFixtureB();
+		//b2Fixture *fa,*fb;
+		figuraConflictiva = this->decidirConflicto(c->GetFixtureA(), c->GetFixtureB());
+		delete figuraConflictiva;
+		this->deleteFigura(figuraConflictiva);
 		c = c->GetNext();
 	}
 
 
 }
+
+
+Figura *  Escenario::decidirConflicto(b2Fixture * a, b2Fixture * b){
+	return (Figura*)a->GetBody()->GetUserData();
+}
+
 Escenario::~Escenario(void)
 {
 	std::cout << "Dstructor escenario" << std::cout;

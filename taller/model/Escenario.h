@@ -1,4 +1,5 @@
 #pragma once
+#include <list>
 #include <vector>
 #include "Figura.h"
 #include "Pelota.h"
@@ -18,22 +19,24 @@ public:
 	void agregarJugador(CoordenadasR2 centro);
 	void step();
 	void checkOverlap();
+	void deleteFigura(Figura * f);
 	CoordenadasR2 getSize();
 	std::string getPathFondo();
-	std::vector <Figura*> getPoligonos();
-	std::vector <Pelota*> getPelotas();
-	std::vector <Jugador *> getJugadores();
+	std::list <Figura*> getPoligonos();
+	std::list <Pelota*> getPelotas();
+	std::list <Jugador *> getJugadores();
 	~Escenario(void);
 private:
 	// TODO separar entre estaticos y dinamicos
-	std::vector <Figura*> cuerposEstaticos;
-	std::vector <Figura*> paredes;
-	std::vector <Pelota*> pelotas;
-	std::vector <Jugador*> jugadores;
+	std::list <Figura*> cuerposEstaticos;
+	std::list <Figura*> paredes;
+	std::list <Pelota*> pelotas;
+	std::list <Jugador*> jugadores;
 	b2World * world;
 	float largo;
 	float alto;
 	std::string fondo;
 	b2ContactListener * handler;
+	Figura * decidirConflicto(b2Fixture * a, b2Fixture * b);
 };
 
