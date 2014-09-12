@@ -402,9 +402,6 @@
     <ClInclude Include="vista\VistaCirculo.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="pruebapoligono.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="vista\VistaFigura.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -462,19 +459,19 @@
     <ClInclude Include="json\writer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="pruebaParser.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="vista\VistaJugador.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="control\ControladorJugador.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="pruebaReiniciar.h">
+    <ClInclude Include="model\Paralelogramo.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="model\Paralelogramo.h">
+    <ClInclude Include="model\Trapecio.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="pruebaSuperposicion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="prueba_paralelogramo.h">
@@ -483,10 +480,13 @@
     <ClInclude Include="prueba_trapecio.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="model\Trapecio.h">
+    <ClInclude Include="pruebaParser.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="pruebaSuperposicion.h">
+    <ClInclude Include="pruebapoligono.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="pruebaReiniciar.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

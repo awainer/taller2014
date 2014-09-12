@@ -10,7 +10,7 @@
 #include "../model/Escenario.h"
 #include "DatosPantalla.h"
 #include "VistaJugador.h"
-
+#include <list>
 #include <iostream>
 class VistaEscenario
 {

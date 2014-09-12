@@ -34,13 +34,13 @@ int  prueba_trapecio(){
 
 	esc->agregarTrapecio(CoordenadasR2(3,3),4,2,1,rojo,0,false,2);
 
-	VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],&datos);
+	//VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],&datos);
 	//Clear screen		
 		SDL_SetRenderDrawColor( ren, 255, 255, 255, 255 );
 		SDL_RenderClear( ren );
 		
 		//Dibujo figuras
-		poligono->render();
+		//poligono->render();
 		SDL_RenderPresent(ren);
 	
 	while( juegoEnMarcha ){
@@ -79,6 +79,6 @@ int  prueba_trapecio(){
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
-	delete poligono;
+	//delete poligono;
 	return 0;
 }

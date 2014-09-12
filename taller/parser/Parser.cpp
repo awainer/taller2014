@@ -2211,7 +2211,7 @@ void Parser::CargarDefault()
 		poli objetoActualPoli;
 		objetoActualPoli.lados = 5;
 		objetoActualPoli.escala =0.4;
-		objetoActualPoli.color.r = 250;
+		objetoActualPoli.color.r = 0;
 		objetoActualPoli.color.g = 250;
 		objetoActualPoli.color.b = 250;
 		objetoActualPoli.estatico=true;
@@ -2244,12 +2244,12 @@ void Parser::CargarDefault()
 		objetoActualRect.ancho=2;
 		objetoActualRect.color.r=134;
 		objetoActualRect.color.g=134;
-		objetoActualRect.color.b=134;
+		objetoActualRect.color.b=255;
 		objetoActualRect.estatico=false;
 		objetoActualRect.masa=3;
 		objetoActualRect.rot=45;		
-		objetoActualRect.x=5.31;
-		objetoActualRect.y=3;
+		objetoActualRect.x=3;
+		objetoActualRect.y=5.31;
 		miEscenario.rectangulos.push_back(objetoActualRect);
 
 
