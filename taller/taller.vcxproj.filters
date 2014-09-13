@@ -471,9 +471,6 @@
     <ClInclude Include="model\Trapecio.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="pruebaSuperposicion.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="prueba_paralelogramo.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
