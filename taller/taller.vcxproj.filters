@@ -735,5 +735,8 @@
     <None Include="imagenes\sprite.PNG">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="imagenes\default.jpg">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
 </Project>

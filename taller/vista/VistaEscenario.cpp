@@ -13,7 +13,7 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	{
 		m_escenario = escenario;
 		m_datos_pantalla = datos;
-		
+		this->agregarFondo(m_escenario->getPathFondo());
 		this->cargarFiguras();
 	}
 }
