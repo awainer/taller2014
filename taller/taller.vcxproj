@@ -90,12 +90,13 @@
     <ClInclude Include="model\Paralelogramo.h" />
     <ClInclude Include="model\Trapecio.h" />
     <ClInclude Include="parser\Constantes.h" />
-    <ClInclude Include="parser\EventLogger.h" />
+    <ClInclude Include="EventLogger.h" />
     <ClInclude Include="parser\Funciones.h" />
     <ClInclude Include="parser\Parser.h" />
     <ClInclude Include="pruebaParser.h" />
     <ClInclude Include="pruebapoligono.h" />
     <ClInclude Include="pruebaReiniciar.h" />
+    <ClInclude Include="pruebaSuper.h" />
     <ClInclude Include="prueba_paralelogramo.h" />
     <ClInclude Include="prueba_trapecio.h" />
     <ClInclude Include="vista\DatosPantalla.h" />
@@ -239,7 +240,7 @@
     <ClCompile Include="control\ControladorJugador.cpp" />
     <ClCompile Include="model\Paralelogramo.cpp" />
     <ClCompile Include="model\Trapecio.cpp" />
-    <ClCompile Include="parser\EventLogger.cpp" />
+    <ClCompile Include="EventLogger.cpp" />
     <ClCompile Include="parser\Funciones.cpp" />
     <ClCompile Include="parser\Parser.cpp" />
     <ClCompile Include="vista\DatosPantalla.cpp" />

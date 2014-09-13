@@ -423,9 +423,6 @@
     <ClInclude Include="parser\Constantes.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="parser\EventLogger.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="parser\Funciones.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -484,6 +481,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="pruebaReiniciar.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="pruebaSuper.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="EventLogger.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -686,9 +689,6 @@
     <ClCompile Include="vista\DatosPantalla.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="parser\EventLogger.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="parser\Funciones.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -705,6 +705,9 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="model\Trapecio.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="EventLogger.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>

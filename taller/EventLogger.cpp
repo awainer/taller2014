@@ -2,6 +2,8 @@
 
 using namespace std;
 
+
+
 string EventLogger::pathArchivo = "Log.txt";
 
 
@@ -28,9 +30,10 @@ void EventLogger::Append(string msg){
 		archivo.flush();
 		archivo.close();
 }
-void EventLogger::AgregarEvento(string msgEvento){
+void EventLogger::AgregarEvento(string msgEvento,int prioridad){
+	if (prioridad < LOGLEVEL)
+		return;
 	try{
-		
 		string msgAux;
 		string timestamp; 
 		
@@ -54,7 +57,15 @@ void EventLogger::AgregarEvento(string msgEvento){
 	}
 }
 
+void EventLogger::AgregarEvento(string msgEvento){
+	EventLogger::AgregarEvento(msgEvento,1);
+}
 
 
+string EventLogger::itos(int i){
+	ostringstream convert;
+	convert << i;
+	return convert.str();
+}
 
 

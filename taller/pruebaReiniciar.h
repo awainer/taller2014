@@ -1,7 +1,7 @@
 #include "parser\Parser.h"
 #include "parser\Funciones.h"
 #include "parser\Constantes.h"
-#include "parser\EventLogger.h"
+#include "EventLogger.h"
 #include "model\Escenario.h"
 #include <SDL.h>
 #include "vista\VistaEscenario.h"

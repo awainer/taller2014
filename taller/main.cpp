@@ -6,17 +6,18 @@
 #include "prueba_paralelogramo.h"
 #include "prueba_trapecio.h"
 #include "pruebaReiniciar.h"
-//#include "pruebaSuperposicion.h"
+#include "pruebaSuper.h"
 //#include <vld.h>
 #undef main
 //#include <vld.h>
 int main(int argc, char ** argv){
+	pruebaSuper();
 	//pruebaSuperposicion();
 	//prueba_vistaEscenario();
 	//caca();
 	//caca2();
 	//pruebaParser();
-
+	/*
 	char pathChar[2000];
 	string path;
 	
@@ -30,7 +31,7 @@ int main(int argc, char ** argv){
 		path = argv[1];
 	}
 	
-	prueba_vistaEscenario();
+	prueba_vistaEscenario();*/
 	//caca();
 	//caca2();
 	//pruebaParser(path);
