@@ -8,8 +8,8 @@ CollisionHandler::~CollisionHandler(void){}
 void CollisionHandler::BeginContact(b2Contact* contact){
 	b2Fixture * A = contact->GetFixtureA();
 	b2Fixture * B = contact->GetFixtureB();
-	std::cout << "colision entre "  << std::endl << A->GetBody()->GetPosition().x <<  A->GetBody()->GetPosition().y << std::endl;
-	std::cout <<  B->GetBody()->GetPosition().x <<  B->GetBody()->GetPosition().y << std::endl;
+	//std::cout << "colision entre "  << std::endl << A->GetBody()->GetPosition().x <<  A->GetBody()->GetPosition().y << std::endl;
+	//std::cout <<  B->GetBody()->GetPosition().x <<  B->GetBody()->GetPosition().y << std::endl;
 	 if (!contact->IsTouching())
 		return;
 
