@@ -30,6 +30,7 @@ Escenario::Escenario(float largo, float alto,CoordenadasR2 gravedad, std::string
 	this->largo = largo;
 	this->handler = new CollisionHandler();
 	this->world->SetContactListener(handler);
+	this->fondo = fondo;
 }
 
 void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa){
@@ -81,36 +82,44 @@ void Escenario::step(){
 
 void Escenario::deleteFigura(Figura * f){
 	bool terminar = false;
-	for ( std::list<Figura*>::iterator i = this->cuerposEstaticos.begin(); i != this->cuerposEstaticos.end(); i++){
-		if ( *i == f){
-			delete *i;
-			this->cuerposEstaticos.erase(i);
+	std::list<Figura*>::iterator j;
+	for ( j = this->cuerposEstaticos.begin(); j != this->cuerposEstaticos.end(); j++){
+		if ( *j == f){
 			terminar = true;
+			break;
 		}
 	}
-	if(!terminar){
-		for ( std::list<Figura*>::iterator i = this->pelotas.begin(); i != this->pelotas.end(); i++){
-			if ( *i == f){
-				delete *i;
-				this->pelotas.erase(i);
-			}
+	if(terminar){
+		delete *j;
+		this->cuerposEstaticos.erase(j);
+		return;
+	}
+	
 
+	std::list<Figura*>::iterator i;
+	if(!terminar){
+		for (i = this->pelotas.begin(); i != this->pelotas.end(); i++){
+			if ( *i == f)
+				break;
 		}
+		delete *i;
+		this->pelotas.erase(i);
 	}
 
 }
 
 void Escenario::checkOverlap(){
 	// Un step es necesario para que el contact list no sea NULL
+
 	this->step();
 	b2Contact * c = this->world->GetContactList();
 	Figura * figuraConflictiva;
 	while(c){
 		//b2Fixture *fa,*fb;
 		figuraConflictiva = this->decidirConflicto(c->GetFixtureA(), c->GetFixtureB());
-		delete figuraConflictiva;
 		this->deleteFigura(figuraConflictiva);
-		c = c->GetNext();
+		this->step();
+		c = this->world->GetContactList();
 	}
 
 
@@ -118,7 +127,7 @@ void Escenario::checkOverlap(){
 
 
 Figura *  Escenario::decidirConflicto(b2Fixture * a, b2Fixture * b){
-	return (Figura*)a->GetBody()->GetUserData();
+	return (Figura*)b->GetUserData();
 }
 
 Escenario::~Escenario(void)
