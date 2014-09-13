@@ -19,9 +19,13 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	int i = 0;
 	if (dinamico){
 		bodyDef.type = b2_dynamicBody;
+		this->type = DYNAMIC_BODY;
+
 	}
-	else
+	else{
 		bodyDef.type = b2_staticBody;
+		this->type = STATIC_BODY;
+	}
 
 	fixtureDef.friction=0.1;
 	bodyDef.position.Set(centro.x,centro.y);

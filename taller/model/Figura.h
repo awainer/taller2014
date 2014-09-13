@@ -15,11 +15,15 @@ public:
 	CoordenadasR2 getPosicion();
 	Color color;
 	void activar();
+	int getType();
+	int id;
+	static int nextId;
 protected:
 	void setDensidad(float masa);
 	b2Body * body;
 	b2World * world;
 	int type;
+	int generateId();
 	
 };
 

@@ -12,6 +12,7 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
 	b2PolygonShape shape;
+	this->generateId();
 	// Los lados siempre son 4
 	//float angulo = 2 * b2_pi / lados;
 	CoordenadasR2 vertice1(0,0), vertice2(0,0), vertice3(0,0), vertice4(0,0);

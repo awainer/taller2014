@@ -1,5 +1,6 @@
 #include "Pelota.h"
 #include <iostream>
+#include "../EventLogger.h"
 
 Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float masa, b2World * world){
 	b2BodyDef bodyDef;
@@ -9,21 +10,37 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 	this->world = world;
 	shape.m_radius = radio;
 	shape.m_p.Set(0,0); // respecto del body
+	this->generateId();
+	
+	std::string msg =	"Agregando pelota con id "  + EventLogger::itos(this->id);
+	 
+	
+//	msg.append(this->id);
+
+	EventLogger::AgregarEvento(msg, DEBUG);
+
 	bodyDef.position.Set(centro.x,centro.y);
 	if (dinamica){
 		bodyDef.type = b2_dynamicBody;
 		fixtureDef.density = 1.2f;
 		fixtureDef.restitution = 0.7;
 		fixtureDef.friction = 0.3;
-	}else
+		this->type = DYNAMIC_BODY;
+	}else{
 		bodyDef.type = b2_staticBody;
+		this->type = STATIC_BODY;
+	}
 
 	fixtureDef.shape = &shape;
 	fixtureDef.isSensor = false;
+	fixtureDef.userData = (void*)this;
 	this->body = this->world->CreateBody(&bodyDef);
 	this->body->CreateFixture(&fixtureDef);
 	this->setDensidad(masa);
 	this->color = color;
+	
+
+	
 }
 
 float Pelota::getRadio(){

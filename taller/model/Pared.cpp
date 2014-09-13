@@ -12,7 +12,7 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 	bodyDef.position.Set(x,y);
 	bodyDef.userData = (void*)this;
 	bodyDef.bullet = true;
-
+	this->generateId();
 	this->type = tipo;
 
 	this->body = world->CreateBody(&bodyDef);
@@ -26,7 +26,7 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 		fixtureDef.friction = 0;
 	}
 	fixtureDef.shape = &edge;
-	fixtureDef.userData = (void*)tipo;
+	fixtureDef.userData = (void*)this;
 	this->body->CreateFixture(&fixtureDef);
 
 }

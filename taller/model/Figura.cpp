@@ -9,6 +9,9 @@ CoordenadasR2 Figura::getPosicion(){
 	return CoordenadasR2(this->body->GetPosition().x, this->body->GetPosition().y);
 }
 
+int Figura::getType(){
+	return this->type;
+}
 std::vector <CoordenadasR2> Figura::getVertices(){
 	std::vector <CoordenadasR2>  result;
 	b2Fixture * fix = this->body->GetFixtureList();
@@ -49,4 +52,11 @@ Figura::~Figura(void)
 	//this->world->DestroyBody(this->body);
 	this->body->GetWorld()->DestroyBody(this->body);
 
+}
+int Figura::nextId = 0;
+int Figura::generateId(){
+	
+	this->nextId++;
+	this->id = this->nextId;
+	return this->id;
 }

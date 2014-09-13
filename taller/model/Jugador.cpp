@@ -3,9 +3,9 @@
 #include <iostream>
 //Constantes del Jugador
 #define ALTO_JUGADOR     1.0
-#define ANCHO_JUGADOR    0.8
+#define ANCHO_JUGADOR    0.5
 #define IMPULSO_CAMINAR  1
-#define	IMPULSO_SALTAR	 50
+#define	IMPULSO_SALTAR	 65
 #define VELOCIDAD_MAXIMA 8
 #define UMBRAL_SALTO 0.1// velocidad vertical maxima para iniciar salto
 #define UMBRAL_ESTATICO 0.5
@@ -17,7 +17,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
 	b2PolygonShape shape,shapeSensor;
-
+	this->generateId();
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x,y);
 	bodyDef.fixedRotation = true;

@@ -5,7 +5,9 @@
 #include "Paralelogramo.h"
 #include "Trapecio.h"
 #include <Box2d/Box2d.h>
+#include "../EventLogger.h"
 #include "CollisionHandler.h"
+#include "constantes.h"
 #include <iostream>
 #include <string>
 Escenario::Escenario(float largo, float alto,CoordenadasR2 gravedad, std::string fondo, b2World * mundo)
@@ -110,24 +112,59 @@ void Escenario::deleteFigura(Figura * f){
 
 void Escenario::checkOverlap(){
 	// Un step es necesario para que el contact list no sea NULL
-
 	this->step();
 	b2Contact * c = this->world->GetContactList();
 	Figura * figuraConflictiva;
 	while(c){
-		//b2Fixture *fa,*fb;
-		figuraConflictiva = this->decidirConflicto(c->GetFixtureA(), c->GetFixtureB());
-		this->deleteFigura(figuraConflictiva);
-		this->step();
-		c = this->world->GetContactList();
+		if(c->IsTouching()){
+			//b2Fixture *fa,*fb;
+			figuraConflictiva = this->decidirConflicto(c->GetFixtureA(), c->GetFixtureB());
+			EventLogger::AgregarEvento("Borrando cuerpo superpuesto de id " + EventLogger::itos(figuraConflictiva->id));
+
+			this->deleteFigura(figuraConflictiva);
+			this->step();
+			c = this->world->GetContactList();
+		}
 	}
 
 
 }
 
+Figura * aux_decidir(Figura * figA, Figura * figB){
+		int typeA = figA->getType();
+	int typeB = figB->getType();
+	//enum  BODY_TYPE { STATIC_BODY, DYNAMIC_BODY, CHARACTER, PLATFORM, FLOOR, ROOF, RIGHT_WALL, LEFT_WALL, FOOT_SENSOR};
+	if ( typeA == DYNAMIC_BODY){
+		if (typeB == DYNAMIC_BODY)
+			return figB;
+		else
+			return figA;
+	}
+	if (typeA == STATIC_BODY){
+		if (typeB == DYNAMIC_BODY)
+			return figB;
+		else
+			return figA;
+	}
+	if (typeA == CHARACTER)
+		return figB;
+	return NULL;
+}
 
 Figura *  Escenario::decidirConflicto(b2Fixture * a, b2Fixture * b){
-	return (Figura*)b->GetUserData();
+	Figura * figA = (Figura*)(a->GetUserData());
+	Figura * figB = (Figura*)(b->GetUserData());
+	Figura * result;
+	result = aux_decidir(figA,figB);
+	if (result)
+		return result;
+	else{
+		result = aux_decidir(figB,figA);
+		if (result)
+			return result;
+		else
+			return figA; // un default, si no pudimos identificar el caso
+	}
 }
 
 Escenario::~Escenario(void)
