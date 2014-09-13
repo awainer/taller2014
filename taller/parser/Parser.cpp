@@ -2197,20 +2197,21 @@ void Parser::CargarDefault()
 	//UNA OPCION 
 	//SE DEBERIAN LLENAR BIEN LAS CONSTANTES DEFAULT DESPUES y usar algunas de esas aca
 	//CREAR MAS ESCENARIOS DEFAULT
-
-		 miEscenario.altopx=700;
-        miEscenario.anchopx=500;
-        miEscenario.altoun=7;
-        miEscenario.anchoun=5;
-        miEscenario.imagen_fondo="fondo1.png";
+		miEscenario.anchopx=600;
+		miEscenario.altopx=600;
+        
+        miEscenario.altoun=10;
+        miEscenario.anchoun=10;
+        miEscenario.imagen_fondo="imagenes/default.jpg";
         miEscenario.personajeX=1;
         miEscenario.personajeY=1;
 
 
 		// UN POLI
+		
 		poli objetoActualPoli;
 		objetoActualPoli.lados = 5;
-		objetoActualPoli.escala =0.4;
+		objetoActualPoli.escala =1;
 		objetoActualPoli.color.r = 0;
 		objetoActualPoli.color.g = 250;
 		objetoActualPoli.color.b = 250;
@@ -2218,8 +2219,8 @@ void Parser::CargarDefault()
 		objetoActualPoli.masa=1;
 		objetoActualPoli.rot=90;
 		objetoActualPoli.tipo="poli";
-		objetoActualPoli.x=1;
-		objetoActualPoli.y=1;
+		objetoActualPoli.x=5;
+		objetoActualPoli.y=6;
 		
 		miEscenario.poligonos.push_back(objetoActualPoli);
 		
@@ -2228,8 +2229,8 @@ void Parser::CargarDefault()
 		 
 			circ unCirculo;
 			unCirculo.x = 2;
-			unCirculo.y = 3;
-			unCirculo.radio = 1;
+			unCirculo.y = 8;
+			unCirculo.radio = 0.5;
 			unCirculo.color.r = 200;
 			unCirculo.color.g = 232;
 			unCirculo.color.b = 100;
@@ -2237,21 +2238,56 @@ void Parser::CargarDefault()
 			unCirculo.masa = 1;
 
 			miEscenario.circulos.push_back(unCirculo);
-
+		
 		// UN RECT
-			rect objetoActualRect;
-		objetoActualRect.alto=1;
-		objetoActualRect.ancho=2;
+		rect objetoActualRect;
+		objetoActualRect.alto=0.5;
+		objetoActualRect.ancho=3;
 		objetoActualRect.color.r=134;
 		objetoActualRect.color.g=134;
 		objetoActualRect.color.b=255;
-		objetoActualRect.estatico=false;
+		objetoActualRect.estatico=true;
 		objetoActualRect.masa=3;
-		objetoActualRect.rot=45;		
-		objetoActualRect.x=3;
-		objetoActualRect.y=5.31;
+		objetoActualRect.rot=0;		
+		objetoActualRect.x=5;
+		objetoActualRect.y=1.45;
 		miEscenario.rectangulos.push_back(objetoActualRect);
 
+		objetoActualRect.alto=0.5;
+		objetoActualRect.ancho=3;
+		objetoActualRect.color.r=134;
+		objetoActualRect.color.g=134;
+		objetoActualRect.color.b=255;
+		objetoActualRect.estatico=true;
+		objetoActualRect.masa=3;
+		objetoActualRect.rot=0;		
+		objetoActualRect.x=1.5;
+		objetoActualRect.y=3;
+		miEscenario.rectangulos.push_back(objetoActualRect);
+
+		objetoActualRect.alto=0.5;
+		objetoActualRect.ancho=3;
+		objetoActualRect.color.r=134;
+		objetoActualRect.color.g=134;
+		objetoActualRect.color.b=255;
+		objetoActualRect.estatico=true;
+		objetoActualRect.masa=3;
+		objetoActualRect.rot=0;		
+		objetoActualRect.x=8.5;
+		objetoActualRect.y=3;
+		miEscenario.rectangulos.push_back(objetoActualRect);
+
+		objetoActualRect.alto=0.5;
+		objetoActualRect.ancho=3;
+		objetoActualRect.color.r=134;
+		objetoActualRect.color.g=134;
+		objetoActualRect.color.b=255;
+		objetoActualRect.estatico=true;
+		objetoActualRect.masa=3;
+		objetoActualRect.rot=135;		
+		objetoActualRect.x=2;
+		objetoActualRect.y=6;
+		miEscenario.rectangulos.push_back(objetoActualRect);
 
 }
 

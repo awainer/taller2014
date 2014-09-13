@@ -22,10 +22,10 @@ void VistaJugador::render(){
 	this->cargarSprites(m_jugador->getDireccion(), x, y, w, h); // se podrian cargar todas antes, teniendo un SDL_rect para cada posicion
 	if ((this->m_jugador->getDireccion() == IZQUIERDA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
 		m_dirAnterior = IZQUIERDA;
-		std::cout << " ultimo izquierda" << std::endl;
+		//std::cout << " ultimo izquierda" << std::endl;
 	}else if ((this->m_jugador->getDireccion() == DERECHA) || (this->m_jugador->getDireccion() == ARRIBA_DERECHA) ){
 		m_dirAnterior = DERECHA;
-		std::cout << " ultimo derecha" << std::endl;
+		//std::cout << " ultimo derecha" << std::endl;
 	}
 
 }
@@ -144,7 +144,7 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 	case ESTATICO : 
 		if (m_dirAnterior == IZQUIERDA) {
 			dibujar(16, x,  y,  w, h);
-			std::cout << "estatico" << std::endl;
+			//std::cout << "estatico" << std::endl;
 			paso=0;
 		} else {
 			dibujar(17, x,  y,  w, h);

@@ -30,10 +30,10 @@ int main(int argc, char ** argv){
 		path = argv[1];
 	}
 	
-	prueba_vistaEscenario();
+	//prueba_vistaEscenario();
 	//caca();
 	//caca2();
-	//pruebaParser(path);
+	pruebaParser(path);
 	//pruebaReiniciar();
 	//prueba_paralelogramo();
 	//prueba_trapecio();

@@ -317,6 +317,7 @@
     <Library Include="lib\SDL2_image.lib" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="imagenes\default.jpg" />
     <None Include="imagenes\fondo.png" />
     <None Include="imagenes\homero.png" />
     <None Include="imagenes\sprite.PNG" />
