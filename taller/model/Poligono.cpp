@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <vector>
+#include "../EventLogger.h"
 
 Poligono::Poligono(){
 }
@@ -47,6 +48,10 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	this->setDensidad(masa);
 	this->color = color;
 	this->body->SetUserData((void*)this);
+	this->generateId();
+	std::string msg =	"Agregando poligono con id "  + EventLogger::itos(this->id);
+	EventLogger::AgregarEvento(msg, DEBUG);
+
 }
 
 unsigned int Poligono::getVertexCount(){

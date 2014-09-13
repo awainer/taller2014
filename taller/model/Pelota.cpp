@@ -10,13 +10,9 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 	this->world = world;
 	shape.m_radius = radio;
 	shape.m_p.Set(0,0); // respecto del body
-	this->generateId();
-	
-	std::string msg =	"Agregando pelota con id "  + EventLogger::itos(this->id);
-	 
-	
-//	msg.append(this->id);
 
+	this->generateId();
+	std::string msg =	"Agregando pelota con id "  + EventLogger::itos(this->id);
 	EventLogger::AgregarEvento(msg, DEBUG);
 
 	bodyDef.position.Set(centro.x,centro.y);

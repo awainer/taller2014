@@ -1,4 +1,5 @@
 #include "Paralelogramo.h"
+#include "../EventLogger.h"
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
@@ -86,11 +87,11 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 
 
 	// Sacar
-	std::cout << "vertice1.x: " << vertice1.x + centro.x<< std::endl;
+	/*std::cout << "vertice1.x: " << vertice1.x + centro.x<< std::endl;
 	std::cout << "vertice2.x: " << vertice2.x + centro.x<< std::endl;
 	std::cout << "vertice3.x: " << vertice3.x + centro.x<< std::endl;
 	std::cout << "vertice4.x: " << vertice4.x + centro.x<< std::endl;
-
+	*/
 	// Paso los vertices en sentido anti-horario
 	vertices[0].Set(vertice4.x,vertice4.y);
 	vertices[1].Set(vertice3.x,vertice3.y);
@@ -104,6 +105,10 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	this->body->CreateFixture(&fixtureDef); 
 	this->setDensidad(masa);
 	this->color = color;
+	this->generateId();
+	std::string msg =	"Agregando pelota con id "  + EventLogger::itos(this->id);
+	EventLogger::AgregarEvento(msg, DEBUG);
+
 }
 
 /*

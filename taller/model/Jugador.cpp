@@ -1,5 +1,6 @@
 #include "Jugador.h"
 #include "constantes.h"
+#include "../EventLogger.h"
 #include <iostream>
 //Constantes del Jugador
 #define ALTO_JUGADOR     1.0
@@ -17,7 +18,6 @@ Jugador::Jugador(float x, float y,b2World * world)
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
 	b2PolygonShape shape,shapeSensor;
-	this->generateId();
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x,y);
 	bodyDef.fixedRotation = true;
@@ -46,6 +46,10 @@ Jugador::Jugador(float x, float y,b2World * world)
 	this->type = CHARACTER;
 	
 	this->puedeMover = 0;
+	this->generateId();
+	std::string msg =	"Agregando jugador con id "  + EventLogger::itos(this->id);
+	EventLogger::AgregarEvento(msg, DEBUG);
+
 }
 
 void Jugador::moverLateral(int lado){
@@ -114,6 +118,7 @@ int Jugador::getDireccion(){
 		return ARRIBA_DERECHA;
 	else
 		return ARRIBA_IZQUIERDA;
+
 }
 Jugador::~Jugador(void)
 {

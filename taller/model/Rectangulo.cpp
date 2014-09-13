@@ -1,4 +1,5 @@
 #include "Rectangulo.h"
+#include "../EventLogger.h"
 #include  <Box2d/Box2d.h>
 
 // x e y se refieren a la posicion del centro de masa
@@ -27,5 +28,9 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	this->setDensidad(masa);
 	this->color = color;
 	this->body->SetUserData((void*)this);
+	this->generateId();
+	std::string msg =	"Agregando rectangulo con id "  + EventLogger::itos(this->id);
+	EventLogger::AgregarEvento(msg, DEBUG);
+
 }
 

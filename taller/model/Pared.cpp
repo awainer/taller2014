@@ -1,5 +1,6 @@
 #include "Pared.h"
 #include "constantes.h"
+#include "../EventLogger.h"
 #include <iostream>
 Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 {
@@ -12,7 +13,6 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 	bodyDef.position.Set(x,y);
 	bodyDef.userData = (void*)this;
 	bodyDef.bullet = true;
-	this->generateId();
 	this->type = tipo;
 
 	this->body = world->CreateBody(&bodyDef);
@@ -28,7 +28,9 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 	fixtureDef.shape = &edge;
 	fixtureDef.userData = (void*)this;
 	this->body->CreateFixture(&fixtureDef);
-
+	this->generateId();
+	std::string msg =	"Agregando pared con id "  + EventLogger::itos(this->id);
+	EventLogger::AgregarEvento(msg, DEBUG);
 }
 
 Pared::~Pared(){
