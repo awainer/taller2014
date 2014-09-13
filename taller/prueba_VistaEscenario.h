@@ -39,17 +39,18 @@ int  prueba_vistaEscenario(){
 
 	//creo vista del escenario
 	VistaEscenario escenario_vista = VistaEscenario(esc,&datos);
-	//escenario_vista.agregarJugador(esc->getJugadores()[0]);
-	//Jugador* jugador = esc->getJugadores()[0];
-	escenario_vista.agregarFondo("imagenes/homero.png");
-	//ControladorJugador control_jugador = ControladorJugador(jugador);
+	Jugador* jugador = *(esc->getJugadores().begin());
+	escenario_vista.agregarJugador(jugador);
 	
+	escenario_vista.agregarFondo("imagenes/homero.png");
+	ControladorJugador control_jugador = ControladorJugador(jugador);
+
 	while( juegoEnMarcha ){
 					
 		//Dibujo figuras
 		escenario_vista.mostrar();
 		
-		//control_jugador.actualizar();
+		control_jugador.actualizar();
 		SDL_PollEvent( &evento);
 		esc->step();
 		SDL_Delay(20);
