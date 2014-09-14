@@ -11,12 +11,12 @@
 #undef main
 //#include <vld.h>
 int main(int argc, char ** argv){
-	pruebaSuper();
+	//pruebaSuper();
 	//pruebaSuperposicion();
 	//prueba_vistaEscenario();
 	//caca();
 	//caca2();
-	//pruebaParser();
+	pruebaParser("");
 	/*
 	char pathChar[2000];
 	string path;

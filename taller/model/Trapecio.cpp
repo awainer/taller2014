@@ -36,6 +36,7 @@ Trapecio::Trapecio(CoordenadasR2 centro,float longpiso, float longtecho, float a
 
 	bodyDef.position.Set(centro.x,centro.y);
 	bodyDef.angle=angulorot * b2_pi /180;
+	bodyDef.userData = (void*)this;
 	b2Vec2 vertices[8]; 
 
 	vertice1.y = -altura / 2;

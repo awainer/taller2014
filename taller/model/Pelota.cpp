@@ -23,14 +23,14 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 		fixtureDef.friction = 0.3;
 		this->type = DYNAMIC_BODY;
 	}else{
-		//bodyDef.type = b2_staticBody;
-		bodyDef.type = b2_kinematicBody;
+		bodyDef.type = b2_staticBody;
 		this->type = STATIC_BODY;
 	}
 
+	bodyDef.userData = (void*)this;
 	fixtureDef.shape = &shape;
 	fixtureDef.isSensor = false;
-	fixtureDef.userData = (void*)this;
+	//fixtureDef.userData = (void*)this;
 	this->body = this->world->CreateBody(&bodyDef);
 	this->body->CreateFixture(&fixtureDef);
 	this->setDensidad(masa);

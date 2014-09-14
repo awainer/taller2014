@@ -6,49 +6,39 @@ CollisionHandler::CollisionHandler(void){}
 CollisionHandler::~CollisionHandler(void){}
 
 void CollisionHandler::BeginContact(b2Contact* contact){
-	b2Fixture * A = contact->GetFixtureA();
-	b2Fixture * B = contact->GetFixtureB();
 	//std::cout << "colision entre "  << std::endl << A->GetBody()->GetPosition().x <<  A->GetBody()->GetPosition().y << std::endl;
 	//std::cout <<  B->GetBody()->GetPosition().x <<  B->GetBody()->GetPosition().y << std::endl;
 	 if (!contact->IsTouching())
 		return;
+	Figura * figA  = (Figura*)(contact->GetFixtureA()->GetBody()->GetUserData());
+	Figura * figB  = (Figura*)(contact->GetFixtureB()->GetBody()->GetUserData());
+	int typeA = int(contact->GetFixtureA()->GetUserData());
+	int typeB = int(contact->GetFixtureB()->GetUserData());
 
-	 // No me interesan las paredes
-	if ((int)A->GetUserData() == LEFT_WALL ||
-		(int)A->GetUserData() == RIGHT_WALL||
-		(int)B->GetUserData() == LEFT_WALL ||
-		(int)B->GetUserData() == RIGHT_WALL)
-			return;
-
-
-	if ((int)A->GetUserData() == FOOT_SENSOR){
-		((Jugador*) A->GetBody()->GetUserData())->sumarContacto();
-		//std::cout << "begin contact A" << std::endl;
+	 // No me interesa otra cosa que el FOOT_SENSOR por el momento
+	if ( typeA != FOOT_SENSOR && typeB != FOOT_SENSOR)
+		return;
+	if (typeA == FOOT_SENSOR){
+		((Jugador*) figA)->sumarContacto();
 	}
-	else if((int)B->GetUserData() == FOOT_SENSOR){
-		((Jugador*) B->GetBody()->GetUserData())->sumarContacto();
-		//std::cout << "begin contact B" << std::endl;
+	else if(typeB == FOOT_SENSOR){
+		((Jugador*) figB)->sumarContacto();
 	}
 
 }
 
 void CollisionHandler::EndContact(b2Contact* contact){
-	b2Fixture * A = contact->GetFixtureA();
-	b2Fixture * B = contact->GetFixtureB();
+	Figura * figA  = (Figura*)(contact->GetFixtureA()->GetBody()->GetUserData());
+	Figura * figB  = (Figura*)(contact->GetFixtureB()->GetBody()->GetUserData());
+	int typeA = int(contact->GetFixtureA()->GetUserData());
+	int typeB = int(contact->GetFixtureB()->GetUserData());
 
-	// No me interesan las paredes
-	if ((int)A->GetUserData() == LEFT_WALL ||
-		(int)A->GetUserData() == RIGHT_WALL||
-		(int)B->GetUserData() == LEFT_WALL ||
-		(int)B->GetUserData() == RIGHT_WALL)
-			return;
-
-	if ((int)A->GetUserData() == FOOT_SENSOR && !contact->IsTouching()){
-		((Jugador*) A->GetBody()->GetUserData())->restarContacto();
-		//std::cout << "end contact A" << std::endl;
+	if ( typeA != FOOT_SENSOR && typeB != FOOT_SENSOR)
+		return;
+	if (typeA == FOOT_SENSOR){
+		((Jugador*) figA)->restarContacto();
 	}
-	else if((int)B->GetUserData() == FOOT_SENSOR && !contact->IsTouching()){
-		((Jugador*) B->GetBody()->GetUserData())->restarContacto();
-		//std::cout << "end contact B" << std::endl;
+	else if(typeB == FOOT_SENSOR){
+		((Jugador*) figB)->restarContacto();
 	}
 }
