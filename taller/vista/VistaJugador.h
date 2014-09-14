@@ -15,6 +15,7 @@ public:
 	VistaJugador(SDL_Renderer* renderer ,Jugador* jugador,DatosPantalla* datos);
 	void render();
 	void agregarSprite(std::string path);
+	bool spriteOk();
 	~VistaJugador(void);
 private:
 	

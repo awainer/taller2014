@@ -6,6 +6,7 @@ VistaJugador::VistaJugador(SDL_Renderer* renderer,Jugador* jugador,DatosPantalla
 	this->m_jugador= jugador;
 	this->m_renderer = renderer;
 	this->m_datos = datos;
+	this->m_sprite = NULL;
 	this->agregarSprite("imagenes/sprite.png");
 	paso=0;
 	delay=0;
@@ -281,4 +282,12 @@ void VistaJugador::agregarSprite(std::string path){
 	}
 
 
+}
+
+bool VistaJugador::spriteOk(){
+	if(m_sprite == NULL){
+		return false;
+	}else{
+		return true;
+	}
 }

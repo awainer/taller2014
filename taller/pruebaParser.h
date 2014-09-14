@@ -25,43 +25,29 @@ int pruebaParser(string path){
 	Parser parser = Parser(path);
 	parser.Inicializar();
 	Escenario * esc = parser.CrearObjetos();
-
-	//DatosPantalla datos = DatosPantalla(700,500,7.0f,5.0f);
 	DatosPantalla datos = parser.CargarDatosPantalla();
 
 	bool juegoEnMarcha = true;
-	VistaEscenario escenario_vista = VistaEscenario(esc,&datos);
+	VistaEscenario* escenario_vista = new  VistaEscenario(esc,&datos);
 	Jugador* jugador = *(esc->getJugadores().begin());
-	escenario_vista.agregarJugador(jugador);
-	ControladorJugador control_jugador = ControladorJugador(jugador);
-	int timerFps;
+	
+	if ( escenario_vista->agregarJugador(jugador) == true){
+	
+		ControladorJugador* control_jugador = new ControladorJugador(jugador);
+		FPSmanager fps;
+		SDL_initFramerate(&fps);
+		SDL_setFramerate(&fps,60);
 
-	/*while( juegoEnMarcha ){
-	timerFps = SDL_GetTicks(); // SDL_GetTicks() gives the number of milliseconds since the program start.
-	// I initialize the timer.		
-
-	control_jugador.actualizar();
-	esc->step();
-	timerFps = SDL_GetTicks() - timerFps; //I get the time it took to update and draw;
-
-	if(timerFps < 1000/60.0f) // if timerFps is < 16.6666...7 ms (meaning it loaded the frame too fast)
-	{
-	SDL_Delay((1000/60.0f) - timerFps); //delay the frame to be in time
-	} 
-	escenario_vista.mostrar();
-	}*/
-	FPSmanager fps;
-	SDL_initFramerate(&fps);
-	SDL_setFramerate(&fps,60);
-	while( juegoEnMarcha ){
+		while( juegoEnMarcha ){
 
 
-		control_jugador.actualizar();
-		esc->step();
-		SDL_framerateDelay(&fps);
-		escenario_vista.mostrar();
-		SDL_PollEvent( &evento);
-		switch(evento.type){
+			control_jugador->actualizar();
+			esc->step();
+			SDL_framerateDelay(&fps);
+			escenario_vista->mostrar();
+
+			SDL_PollEvent( &evento);
+			switch(evento.type){
 			case SDL_QUIT:
 				juegoEnMarcha= false;
 				break;
@@ -72,14 +58,25 @@ int pruebaParser(string path){
 				//se ejecuta instruccion cuando la tecla deja de ser presionada
 				sc = evento.key.keysym.scancode;
 				if( sc == SDL_SCANCODE_R){
+					delete control_jugador;
+					delete escenario_vista;
 					delete esc;
+
 					esc= iniciar();
-					escenario_vista = VistaEscenario(esc,&datos);
+					escenario_vista = new VistaEscenario(esc,&datos);
+					Jugador* jugador = *(esc->getJugadores().begin());
+					escenario_vista->agregarJugador(jugador);
+					control_jugador = new ControladorJugador(jugador);
 				}
 				break;
+			}
+
 		}
 
+		delete control_jugador;
 	}
+	delete escenario_vista;
 	delete esc;
+
 	return 0;
 }
