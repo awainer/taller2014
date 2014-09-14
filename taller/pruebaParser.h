@@ -60,23 +60,23 @@ int pruebaParser(string path){
 		esc->step();
 		SDL_framerateDelay(&fps);
 		escenario_vista.mostrar();
+		SDL_PollEvent( &evento);
 		switch(evento.type){
-		case SDL_QUIT:
-			juegoEnMarcha= false;
-			break;
-		case SDL_KEYDOWN:
-			sc = evento.key.keysym.scancode;
-			break;
-		case SDL_KEYUP:
-			//se ejecuta instruccion cuando la tecla deja de ser presionada
-			sc = evento.key.keysym.scancode;
-			if( sc == SDL_SCANCODE_R){
-				delete esc;
-				esc= iniciar();
-				escenario_vista = VistaEscenario(esc,&datos);
-			}
-			break;
-
+			case SDL_QUIT:
+				juegoEnMarcha= false;
+				break;
+			case SDL_KEYDOWN:
+				sc = evento.key.keysym.scancode;
+				break;
+			case SDL_KEYUP:
+				//se ejecuta instruccion cuando la tecla deja de ser presionada
+				sc = evento.key.keysym.scancode;
+				if( sc == SDL_SCANCODE_R){
+					delete esc;
+					esc= iniciar();
+					escenario_vista = VistaEscenario(esc,&datos);
+				}
+				break;
 		}
 
 	}

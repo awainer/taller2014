@@ -53,10 +53,9 @@ int pruebaReiniciar(){
 			//se ejecuta instruccion cuando la tecla deja de ser presionada
 			sc = evento.key.keysym.scancode;
 			if( sc == SDL_SCANCODE_R){
-				
 				delete escenario_vista;
 				delete esc;
-				esc= iniciar();
+				esc = iniciar();
 				escenario_vista = new VistaEscenario(esc,&datos);
 			}
 			break;
