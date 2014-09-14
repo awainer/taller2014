@@ -109,7 +109,7 @@ struct StEscenario {
 typedef char 	Char; 
 typedef const Char * 	Location;
 
-#define IMAGEN_DEFAULT "default.png"
+#define IMAGEN_DEFAULT "imagenes/default.jpg"
 
 #define ALTO_PX_DEFAULT 100
 #define ANCHO_PX_DEFAULT 100

@@ -76,6 +76,8 @@ void Parser::Inicializar()
 
     if (parseadoOK && !errorpath)  
     { 
+		//agrego try a la lectura
+		try{
         // Valores por defecto_?
         /*
         miEscenario.altopx = 0;
@@ -273,7 +275,15 @@ void Parser::Inicializar()
                 if (!Funciones::esUnaImagenValida(miEscenario.imagen_fondo)){
                     EventLogger::AgregarEvento("ERROR: imagen_fondo del escenario NO existe o tiene una extension invalida");
                     //Cargar imagen fondo por defecto
-                    miEscenario.imagen_fondo = IMAGEN_DEFAULT;
+
+					 if (Funciones::esUnaImagenValida(IMAGEN_DEFAULT)){ 
+						 miEscenario.imagen_fondo=IMAGEN_DEFAULT;
+					 } else {
+					 EventLogger::AgregarEvento("ERROR: imagen_fondo del escenario DEFAULT NO existe o tiene una extension invalida");
+					 }
+						 
+
+                    
                 }
 
 
@@ -425,7 +435,8 @@ void Parser::Inicializar()
                             poli poli;
                             poli.tipo = tipo;
                             bool pxpEsDefault = false;
-
+							bool errorPoli = false;
+							
                             /*************************************************************************************************/ 
                             //VALIDACIONES: poli-x
                             //SI EXISTE
@@ -439,31 +450,34 @@ void Parser::Inicializar()
                                         if(!pxpEsDefault)
                                             poli.x = root["escenario"]["objetos"][i]["x"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: x del poligono DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: x del poligono DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     poli.x = POLIGONO_X_DEFAULT;
                                     poli.y = POLIGONO_Y_DEFAULT;
                                     pxpEsDefault = true;
+									errorPoli = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: x del poligono DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: x del poligono DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     poli.x = POLIGONO_X_DEFAULT;
                                     poli.y = POLIGONO_Y_DEFAULT;
                                     pxpEsDefault = true;
+									errorPoli = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: x del poligono NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: x del poligono NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 poli.x = POLIGONO_X_DEFAULT;
                                 poli.y = POLIGONO_Y_DEFAULT;
                                 pxpEsDefault = true;
+								errorPoli = true;
                             }
                             /*************************************************************************************************/ 
 
@@ -479,31 +493,34 @@ void Parser::Inicializar()
                                         if(!pxpEsDefault)
                                             poli.y = root["escenario"]["objetos"][i]["y"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: y del poligono DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: y del poligono DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     poli.x = POLIGONO_X_DEFAULT;
                                     poli.y = POLIGONO_Y_DEFAULT;
                                     pxpEsDefault = true;
+									errorPoli = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: y del poligono DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: y del poligono DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     poli.x = POLIGONO_X_DEFAULT;
                                     poli.y = POLIGONO_Y_DEFAULT;
                                     pxpEsDefault = true;
+									errorPoli = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: y del poligono NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: y del poligono NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 poli.x = POLIGONO_X_DEFAULT;
                                 poli.y = POLIGONO_Y_DEFAULT;
                                 pxpEsDefault = true;
+								errorPoli = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -519,26 +536,29 @@ void Parser::Inicializar()
                                     if(root["escenario"]["objetos"][i]["escala"].asFloat()>=0){
                                         poli.escala = root["escenario"]["objetos"][i]["escala"].asFloat();  
                                     }else {
-                                        EventLogger::AgregarEvento("ERROR: escala del poligono DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: escala del poligono DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     poli.escala = POLIGONO_ESCALA_DEFAULT;
+									errorPoli = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: escala del poligono DEBE ser un float, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: escala del poligono DEBE ser un float, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     poli.escala = POLIGONO_ESCALA_DEFAULT;
+									errorPoli = true;
 
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: escala del poligono NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: escala del poligono NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 poli.escala = POLIGONO_ESCALA_DEFAULT;
+								errorPoli = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -556,10 +576,11 @@ void Parser::Inicializar()
 
                                     else {
 
-                                        EventLogger::AgregarEvento("ERROR: lados del poligono DEBE ser entero entre 3 y 6, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: lados del poligono DEBE ser entero entre 3 y 6, se omitira el elemento");
 
                                         //TODO:Cargar valores por defecto..
                                         poli.lados = POLIGONO_LADOS_DEFAULT;
+										errorPoli = true;
 
 
                                     }
@@ -567,19 +588,21 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lados del poligono DEBE ser un entero, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: lados del poligono DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     poli.lados = POLIGONO_LADOS_DEFAULT;
+									errorPoli = true;
 
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lados del poligono NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: lados del poligono NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 poli.lados = POLIGONO_LADOS_DEFAULT;
+								errorPoli = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -655,10 +678,11 @@ void Parser::Inicializar()
 
 								} else {
 
-                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se omitira el elemento");
 
                                         //TODO:Cargar valores por defecto..
                                         poli.rot= POLIGONO_ROT_DEFAULT;
+										errorPoli = true;
 
 
                                     }
@@ -667,18 +691,19 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser un entero, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     poli.rot = POLIGONO_ROT_DEFAULT;
-
+									errorPoli = true;
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: rot del poligono NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: rot del poligono NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 poli.rot = POLIGONO_ROT_DEFAULT;
+								errorPoli = true;
 
 
                             }
@@ -697,25 +722,28 @@ void Parser::Inicializar()
 
                                         poli.masa = root["escenario"]["objetos"][i]["masa"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: masa del poligono DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: masa del poligono DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     poli.masa = POLIGONO_MASA_DEFAULT;
+									errorPoli = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: masa del poligono DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: masa del poligono DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     poli.masa = POLIGONO_MASA_DEFAULT;
+									errorPoli = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: masa del poligono NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: masa del poligono NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 poli.masa = POLIGONO_MASA_DEFAULT;
+								errorPoli = true;
 
 
                             }
@@ -734,25 +762,27 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: estatico del poligono DEBE ser un booleano, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: estatico del poligono DEBE ser un booleano, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     poli.estatico = POLIGONO_ESTATICO_DEFAULT;
+									errorPoli = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: estatico del poligono NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: estatico del poligono NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 poli.estatico = POLIGONO_ESTATICO_DEFAULT;
+								errorPoli = true;
 
 
                             }
                             /*************************************************************************************************/ 						
-
+							if (!errorPoli){
                             miEscenario.poligonos.push_back(poli);
-
+							}
                             /*
                             //COUTS POLIGONOS
                             cout << endl << "Objeto Nro: " << i << endl;
@@ -777,7 +807,8 @@ void Parser::Inicializar()
                             rect.tipo = tipo;
                             bool pxrEsDefault = false;
                             bool psrEsDefault = false;
-
+							bool errorRect = false;
+							
                             /*************************************************************************************************/ 
                             //VALIDACIONES: rect-x
                             //SI EXISTE
@@ -791,32 +822,35 @@ void Parser::Inicializar()
                                         if(!pxrEsDefault)
                                             rect.x = root["escenario"]["objetos"][i]["x"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: x del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: x del rectangulo DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     rect.x = RECTANGULO_X_DEFAULT;
                                     rect.y = RECTANGULO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorRect = true;
 
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: x del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: x del rectangulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     rect.x = RECTANGULO_X_DEFAULT;
                                     rect.y = RECTANGULO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorRect = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: x del rectangulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: x del rectangulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 rect.x = RECTANGULO_X_DEFAULT;
                                 rect.y = RECTANGULO_Y_DEFAULT;
                                 pxrEsDefault = true;
+								errorRect = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -834,33 +868,35 @@ void Parser::Inicializar()
                                         if(!pxrEsDefault)
                                             rect.y = root["escenario"]["objetos"][i]["y"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: y del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: y del rectangulo DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     rect.x = RECTANGULO_X_DEFAULT;
                                     rect.y = RECTANGULO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorRect = true;
 
                                     }
 
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: y del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: y del rectangulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     rect.x = RECTANGULO_X_DEFAULT;
                                     rect.y = RECTANGULO_Y_DEFAULT;
                                     pxrEsDefault = true;
-
+									errorRect = true;
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: y del rectangulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: y del rectangulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 rect.x = RECTANGULO_X_DEFAULT;
                                 rect.y = RECTANGULO_Y_DEFAULT;
                                 pxrEsDefault = true;
+								errorRect = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -878,33 +914,36 @@ void Parser::Inicializar()
                                         if(!psrEsDefault)
                                             rect.ancho = root["escenario"]["objetos"][i]["ancho"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: ancho del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: ancho del rectangulo DEBE ser un real positivo, se omitira el elemento");
 										 
                                    //TODO:Cargar valores por defecto..
                                     rect.ancho = RECTANGULO_ANCHO_DEFAULT;
                                     rect.alto = RECTANGULO_ALTO_DEFAULT;
                                     psrEsDefault = true;
+									errorRect = true;
 
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: ancho del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: ancho del rectangulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     rect.ancho = RECTANGULO_ANCHO_DEFAULT;
                                     rect.alto = RECTANGULO_ALTO_DEFAULT;
                                     psrEsDefault = true;
+									errorRect = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: ancho del rectangulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: ancho del rectangulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 rect.ancho = RECTANGULO_ANCHO_DEFAULT;
                                 rect.alto = RECTANGULO_ALTO_DEFAULT;
                                 psrEsDefault = true;
+								errorRect = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -921,31 +960,34 @@ void Parser::Inicializar()
                                         if(!psrEsDefault)
                                             rect.alto = root["escenario"]["objetos"][i]["alto"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: alto del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: alto del rectangulo DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     rect.ancho = RECTANGULO_ANCHO_DEFAULT;
                                     rect.alto = RECTANGULO_ALTO_DEFAULT;
                                     psrEsDefault = true;
+									errorRect = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: alto del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: alto del rectangulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     rect.ancho = RECTANGULO_ANCHO_DEFAULT;
                                     rect.alto = RECTANGULO_ALTO_DEFAULT;
                                     psrEsDefault = true;
+									errorRect = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: alto del rectangulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: alto del rectangulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 rect.ancho = RECTANGULO_ANCHO_DEFAULT;
                                 rect.alto = RECTANGULO_ALTO_DEFAULT;
                                 psrEsDefault = true;
+								errorRect = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1016,10 +1058,11 @@ void Parser::Inicializar()
 
 								} else {
 
-                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se omitira el elemento");
 
                                         //TODO:Cargar valores por defecto..
                                         rect.rot = RECTANGULO_ROT_DEFAULT;  
+										errorRect = true;
 
 
                                     }
@@ -1027,18 +1070,20 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: rot del rectangulo DEBE ser un entero, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: rot del rectangulo DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     rect.rot = RECTANGULO_ROT_DEFAULT;
+									errorRect = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: rot del rectangulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: rot del rectangulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 rect.rot = RECTANGULO_ROT_DEFAULT;
+								errorRect = true;
 
 
                             }
@@ -1057,26 +1102,27 @@ void Parser::Inicializar()
 
                                         rect.masa = root["escenario"]["objetos"][i]["masa"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: masa del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: masa del rectangulo DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     rect.masa = RECTANGULO_MASA_DEFAULT;
+									errorRect = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: masa del rectangulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: masa del rectangulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     rect.masa = RECTANGULO_MASA_DEFAULT;
-
+									errorRect = true;
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: masa del rectangulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: masa del rectangulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 rect.masa = RECTANGULO_MASA_DEFAULT;
-
+								errorRect = true;
 
                             }
                             /*************************************************************************************************/
@@ -1094,25 +1140,25 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: estatico del rectangulo DEBE ser un booleano, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: estatico del rectangulo DEBE ser un booleano, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     rect.estatico = RECTANGULO_ESTATICO_DEFAULT;
-
+									errorRect = true;
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: estatico del rectangulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: estatico del rectangulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 rect.estatico = RECTANGULO_ESTATICO_DEFAULT;
-
+								errorRect = true;
 
                             }
                             /*************************************************************************************************/ 						
-
+							if(!errorRect){
                             miEscenario.rectangulos.push_back(rect);
-
+							}
 
 
 
@@ -1121,6 +1167,7 @@ void Parser::Inicializar()
                             circ circulo;
                             circulo.tipo = tipo;
                             bool cxEsDefault = false;
+							bool errorCirc = false;
 
                             /*************************************************************************************************/ 
                             //VALIDACIONES: circulo-x
@@ -1136,33 +1183,36 @@ void Parser::Inicializar()
                                             circulo.x = root["escenario"]["objetos"][i]["x"].asFloat();  
 
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: x del circulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: x del circulo DEBE ser un real positivo, se omitira el elemento");
 
 										//TODO:Cargar valores por defecto..
                                     circulo.x = CIRCULO_X_DEFAULT;
                                     circulo.y = CIRCULO_Y_DEFAULT;
                                     cxEsDefault = true;
+									errorCirc = true;
 
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: x del circulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: x del circulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     circulo.x = CIRCULO_X_DEFAULT;
                                     circulo.y = CIRCULO_Y_DEFAULT;
                                     cxEsDefault = true;
+									errorCirc = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: x del circulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: x del circulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 circulo.x = CIRCULO_X_DEFAULT;
                                 circulo.y = CIRCULO_Y_DEFAULT;
                                 cxEsDefault = true;
+								errorCirc = true;
                             }
                             /*************************************************************************************************/ 
 
@@ -1178,32 +1228,35 @@ void Parser::Inicializar()
                                         if(!cxEsDefault)
                                             circulo.y = root["escenario"]["objetos"][i]["y"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: y del circulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: y del circulo DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     circulo.x = CIRCULO_X_DEFAULT;
                                     circulo.y = CIRCULO_Y_DEFAULT;
                                     cxEsDefault = true;
+									errorCirc = true;
 
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: y del circulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: y del circulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     circulo.x = CIRCULO_X_DEFAULT;
                                     circulo.y = CIRCULO_Y_DEFAULT;
                                     cxEsDefault = true;
+									errorCirc = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: y del circulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: y del circulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 circulo.x = CIRCULO_X_DEFAULT;
                                 circulo.y = CIRCULO_Y_DEFAULT;
                                 cxEsDefault = true;
+								errorCirc = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1221,10 +1274,11 @@ void Parser::Inicializar()
                                         circulo.radio = root["escenario"]["objetos"][i]["radio"].asFloat(); 
 									} else {
 
-                                    EventLogger::AgregarEvento("ERROR: radio del circulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: radio del circulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     circulo.radio = CIRCULO_RADIO_DEFAULT;
+									errorCirc = true;
 
 
                                 }
@@ -1232,19 +1286,21 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: radio del circulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: radio del circulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     circulo.radio = CIRCULO_RADIO_DEFAULT;
+									errorCirc = true;
 
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: alto del circulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: alto del circulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 circulo.radio = CIRCULO_RADIO_DEFAULT;
+								errorCirc = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1312,26 +1368,29 @@ void Parser::Inicializar()
 
                                         circulo.masa = root["escenario"]["objetos"][i]["masa"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: masa del circulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: masa del circulo DEBE ser un real positivo, se omitira el elemento");
 
 										//TODO:Cargar valores por defecto..
                                     circulo.masa = CIRCULO_MASA_DEFAULT;
+									errorCirc = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: masa del circulo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: masa del circulo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     circulo.masa = CIRCULO_MASA_DEFAULT;
+									errorCirc = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: masa del circulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: masa del circulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 circulo.masa = CIRCULO_MASA_DEFAULT;
+								errorCirc = true;
 
 
                             }
@@ -1350,31 +1409,33 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: estatico del circulo DEBE ser un booleano, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: estatico del circulo DEBE ser un booleano, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     circulo.estatico = CIRCULO_ESTATICO_DEFAULT;
-
+									errorCirc = true;
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: estatico del circulo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: estatico del circulo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 circulo.estatico = CIRCULO_ESTATICO_DEFAULT;
-
+								errorCirc = true;
 
                             }
                             /*************************************************************************************************/ 						
-
+							if(!errorCirc){
                             miEscenario.circulos.push_back(circulo);
+							}
                         }
                         else if( tipo=="paralel"){
                                                         paralel paralel;
                             paralel.tipo = tipo;
                             bool pxrEsDefault = false;
                             bool psrEsDefault = false;
-
+							bool errorParalel = false;
+							
                             /*************************************************************************************************/ 
                             //VALIDACIONES: paralel-x
                             //SI EXISTE
@@ -1388,31 +1449,34 @@ void Parser::Inicializar()
                                         if(!pxrEsDefault)
                                             paralel.x = root["escenario"]["objetos"][i]["x"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: x del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: x del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     paralel.x = PARALELOGRAMO_X_DEFAULT;
                                     paralel.y = PARALELOGRAMO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorParalel = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: x del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: x del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     paralel.x = PARALELOGRAMO_X_DEFAULT;
                                     paralel.y = PARALELOGRAMO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorParalel = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: x del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: x del paralelogramo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 paralel.x = PARALELOGRAMO_X_DEFAULT;
                                 paralel.y = PARALELOGRAMO_Y_DEFAULT;
                                 pxrEsDefault = true;
+								errorParalel = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1430,32 +1494,35 @@ void Parser::Inicializar()
                                         if(!pxrEsDefault)
                                             paralel.y = root["escenario"]["objetos"][i]["y"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: y del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: y del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     paralel.x = PARALELOGRAMO_X_DEFAULT;
                                     paralel.y = PARALELOGRAMO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorParalel = true;
                                     }
 
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: y del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: y del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     paralel.x = PARALELOGRAMO_X_DEFAULT;
                                     paralel.y = PARALELOGRAMO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorParalel = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: y del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: y del paralelogramo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 paralel.x = PARALELOGRAMO_X_DEFAULT;
                                 paralel.y = PARALELOGRAMO_Y_DEFAULT;
                                 pxrEsDefault = true;
+								errorParalel = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1473,31 +1540,34 @@ void Parser::Inicializar()
                                         if(!psrEsDefault)
                                             paralel.lado1 = root["escenario"]["objetos"][i]["lado1"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
                                     paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
                                     psrEsDefault = true;
+									errorParalel = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
                                     paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
                                     psrEsDefault = true;
+									errorParalel = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                  paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
                                     paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
                                 psrEsDefault = true;
+								errorParalel = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1514,31 +1584,34 @@ void Parser::Inicializar()
                                         if(!psrEsDefault)
                                             paralel.lado2 = root["escenario"]["objetos"][i]["lado2"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
                                     paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
                                     psrEsDefault = true;
+									errorParalel = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
                                     paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
                                     psrEsDefault = true;
+									errorParalel = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
                                     paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
                                 psrEsDefault = true;
+								errorParalel = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1555,29 +1628,32 @@ void Parser::Inicializar()
                                         if(!psrEsDefault)
                                             paralel.altura = root["escenario"]["objetos"][i]["altura"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: altura del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: altura del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 										
                                     //TODO:Cargar valores por defecto..
                                     
                                     paralel.altura = PARALELOGRAMO_ALTURA_DEFAULT;
+									errorParalel = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: altura del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: altura del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     
                                     paralel.altura = PARALELOGRAMO_ALTURA_DEFAULT;
+									errorParalel = true;
                                     
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: altura del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: altura del paralelogramo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                paralel.altura = PARALELOGRAMO_ALTURA_DEFAULT;
+							   errorParalel = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1647,10 +1723,11 @@ void Parser::Inicializar()
 
 								} else {
 
-                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se omitira el elemento");
 
                                         //TODO:Cargar valores por defecto..
-                                        paralel.rot = PARALELOGRAMO_ROT_DEFAULT;  
+                                        paralel.rot = PARALELOGRAMO_ROT_DEFAULT; 
+										errorParalel = true;
 
 
                                     }
@@ -1658,18 +1735,20 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: rot del paralelogramo DEBE ser un entero, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: rot del paralelogramo DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     paralel.rot = PARALELOGRAMO_ROT_DEFAULT;
+									errorParalel = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: rot del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: rot del paralelogramo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 paralel.rot = PARALELOGRAMO_ROT_DEFAULT;
+								errorParalel = true;
 
 
                             }
@@ -1688,25 +1767,28 @@ void Parser::Inicializar()
 
                                         paralel.masa = root["escenario"]["objetos"][i]["masa"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: masa del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: masa del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     paralel.masa = PARALELOGRAMO_MASA_DEFAULT;
+									errorParalel = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: masa del paralelogramo DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: masa del paralelogramo DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     paralel.masa = PARALELOGRAMO_MASA_DEFAULT;
+									errorParalel = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: masa del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: masa del paralelogramo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 paralel.masa = PARALELOGRAMO_MASA_DEFAULT;
+								errorParalel = true;
 
 
                             }
@@ -1725,24 +1807,26 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: estatico del paralelogramo DEBE ser un booleano, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: estatico del paralelogramo DEBE ser un booleano, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     paralel.estatico = PARALELOGRAMO_ESTATICO_DEFAULT;
+									errorParalel = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: estatico del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: estatico del paralelogramo NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 paralel.estatico = PARALELOGRAMO_ESTATICO_DEFAULT;
-
+								errorParalel = true;
 
                             }
                             /*************************************************************************************************/ 						
-
+							if(!errorParalel){
                             miEscenario.paralelogramos.push_back(paralel);
+							}
                         }
                         else if( tipo=="trap"){
                             
@@ -1750,7 +1834,8 @@ trap trap;
                             trap.tipo = tipo;
                             bool pxrEsDefault = false;
                             bool psrEsDefault = false;
-
+							bool errorTrap = false;
+							
                             /*************************************************************************************************/ 
                             //VALIDACIONES: trap-x
                             //SI EXISTE
@@ -1764,31 +1849,34 @@ trap trap;
                                         if(!pxrEsDefault)
                                             trap.x = root["escenario"]["objetos"][i]["x"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: x del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: x del trapecio DEBE ser un real positivo, se omitira el elemento");
 										       //TODO:Cargar valores por defecto..
                                     trap.x = TRAPECIO_X_DEFAULT;
                                     trap.y = TRAPECIO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorTrap = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: x del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: x del trapecio DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.x = TRAPECIO_X_DEFAULT;
                                     trap.y = TRAPECIO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorTrap = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: x del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: x del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.x = TRAPECIO_X_DEFAULT;
                                 trap.y = TRAPECIO_Y_DEFAULT;
                                 pxrEsDefault = true;
+								errorTrap = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1806,32 +1894,35 @@ trap trap;
                                         if(!pxrEsDefault)
                                             trap.y = root["escenario"]["objetos"][i]["y"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: y del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: y del trapecio DEBE ser un real positivo, se omitira el elemento");
 										       //TODO:Cargar valores por defecto..
                                     trap.x = TRAPECIO_X_DEFAULT;
                                     trap.y = TRAPECIO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorTrap = true;
                                     }
 
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: y del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: y del trapecio DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.x = TRAPECIO_X_DEFAULT;
                                     trap.y = TRAPECIO_Y_DEFAULT;
                                     pxrEsDefault = true;
+									errorTrap = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: y del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: y del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.x = TRAPECIO_X_DEFAULT;
                                 trap.y = TRAPECIO_Y_DEFAULT;
                                 pxrEsDefault = true;
+								errorTrap = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1849,34 +1940,37 @@ trap trap;
                                         if(!psrEsDefault)
                                             trap.lado1 = root["escenario"]["objetos"][i]["lado1"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: lado1 del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: lado1 del trapecio DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                     psrEsDefault = true;
+									errorTrap = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lado1 del trapecio DEBE ser un entero, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: lado1 del trapecio DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                     psrEsDefault = true;
+									errorTrap = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado1 del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: lado1 del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                  trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                 psrEsDefault = true;
+								errorTrap = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1893,34 +1987,37 @@ trap trap;
                                         if(!psrEsDefault)
                                             trap.lado2 = root["escenario"]["objetos"][i]["lado2"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: lado2 del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: lado2 del trapecio DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                     psrEsDefault = true;
+									errorTrap = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lado2 del trapecio DEBE ser un entero, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: lado2 del trapecio DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                     psrEsDefault = true;
+									errorTrap = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado2 del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: lado2 del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                 psrEsDefault = true;
+								errorTrap = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1937,34 +2034,37 @@ trap trap;
                                         if(!psrEsDefault)
                                             trap.lado3 = root["escenario"]["objetos"][i]["lado3"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: lado3 del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: lado3 del trapecio DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                     psrEsDefault = true;
+									errorTrap = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lado3 del trapecio DEBE ser un entero, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: lado3 del trapecio DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                     psrEsDefault = true;
+									errorTrap = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado2 del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: lado2 del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
 									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
                                 psrEsDefault = true;
+								errorTrap = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -1981,28 +2081,31 @@ trap trap;
                                         if(!psrEsDefault)
                                             trap.altura = root["escenario"]["objetos"][i]["altura"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: altura del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: altura del trapecio DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     
                                     trap.altura = TRAPECIO_ALTURA_DEFAULT;
+									errorTrap = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: altura del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: altura del trapecio DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     
                                     trap.altura = TRAPECIO_ALTURA_DEFAULT;
+									errorTrap = true;
                                     
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: altura del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: altura del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                trap.altura = TRAPECIO_ALTURA_DEFAULT;
+							   errorTrap = true;
 
                             }
                             /*************************************************************************************************/ 
@@ -2072,10 +2175,11 @@ trap trap;
 
 								} else {
 
-                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se omitira el elemento");
 
                                         //TODO:Cargar valores por defecto..
                                         trap.rot = TRAPECIO_ROT_DEFAULT;  
+										errorTrap = true;
 
 
                                     }
@@ -2083,18 +2187,20 @@ trap trap;
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: rot del trapecio DEBE ser un entero, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: rot del trapecio DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.rot = TRAPECIO_ROT_DEFAULT;
+									errorTrap = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: rot del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: rot del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.rot = TRAPECIO_ROT_DEFAULT;
+								errorTrap = true;
 
 
                             }
@@ -2113,25 +2219,28 @@ trap trap;
 
                                         trap.masa = root["escenario"]["objetos"][i]["masa"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: masa del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                        EventLogger::AgregarEvento("ERROR: masa del trapecio DEBE ser un real positivo, se omitira el elemento");
 										//TODO:Cargar valores por defecto..
                                     trap.masa = TRAPECIO_MASA_DEFAULT;
+									errorTrap = true;
                                     }
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: masa del trapecio DEBE ser un real positivo, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: masa del trapecio DEBE ser un real positivo, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.masa = TRAPECIO_MASA_DEFAULT;
+									errorTrap = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: masa del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: masa del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.masa = TRAPECIO_MASA_DEFAULT;
+								errorTrap = true;
 
 
                             }
@@ -2150,24 +2259,27 @@ trap trap;
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: estatico del trapecio DEBE ser un booleano, se cargaran los valores por defecto");
+                                    EventLogger::AgregarEvento("ERROR: estatico del trapecio DEBE ser un booleano, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.estatico = TRAPECIO_ESTATICO_DEFAULT;
+									errorTrap = true;
 
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: estatico del trapecio NO existe en el archivo, se cargaran los valores por defecto");
+                                EventLogger::AgregarEvento("ERROR: estatico del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.estatico = TRAPECIO_ESTATICO_DEFAULT;
+								errorTrap = true;
 
 
                             }
                             /*************************************************************************************************/ 						
-
+							if(!errorTrap){
                             miEscenario.trapecios.push_back(trap);
+							}
                         }else{
                             EventLogger::AgregarEvento("ERROR: se quiso cargar un objeto invalido");
                         }
@@ -2179,7 +2291,19 @@ trap trap;
 
         }
     } 
+	catch( exception e) {
+		EventLogger::AgregarEvento("ERROR: error en la lectura del archivo JSON");
+		//Cargar default?
+
+	}
+
+	}
+
+
     archivoJson.close();  
+
+
+
 
 
 
@@ -2418,6 +2542,37 @@ Escenario * Parser::CrearObjetos()
 			unCirculo.masa);
 
 	}
+
+	list <paralel> objetosParalel;
+	objetosParalel = miEscenario.paralelogramos;
+	for (list <paralel> ::iterator it= miEscenario.paralelogramos.begin(); it!= miEscenario.paralelogramos.end(); it++) {
+		paralel unParalelogramo= *it;
+
+		esc->agregarParalelogramo(CoordenadasR2(unParalelogramo.x,unParalelogramo.y),unParalelogramo.lado1,unParalelogramo.lado2,unParalelogramo.altura,Color(unParalelogramo.color.r, unParalelogramo.color.g, unParalelogramo.color.b),unParalelogramo.rot,!unParalelogramo.estatico,unParalelogramo.masa);
+
+
+	}
+
+	
+
+	list <trap> objetosTrap;	
+	objetosTrap = miEscenario.trapecios;
+	for (list <trap> ::iterator it= miEscenario.trapecios.begin(); it!= miEscenario.trapecios.end(); it++) {
+		trap unTrapecio= *it;
+
+		esc->agregarTrapecio(CoordenadasR2(unTrapecio.x,unTrapecio.y),unTrapecio.lado1,unTrapecio.lado2,unTrapecio.altura,Color(unTrapecio.color.r, unTrapecio.color.g, unTrapecio.color.b),unTrapecio.rot,!unTrapecio.estatico,unTrapecio.masa);
+
+
+	}
+
+
+
+
+
+
+
+
+
 	return esc;
 
 }
