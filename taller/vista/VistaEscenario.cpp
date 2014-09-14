@@ -42,7 +42,7 @@ bool VistaEscenario::iniciarSDL() {
 			EventLogger::AgregarEvento(msg, DEBUG);
 			success = false; 
 		} else { 
-			m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_SOFTWARE); 
+			m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_ACCELERATED); 
 			if( m_renderer == NULL )
 			{
 				std::string msg ="No se pudo crear Renderer - SDL Error: ";

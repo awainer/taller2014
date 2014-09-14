@@ -49,9 +49,7 @@ int pruebaParser(string path){
 		
 		control_jugador.actualizar();
 		esc->step();
-		std::cout << "frame = " << SDL_getFramerate(&fps) << std::endl;
 		SDL_framerateDelay(&fps);
-
 		escenario_vista.mostrar();
 	}
 

@@ -35,7 +35,7 @@ void VistaJugador::dibujar(int numSprite,int x, int y, int w, int h){
 	renderQuad->h = h;
 	renderQuad->w = w;
 	SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[numSprite], renderQuad );
-	if( delay == 3){
+	if( delay == 5){
 		paso++;
 		delay = 0;
 	}else{ delay++;}
