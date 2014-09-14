@@ -164,7 +164,7 @@ void VistaJugador::agregarSprite(std::string path){
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
 	{
-		std::string msg =	"No se pudo levantar la imagen de sprite" + path + " SDL_image Error: " + IMG_GetError() ;
+		std::string msg =	"No se pudo levantar la imagen de sprite " + path + " SDL_image Error: " + IMG_GetError() ;
 		EventLogger::AgregarEvento(msg, DEBUG);
 	}
 	else
@@ -176,7 +176,7 @@ void VistaJugador::agregarSprite(std::string path){
         m_sprite = SDL_CreateTextureFromSurface( m_renderer, loadedSurface );
 		if( m_sprite == NULL )
 		{
-			std::string msg =	"No se pudo crear la textura desde" + path + " SDL Error: " + SDL_GetError() ;
+			std::string msg =	"No se pudo crear la textura desde " + path + " SDL Error: " + SDL_GetError() ;
 			EventLogger::AgregarEvento(msg, DEBUG);
 		}
 		else

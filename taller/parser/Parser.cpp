@@ -1370,7 +1370,7 @@ void Parser::Inicializar()
                             miEscenario.circulos.push_back(circulo);
                         }
                         else if( tipo=="paralel"){
-                                                        paralel paralel;
+                            paralel paralel;
                             paralel.tipo = tipo;
                             bool pxrEsDefault = false;
                             bool psrEsDefault = false;
@@ -1746,7 +1746,7 @@ void Parser::Inicializar()
                         }
                         else if( tipo=="trap"){
                             
-trap trap;
+                            trap trap;
                             trap.tipo = tipo;
                             bool pxrEsDefault = false;
                             bool psrEsDefault = false;
@@ -2169,7 +2169,7 @@ trap trap;
 
                             miEscenario.trapecios.push_back(trap);
                         }else{
-                            EventLogger::AgregarEvento("ERROR: se quiso cargar un objeto invalido");
+                            EventLogger::AgregarEvento("ERROR: se quiso cargar un objeto invalido: " + tipo );
                         }
 
 
