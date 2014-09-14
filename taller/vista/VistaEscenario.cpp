@@ -26,13 +26,13 @@ bool VistaEscenario::iniciarSDL() {
 
 	bool success = true; 
 
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) 
+	/*if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) 
 	{ 
 		std::string msg ="No se pudo iniciar SDL - SDL Error: ";
 		msg.append(SDL_GetError());
 		EventLogger::AgregarEvento(msg, DEBUG);
 		success = false; 
-	} else { 
+	} else { */
 
 		m_window = SDL_CreateWindow( "TP taller", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_ancho, m_alto, SDL_WINDOW_SHOWN );
 		if( m_window == NULL ) 
@@ -63,7 +63,7 @@ bool VistaEscenario::iniciarSDL() {
 				} 
 			}
 		} 
-	} 
+	//} 
 	return success; 
 }
 
@@ -142,7 +142,7 @@ VistaEscenario::~VistaEscenario(void)
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 	IMG_Quit();
-	SDL_Quit();
+	//SDL_Quit();
 }
 
 void VistaEscenario::cargarFiguras(){
