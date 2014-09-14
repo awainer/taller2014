@@ -16,7 +16,7 @@ int main(int argc, char ** argv){
 	//prueba_vistaEscenario();
 	//caca();
 	//caca2();
-	//pruebaParser();
+	pruebaParser("");
 	/*
 	char pathChar[2000];
 	string path;

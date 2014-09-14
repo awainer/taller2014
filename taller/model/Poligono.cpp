@@ -28,9 +28,10 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 		this->type = STATIC_BODY;
 	}
 
-	fixtureDef.friction=0.1;
+	
 	bodyDef.position.Set(centro.x,centro.y);
 	bodyDef.angle=angulorot * b2_pi /180;
+	bodyDef.userData = (void*)this;
 	b2Vec2 vertices[8]; 
 	
 	// http://stackoverflow.com/questions/3436453/calculate-coordinates-of-a-regular-polygons-vertices
@@ -43,11 +44,11 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	shape.Set(vertices,lados);
 	
 	this->body = this->world->CreateBody(&bodyDef);
+	fixtureDef.friction=0.1;
 	fixtureDef.shape = (&shape);
 	this->body->CreateFixture(&fixtureDef); 
 	this->setDensidad(masa);
 	this->color = color;
-	this->body->SetUserData((void*)this);
 	this->generateId();
 	std::string msg =	"Agregando poligono con id "  + EventLogger::itos(this->id);
 	EventLogger::AgregarEvento(msg, DEBUG);

@@ -111,13 +111,7 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 
 }
 
-/*
-unsigned int Paralelogramo::getVertexCount(){
-//	b2PolygonShape * shape = (b2PolygonShape *)this->body->GetFixtureList()[0].GetShape();
-//	return shape->GetVertexCount();
-	return 4;
-}
-*/
+
 
  Paralelogramo::~Paralelogramo(void){
  }
