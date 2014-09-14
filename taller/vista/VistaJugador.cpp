@@ -19,13 +19,11 @@ void VistaJugador::render(){
 	y = this->m_datos->getAltoPixel() - ( (pos.y + ( size.y / 2 ) ) * this->m_datos->getYratio());
 	w = 1.15 * size.x * this->m_datos->getXratio();
 	h = size.y * this->m_datos->getYratio();
-	this->cargarSprites(m_jugador->getDireccion(), x, y, w, h); // se podrian cargar todas antes, teniendo un SDL_rect para cada posicion
+	this->cargarSprites(m_jugador->getDireccion(), x, y, w, h);
 	if ((this->m_jugador->getDireccion() == IZQUIERDA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
 		m_dirAnterior = IZQUIERDA;
-		//std::cout << " ultimo izquierda" << std::endl;
 	}else if ((this->m_jugador->getDireccion() == DERECHA) || (this->m_jugador->getDireccion() == ARRIBA_DERECHA) ){
 		m_dirAnterior = DERECHA;
-		//std::cout << " ultimo derecha" << std::endl;
 	}
 
 }
@@ -37,7 +35,7 @@ void VistaJugador::dibujar(int numSprite,int x, int y, int w, int h){
 	renderQuad->h = h;
 	renderQuad->w = w;
 	SDL_RenderCopy( this->m_renderer, this->m_sprite, &m_spriteClips[numSprite], renderQuad );
-	if( delay == 3){
+	if( delay == 5){
 		paso++;
 		delay = 0;
 	}else{ delay++;}
@@ -144,7 +142,6 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 	case ESTATICO : 
 		if (m_dirAnterior == IZQUIERDA) {
 			dibujar(16, x,  y,  w, h);
-			//std::cout << "estatico" << std::endl;
 			paso=0;
 		} else {
 			dibujar(17, x,  y,  w, h);
@@ -163,14 +160,12 @@ VistaJugador::~VistaJugador(void)
 
 void VistaJugador::agregarSprite(std::string path){
 	
-	//if(m_sprite != NULL){
-	//	SDL_DestroyTexture( m_sprite );
-	//}
 	//Levanto los sprites
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
 	{
-		printf( "No se pudo levantar la imagen de sprite %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
+		std::string msg =	"No se pudo levantar la imagen de sprite" + path + " SDL_image Error: " + IMG_GetError() ;
+		EventLogger::AgregarEvento(msg, DEBUG);
 	}
 	else
 	{
@@ -181,7 +176,8 @@ void VistaJugador::agregarSprite(std::string path){
         m_sprite = SDL_CreateTextureFromSurface( m_renderer, loadedSurface );
 		if( m_sprite == NULL )
 		{
-			printf( "No se pudo crear la textura desde %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+			std::string msg =	"No se pudo crear la textura desde" + path + " SDL Error: " + SDL_GetError() ;
+			EventLogger::AgregarEvento(msg, DEBUG);
 		}
 		else
 		{

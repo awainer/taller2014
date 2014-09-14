@@ -8,10 +8,10 @@ VistaPoligono::VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosP
 	m_renderer = gRenderer;
 	this->poligono = poligono;
 	this->n_vertices = poligono->getVertexCount();
-	std::cout << "n_vertices" << n_vertices <<  std::endl;
 	m_vx = new Sint16[n_vertices];
 	m_vy = new Sint16[n_vertices];
 	this->m_datos = datos;
+
 }
 void VistaPoligono::render(){
 	
@@ -30,8 +30,6 @@ void VistaPoligono::transformarSint16(std::vector<CoordenadasR2> vertices){
 			
 			m_vx[i]=vertices[i].x *  this->m_datos->getXratio();
 			m_vy[i]= this->m_datos->getAltoPixel() -(vertices[i].y *  this->m_datos->getYratio());
-			//std::cout << "vertice x" << i <<  " : " << vertices[i].x << std::endl;
-			//std::cout << "vertice y" << i <<  " : " << vertices[i].y << std::endl;
 
 		} 
 		

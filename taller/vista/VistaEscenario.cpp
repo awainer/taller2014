@@ -7,46 +7,58 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	m_alto = datos->getAltoPixel();
 	m_fondo =NULL;
 	if( iniciarSDL() == false){
-		std::cout << "no inicio SDL" << std::endl;
+		std::string msg ="No se pudo iniciar SDL";
+		EventLogger::AgregarEvento(msg, ERROR);
 	}
 	else
 	{
 		m_escenario = escenario;
 		m_datos_pantalla = datos;
+		std::string msg ="Vista Escenario. Resolucion de ventana = "+ EventLogger::itos(datos->getAnchoPixel()) + " x " + EventLogger::itos(datos->getAltoPixel());
+		EventLogger::AgregarEvento(msg, DEBUG);
 		this->agregarFondo(m_escenario->getPathFondo());
 		this->cargarFiguras();
+		EventLogger::AgregarEvento("VistaEscenario creado correctamente.", DEBUG);
 	}
 }
 
 bool VistaEscenario::iniciarSDL() { 
-	//Initialization flag 
+
 	bool success = true; 
-	//Initialize SDL 
+
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) 
 	{ 
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
+		std::string msg ="No se pudo iniciar SDL - SDL Error: ";
+		msg.append(SDL_GetError());
+		EventLogger::AgregarEvento(msg, DEBUG);
 		success = false; 
 	} else { 
-		//window 640x480
+
 		m_window = SDL_CreateWindow( "TP taller", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_ancho, m_alto, SDL_WINDOW_SHOWN );
 		if( m_window == NULL ) 
 		{ 
-			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() ); 
+			std::string msg ="No se pudo crear ventana - SDL Error: ";
+			msg.append(SDL_GetError());
+			EventLogger::AgregarEvento(msg, DEBUG);
 			success = false; 
-		} else { //creo renderer
-			m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_SOFTWARE); 
+		} else { 
+			m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_ACCELERATED); 
 			if( m_renderer == NULL )
 			{
-					printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() ); 
-					success = false; 
+				std::string msg ="No se pudo crear Renderer - SDL Error: ";
+				msg.append(SDL_GetError());
+				EventLogger::AgregarEvento(msg, DEBUG); 
+				success = false; 
 			}
 			else { 
-				
+
 				//Inicializo SDL_IMAGE 
 				int imgFlags = IMG_INIT_JPG|IMG_INIT_PNG; 
 				if( !( IMG_Init( imgFlags ) & imgFlags ) ) 
 				{ 
-					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+					std::string msg ="No se pudo iniciar SDL_image - SDL_image Error: ";
+					msg.append(IMG_GetError());
+					EventLogger::AgregarEvento(msg, DEBUG);
 					success = false; 
 				} 
 			}
@@ -61,22 +73,27 @@ void VistaEscenario::agregarFondo(std::string path){
 	if(m_fondo != NULL){
 		SDL_DestroyTexture( m_fondo );
 	}
-	//Load image at specified path
+	
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
 	{
-		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
+		std::string msg =	"No se pudo cargar la imagen de fondo: " + path + " IMG_image Error: " + IMG_GetError() ;
+		EventLogger::AgregarEvento(msg, DEBUG);	
 	}
 	else
 	{
-		//Create texture from surface pixels
+		
         m_fondo = SDL_CreateTextureFromSurface( m_renderer, loadedSurface );
 		if( m_fondo == NULL )
 		{
-			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+			std::string msg =	"No se pudo crear la textura desde" + path + " SDL Error: " + SDL_GetError() ;
+			EventLogger::AgregarEvento(msg, DEBUG);
+		}else{
+			std::string msg ="Se cargo correctamente textura con fondo: " + path ;
+			EventLogger::AgregarEvento(msg, DEBUG);
 		}
 
-		//Get rid of old loaded surface
+	
 		SDL_FreeSurface( loadedSurface );
 	}
 
@@ -120,7 +137,6 @@ VistaEscenario::~VistaEscenario(void)
 		delete figuras[i];
 	}
 	if(m_fondo !=NULL){
-		std::cout << " entro a destruir fondo" << std::endl;
 		SDL_DestroyTexture( m_fondo );
 	}
 	SDL_DestroyRenderer(m_renderer);
@@ -142,6 +158,10 @@ void VistaEscenario::cargarFiguras(){
 	for(std::list<Figura*>::iterator it=poligonos.begin(); it != poligonos.end(); ++it){
 		agregarPoligonos((Poligono*)(*it));
 	}
+	EventLogger::AgregarEvento("Figuras de la vista generados:", DEBUG);
+	std::string msg ="Circulos generados: " + EventLogger::itos(total_pelotas);
+	msg.append(" Poligonos generados: "+ EventLogger::itos(total_poligonos));
+	EventLogger::AgregarEvento(msg, DEBUG);
 }
 
 

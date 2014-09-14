@@ -37,7 +37,7 @@ int main(int argc, char ** argv){
 
 	//caca();
 	//caca2();
-	//pruebaParser("");
+	pruebaParser("");
 	//pruebaReiniciar();
 	//prueba_paralelogramo();
 	//prueba_trapecio();
