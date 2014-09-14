@@ -22,6 +22,7 @@ int pruebaParser(string path){
 	Color violeta = Color(100,100,0);
 	SDL_Event evento;
 	SDL_Scancode sc;
+	SDL_Init(SDL_INIT_VIDEO);
 	Parser parser = Parser(path);
 	parser.Inicializar();
 	Escenario * esc = parser.CrearObjetos();
@@ -77,6 +78,6 @@ int pruebaParser(string path){
 	}
 	delete escenario_vista;
 	delete esc;
-
+	SDL_Quit();
 	return 0;
 }
