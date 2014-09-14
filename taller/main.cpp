@@ -5,10 +5,10 @@
 #include "pruebaParser.h"
 #include "prueba_paralelogramo.h"
 #include "prueba_trapecio.h"
-#include "pruebaReiniciar.h"
+//#include "pruebaReiniciar.h"
 #include "pruebaSuper.h"
-//#include <vld.h>
 #undef main
+#include <vld.h>
 //#include <vld.h>
 int main(int argc, char ** argv){
 	//pruebaSuper();
@@ -16,7 +16,8 @@ int main(int argc, char ** argv){
 	//prueba_vistaEscenario();
 	//caca();
 	//caca2();
-	//pruebaParser();
+	string path = "";
+	pruebaParser(path);
 	/*
 	char pathChar[2000];
 	string path;
@@ -37,7 +38,7 @@ int main(int argc, char ** argv){
 
 	//caca();
 	//caca2();
-	pruebaParser("parser/test.json");
+	//pruebaParser("");
 	//pruebaReiniciar();
 	//prueba_paralelogramo();
 	//prueba_trapecio();

@@ -15,11 +15,14 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	if (dinamico){
 		bd.type = b2_dynamicBody;
         fixtureDef.friction = 0.8f;
+		this->type = DYNAMIC_BODY;
         //fixtureDef.restitution = 0.4f;
 	}
-	else
+	else{
 		bd.type = b2_staticBody;
-		
+		this->type = STATIC_BODY;
+	}
+	bd.userData = (void*)this;	
 	this->body = this->world->CreateBody(&bd);
 	b2PolygonShape shape;
 	shape.SetAsBox(ancho/2,alto/2,b2Vec2(0,0), angulo * b2_pi /180); 
@@ -27,7 +30,6 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	this->body->CreateFixture(&fixtureDef);
 	this->setDensidad(masa);
 	this->color = color;
-	this->body->SetUserData((void*)this);
 	this->generateId();
 	std::string msg =	"Agregando rectangulo con id "  + EventLogger::itos(this->id);
 	EventLogger::AgregarEvento(msg, DEBUG);

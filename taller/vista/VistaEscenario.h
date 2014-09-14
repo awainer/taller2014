@@ -19,7 +19,7 @@ public:
 	void agregarFondo(std::string path);	
 	void mostrar();
 	void resize(int ancho,int alto);
-	void agregarJugador(Jugador* jugador);
+	bool agregarJugador(Jugador* jugador);
 	~VistaEscenario(void);
 private:
 	void cargarFiguras();

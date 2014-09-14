@@ -45,6 +45,7 @@ void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bo
 			return;
 	}
 	this->pelotas.push_back(new Pelota(centro,color,radio,dinamica,masa,this->world));
+	this->checkOverlap();
 }
 
 void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa){
@@ -53,6 +54,7 @@ void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int 
 			return;
 	}
 	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro,color,radio,lados,angulo,dinamica,masa,this->world));
+	this->checkOverlap();
 }
 
 void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,unsigned int angulo, Color color, bool dinamica, float masa){
@@ -71,6 +73,7 @@ void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float
 	}
 
 	this->cuerposEstaticos.push_back((Figura*) new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world));
+	this->checkOverlap();
 }
 
 void Escenario::agregarTrapecio(CoordenadasR2 centro,float longpiso, float longtecho, float altura, Color color, int angulorot,bool dinamico,float masa){
@@ -80,6 +83,7 @@ void Escenario::agregarTrapecio(CoordenadasR2 centro,float longpiso, float longt
 	}
 
 	this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longpiso,longtecho, altura, color,angulorot,dinamico,masa, this->world));
+	this->checkOverlap();
 }
 
 CoordenadasR2 Escenario::getSize(){
@@ -159,7 +163,7 @@ void Escenario::checkOverlap(){
 }
 
 Figura * aux_decidir(Figura * figA, Figura * figB){
-		int typeA = figA->getType();
+	int typeA = figA->getType();
 	int typeB = figB->getType();
 	//enum  BODY_TYPE { STATIC_BODY, DYNAMIC_BODY, CHARACTER, PLATFORM, FLOOR, ROOF, RIGHT_WALL, LEFT_WALL, FOOT_SENSOR};
 	if ( typeA == DYNAMIC_BODY){
@@ -180,8 +184,8 @@ Figura * aux_decidir(Figura * figA, Figura * figB){
 }
 
 Figura *  Escenario::decidirConflicto(b2Fixture * a, b2Fixture * b){
-	Figura * figA = (Figura*)(a->GetUserData());
-	Figura * figB = (Figura*)(b->GetUserData());
+	Figura * figA = (Figura*)(a->GetBody()->GetUserData());
+	Figura * figB = (Figura*)(b->GetBody()->GetUserData());
 	Figura * result;
 	result = aux_decidir(figA,figB);
 	if (result)

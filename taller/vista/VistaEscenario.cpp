@@ -86,7 +86,7 @@ void VistaEscenario::agregarFondo(std::string path){
         m_fondo = SDL_CreateTextureFromSurface( m_renderer, loadedSurface );
 		if( m_fondo == NULL )
 		{
-			std::string msg =	"No se pudo crear la textura desde" + path + " SDL Error: " + SDL_GetError() ;
+			std::string msg =	"No se pudo crear la textura desde " + path + " SDL Error: " + SDL_GetError() ;
 			EventLogger::AgregarEvento(msg, DEBUG);
 		}else{
 			std::string msg ="Se cargo correctamente textura con fondo: " + path ;
@@ -158,7 +158,7 @@ void VistaEscenario::cargarFiguras(){
 	for(std::list<Figura*>::iterator it=poligonos.begin(); it != poligonos.end(); ++it){
 		agregarPoligonos((Poligono*)(*it));
 	}
-	EventLogger::AgregarEvento("Figuras de la vista generados:", DEBUG);
+	EventLogger::AgregarEvento("Figuras de la vista generadas:", DEBUG);
 	std::string msg ="Circulos generados: " + EventLogger::itos(total_pelotas);
 	msg.append(" Poligonos generados: "+ EventLogger::itos(total_poligonos));
 	EventLogger::AgregarEvento(msg, DEBUG);
@@ -173,6 +173,13 @@ void VistaEscenario::agregarPoligonos(Poligono* poligono){
 	this->figuras.push_back(new VistaPoligono(m_renderer,poligono,this->m_datos_pantalla));
 }
 
-void VistaEscenario::agregarJugador(Jugador* jugador){
-	this->figuras.push_back(new VistaJugador(m_renderer,jugador,m_datos_pantalla));
+bool VistaEscenario::agregarJugador(Jugador* jugador){
+	VistaJugador* v_jugador= new VistaJugador(m_renderer,jugador,m_datos_pantalla);
+	if( v_jugador->spriteOk() == false){
+		delete v_jugador;
+		return false;
+	}else{
+		this->figuras.push_back(v_jugador);
+	}
+	return true;
 }
