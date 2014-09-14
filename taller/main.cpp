@@ -11,7 +11,7 @@
 #undef main
 //#include <vld.h>
 int main(int argc, char ** argv){
-	//pruebaSuper();
+	pruebaSuper();
 	//pruebaSuperposicion();
 	//prueba_vistaEscenario();
 	//caca();
@@ -37,7 +37,7 @@ int main(int argc, char ** argv){
 
 	//caca();
 	//caca2();
-	pruebaParser("");
+	//pruebaParser("");
 	//pruebaReiniciar();
 	//prueba_paralelogramo();
 	//prueba_trapecio();

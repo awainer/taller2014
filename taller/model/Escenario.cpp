@@ -35,22 +35,50 @@ Escenario::Escenario(float largo, float alto,CoordenadasR2 gravedad, std::string
 	this->fondo = fondo;
 }
 
+bool Escenario::contiene(CoordenadasR2 punto){
+	return (punto.x > 0 && punto.y > 0 && punto.x < this->largo && punto.y < this->alto);
+}
+
 void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa){
+	if(!this->contiene(centro)){
+			EventLogger::AgregarEvento("No puedo agregar una pelota con centro de masa fuera del escenario:" + centro.str(),WARNING);
+			return;
+	}
 	this->pelotas.push_back(new Pelota(centro,color,radio,dinamica,masa,this->world));
 }
+
 void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa){
+	if(!this->contiene(centro)){
+			EventLogger::AgregarEvento("No puedo agregar una poligono con centro de masa fuera del escenario:" + centro.str(),WARNING);
+			return;
+	}
 	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro,color,radio,lados,angulo,dinamica,masa,this->world));
 }
 
 void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,unsigned int angulo, Color color, bool dinamica, float masa){
-	this->cuerposEstaticos.push_back((Figura*) new Rectangulo(centro,alto,ancho,dinamica,color,masa,angulo,this->world));
+	if(!this->contiene(centro)){
+			EventLogger::AgregarEvento("No puedo agregar una rectangulo con centro de masa fuera del escenario:" + centro.str(),WARNING);
+			return;
+	}
+	
+		this->cuerposEstaticos.push_back((Figura*) new Rectangulo(centro,alto,ancho,dinamica,color,masa,angulo,this->world));
 }
 
 void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float altura, Color color, int angulorot,bool dinamico,float masa){
+	if(!this->contiene(centro)){
+			EventLogger::AgregarEvento("No puedo agregar un paralelogramo con centro de masa fuera del escenario:" + centro.str(),WARNING);
+			return;
+	}
+
 	this->cuerposEstaticos.push_back((Figura*) new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world));
 }
 
 void Escenario::agregarTrapecio(CoordenadasR2 centro,float longpiso, float longtecho, float altura, Color color, int angulorot,bool dinamico,float masa){
+	if(!this->contiene(centro)){
+			EventLogger::AgregarEvento("No puedo agregar un trapecio con centro de masa fuera del escenario:" + centro.str(),WARNING);
+			return;
+	}
+
 	this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longpiso,longtecho, altura, color,angulorot,dinamico,masa, this->world));
 }
 

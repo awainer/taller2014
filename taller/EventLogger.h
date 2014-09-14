@@ -21,5 +21,4 @@ public:
 	static void AgregarEvento(string msgEvento);
 	static void AgregarEvento(string msgEvento,int prioridad);
 	static string itos(int i);
-
 };

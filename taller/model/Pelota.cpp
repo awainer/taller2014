@@ -23,7 +23,8 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 		fixtureDef.friction = 0.3;
 		this->type = DYNAMIC_BODY;
 	}else{
-		bodyDef.type = b2_staticBody;
+		//bodyDef.type = b2_staticBody;
+		bodyDef.type = b2_kinematicBody;
 		this->type = STATIC_BODY;
 	}
 

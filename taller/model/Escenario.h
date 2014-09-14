@@ -21,6 +21,7 @@ public:
 	void checkOverlap();
 	void deleteFigura(Figura * f);
 	CoordenadasR2 getSize();
+	bool contiene(CoordenadasR2 punto);
 	std::string getPathFondo();
 	std::list <Figura*> getPoligonos();
 	std::list <Figura*> getPelotas();

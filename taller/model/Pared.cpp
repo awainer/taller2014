@@ -9,7 +9,7 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 	b2FixtureDef fixtureDef;
 	b2EdgeShape edge;
 
-	bodyDef.type = b2_staticBody;
+	bodyDef.type = b2_kinematicBody;
 	bodyDef.position.Set(x,y);
 	bodyDef.userData = (void*)this;
 	bodyDef.bullet = true;
