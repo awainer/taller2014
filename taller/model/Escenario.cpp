@@ -202,15 +202,17 @@ Figura *  Escenario::decidirConflicto(b2Fixture * a, b2Fixture * b){
 Escenario::~Escenario(void)
 {
 	std::cout << "Dstructor escenario" << std::cout;
-	for (unsigned i=0; i< this->paredes.size(); i++)
-		delete this->paredes[i];
-	for (unsigned i=0; i< this->pelotas.size(); i++)
-		delete this->pelotas[i];
-	for (unsigned  i=0; i< this->cuerposEstaticos.size(); i++)
-		delete this->cuerposEstaticos[i];	
-	for (unsigned int i=0; i< this->jugadores.size(); i++)
-		delete this->jugadores[i];	
-
+	for(std::list<Figura*>::iterator it=this->paredes.begin(); it != this->paredes.end(); ++it)
+		delete (*it);
+	for(std::list<Figura*>::iterator it=this->pelotas.begin(); it != this->pelotas.end(); ++it)
+		delete (*it);
+	for(std::list<Figura*>::iterator it=this->cuerposEstaticos.begin(); it != this->cuerposEstaticos.end(); ++it)
+		delete (*it);
+	for(std::list<Jugador*>::iterator it=this->jugadores.begin(); it != this->jugadores.end(); ++it)
+		delete (*it);
+	
+	
+		
 	
 
 	delete this->world;
