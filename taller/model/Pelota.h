@@ -12,6 +12,7 @@ public:
 	~Pelota(void);
 	CoordenadasR2 getCentro();
 	CoordenadasR2 getPuntoReferencia();
+	b2Shape * getShape();
 	float getRadio();
 };
 

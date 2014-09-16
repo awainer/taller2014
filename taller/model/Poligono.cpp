@@ -55,6 +55,7 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 
 }
 
+
 unsigned int Poligono::getVertexCount(){
 	b2PolygonShape * shape = (b2PolygonShape *)this->body->GetFixtureList()[0].GetShape();
 	return shape->GetVertexCount();

@@ -42,7 +42,22 @@ void Figura::setDensidad(float masa){
 }
 
 
+b2Fixture * Figura::getFixture(){
+	// Si hay mas de un fixture va a devolver el primer shape asociado, en general es lo que queremos.
+	return this->body->GetFixtureList();
+}
 
+bool Figura::seSolapaCon(Figura * otra){
+	b2Shape * shape1 = this->getFixture()->GetShape();
+	b2Shape * shape2 = otra->getFixture()->GetShape();
+	return b2TestOverlap(shape1,
+						0,
+						shape2,
+						0,
+						this->getFixture()->GetBody()->GetTransform(),
+						otra->getFixture()->GetBody()->GetTransform());
+
+}
 void Figura::activar(){
 	this->body->GetFixtureList()->SetSensor(false);
 }
