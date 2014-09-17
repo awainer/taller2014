@@ -2408,7 +2408,7 @@ void Parser::CargarDefault()
 		objetoActualRect.color.b=255;
 		objetoActualRect.estatico=true;
 		objetoActualRect.masa=3;
-		objetoActualRect.rot=135;		
+		objetoActualRect.rot=225;		
 		objetoActualRect.x=2;
 		objetoActualRect.y=6;
 		miEscenario.rectangulos.push_back(objetoActualRect);

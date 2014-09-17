@@ -55,7 +55,7 @@ float Figura::normalizarAngulo(int angulo){
 		return result;
 	}
 	// Le tengo que restar 180 porque box2d maneja angulos normalizados entre -pi y pi.
-	result = (angulo - 180)* b2_pi /180;
+	result =  -1 * (angulo - 180)* b2_pi /180;
 	EventLogger::AgregarEvento("El angulo " + to_string(long double(angulo)) + " normalizado en radianes resulta: " + to_string(long double(result)), DEBUG);
 	return result;
 }

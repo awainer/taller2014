@@ -11,13 +11,13 @@
 #include <vld.h>
 //#include <vld.h>
 int main(int argc, char ** argv){
-	pruebaSuper();
+	//pruebaSuper();
 	//pruebaSuperposicion();
 	//prueba_vistaEscenario();
 	//caca();
 	//caca2();
-	//string path = "";
-	//pruebaParser(path);
+	string path = "";
+	pruebaParser(path);
 	/*
 	char pathChar[2000];
 	string path;

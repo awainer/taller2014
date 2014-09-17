@@ -11,7 +11,7 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	b2FixtureDef fixtureDef;
 	bd.bullet = false;
 	bd.position.Set(centro.x,centro.y);
-	bd.angle = this->normalizarAngulo(angulo);
+	//bd.angle = this->normalizarAngulo(angulo);
 	if (dinamico){
 		bd.type = b2_dynamicBody;
         fixtureDef.friction = 0.8f;
