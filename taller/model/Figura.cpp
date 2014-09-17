@@ -1,5 +1,4 @@
 #include "Figura.h"
-#include <iostream>
 #include "../EventLogger.h"
 Figura::Figura(void)
 {
@@ -76,7 +75,7 @@ void Figura::activar(){
 }
 Figura::~Figura(void)
 {
-	std::cout << "Lllamando destructor de figura" << std::endl;
+	EventLogger::AgregarEvento("Lllamando destructor de figura",DEBUG);
 	//this->world->DestroyBody(this->body);
 	this->body->GetWorld()->DestroyBody(this->body);
 

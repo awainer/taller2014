@@ -56,6 +56,19 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 }
 
 
+bool Poligono::validarParametros(unsigned int lados, float radio){
+	if (lados <= 2 || lados > 6){
+		EventLogger::AgregarEvento("Los poligonos admiten entre 3 y 6 lados",WARNING);
+		return false;
+	}
+	
+	if ( radio < 0 ){
+		EventLogger::AgregarEvento("El radio debe ser un numero positivo",WARNING);
+		return false;
+	}
+
+	return true;
+}
 unsigned int Poligono::getVertexCount(){
 	b2PolygonShape * shape = (b2PolygonShape *)this->body->GetFixtureList()[0].GetShape();
 	return shape->GetVertexCount();

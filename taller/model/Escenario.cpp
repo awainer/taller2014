@@ -40,21 +40,39 @@ bool Escenario::contiene(CoordenadasR2 punto){
 }
 
 void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bool dinamica, float masa){
+	Pelota * p = NULL;
 	if(!this->contiene(centro)){
-			EventLogger::AgregarEvento("No puedo agregar una pelota con centro de masa fuera del escenario:" + centro.str(),WARNING);
+			EventLogger::AgregarEvento("Escenario: No puedo agregar una pelota con centro de masa fuera del escenario:" + centro.str(),WARNING);
 			return;
 	}
-	this->pelotas.push_back(new Pelota(centro,color,radio,dinamica,masa,this->world));
-	this->checkOverlap();
+	if (Pelota::validarParametros(radio)){
+		p = new Pelota(centro,color,radio,dinamica,masa,this->world);
+		if (!this->checkOverlap(p)){
+			this->pelotas.push_back(p);
+			EventLogger::AgregarEvento("Escenario: pelota agregada!",DEBUG);
+		}else{
+			EventLogger::AgregarEvento("Escenario: No puedo agregar una pelota porque se superpone a otro cuerpo",WARNING);
+			delete p;
+		}
+	}
+	
+
 }
 
 void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int lados,unsigned int angulo, Color color, bool dinamica, float masa){
+	Poligono * p = NULL;
 	if(!this->contiene(centro)){
 			EventLogger::AgregarEvento("No puedo agregar una poligono con centro de masa fuera del escenario:" + centro.str(),WARNING);
 			return;
 	}
-	this->cuerposEstaticos.push_back((Figura*) new Poligono(centro,color,radio,lados,angulo,dinamica,masa,this->world));
-	this->checkOverlap();
+	p =  new Poligono(centro,color,radio,lados,angulo,dinamica,masa,this->world);
+	if (!this->checkOverlap(p)){
+			this->cuerposEstaticos.push_back(p);
+			EventLogger::AgregarEvento("Escenario: poligono agregado!",DEBUG);
+		}else{
+			EventLogger::AgregarEvento("Escenario: No puedo agregar un poligono porque se superpone a otro cuerpo",WARNING);
+			delete p;
+		}
 }
 
 void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,unsigned int angulo, Color color, bool dinamica, float masa){
@@ -73,7 +91,7 @@ void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float
 	}
 
 	this->cuerposEstaticos.push_back((Figura*) new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world));
-	this->checkOverlap();
+	//this->checkOverlap();
 }
 
 void Escenario::agregarTrapecio(CoordenadasR2 centro,float longpiso, float longtecho, float altura, Color color, int angulorot,bool dinamico,float masa){
@@ -83,7 +101,7 @@ void Escenario::agregarTrapecio(CoordenadasR2 centro,float longpiso, float longt
 	}
 
 	this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longpiso,longtecho, altura, color,angulorot,dinamico,masa, this->world));
-	this->checkOverlap();
+	//this->checkOverlap();
 }
 
 CoordenadasR2 Escenario::getSize(){
@@ -142,27 +160,34 @@ void Escenario::deleteFigura(Figura * f){
 
 }
 
-void Escenario::checkOverlap(){
-	// Un step es necesario para que el contact list no sea NULL
-	this->step();
-	b2Contact * c = this->world->GetContactList();
-	Figura * figuraConflictiva;
-	while(c){
-		if(c->IsTouching()){
-			//b2Fixture *fa,*fb;
-			figuraConflictiva = this->decidirConflicto(c->GetFixtureA(), c->GetFixtureB());
-			EventLogger::AgregarEvento("Borrando cuerpo superpuesto de id " + EventLogger::itos(figuraConflictiva->id));
+bool Escenario::checkOverlap(Figura * f){
 
-			this->deleteFigura(figuraConflictiva);
-			this->step();
-			c = this->world->GetContactList();
-		}
+	// Chequeo contra las paredes
+	for(std::list<Figura*>::iterator it=this->paredes.begin(); it != this->paredes.end(); ++it){
+		if ( f->seSolapaCon(*it))
+			return true;
+	}
+	// Contra las pelotas
+	for(std::list<Figura*>::iterator it=this->pelotas.begin(); it != this->pelotas.end(); ++it){
+		if ( f->seSolapaCon(*it))
+			return true;
+	}
+	
+	// contra poligonos
+	for(std::list<Figura*>::iterator it=this->cuerposEstaticos.begin(); it != this->cuerposEstaticos.end(); ++it){
+		if ( f->seSolapaCon(*it))
+			return true;
+	}
+	// contra jugadores
+	for(std::list<Jugador*>::iterator it=this->jugadores.begin(); it != this->jugadores.end(); ++it){
+		if ( f->seSolapaCon(*it))
+			return true;
 	}
 
-
+	return false;
 }
 
-Figura * aux_decidir(Figura * figA, Figura * figB){
+/*Figura * aux_decidir(Figura * figA, Figura * figB){
 	int typeA = figA->getType();
 	int typeB = figB->getType();
 	//enum  BODY_TYPE { STATIC_BODY, DYNAMIC_BODY, CHARACTER, PLATFORM, FLOOR, ROOF, RIGHT_WALL, LEFT_WALL, FOOT_SENSOR};
@@ -198,7 +223,7 @@ Figura *  Escenario::decidirConflicto(b2Fixture * a, b2Fixture * b){
 			return figA; // un default, si no pudimos identificar el caso
 	}
 }
-
+*/
 Escenario::~Escenario(void)
 {
 	std::cout << "Dstructor escenario" << std::cout;

@@ -55,6 +55,11 @@ CoordenadasR2 Pelota::getCentro(){
 	return CoordenadasR2(this->body->GetWorldCenter().x,this->body->GetWorldCenter().y);
 }
 
+bool Pelota::validarParametros(float radio){
+	if (radio > 0)
+		return true;
+	EventLogger::AgregarEvento("El radio de los circulos debe ser un numero positivo",WARNING);
+}
 Pelota::~Pelota(void){
 //	std::cout << "Destructor pelota" << std::endl;
 	//this->body->GetWorld()->DestroyBody(this->body);

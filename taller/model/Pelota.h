@@ -14,5 +14,6 @@ public:
 	CoordenadasR2 getPuntoReferencia();
 	b2Shape * getShape();
 	float getRadio();
+	static bool validarParametros(float radio);
 };
 

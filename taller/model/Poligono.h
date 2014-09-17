@@ -12,6 +12,7 @@ public:
 	*/
 	Poligono();
 	Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int lados, int angulorot,bool dinamico,float masa,  b2World * world);
+	static bool validarParametros(unsigned int lados, float radio); 
 	unsigned int getVertexCount();
 	~Poligono(void);
 };
