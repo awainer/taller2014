@@ -94,13 +94,13 @@ void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float
 	//this->checkOverlap();
 }
 
-void Escenario::agregarTrapecio(CoordenadasR2 centro,float longpiso, float longtecho, float altura, Color color, int angulorot,bool dinamico,float masa){
+void Escenario::agregarTrapecio(CoordenadasR2 centro,float longladoizq, float longtecho,float longladoder, float altura, Color color, int angulorot,bool dinamico,float masa){
 	if(!this->contiene(centro)){
 			EventLogger::AgregarEvento("No puedo agregar un trapecio con centro de masa fuera del escenario:" + centro.str(),WARNING);
 			return;
 	}
 
-	this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longpiso,longtecho, altura, color,angulorot,dinamico,masa, this->world));
+	this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longladoizq,longtecho,longladoder, altura, color,angulorot,dinamico,masa, this->world));
 	//this->checkOverlap();
 }
 

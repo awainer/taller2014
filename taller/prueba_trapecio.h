@@ -32,7 +32,7 @@ int  prueba_trapecio(){
 	//float yratio = 480 / 4.8f;
 	DatosPantalla datos = DatosPantalla(640,480,6.4f,4.8f);
 
-	esc->agregarTrapecio(CoordenadasR2(3,3),4,2,1,rojo,0,false,2);
+	esc->agregarTrapecio(CoordenadasR2(3,3),2,4,2,1,rojo,0,false,2);
 
 	//VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],&datos);
 	//Clear screen		

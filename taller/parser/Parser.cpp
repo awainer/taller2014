@@ -2560,7 +2560,7 @@ Escenario * Parser::CrearObjetos()
 	for (list <trap> ::iterator it= miEscenario.trapecios.begin(); it!= miEscenario.trapecios.end(); it++) {
 		trap unTrapecio= *it;
 
-		esc->agregarTrapecio(CoordenadasR2(unTrapecio.x,unTrapecio.y),unTrapecio.lado1,unTrapecio.lado2,unTrapecio.altura,Color(unTrapecio.color.r, unTrapecio.color.g, unTrapecio.color.b),unTrapecio.rot,!unTrapecio.estatico,unTrapecio.masa);
+		esc->agregarTrapecio(CoordenadasR2(unTrapecio.x,unTrapecio.y),unTrapecio.lado1,unTrapecio.lado2,unTrapecio.lado3,unTrapecio.altura,Color(unTrapecio.color.r, unTrapecio.color.g, unTrapecio.color.b),unTrapecio.rot,!unTrapecio.estatico,unTrapecio.masa);
 
 
 	}

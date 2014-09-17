@@ -20,9 +20,12 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 
 	if (dinamico){
 		bodyDef.type = b2_dynamicBody;
+		this->type = STATIC_BODY;
 	}
-	else
+	else{
 		bodyDef.type = b2_staticBody;
+		this->type = DYNAMIC_BODY;
+	}
 
 	// http://www.calculatorsoup.com/calculators/geometry-plane/parallelogram.php
 	//
@@ -52,13 +55,13 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	vertice4.y = vertice1.y;
 	vertice2.y = altura / 2;
 	vertice3.y = vertice2.y;
-
+	/*
 	// Sacar
 	std::cout << "vertice1.y: " << vertice1.y + centro.y << std::endl;
 	std::cout << "vertice2.y: " << vertice2.y + centro.y << std::endl;
 	std::cout << "vertice3.y: " << vertice3.y + centro.y << std::endl;
 	std::cout << "vertice4.y: " << vertice4.y + centro.y << std::endl;
-
+	*/
 	//  angulo V1 = arcsin(H/lado1)
 	// resultado en radianes
 	float anguloV1 = asin(altura/longlado1);
@@ -78,8 +81,6 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 
 	float diferinfder = longlado2 - diferinfizq;
 
-	// Sacar
-	//std::cout << "diferinfder: " << diferinfder << std::endl;
 	vertice1.x = - diferinfizq;
 	vertice2.x = - diferinfder;
 	vertice3.x = diferinfizq;
