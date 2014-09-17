@@ -122,18 +122,22 @@ bool Paralelogramo::validarParametros(float longlado1, float longlado2, float al
 				}
 				else {
 					EventLogger::AgregarEvento("Los lados del paralelogramo deben ser mayores a la altura del paralelogramo",WARNING);
+					return false;
 				}
 			}
 			else{
 				EventLogger::AgregarEvento("La altura del paralelogramo debe ser un numero positivo",WARNING);
+				return false;
 			}
 		}
 		else {
 			EventLogger::AgregarEvento("La longitud de la base y el techo del paralelogramo debe ser un numero positivo",WARNING);
+			return false;
 		}
 	}
 	else {
 		EventLogger::AgregarEvento("La longitud del lado 1 del paralelogramo debe ser un numero positivo",WARNING);
+		return false;
 	}
 }
 

@@ -65,42 +65,65 @@ void Escenario::agregarPoligono(CoordenadasR2 centro, float radio, unsigned int 
 			EventLogger::AgregarEvento("No puedo agregar una poligono con centro de masa fuera del escenario:" + centro.str(),WARNING);
 			return;
 	}
-	p =  new Poligono(centro,color,radio,lados,angulo,dinamica,masa,this->world);
-	if (!this->checkOverlap(p)){
-			this->cuerposEstaticos.push_back(p);
-			EventLogger::AgregarEvento("Escenario: poligono agregado!",DEBUG);
-		}else{
-			EventLogger::AgregarEvento("Escenario: No puedo agregar un poligono porque se superpone a otro cuerpo",WARNING);
-			delete p;
-		}
+	if (Poligono::validarParametros(lados,radio)){
+		p =  new Poligono(centro,color,radio,lados,angulo,dinamica,masa,this->world);
+		if (!this->checkOverlap(p)){
+				this->cuerposEstaticos.push_back(p);
+				EventLogger::AgregarEvento("Escenario: poligono agregado!",DEBUG);
+			}else{
+				EventLogger::AgregarEvento("Escenario: No puedo agregar un poligono porque se superpone a otro cuerpo",WARNING);
+				delete p;
+			}
+	}
 }
 
 void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,unsigned int angulo, Color color, bool dinamica, float masa){
+	Rectangulo * r = NULL;
 	if(!this->contiene(centro)){
 			EventLogger::AgregarEvento("No puedo agregar una rectangulo con centro de masa fuera del escenario:" + centro.str(),WARNING);
 			return;
 	}
-	
-		this->cuerposEstaticos.push_back((Figura*) new Rectangulo(centro,alto,ancho,dinamica,color,masa,angulo,this->world));
+	if (Rectangulo::validarParametros(alto,ancho)){
+		r = new Rectangulo(centro,alto,ancho,dinamica,color,masa,angulo,this->world);
+		if (!this->checkOverlap((Figura *) r)){
+			this->cuerposEstaticos.push_back((Figura * ) r);
+			EventLogger::AgregarEvento("Escenario: poligono agregado!",DEBUG);
+			//this->cuerposEstaticos.push_back((Figura*) new );
+		}
+	}
 }
 
 void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float altura, Color color, int angulorot,bool dinamico,float masa){
+	Paralelogramo * p = NULL;
 	if(!this->contiene(centro)){
 			EventLogger::AgregarEvento("No puedo agregar un paralelogramo con centro de masa fuera del escenario:" + centro.str(),WARNING);
 			return;
 	}
-
-	this->cuerposEstaticos.push_back((Figura*) new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world));
+	if (Paralelogramo::validarParametros(longlado1, longlado2, altura)){
+		p = new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world);
+		if (!this->checkOverlap((Figura *) p)){
+			this->cuerposEstaticos.push_back((Figura * ) p);
+			EventLogger::AgregarEvento("Escenario: Paralelogramo agregado!",DEBUG);
+			//this->cuerposEstaticos.push_back((Figura*) new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world));
+		}
+	}
 	//this->checkOverlap();
 }
 
 void Escenario::agregarTrapecio(CoordenadasR2 centro,float longladoizq, float longtecho,float longladoder, float altura, Color color, int angulorot,bool dinamico,float masa){
+	Trapecio * t = NULL;
 	if(!this->contiene(centro)){
 			EventLogger::AgregarEvento("No puedo agregar un trapecio con centro de masa fuera del escenario:" + centro.str(),WARNING);
 			return;
 	}
-
-	this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longladoizq,longtecho,longladoder, altura, color,angulorot,dinamico,masa, this->world));
+	if (Trapecio::validarParametros(longladoizq,longtecho,longladoder,altura)){
+		t = new Trapecio(centro,longladoizq,longtecho,longladoder, altura, color,angulorot,dinamico,masa, this->world);
+		if (!this->checkOverlap((Figura *) t)){
+			this->cuerposEstaticos.push_back((Figura * ) t);
+			EventLogger::AgregarEvento("Escenario: Trapecio agregado!",DEBUG);
+		}
+	}
+	//this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longladoizq,longtecho,longladoder, altura, color,angulorot,dinamico,masa, this->world));
 	//this->checkOverlap();
 }
 
