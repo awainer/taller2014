@@ -165,7 +165,7 @@ typedef const Char * 	Location;
 
 #define CIRCULO_X_DEFAULT 5
 #define CIRCULO_Y_DEFAULT 5
-#define CIRCULO_RADIO_DEFAULT 0.4
+#define CIRCULO_RADIO_DEFAULT 0.4f
 #define CIRCULO_MASA_DEFAULT 15
 #define CIRCULO_ESTATICO_DEFAULT 0
 

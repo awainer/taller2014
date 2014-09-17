@@ -3,13 +3,13 @@
 #include "../EventLogger.h"
 #include <iostream>
 //Constantes del Jugador
-#define ALTO_JUGADOR     0.8
-#define ANCHO_JUGADOR    0.5
-#define IMPULSO_CAMINAR  1
-#define	IMPULSO_SALTAR	 65
-#define VELOCIDAD_MAXIMA 8
-#define UMBRAL_SALTO 0.1// velocidad vertical maxima para iniciar salto
-#define UMBRAL_ESTATICO 0.5
+#define ALTO_JUGADOR     0.8f
+#define ANCHO_JUGADOR    0.5f
+#define IMPULSO_CAMINAR  1.0f
+#define	IMPULSO_SALTAR	 65.0f
+#define VELOCIDAD_MAXIMA 8.0f
+#define UMBRAL_SALTO 0.1f// velocidad vertical maxima para iniciar salto
+#define UMBRAL_ESTATICO 0.5f
 #define IZQ -1
 #define DER  1
 
@@ -26,18 +26,18 @@ Jugador::Jugador(float x, float y,b2World * world)
 	this->body = world->CreateBody(&bodyDef);
 
 	// sensor de piso
-	shapeSensor.SetAsBox(0.48 * ANCHO_JUGADOR, 0.2 * ANCHO_JUGADOR, b2Vec2(0,0-ALTO_JUGADOR/2), 0);
+	shapeSensor.SetAsBox(0.48f * ANCHO_JUGADOR, 0.2f * ANCHO_JUGADOR, b2Vec2(0.0f,0-ALTO_JUGADOR/2.0f), 0.0f);
 	fixtureDef.isSensor = true;
 	fixtureDef.shape = &shapeSensor;
 	fixtureDef.userData = (void*) FOOT_SENSOR;
 	this->body->CreateFixture(&fixtureDef);
 
 	// jugador propiamente dicho
-	shape.SetAsBox(ANCHO_JUGADOR/2,ALTO_JUGADOR/2);
+	shape.SetAsBox(ANCHO_JUGADOR/2.0f,ALTO_JUGADOR/2.0f);
 	fixtureDef.shape = &shape;
 	fixtureDef.isSensor = false;
-	fixtureDef.friction = 1;
-	fixtureDef.restitution = 0.1;
+	fixtureDef.friction = 1.0f;
+	fixtureDef.restitution = 0.1f;
 	fixtureDef.userData = NULL;
 	
 	fixtureDef.density = 12;
@@ -59,7 +59,7 @@ void Jugador::moverLateral(int lado){
 		factor = 0.2;
 
 	b2Vec2 velocidad = this->body->GetLinearVelocity();
-	float nuevaVelocidadX = velocidad.x	+ lado * IMPULSO_CAMINAR * factor;
+	float nuevaVelocidadX = float(velocidad.x	+ lado * IMPULSO_CAMINAR * factor);
 	if (abs(nuevaVelocidadX) <= VELOCIDAD_MAXIMA)
 		velocidad.x = nuevaVelocidadX;
 	//else
@@ -89,7 +89,7 @@ void Jugador::saltar(){
 }
 
 CoordenadasR2 Jugador::getSize(){
-	return CoordenadasR2(ANCHO_JUGADOR,ALTO_JUGADOR);
+	return CoordenadasR2(float(ANCHO_JUGADOR),float(ALTO_JUGADOR));
 }
 
 void Jugador::sumarContacto(){

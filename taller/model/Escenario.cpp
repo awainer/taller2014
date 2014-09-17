@@ -8,7 +8,7 @@
 #include "../EventLogger.h"
 #include "CollisionHandler.h"
 #include "constantes.h"
-#include <iostream>
+//#include <iostream>
 #include <string>
 Escenario::Escenario(float largo, float alto,CoordenadasR2 gravedad, std::string fondo, b2World * mundo)
 {
@@ -226,7 +226,7 @@ Figura *  Escenario::decidirConflicto(b2Fixture * a, b2Fixture * b){
 */
 Escenario::~Escenario(void)
 {
-	std::cout << "Dstructor escenario" << std::cout;
+	EventLogger::AgregarEvento("Dstructor escenario",WARNING);
 	for(std::list<Figura*>::iterator it=this->paredes.begin(); it != this->paredes.end(); ++it)
 		delete (*it);
 	for(std::list<Figura*>::iterator it=this->pelotas.begin(); it != this->pelotas.end(); ++it)

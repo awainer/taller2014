@@ -28,8 +28,8 @@ void VistaPoligono::transformarSint16(std::vector<CoordenadasR2> vertices){
 
 		for(int i = 0; i<n_vertices; i++){
 			
-			m_vx[i]=vertices[i].x *  this->m_datos->getXratio();
-			m_vy[i]= this->m_datos->getAltoPixel() -(vertices[i].y *  this->m_datos->getYratio());
+			m_vx[i]=Sint16(vertices[i].x *  this->m_datos->getXratio());
+			m_vy[i]=Sint16(this->m_datos->getAltoPixel() -(vertices[i].y *  this->m_datos->getYratio()));
 
 		} 
 		

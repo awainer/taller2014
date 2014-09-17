@@ -125,7 +125,7 @@ void VistaEscenario::mostrar(){
 		SDL_RenderCopy( m_renderer, m_fondo , NULL, NULL );
 	}
 	//cargo figuras en el pantalla
-	for(int i=0; i<figuras.size() ;i++){
+	for(unsigned int i=0; i<figuras.size() ;i++){
 		figuras[i]->render();
 	}
 	SDL_RenderPresent(m_renderer);
@@ -133,7 +133,7 @@ void VistaEscenario::mostrar(){
 
 VistaEscenario::~VistaEscenario(void)
 {
-	for(int i=0; i<figuras.size() ;i++){
+	for(unsigned int i=0; i<figuras.size() ;i++){
 		delete figuras[i];
 	}
 	if(m_fondo !=NULL){

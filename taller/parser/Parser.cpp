@@ -59,7 +59,7 @@ void Parser::Inicializar()
 
     if(!parseadoOK){
 
-		string errormsg = reader.getFormatedErrorMessages();
+		string errormsg = reader.getFormattedErrorMessages();
 		errormsg.erase(std::remove(errormsg.begin(), errormsg.end(), '\n'), errormsg.end());
 		string error;
 		error = "ERROR EN ARCHIVO JSON: ";
@@ -2374,7 +2374,7 @@ void Parser::CargarDefault()
 		objetoActualRect.masa=3;
 		objetoActualRect.rot=0;		
 		objetoActualRect.x=5;
-		objetoActualRect.y=1.45;
+		objetoActualRect.y=1.45f;
 		miEscenario.rectangulos.push_back(objetoActualRect);
 
 		objetoActualRect.alto=0.5;

@@ -66,7 +66,7 @@ bool Funciones::esHEXvalido(string colorHEX){
 
 	if (colorHEX.size() == 7){	
 		bool esHex = false;
-		for (int i =1; i<=(colorHEX.size()-1); i++){
+		for (unsigned int i =1; i<=(colorHEX.size()-1); i++){
 			
 			esHex = isxdigit( colorHEX[i] );
 		}
@@ -123,7 +123,7 @@ string Funciones::floatToString(float num){
 }
 
 float Funciones::redondear(float num){
-	 return floor(num+0.5);
+	 return floor(num+0.5f);
  }
  
 int Funciones::randomNum( int cotaSuperior ){

@@ -19,8 +19,8 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 	if (dinamica){
 		bodyDef.type = b2_dynamicBody;
 		fixtureDef.density = 1.2f;
-		fixtureDef.restitution = 0.7;
-		fixtureDef.friction = 0.3;
+		fixtureDef.restitution = 0.7f;
+		fixtureDef.friction = 0.3f;
 		this->type = DYNAMIC_BODY;
 	}else{
 		bodyDef.type = b2_staticBody;
@@ -47,7 +47,7 @@ float Pelota::getRadio(){
 
 CoordenadasR2 Pelota::getPuntoReferencia(){
 	b2CircleShape * shape = (b2CircleShape *)(this->body->GetFixtureList()->GetShape());
-	b2Vec2 p = this->body->GetWorldPoint(b2Vec2(0, 0.75 *shape->m_radius));
+	b2Vec2 p = this->body->GetWorldPoint(b2Vec2(0.0f, 0.75f *shape->m_radius));
 		return CoordenadasR2(p.x,p.y);
 }
 

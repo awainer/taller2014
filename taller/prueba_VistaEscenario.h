@@ -18,10 +18,10 @@ int  prueba_vistaEscenario(){
 	Color  verde = Color(0,255,0);
 	Color violeta = Color(100,100,0);
 	SDL_Event evento;
-	SDL_Scancode sc;
+//	SDL_Scancode sc;
 	bool juegoEnMarcha = true;
 	//creo la pantalla
-	Escenario * esc = new Escenario(6.4, 4.8,CoordenadasR2(0,-10),std::string("pathfondo"),NULL);
+	Escenario * esc = new Escenario(6.4f, 4.8f,CoordenadasR2(0.0f,-10.0f),std::string("pathfondo"),NULL);
 	
 	// cambio de escala segun Box2D a SDL, necesaria para dibujar en el pixel correcto
 	//float xratio = 640 / 6.4f;

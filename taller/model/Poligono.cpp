@@ -44,7 +44,7 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	shape.Set(vertices,lados);
 	
 	this->body = this->world->CreateBody(&bodyDef);
-	fixtureDef.friction=0.1;
+	fixtureDef.friction=0.1f;
 	fixtureDef.shape = (&shape);
 	this->body->CreateFixture(&fixtureDef); 
 	this->setDensidad(masa);

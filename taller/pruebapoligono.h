@@ -49,7 +49,7 @@ int  caca(){
 	//creo la pantalla
 	SDL_Window *win = SDL_CreateWindow("Prueba poligono, rectangulo", 100, 100, 640, 480, SDL_WINDOW_SHOWN);	
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
-	Escenario * esc = new Escenario(6.4, 4.8,CoordenadasR2(0,-10),std::string("pathfondo"),NULL);
+	Escenario * esc = new Escenario(6.4f, 4.8f,CoordenadasR2(0.0f,-10.0f),std::string("pathfondo"),NULL);
 	
 	// cambio de escala segun Box2D a SDL, necesaria para dibujar en el pixel correcto
 	//float xratio = 640 / 6.4f;
@@ -129,7 +129,7 @@ int  caca2(){
 	SDL_Window *win = SDL_CreateWindow("Prueba carga de imagen", 100, 100, 640, 480, SDL_WINDOW_SHOWN);	
 	ren2 = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
 
-	Escenario * esc = new Escenario(6.4, 4.8,CoordenadasR2(0,-10),std::string("pathfondo"),NULL);
+	Escenario * esc = new Escenario(6.4f, 4.8f,CoordenadasR2(0.0f,-10.0f),std::string("pathfondo"),NULL);
 	//float xratio = 640 / 6.4f;
 	//float yratio = 480 / 4.8f;
 	DatosPantalla datos = DatosPantalla(640,480,6.4f,4.8f);

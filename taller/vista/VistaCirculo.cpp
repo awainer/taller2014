@@ -15,8 +15,8 @@ VistaCirculo::VistaCirculo(SDL_Renderer* gRenderer , Pelota * pelota, DatosPanta
 
 void VistaCirculo::render() {
 	
-	int m_x = this->pelota->getCentro().x * this->m_datos->getXratio();
-	int m_y = this->m_datos->getAltoPixel() - (this->pelota->getCentro().y * this->m_datos->getYratio());	
+	int m_x = int(this->pelota->getCentro().x * this->m_datos->getXratio());
+	int m_y = int(this->m_datos->getAltoPixel() - (this->pelota->getCentro().y * this->m_datos->getYratio()));	
 	Sint16 rx = (Sint16) (this->pelota->getRadio() * this->m_datos->getXratio());
 	Sint16 ry = (Sint16) (this->pelota->getRadio() * this->m_datos->getYratio());
 

@@ -16,10 +16,10 @@ void VistaJugador::render(){
 	CoordenadasR2 size = m_jugador->getSize(); //ancho,alto
 	CoordenadasR2 pos = m_jugador->getPosicion();//x,y
 	int x,y,w,h;
-	x = ( pos.x - ( size.x / 2 ) ) * this->m_datos->getXratio();
-	y = this->m_datos->getAltoPixel() - ( (pos.y + ( size.y / 2 ) ) * this->m_datos->getYratio());
-	w = 1.15 * size.x * this->m_datos->getXratio();
-	h = size.y * this->m_datos->getYratio();
+	x = int(( pos.x - ( size.x / 2 ) ) * this->m_datos->getXratio());
+	y = int(this->m_datos->getAltoPixel() - ( (pos.y + ( size.y / 2 ) ) * this->m_datos->getYratio()));
+	w = int(1.15 * size.x * this->m_datos->getXratio());
+	h = int(size.y * this->m_datos->getYratio());
 	this->cargarSprites(m_jugador->getDireccion(), x, y, w, h);
 	if ((this->m_jugador->getDireccion() == IZQUIERDA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
 		m_dirAnterior = IZQUIERDA;
