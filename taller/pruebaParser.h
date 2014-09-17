@@ -7,8 +7,8 @@
 #include "model\Escenario.h"
 #include "vista\SDL2_gfx\SDL2_framerate.h"
 
-Escenario* iniciar(){
-	Parser parser = Parser();
+Escenario* iniciar(string path){
+	Parser parser = Parser(path);
 	parser.Inicializar();
 	Escenario* esc = parser.CrearObjetos();
 	
@@ -63,7 +63,7 @@ int pruebaParser(string path){
 					delete escenario_vista;
 					delete esc;
 
-					esc= iniciar();
+					esc= iniciar(path);
 					escenario_vista = new VistaEscenario(esc,&datos);
 					Jugador* jugador = *(esc->getJugadores().begin());
 					escenario_vista->agregarJugador(jugador);

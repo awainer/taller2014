@@ -98,15 +98,15 @@ void Parser::Inicializar()
         if(!root["escenario"]["alto-px"].isNull()){
 
             //SI ES UN ENTERO
-            if(root["escenario"]["alto-px"].isDouble()){
+			if(root["escenario"]["alto-px"].isInt()){
 
-                if(root["escenario"]["alto-px"].asFloat()>=0){
+                if(root["escenario"]["alto-px"].asInt()>=0){
 
                     if(!pxSonDefault)
-                        miEscenario.altopx = root["escenario"]["alto-px"].asFloat();  
+                        miEscenario.altopx = root["escenario"]["alto-px"].asInt();  
 
                 } else {
-                    EventLogger::AgregarEvento("ERROR: alto-px del escenario DEBE ser un real positivo, se cargaran los valores por defecto");
+                    EventLogger::AgregarEvento("ERROR: alto-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto");
 					//TODO:Cargar valores por defecto... Alto y ancho?
 					miEscenario.altopx = ALTO_PX_DEFAULT;
 					miEscenario.anchopx = ANCHO_PX_DEFAULT;
@@ -116,7 +116,7 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: alto-px del escenario DEBE ser un real positivo, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("ERROR: alto-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto");
 
                 //TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altopx = ALTO_PX_DEFAULT;
@@ -141,13 +141,13 @@ void Parser::Inicializar()
         if(!root["escenario"]["ancho-px"].isNull()){
 
             //SI ES UN ENTERO
-            if(root["escenario"]["ancho-px"].isDouble()){
+            if(root["escenario"]["ancho-px"].isInt()){
 
-                if(root["escenario"]["ancho-px"].asFloat()>=0){
+                if(root["escenario"]["ancho-px"].asInt()>=0){
                     if(!pxSonDefault)
-                        miEscenario.anchopx = root["escenario"]["ancho-px"].asFloat();  
+                        miEscenario.anchopx = root["escenario"]["ancho-px"].asInt();  
                 } else {
-                    EventLogger::AgregarEvento("ERROR: ancho-px del escenario DEBE ser un real positivo, se cargaran los valores por defecto");
+                    EventLogger::AgregarEvento("ERROR: ancho-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto");
 
 					//TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altopx = ALTO_PX_DEFAULT;
@@ -158,7 +158,7 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: ancho-px del escenario DEBE ser un real positivo, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("ERROR: ancho-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto");
 
                 //TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altopx = ALTO_PX_DEFAULT;
@@ -1270,7 +1270,7 @@ void Parser::Inicializar()
                                 //SI ES UN ENTERO
                                 if(root["escenario"]["objetos"][i]["radio"].isDouble()){
                                     
-									if (!root["escenario"]["objetos"][i]["radio"].asFloat() <= 0) {
+									if (root["escenario"]["objetos"][i]["radio"].asFloat() <= 0) {
                                         circulo.radio = root["escenario"]["objetos"][i]["radio"].asFloat(); 
 									} else {
 
@@ -2293,7 +2293,7 @@ void Parser::Inicializar()
     } 
 	catch( exception e) {
 		EventLogger::AgregarEvento("ERROR: error en la lectura del archivo JSON");
-		//Cargar default?
+		this->CargarDefault();
 
 	}
 
@@ -2442,14 +2442,14 @@ Escenario * Parser::CrearObjetos()
 {
 	// CREARESCENARIO
 
-	    cout << "altopx " << miEscenario.altopx << endl;
+/*	    cout << "altopx " << miEscenario.altopx << endl;
         cout <<"anchopx " << miEscenario.anchopx << endl;
         cout << "altoun " << miEscenario.altoun << endl;
         cout << "anchoun " << miEscenario.anchoun << endl;
         cout << "imagen_fondo " << miEscenario.imagen_fondo << endl;
         cout << "personajeX " << miEscenario.personajeX << endl;
         cout << "personajeY " << miEscenario.personajeY << endl;
-	 
+*/	 
 		Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,-10),miEscenario.imagen_fondo,NULL);
 		esc->agregarJugador(CoordenadasR2(miEscenario.personajeX,miEscenario.personajeY));
 	// CREAR POLIGONOS

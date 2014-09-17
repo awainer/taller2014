@@ -17,7 +17,14 @@ int main(int argc, char ** argv){
 	//caca();
 	//caca2();
 	//string path = "";
-	pruebaParser(string(argv[1]));
+	string path;
+	if (argc != 2){
+		EventLogger::AgregarEvento("Cantidad de argumentos incorrecta!");
+		 path = "";
+	}else
+		 path = string(argv[1]);
+
+	pruebaParser(path);
 	/*
 	char pathChar[2000];
 	string path;
