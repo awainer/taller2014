@@ -45,7 +45,7 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	std::cout << "Centro.x: " << centro.x << " Centro.y: " << centro.y << std::endl;
 
 	bodyDef.position.Set(centro.x,centro.y);
-	bodyDef.angle=angulorot * b2_pi /180;
+	bodyDef.angle= this->normalizarAngulo(angulorot);
 	b2Vec2 vertices[8]; 
 
 	vertice1.y = -altura / 2;

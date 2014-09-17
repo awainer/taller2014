@@ -22,6 +22,7 @@ public:
 	static int nextId;
 	b2Fixture * getFixture();
 	bool seSolapaCon(Figura * otra);
+	float normalizarAngulo(int angulo);
 protected:
 	void setDensidad(float masa);
 	b2Body * body;

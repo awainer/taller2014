@@ -30,7 +30,7 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 
 	
 	bodyDef.position.Set(centro.x,centro.y);
-	bodyDef.angle=angulorot * b2_pi /180;
+	bodyDef.angle = this->normalizarAngulo(angulorot);
 	bodyDef.userData = (void*)this;
 	b2Vec2 vertices[8]; 
 	

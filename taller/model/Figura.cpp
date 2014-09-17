@@ -1,6 +1,6 @@
 #include "Figura.h"
 #include <iostream>
-
+#include "../EventLogger.h"
 Figura::Figura(void)
 {
 }
@@ -38,13 +38,26 @@ void Figura::setDensidad(float masa){
 	float area = m.mass;
 	fix->SetDensity(masa/area);
 	this->body->ResetMassData();
-	std::cout << "Masa: " << masa << " area: "<< area << " densidad " << fix->GetDensity() << std::endl; 
+	//std::cout << "Masa: " << masa << " area: "<< area << " densidad " << fix->GetDensity() << std::endl; 
 }
 
 
 b2Fixture * Figura::getFixture(){
 	// Si hay mas de un fixture va a devolver el primer shape asociado, en general es lo que queremos.
 	return this->body->GetFixtureList();
+}
+
+
+float Figura::normalizarAngulo(int angulo){
+	float result = 0;
+	if (angulo < 0 || angulo > 359){
+		EventLogger::AgregarEvento("El angulo debe estar entre 0 y 359, se usa angulo 0.",WARNING);
+		return result;
+	}
+	// Le tengo que restar 180 porque box2d maneja angulos normalizados entre -pi y pi.
+	result = (angulo - 180)* b2_pi /180;
+	EventLogger::AgregarEvento("El angulo " + to_string(long double(angulo)) + " normalizado en radianes resulta: " + to_string(long double(result)), DEBUG);
+	return result;
 }
 
 bool Figura::seSolapaCon(Figura * otra){
