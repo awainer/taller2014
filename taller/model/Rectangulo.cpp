@@ -36,3 +36,16 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 
 }
 
+bool Rectangulo::validarParametros(float alto, float ancho){
+	if (alto > 0){
+		if (ancho > 0){
+			return true;
+		}
+		else {
+			EventLogger::AgregarEvento("El ancho del rectangulo debe ser un numero positivo",WARNING);
+		}
+	}
+	else {
+		EventLogger::AgregarEvento("El alto del rectangulo debe ser un numero positivo",WARNING);
+	}
+}

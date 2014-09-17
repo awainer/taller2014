@@ -121,5 +121,47 @@ Trapecio::Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, floa
 }
 
 
+bool Trapecio::validarParametros(float longladoizq, float longtecho, float longladoder,  float altura){
+	if (longladoizq > 0){
+		if (longtecho > 0){
+			if (longladoder > 0){
+				if (altura > 0) {
+					return validarDimensiones(longladoizq, longtecho, longladoder, altura);
+				}
+				else {
+					EventLogger::AgregarEvento("La altura del Trapecio debe ser un numero positivo",WARNING);
+				}
+			}
+			else{
+				EventLogger::AgregarEvento("La longitud del lado derecho del Trapecio debe ser un numero positivo",WARNING);
+			}
+		}
+		else {
+			EventLogger::AgregarEvento("La longitud del techo del trapecio debe ser un numero positivo",WARNING);
+		}
+	}
+	else {
+		EventLogger::AgregarEvento("La longitud del izquierdo del Trapecio debe ser un numero positivo",WARNING);
+	}
+}
+
+
+
+bool Trapecio::validarDimensiones(float longladoizq, float longtecho, float longladoder,  float altura){
+	if ((longladoder < altura) || (longladoizq < altura)){
+		EventLogger::AgregarEvento("Los lados izquierdo y derecho de un trapecio no pueden ser menores a la altura",WARNING);
+		return false;
+	}
+	
+	if ((longladoizq == longladoder) && (longladoizq == altura)){
+		EventLogger::AgregarEvento("Al menos 1 de las 2 longitudes de los lados deben ser mayores a la altura de un trapecio",WARNING);
+		return false;
+	}
+	else {
+		return true;
+	}
+
+}
+
  Trapecio::~Trapecio(void){
  }

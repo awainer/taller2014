@@ -19,6 +19,9 @@ public:
 	*/
 	Trapecio();
 	Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, float longladoder,  float altura, Color color, int angulorot,bool dinamico,float masa,  b2World * world);
+	static bool validarParametros(float longladoizq, float longtecho, float longladoder,  float altura);
 	~Trapecio(void);
+private:
+	static bool validarDimensiones(float longladoizq, float longtecho, float longladoder,  float altura);
 };
 

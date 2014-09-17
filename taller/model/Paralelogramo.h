@@ -21,6 +21,7 @@ public:
 	Paralelogramo();
 	Paralelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float altura, Color color, int angulorot,bool dinamico,float masa,  b2World * world);
 	unsigned int getVertexCount();
+	static bool validarParametros(float longlado1, float longlado2, float altura);
 	~Paralelogramo(void);
 };
 

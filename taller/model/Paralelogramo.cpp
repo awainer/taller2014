@@ -107,11 +107,35 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	this->setDensidad(masa);
 	this->color = color;
 	this->generateId();
-	std::string msg =	"Agregando pelota con id "  + EventLogger::itos(this->id);
+	std::string msg = "Agregando pelota con id "  + EventLogger::itos(this->id);
 	EventLogger::AgregarEvento(msg, DEBUG);
 
 }
 
+
+bool Paralelogramo::validarParametros(float longlado1, float longlado2, float altura){
+	if (longlado1 > 0){
+		if (longlado2 > 0){
+			if (altura > 0) {
+				if (longlado1 > altura){
+					return true;
+				}
+				else {
+					EventLogger::AgregarEvento("Los lados del paralelogramo deben ser mayores a la altura del paralelogramo",WARNING);
+				}
+			}
+			else{
+				EventLogger::AgregarEvento("La altura del paralelogramo debe ser un numero positivo",WARNING);
+			}
+		}
+		else {
+			EventLogger::AgregarEvento("La longitud de la base y el techo del paralelogramo debe ser un numero positivo",WARNING);
+		}
+	}
+	else {
+		EventLogger::AgregarEvento("La longitud del lado 1 del paralelogramo debe ser un numero positivo",WARNING);
+	}
+}
 
 
  Paralelogramo::~Paralelogramo(void){
