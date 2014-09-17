@@ -50,7 +50,7 @@ void Escenario::agregarPelota(CoordenadasR2 centro, float radio, Color color, bo
 		if (!this->checkOverlap(p)){
 			this->pelotas.push_back(p);
 			EventLogger::AgregarEvento("Escenario: pelota agregada!",DEBUG);
-		}else{
+		}else{			
 			EventLogger::AgregarEvento("Escenario: No puedo agregar una pelota porque se superpone a otro cuerpo",WARNING);
 			delete p;
 		}
@@ -89,6 +89,9 @@ void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,
 			this->cuerposEstaticos.push_back((Figura * ) r);
 			EventLogger::AgregarEvento("Escenario: poligono agregado!",DEBUG);
 			//this->cuerposEstaticos.push_back((Figura*) new );
+		}else{
+			EventLogger::AgregarEvento("Escenario: No puedo agregar un Rectangulo porque se superpone a otro cuerpo",WARNING);
+			delete r;
 		}
 	}
 }
@@ -105,7 +108,11 @@ void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float
 			this->cuerposEstaticos.push_back((Figura * ) p);
 			EventLogger::AgregarEvento("Escenario: Paralelogramo agregado!",DEBUG);
 			//this->cuerposEstaticos.push_back((Figura*) new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world));
+		}else{
+			EventLogger::AgregarEvento("Escenario: No puedo agregar un Paralelogramo porque se superpone a otro cuerpo",WARNING);
+			delete p;
 		}
+
 	}
 	//this->checkOverlap();
 }
@@ -121,6 +128,9 @@ void Escenario::agregarTrapecio(CoordenadasR2 centro,float longladoizq, float lo
 		if (!this->checkOverlap((Figura *) t)){
 			this->cuerposEstaticos.push_back((Figura * ) t);
 			EventLogger::AgregarEvento("Escenario: Trapecio agregado!",DEBUG);
+		}else{
+			EventLogger::AgregarEvento("Escenario: No puedo agregar un Trapecio porque se superpone a otro cuerpo",WARNING);
+			delete t;
 		}
 	}
 	//this->cuerposEstaticos.push_back((Figura*) new Trapecio(centro,longladoizq,longtecho,longladoder, altura, color,angulorot,dinamico,masa, this->world));
@@ -142,7 +152,13 @@ std::list <Jugador *> Escenario::getJugadores(){
 }
 
 void Escenario::agregarJugador(CoordenadasR2 centro){
-	this->jugadores.push_back(new Jugador(centro.x,centro.y,this->world));
+	if(!this->contiene(centro)){
+		EventLogger::AgregarEvento("Centro de masa del jugador fuera del escenario:" + centro.str(),WARNING);
+		this->jugadores.push_back(new Jugador(centro.x,centro.y,this->world));
+	}
+	else{
+		this->jugadores.push_back(new Jugador(this->largo / 2,this->alto / 2 ,this->world));
+	}
 }
 
 
