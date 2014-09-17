@@ -6,8 +6,8 @@
 	  "alto-un":6,
       "imagen_fondo":"imagenes/sky.png",
       "personaje":{
-         "x":0.8,
-         "y":-0.6
+         "x":4,
+         "y":0.6
       },
       "objetos":[
 		  {
@@ -41,7 +41,7 @@
             "tipo":"rect",
             "x":1,
             "y":1,
-            "ancho":2,
+            "ancho":1.8,
             "alto":0.3,
             "color":"#1839CB",
             "rot":0,
@@ -63,24 +63,14 @@
             "tipo":"rect",
             "x":7,
             "y":1,
-            "ancho":2,
+            "ancho":1.2,
             "alto":0.3,
             "color":"#1839CB",
             "rot":0,
             "masa":3,
             "estatico":true
 		 },
-         {
-            "tipo":"poli",
-            "lados":5,
-            "x":4,
-            "y":2.3,
-            "escala":0.8,
-            "color":"#14DA7A",
-            "rot":90,
-            "masa":1,
-            "estatico":true
-         },
+         
 		 {
             "tipo":"rect",
             "x":1.5,
@@ -102,6 +92,31 @@
             "rot":135,
             "masa":3,
             "estatico":true
+		},
+		 {
+			"lado2": 0.8,
+			"altura": 0.3,
+            "tipo":"paralel",
+            "x":7,
+            "y":3,
+            "color":"#B77CD0",
+            "rot":0,
+            "masa":3,
+			"lado1": 0.5,
+            "estatico":false
+		},
+		{
+			"lado3": 0.8,
+			"altura": 0.3,
+			"lado2": 0.5,
+            "tipo":"trap",
+            "x":4,
+            "y":3,
+            "color":"#B77CD0",
+            "rot":0,
+            "masa":3,
+			"lado1": 0.5,
+            "estatico":false
 		}
       ]
    }

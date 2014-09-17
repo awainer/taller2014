@@ -1270,7 +1270,7 @@ void Parser::Inicializar()
                                 //SI ES UN ENTERO
                                 if(root["escenario"]["objetos"][i]["radio"].isDouble()){
                                     
-									if (root["escenario"]["objetos"][i]["radio"].asFloat() <= 0) {
+									if (root["escenario"]["objetos"][i]["radio"].asFloat() > 0) {
                                         circulo.radio = root["escenario"]["objetos"][i]["radio"].asFloat(); 
 									} else {
 

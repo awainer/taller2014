@@ -16,6 +16,14 @@ Escenario* iniciar(string path){
 }
 
 int pruebaParser(string path){
+	EventLogger::AgregarEvento("",WARNING);
+	EventLogger::AgregarEvento("",WARNING);
+	EventLogger::AgregarEvento("",WARNING);
+	EventLogger::AgregarEvento("*****************************************",WARNING);
+	EventLogger::AgregarEvento("********   INICIA EJECUCION   ***********",WARNING);
+	EventLogger::AgregarEvento("",WARNING);
+	EventLogger::AgregarEvento("",WARNING);
+	EventLogger::AgregarEvento("",WARNING);
 	Color  rojo = Color(255,0,0);
 	Color  azul = Color(0,0,255);
 	Color  verde = Color(0,255,0);
@@ -27,8 +35,6 @@ int pruebaParser(string path){
 	parser.Inicializar();
 	Escenario * esc = parser.CrearObjetos();
 	DatosPantalla datos = parser.CargarDatosPantalla();
-	EventLogger::AgregarEvento("*****************************************",WARNING);
-	EventLogger::AgregarEvento("********   INICIA EJECUCION   ***********",WARNING);
 	bool juegoEnMarcha = true;
 	VistaEscenario* escenario_vista = new  VistaEscenario(esc,&datos);
 	Jugador* jugador = *(esc->getJugadores().begin());
