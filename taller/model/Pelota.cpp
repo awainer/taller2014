@@ -59,6 +59,7 @@ bool Pelota::validarParametros(float radio){
 	if (radio > 0)
 		return true;
 	EventLogger::AgregarEvento("El radio de los circulos debe ser un numero positivo",WARNING);
+	return false;
 }
 Pelota::~Pelota(void){
 //	std::cout << "Destructor pelota" << std::endl;

@@ -116,7 +116,7 @@ Trapecio::Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, floa
 	this->setDensidad(masa);
 	this->color = color;
 	this->generateId();
-	std::string msg =	"Agregando paralelogramo con id "  + EventLogger::itos(this->id);
+	std::string msg =	"Agregando Trapecio con id "  + EventLogger::itos(this->id);
 	EventLogger::AgregarEvento(msg, DEBUG);
 }
 
@@ -130,18 +130,22 @@ bool Trapecio::validarParametros(float longladoizq, float longtecho, float longl
 				}
 				else {
 					EventLogger::AgregarEvento("La altura del Trapecio debe ser un numero positivo",WARNING);
+					return false;
 				}
 			}
 			else{
 				EventLogger::AgregarEvento("La longitud del lado derecho del Trapecio debe ser un numero positivo",WARNING);
+				return false;
 			}
 		}
 		else {
 			EventLogger::AgregarEvento("La longitud del techo del trapecio debe ser un numero positivo",WARNING);
+			return false;
 		}
 	}
 	else {
 		EventLogger::AgregarEvento("La longitud del izquierdo del Trapecio debe ser un numero positivo",WARNING);
+		return false;
 	}
 }
 

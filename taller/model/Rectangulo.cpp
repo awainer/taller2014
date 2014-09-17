@@ -43,9 +43,11 @@ bool Rectangulo::validarParametros(float alto, float ancho){
 		}
 		else {
 			EventLogger::AgregarEvento("El ancho del rectangulo debe ser un numero positivo",WARNING);
+			return false;
 		}
 	}
 	else {
 		EventLogger::AgregarEvento("El alto del rectangulo debe ser un numero positivo",WARNING);
+		return false;
 	}
 }
