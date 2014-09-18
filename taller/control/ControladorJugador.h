@@ -10,6 +10,7 @@ public:
 private:
 	Jugador* m_jugador;
 	const Uint8* m_keys;
-	
+	bool bloqueoizq;
+	bool bloqueoder;
 };
 
