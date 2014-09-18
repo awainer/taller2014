@@ -89,6 +89,33 @@ void Parser::Inicializar()
         miEscenario.personajeY = 0;	  
         */
 
+			/*************************************************************************************************/ 
+        //VALIDACIONES: gravedad
+        
+        if(!root["escenario"]["gravedad"].isNull()){
+
+            
+            if(root["escenario"]["gravedad"].isDouble()){
+
+               
+                        miEscenario.gravedad = root["escenario"]["gravedad"].asFloat();                 
+
+            }  else {
+
+                EventLogger::AgregarEvento("ERROR: gravedad del escenario DEBE ser un real, se cargaran los valores por defecto");
+
+              
+               miEscenario.gravedad = GRAVEDAD_DEFAULT;
+            }
+
+        } else {
+            EventLogger::AgregarEvento("ERROR: gravedad del escenario NO existe en el archivo, se cargaran los valores por defecto");
+
+            miEscenario.gravedad = GRAVEDAD_DEFAULT;
+
+        }
+        /*************************************************************************************************/ 
+
 
 
 
@@ -1940,7 +1967,7 @@ void Parser::Inicializar()
                                         if(!psrEsDefault)
                                             trap.lado1 = root["escenario"]["objetos"][i]["lado1"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: lado1 del trapecio DEBE ser un real positivo, se omitira el elemento");
+                                        EventLogger::AgregarEvento("ERROR: long. lado izquierdo del trapecio DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
@@ -1951,7 +1978,7 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lado1 del trapecio DEBE ser un entero, se omitira el elemento");
+                                    EventLogger::AgregarEvento("ERROR: long. lado izquierdo del trapecio DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
@@ -1963,7 +1990,7 @@ void Parser::Inicializar()
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado1 del trapecio NO existe en el archivo, se omitira el elemento");
+                                EventLogger::AgregarEvento("ERROR: long. lado izquierdo del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                  trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
@@ -1987,7 +2014,7 @@ void Parser::Inicializar()
                                         if(!psrEsDefault)
                                             trap.lado2 = root["escenario"]["objetos"][i]["lado2"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: lado2 del trapecio DEBE ser un real positivo, se omitira el elemento");
+                                        EventLogger::AgregarEvento("ERROR: long. techo del trapecio DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
@@ -1998,7 +2025,7 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lado2 del trapecio DEBE ser un entero, se omitira el elemento");
+                                    EventLogger::AgregarEvento("ERROR: long. techo del trapecio DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
@@ -2010,7 +2037,7 @@ void Parser::Inicializar()
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado2 del trapecio NO existe en el archivo, se omitira el elemento");
+                                EventLogger::AgregarEvento("ERROR: long. techo del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
@@ -2034,7 +2061,7 @@ void Parser::Inicializar()
                                         if(!psrEsDefault)
                                             trap.lado3 = root["escenario"]["objetos"][i]["lado3"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: lado3 del trapecio DEBE ser un real positivo, se omitira el elemento");
+                                        EventLogger::AgregarEvento("ERROR: long. lado derecho del trapecio DEBE ser un real positivo, se omitira el elemento");
 										 //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
                                     trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
@@ -2045,7 +2072,7 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: lado3 del trapecio DEBE ser un entero, se omitira el elemento");
+                                    EventLogger::AgregarEvento("ERROR: long. lado derecho del trapecio DEBE ser un entero, se omitira el elemento");
 
                                     //TODO:Cargar valores por defecto..
                                     trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
@@ -2057,7 +2084,7 @@ void Parser::Inicializar()
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado3 del trapecio NO existe en el archivo, se omitira el elemento");
+                                EventLogger::AgregarEvento("ERROR: long. lado derecho del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
@@ -2321,6 +2348,7 @@ void Parser::CargarDefault()
 	//UNA OPCION 
 	//SE DEBERIAN LLENAR BIEN LAS CONSTANTES DEFAULT DESPUES y usar algunas de esas aca
 	//CREAR MAS ESCENARIOS DEFAULT
+		miEscenario.gravedad=-14;
 		miEscenario.anchopx=600;
 		miEscenario.altopx=600;
         
@@ -2450,7 +2478,7 @@ Escenario * Parser::CrearObjetos()
         cout << "personajeX " << miEscenario.personajeX << endl;
         cout << "personajeY " << miEscenario.personajeY << endl;
 */	 
-		Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,-10),miEscenario.imagen_fondo,NULL);
+	Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,miEscenario.gravedad),miEscenario.imagen_fondo,NULL);
 		esc->agregarJugador(CoordenadasR2(miEscenario.personajeX,miEscenario.personajeY));
 	// CREAR POLIGONOS
 		list <poli> objetosPoli;

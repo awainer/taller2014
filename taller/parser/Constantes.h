@@ -91,7 +91,8 @@ struct poli {
 
 
 struct StEscenario {
-	  int altopx;
+	float gravedad;  
+	int altopx;
 	  int anchopx;
 	  float altoun;
 	  float anchoun;
@@ -110,6 +111,8 @@ typedef char 	Char;
 typedef const Char * 	Location;
 
 #define IMAGEN_DEFAULT "imagenes/default.jpg"
+
+#define GRAVEDAD_DEFAULT -10
 
 #define ALTO_PX_DEFAULT 500
 #define ANCHO_PX_DEFAULT 500
