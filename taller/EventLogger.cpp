@@ -3,7 +3,13 @@
 using namespace std;
 
 
-
+string EventLogger::levelSring(int level){
+	switch(level){
+	case DEBUG: return "DEBUG"; break;
+	case WARNING: return "WARNING"; break;
+	case ERROR:	return "ERROR"; break;
+	}
+}
 string EventLogger::pathArchivo = "Log.txt";
 
 
@@ -47,6 +53,8 @@ void EventLogger::AgregarEvento(string msgEvento,int prioridad){
 		timestamp = asctime(timeinfo);
 		timestamp = timestamp.substr(0, timestamp.length() -1) ;
 		msgAux.append(timestamp);
+		msgAux.append(" - " );
+		msgAux.append(EventLogger::levelSring(prioridad));
 		msgAux.append(" --> " );
 		msgAux.append(msgEvento);
 		

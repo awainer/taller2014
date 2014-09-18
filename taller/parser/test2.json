@@ -1,13 +1,13 @@
 {
    "escenario":{
-      "ancho-px":800,
-      "alto-px":600,
+      "ancho-px":1200,
+      "alto-px":300,
 	  "ancho-un":8,
 	  "alto-un":6,
       "imagen_fondo":"imagenes/sky.png",
       "personaje":{
          "x":4,
-         "y":0.6
+         "y":1
       },
       "objetos":[
 		  {
@@ -100,7 +100,7 @@
             "x":7,
             "y":3,
             "color":"#B77CD0",
-            "rot":0,
+            "rot":180,
             "masa":3,
 			"lado1": 0.5,
             "estatico":false
@@ -111,9 +111,9 @@
 			"lado2": 0.5,
             "tipo":"trap",
             "x":4,
-            "y":3,
+            "y":1,
             "color":"#B77CD0",
-            "rot":0,
+            "rot":45,
             "masa":3,
 			"lado1": 0.5,
             "estatico":false

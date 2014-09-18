@@ -11,7 +11,6 @@ Escenario* iniciar(string path){
 	Parser parser = Parser(path);
 	parser.Inicializar();
 	Escenario* esc = parser.CrearObjetos();
-	
 	return esc;
 }
 
@@ -69,8 +68,11 @@ int pruebaParser(string path){
 					delete control_jugador;
 					delete escenario_vista;
 					delete esc;
+					parser = Parser(path);
+					parser.Inicializar();
+					esc = parser.CrearObjetos();
+					datos = parser.CargarDatosPantalla();
 
-					esc= iniciar(path);
 					escenario_vista = new VistaEscenario(esc,&datos);
 					Jugador* jugador = *(esc->getJugadores().begin());
 					escenario_vista->agregarJugador(jugador);

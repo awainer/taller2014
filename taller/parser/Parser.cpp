@@ -2057,7 +2057,7 @@ void Parser::Inicializar()
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: lado2 del trapecio NO existe en el archivo, se omitira el elemento");
+                                EventLogger::AgregarEvento("ERROR: lado3 del trapecio NO existe en el archivo, se omitira el elemento");
 
                                 //TODO:Cargar valores por defecto..
                                 trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
