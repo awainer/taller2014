@@ -23,8 +23,8 @@ void Parser::Inicializar()
     bool unSonDefault = false;
     bool personajeSonDefault = false;
 
-
-    Json::Reader reader;  
+	Json::Features features;
+    Json::Reader reader = Json::Reader(features.strictMode());  
     Json::Value root;    
 
     //Ubicacion Archivo
