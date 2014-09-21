@@ -3,7 +3,7 @@
       "ancho-px":600,
       "alto-px":600,
 	  "ancho-un":8,
-	  "alto-un":6,
+	  "alto-un":8,
 	  "gravedad":-10,
       "imagen_fondo":"imagenes/sky.png",
       "personaje":{
@@ -19,6 +19,16 @@
             "color":"#DA1714",
             "masa":1,
             "estatico":false
+         },
+		  {
+            "tipo":"poli",
+            "x":4,
+            "y":5,
+            "escala":0.3,
+            "color":"#2A4714",
+            "masa":1,
+			"lados":6,
+            "estatico":true
          },
 		  {
             "tipo":"circ",

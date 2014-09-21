@@ -170,8 +170,7 @@ poli Parser::parsearPoligono(Json::Value elem){
 	defaultColor.g = G_DEFAULT;
 	defaultColor.b = B_DEFAULT;
 	//result.tipo = elem['tipo'].asString();
-	//result.x = this->parsearElementoFloatPositivo(elem["x"],POLIGONO_X_DEFAULT," posicion x del poligono");
-	result.x = this->parsearElementoFloatPositivo(elem["GAROLA"],POLIGONO_X_DEFAULT," posicion x del poligono");
+	result.x = this->parsearElementoFloatPositivo(elem["x"],POLIGONO_X_DEFAULT," posicion x del poligono");
 	result.y = this->parsearElementoFloatPositivo(elem["y"],POLIGONO_Y_DEFAULT," posicion y del poligono");
 	result.escala = this->parsearElementoFloatPositivo(elem["escala"],POLIGONO_ESCALA_DEFAULT, " escala ");
 	result.masa = this->parsearElementoFloatPositivo(elem["masa"],POLIGONO_MASA_DEFAULT, " masa ");
@@ -510,6 +509,7 @@ Escenario * Parser::CrearObjetos()
 	objetosPoli = miEscenario.poligonos;
 
 	for (list <poli> ::iterator it= objetosPoli.begin(); it!= objetosPoli.end(); it++) {
+		objetoActualPoli = *it;
 		EventLogger::AgregarEvento("Parser: creando poligono regular:",DEBUG);
 		EventLogger::AgregarEvento("	Lados: " + to_string(long long(objetoActualPoli.lados)),DEBUG);
 		EventLogger::AgregarEvento("	Radio: " + to_string(long double(objetoActualPoli.escala)),DEBUG);
