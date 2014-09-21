@@ -28,6 +28,8 @@ private:
 	poli parsearPoligono(Json::Value elem);
 	rect parsearRectangulo(Json::Value elem);
 	circ parsearCirculo(Json::Value elem);
+	paralel parsearParalelogramo(Json::Value elem);
+	trap parsearTrapecio(Json::Value elem);
 	colorRGB parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem);
 	unsigned int parsearAngulo(Json::Value elem, unsigned int defaultVal, string nombreElem);
 

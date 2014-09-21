@@ -92,29 +92,17 @@ string Parser::parsearImagen(Json::Value elem, string defaultVal,string nombreEl
 		if (!Funciones::esUnaImagenValida(result)){
 			EventLogger::AgregarEvento(nombreElem + " NO existe o tiene una extension invalida, usando valor por defecto",ERROR);
 			return defaultVal;
+		} else {
+			return result;
 		}
 	}else{ 
 		EventLogger::AgregarEvento("Se esperaba un string " + nombreElem + " , usando valor por defecto.",ERROR);
 		return defaultVal;
 	}
 }
-rect Parser::parsearRectangulo(Json::Value elem){
-	rect result;
-	colorRGB defaultColor;
-	defaultColor.r = R_DEFAULT;
-	defaultColor.g = G_DEFAULT;
-	defaultColor.b = B_DEFAULT;
-	rect.ancho = this->parsearElementoFloatPositivo(elem["ancho"],RECTANGULO_ANCHO_DEFAULT, " ancho del rectangulo ");
-	rect.alto = this->parsearElementoFloatPositivo(elem["alto"],RECTANGULO_ALTO_DEFAULT, " alto del rectangulo ");
-	rect.masa = this->parsearElementoFloatPositivo(elem["masa"],RECTANGULO_MASA_DEFAULT, " masa del rectangulo ");
-	result.color = this->parsearColor(elem["color"], defaultColor, " color del rectangulo ");
-	result.estatico = this->parsearBoolean(elem["estatico"],POLIGONO_ESTATICO_DEFAULT, "estatico");
-	result.rot = this->parsearAngulo(elem["rot"],POLIGONO_ROT_DEFAULT, " angulo de rotacion ");
-	result.x = this->parsearElementoFloatPositivo(elem["x"],RECTANGULO_X_DEFAULT," posicion x del rectangulo");
-	result.y = this->parsearElementoFloatPositivo(elem["y"],RECTANGULO_Y_DEFAULT," posicion y del rectangulo");
-}
 
-colorRGB parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem){
+
+colorRGB Parser::parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem){
 	if(elem.isNull()){
 		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
 		return defaultVal;
@@ -130,6 +118,7 @@ colorRGB parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem){
 		result.r = Funciones::hexToRGB(colorString).r;
         result.g = Funciones::hexToRGB(colorString).g;
         result.b = Funciones::hexToRGB(colorString).b;
+		return result;
 	} else {
 		EventLogger::AgregarEvento("Se esperaba un string HEXA valido para " + nombreElem + ", usando valor por defecto.",WARNING);
 		return defaultVal;
@@ -156,6 +145,23 @@ unsigned int Parser::parsearAngulo(Json::Value elem, unsigned int defaultVal, st
 
 }
 
+rect Parser::parsearRectangulo(Json::Value elem){
+	rect result;
+	colorRGB defaultColor;
+	defaultColor.r = R_DEFAULT;
+	defaultColor.g = G_DEFAULT;
+	defaultColor.b = B_DEFAULT;
+	result.ancho = this->parsearElementoFloatPositivo(elem["ancho"],RECTANGULO_ANCHO_DEFAULT, " ancho del rectangulo ");
+	result.alto = this->parsearElementoFloatPositivo(elem["alto"],RECTANGULO_ALTO_DEFAULT, " alto del rectangulo ");
+	result.masa = this->parsearElementoFloatPositivo(elem["masa"],RECTANGULO_MASA_DEFAULT, " masa del rectangulo ");
+	result.color = this->parsearColor(elem["color"], defaultColor, " color del rectangulo ");
+	result.estatico = this->parsearBoolean(elem["estatico"],POLIGONO_ESTATICO_DEFAULT, "estatico");
+	result.rot = this->parsearAngulo(elem["rot"],POLIGONO_ROT_DEFAULT, " angulo de rotacion ");
+	result.x = this->parsearElementoFloatPositivo(elem["x"],RECTANGULO_X_DEFAULT," posicion x del rectangulo");
+	result.y = this->parsearElementoFloatPositivo(elem["y"],RECTANGULO_Y_DEFAULT," posicion y del rectangulo");
+	return result;
+}
+
 poli Parser::parsearPoligono(Json::Value elem){
 	poli result;
 	colorRGB defaultColor;
@@ -171,7 +177,50 @@ poli Parser::parsearPoligono(Json::Value elem){
 	result.estatico = this->parsearBoolean(elem["estatico"],POLIGONO_ESTATICO_DEFAULT, "estatico");
 	result.color = this->parsearColor(elem["color"], defaultColor, " color del poligono ");
 	result.rot = this->parsearAngulo(elem["rot"],POLIGONO_ROT_DEFAULT, " angulo de rotacion ");
+	return result;
 }
+
+trap Parser::parsearTrapecio(Json::Value elem){
+	trap result;
+	colorRGB defaultColor;
+	defaultColor.r = R_DEFAULT;
+	defaultColor.g = G_DEFAULT;
+	defaultColor.b = B_DEFAULT;
+	result.tipo = elem['tipo'].asString();
+	result.x = this->parsearElementoFloatPositivo(elem["x"],TRAPECIO_X_DEFAULT," posicion x del trapecio");
+	result.y = this->parsearElementoFloatPositivo(elem["y"],TRAPECIO_Y_DEFAULT," posicion y del trapecio");
+	result.lado1 = this->parsearElementoFloatPositivo(elem["lado1"],TRAPECIO_LONGLADO1_DEFAULT," longitud lado izquierdo del trapecio");
+	result.lado2 = this->parsearElementoFloatPositivo(elem["lado2"],TRAPECIO_LONGLADO2_DEFAULT," longitud techo  del trapecio");
+	result.lado3 = this->parsearElementoFloatPositivo(elem["lado3"],TRAPECIO_LONGLADO3_DEFAULT," longitud lado derecho  del trapecio");
+	result.altura = this->parsearElementoFloatPositivo(elem["altura"],TRAPECIO_ALTURA_DEFAULT," altura del trapecio");
+	result.masa = this->parsearElementoFloatPositivo(elem["masa"],TRAPECIO_MASA_DEFAULT, " masa ");	
+	result.estatico = this->parsearBoolean(elem["estatico"],TRAPECIO_ESTATICO_DEFAULT, "estatico");
+	result.color = this->parsearColor(elem["color"], defaultColor, " color del trapecio ");
+	result.rot = this->parsearAngulo(elem["rot"],TRAPECIO_ROT_DEFAULT, " angulo de trapecio ");
+	return result;
+}
+
+paralel Parser::parsearParalelogramo(Json::Value elem){
+	paralel result;
+	colorRGB defaultColor;
+	defaultColor.r = R_DEFAULT;
+	defaultColor.g = G_DEFAULT;
+	defaultColor.b = B_DEFAULT;
+	result.tipo = elem['tipo'].asString();
+	result.x = this->parsearElementoFloatPositivo(elem["x"],PARALELOGRAMO_X_DEFAULT," posicion x del paralelogramo");
+	result.y = this->parsearElementoFloatPositivo(elem["y"],PARALELOGRAMO_Y_DEFAULT," posicion y del paralelogramo");
+	result.lado1 = this->parsearElementoFloatPositivo(elem["lado1"],PARALELOGRAMO_LONGLADO1_DEFAULT," longitud lado1 del paralelogramo");
+	result.lado2 = this->parsearElementoFloatPositivo(elem["lado2"],PARALELOGRAMO_LONGLADO2_DEFAULT," longitud lado2  del paralelogramo");
+	result.altura = this->parsearElementoFloatPositivo(elem["altura"],PARALELOGRAMO_ALTURA_DEFAULT," altura del paralelogramo");
+	result.masa = this->parsearElementoFloatPositivo(elem["masa"],PARALELOGRAMO_MASA_DEFAULT, " masa ");	
+	result.estatico = this->parsearBoolean(elem["estatico"],PARALELOGRAMO_ESTATICO_DEFAULT, "estatico");
+	result.color = this->parsearColor(elem["color"], defaultColor, " color del paralelogramo ");
+	result.rot = this->parsearAngulo(elem["rot"],PARALELOGRAMO_ROT_DEFAULT, " angulo de paralelogramo ");
+	return result;
+}
+
+
+
 circ Parser::parsearCirculo(Json::Value elem){
 	circ result;
 	colorRGB defaultColor;
@@ -185,6 +234,7 @@ circ Parser::parsearCirculo(Json::Value elem){
 	result.estatico = this->parsearBoolean(elem["estatico"],CIRCULO_ESTATICO_DEFAULT, "estatico");
 	result.masa = this->parsearElementoFloatPositivo(elem["masa"],CIRCULO_MASA_DEFAULT, " masa ");
 	result.color = this->parsearColor(elem["color"], defaultColor, " color del circulo ");
+	return result;
 }
 void Parser::Inicializar()
 {
@@ -287,864 +337,25 @@ void Parser::Inicializar()
 
                         if( tipo == "poli"){
 							poli poli = this->parsearPoligono(root["escenario"]["objetos"][i]);
+							miEscenario.poligonos.push_back(poli);
                         }else if( tipo=="rect"){
-							rect rect = this->parsearRectangulo((root["escenario"]["objetos"][i]);
+							rect rect = this->parsearRectangulo(root["escenario"]["objetos"][i]);
+							miEscenario.rectangulos.push_back(rect);
                         }
                         else if( tipo=="circ"){
-                            circ circulo;
-							circulo = this->parsearCirculo(this->parsearPoligono(root["escenario"]["objetos"][i]);
+                            circ circulo = this->parsearCirculo(root["escenario"]["objetos"][i]);
+							miEscenario.circulos.push_back(circulo);
                         }
                         else if( tipo=="paralel"){
-                            paralel paralel;
-                            paralel.tipo = tipo;
-                            bool pxrEsDefault = false;
-                            bool psrEsDefault = false;
-							bool errorParalel = false;
-							
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-x
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["x"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["x"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["x"].asFloat()>=0){
-
-                                        if(!pxrEsDefault)
-                                            paralel.x = root["escenario"]["objetos"][i]["x"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: x del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-										//TODO:Cargar valores por defecto..
-                                    paralel.x = PARALELOGRAMO_X_DEFAULT;
-                                    paralel.y = PARALELOGRAMO_Y_DEFAULT;
-                                    pxrEsDefault = true;
-									errorParalel = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: x del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    paralel.x = PARALELOGRAMO_X_DEFAULT;
-                                    paralel.y = PARALELOGRAMO_Y_DEFAULT;
-                                    pxrEsDefault = true;
-									errorParalel = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: x del paralelogramo NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                paralel.x = PARALELOGRAMO_X_DEFAULT;
-                                paralel.y = PARALELOGRAMO_Y_DEFAULT;
-                                pxrEsDefault = true;
-								errorParalel = true;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-y
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["y"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["y"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["y"].asFloat()>=0){
-
-                                        if(!pxrEsDefault)
-                                            paralel.y = root["escenario"]["objetos"][i]["y"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: y del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-										//TODO:Cargar valores por defecto..
-                                    paralel.x = PARALELOGRAMO_X_DEFAULT;
-                                    paralel.y = PARALELOGRAMO_Y_DEFAULT;
-                                    pxrEsDefault = true;
-									errorParalel = true;
-                                    }
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: y del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    paralel.x = PARALELOGRAMO_X_DEFAULT;
-                                    paralel.y = PARALELOGRAMO_Y_DEFAULT;
-                                    pxrEsDefault = true;
-									errorParalel = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: y del paralelogramo NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                paralel.x = PARALELOGRAMO_X_DEFAULT;
-                                paralel.y = PARALELOGRAMO_Y_DEFAULT;
-                                pxrEsDefault = true;
-								errorParalel = true;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-lado1
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["lado1"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["lado1"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["lado1"].asFloat()>=0){
-
-                                        if(!psrEsDefault)
-                                            paralel.lado1 = root["escenario"]["objetos"][i]["lado1"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-										 //TODO:Cargar valores por defecto..
-                                    paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
-                                    paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
-                                    psrEsDefault = true;
-									errorParalel = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
-                                    paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
-                                    psrEsDefault = true;
-									errorParalel = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: lado1 del paralelogramo NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                 paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
-                                    paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
-                                psrEsDefault = true;
-								errorParalel = true;
-
-                            }
-                            /*************************************************************************************************/ 
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-lado2
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["lado2"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["lado2"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["lado2"].asFloat()>=0){
-
-                                        if(!psrEsDefault)
-                                            paralel.lado2 = root["escenario"]["objetos"][i]["lado2"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-										 //TODO:Cargar valores por defecto..
-                                    paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
-                                    paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
-                                    psrEsDefault = true;
-									errorParalel = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
-                                    paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
-                                    psrEsDefault = true;
-									errorParalel = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: lado2 del paralelogramo NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                paralel.lado1 = PARALELOGRAMO_LONGLADO1_DEFAULT;
-                                    paralel.lado2 = PARALELOGRAMO_LONGLADO2_DEFAULT;
-                                psrEsDefault = true;
-								errorParalel = true;
-
-                            }
-                            /*************************************************************************************************/ 
-                /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-altura
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["altura"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["altura"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["altura"].asFloat()>=0){
-
-                                        if(!psrEsDefault)
-                                            paralel.altura = root["escenario"]["objetos"][i]["altura"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: altura del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-										
-                                    //TODO:Cargar valores por defecto..
-                                    
-                                    paralel.altura = PARALELOGRAMO_ALTURA_DEFAULT;
-									errorParalel = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: altura del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    
-                                    paralel.altura = PARALELOGRAMO_ALTURA_DEFAULT;
-									errorParalel = true;
-                                    
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: altura del paralelogramo NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                               paralel.altura = PARALELOGRAMO_ALTURA_DEFAULT;
-							   errorParalel = true;
-
-                            }
-                            /*************************************************************************************************/ 
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-color
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["color"].isNull()){
-
-                                //SI ES UN STRING
-                                if( root["escenario"]["objetos"][i]["color"].isString()){
-
-                                    if( Funciones::esHEXvalido(root["escenario"]["objetos"][i]["color"].asString()) ){
-
-                                        string colorHEX = root["escenario"]["objetos"][i]["color"].asString();
-
-                                        //Si es un hex valido....
-                                        paralel.color.r = Funciones::hexToRGB(colorHEX).r;
-                                        paralel.color.g = Funciones::hexToRGB(colorHEX).g;
-                                        paralel.color.b = Funciones::hexToRGB(colorHEX).b;
-
-
-                                    }  else {
-
-                                        EventLogger::AgregarEvento("ERROR: color del paralelogramo DEBE ser un HEX VALIDO, se cargaran los valores por defecto");
-
-                                        //TODO:Cargar valores por defecto..
-                                        paralel.color.r = R_DEFAULT;
-                                        paralel.color.g = G_DEFAULT;
-                                        paralel.color.b = B_DEFAULT;
-
-                                    } }
-                                else {
-
-                                    EventLogger::AgregarEvento("ERROR: color del paralelogramo DEBE ser un string, se cargaran los valores por defecto");
-                                    //TODO:Cargar valores por defecto..
-                                    paralel.color.r = R_DEFAULT;
-                                    paralel.color.g = G_DEFAULT;
-                                    paralel.color.b = B_DEFAULT;
-                                }
-
-
-
-                            }  else {
-                                EventLogger::AgregarEvento("ERROR: color del paralelogramo NO existe en el archivo, se cargaran los valores por defecto");
-
-                                //TODO:Cargar valores por defecto..
-                                paralel.color.r = R_DEFAULT;
-                                paralel.color.g = G_DEFAULT;
-                                paralel.color.b = B_DEFAULT;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-rot
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["rot"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["rot"].isInt()){
-
-                                    
-
-									if (root["escenario"]["objetos"][i]["rot"].asInt() >=0 && root["escenario"]["objetos"][i]["rot"].asInt() <=359){
-
-                                        paralel.rot = root["escenario"]["objetos"][i]["rot"].asInt();    
-
-								} else {
-
-                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se omitira el elemento");
-
-                                        //TODO:Cargar valores por defecto..
-                                        paralel.rot = PARALELOGRAMO_ROT_DEFAULT; 
-										errorParalel = true;
-
-
-                                    }
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: rot del paralelogramo DEBE ser un entero, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    paralel.rot = PARALELOGRAMO_ROT_DEFAULT;
-									errorParalel = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: rot del paralelogramo NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                paralel.rot = PARALELOGRAMO_ROT_DEFAULT;
-								errorParalel = true;
-
-
-                            }
-                            /*************************************************************************************************/ 
-
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-masa
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["masa"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["masa"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["masa"].asFloat()>=0){
-
-                                        paralel.masa = root["escenario"]["objetos"][i]["masa"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: masa del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-										//TODO:Cargar valores por defecto..
-                                    paralel.masa = PARALELOGRAMO_MASA_DEFAULT;
-									errorParalel = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: masa del paralelogramo DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    paralel.masa = PARALELOGRAMO_MASA_DEFAULT;
-									errorParalel = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: masa del paralelogramo NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                paralel.masa = PARALELOGRAMO_MASA_DEFAULT;
-								errorParalel = true;
-
-
-                            }
-                            /*************************************************************************************************/
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: paralel-estatico
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["estatico"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["estatico"].isBool()){
-
-                                    paralel.estatico = root["escenario"]["objetos"][i]["estatico"].asBool();  
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: estatico del paralelogramo DEBE ser un booleano, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    paralel.estatico = PARALELOGRAMO_ESTATICO_DEFAULT;
-									errorParalel = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: estatico del paralelogramo NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                paralel.estatico = PARALELOGRAMO_ESTATICO_DEFAULT;
-								errorParalel = true;
-
-                            }
-                            /*************************************************************************************************/ 						
-							if(!errorParalel){
+                            
+                            paralel paralel = this->parsearParalelogramo(root["escenario"]["objetos"][i]);                         
                             miEscenario.paralelogramos.push_back(paralel);
-							}
+							
                         }
                         else if( tipo=="trap"){
-                            
-                            trap trap;
-                            trap.tipo = tipo;
-                            bool pxrEsDefault = false;
-                            bool psrEsDefault = false;
-							bool errorTrap = false;
-							
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-x
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["x"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["x"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["x"].asFloat()>=0){
-
-                                        if(!pxrEsDefault)
-                                            trap.x = root["escenario"]["objetos"][i]["x"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: x del trapecio DEBE ser un real positivo, se omitira el elemento");
-										       //TODO:Cargar valores por defecto..
-                                    trap.x = TRAPECIO_X_DEFAULT;
-                                    trap.y = TRAPECIO_Y_DEFAULT;
-                                    pxrEsDefault = true;
-									errorTrap = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: x del trapecio DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    trap.x = TRAPECIO_X_DEFAULT;
-                                    trap.y = TRAPECIO_Y_DEFAULT;
-                                    pxrEsDefault = true;
-									errorTrap = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: x del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                trap.x = TRAPECIO_X_DEFAULT;
-                                trap.y = TRAPECIO_Y_DEFAULT;
-                                pxrEsDefault = true;
-								errorTrap = true;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-y
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["y"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["y"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["y"].asFloat()>=0){
-
-                                        if(!pxrEsDefault)
-                                            trap.y = root["escenario"]["objetos"][i]["y"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: y del trapecio DEBE ser un real positivo, se omitira el elemento");
-										       //TODO:Cargar valores por defecto..
-                                    trap.x = TRAPECIO_X_DEFAULT;
-                                    trap.y = TRAPECIO_Y_DEFAULT;
-                                    pxrEsDefault = true;
-									errorTrap = true;
-                                    }
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: y del trapecio DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    trap.x = TRAPECIO_X_DEFAULT;
-                                    trap.y = TRAPECIO_Y_DEFAULT;
-                                    pxrEsDefault = true;
-									errorTrap = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: y del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                trap.x = TRAPECIO_X_DEFAULT;
-                                trap.y = TRAPECIO_Y_DEFAULT;
-                                pxrEsDefault = true;
-								errorTrap = true;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-lado1
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["lado1"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["lado1"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["lado1"].asFloat()>=0){
-
-                                        if(!psrEsDefault)
-                                            trap.lado1 = root["escenario"]["objetos"][i]["lado1"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: long. lado izquierdo del trapecio DEBE ser un real positivo, se omitira el elemento");
-										 //TODO:Cargar valores por defecto..
-                                    trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                    psrEsDefault = true;
-									errorTrap = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: long. lado izquierdo del trapecio DEBE ser un entero, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                    psrEsDefault = true;
-									errorTrap = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: long. lado izquierdo del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                 trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                psrEsDefault = true;
-								errorTrap = true;
-
-                            }
-                            /*************************************************************************************************/ 
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-lado2
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["lado2"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["lado2"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["lado2"].asFloat()>=0){
-
-                                        if(!psrEsDefault)
-                                            trap.lado2 = root["escenario"]["objetos"][i]["lado2"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: long. techo del trapecio DEBE ser un real positivo, se omitira el elemento");
-										 //TODO:Cargar valores por defecto..
-                                    trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                    psrEsDefault = true;
-									errorTrap = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: long. techo del trapecio DEBE ser un entero, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                    psrEsDefault = true;
-									errorTrap = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: long. techo del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                psrEsDefault = true;
-								errorTrap = true;
-
-                            }
-                            /*************************************************************************************************/ 
-							  /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-lado3
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["lado3"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["lado3"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["lado3"].asFloat()>=0){
-
-                                        if(!psrEsDefault)
-                                            trap.lado3 = root["escenario"]["objetos"][i]["lado3"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: long. lado derecho del trapecio DEBE ser un real positivo, se omitira el elemento");
-										 //TODO:Cargar valores por defecto..
-                                    trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                    psrEsDefault = true;
-									errorTrap = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: long. lado derecho del trapecio DEBE ser un entero, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                    psrEsDefault = true;
-									errorTrap = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: long. lado derecho del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                trap.lado1 = TRAPECIO_LONGLADO1_DEFAULT;
-                                    trap.lado2 = TRAPECIO_LONGLADO2_DEFAULT;
-									trap.lado3 = TRAPECIO_LONGLADO3_DEFAULT;
-                                psrEsDefault = true;
-								errorTrap = true;
-
-                            }
-                            /*************************************************************************************************/ 
-                /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-altura
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["altura"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["altura"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["altura"].asFloat()>=0){
-
-                                        if(!psrEsDefault)
-                                            trap.altura = root["escenario"]["objetos"][i]["altura"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: altura del trapecio DEBE ser un real positivo, se omitira el elemento");
-										//TODO:Cargar valores por defecto..
-                                    
-                                    trap.altura = TRAPECIO_ALTURA_DEFAULT;
-									errorTrap = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: altura del trapecio DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    
-                                    trap.altura = TRAPECIO_ALTURA_DEFAULT;
-									errorTrap = true;
-                                    
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: altura del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                               trap.altura = TRAPECIO_ALTURA_DEFAULT;
-							   errorTrap = true;
-
-                            }
-                            /*************************************************************************************************/ 
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-color
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["color"].isNull()){
-
-                                //SI ES UN STRING
-                                if( root["escenario"]["objetos"][i]["color"].isString()){
-
-                                    if( Funciones::esHEXvalido(root["escenario"]["objetos"][i]["color"].asString()) ){
-
-                                        string colorHEX = root["escenario"]["objetos"][i]["color"].asString();
-
-                                        //Si es un hex valido....
-                                        trap.color.r = Funciones::hexToRGB(colorHEX).r;
-                                        trap.color.g = Funciones::hexToRGB(colorHEX).g;
-                                        trap.color.b = Funciones::hexToRGB(colorHEX).b;
-
-
-                                    }  else {
-
-                                        EventLogger::AgregarEvento("ERROR: color del trapecio DEBE ser un HEX VALIDO, se cargaran los valores por defecto");
-
-                                        //TODO:Cargar valores por defecto..
-                                        trap.color.r = R_DEFAULT;
-                                        trap.color.g = G_DEFAULT;
-                                        trap.color.b = B_DEFAULT;
-
-                                    } }
-                                else {
-
-                                    EventLogger::AgregarEvento("ERROR: color del trapecio DEBE ser un string, se cargaran los valores por defecto");
-                                    //TODO:Cargar valores por defecto..
-                                    trap.color.r = R_DEFAULT;
-                                    trap.color.g = G_DEFAULT;
-                                    trap.color.b = B_DEFAULT;
-                                }
-
-
-
-                            }  else {
-                                EventLogger::AgregarEvento("ERROR: color del trapecio NO existe en el archivo, se cargaran los valores por defecto");
-
-                                //TODO:Cargar valores por defecto..
-                                trap.color.r = R_DEFAULT;
-                                trap.color.g = G_DEFAULT;
-                                trap.color.b = B_DEFAULT;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-rot
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["rot"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["rot"].isInt()){
-
-                                    
-
-									if (root["escenario"]["objetos"][i]["rot"].asInt() >=0 && root["escenario"]["objetos"][i]["rot"].asInt() <=359){
-
-                                        trap.rot = root["escenario"]["objetos"][i]["rot"].asInt();    
-
-								} else {
-
-                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se omitira el elemento");
-
-                                        //TODO:Cargar valores por defecto..
-                                        trap.rot = TRAPECIO_ROT_DEFAULT;  
-										errorTrap = true;
-
-
-                                    }
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: rot del trapecio DEBE ser un entero, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    trap.rot = TRAPECIO_ROT_DEFAULT;
-									errorTrap = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: rot del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                trap.rot = TRAPECIO_ROT_DEFAULT;
-								errorTrap = true;
-
-
-                            }
-                            /*************************************************************************************************/ 
-
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-masa
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["masa"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["masa"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["masa"].asFloat()>=0){
-
-                                        trap.masa = root["escenario"]["objetos"][i]["masa"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: masa del trapecio DEBE ser un real positivo, se omitira el elemento");
-										//TODO:Cargar valores por defecto..
-                                    trap.masa = TRAPECIO_MASA_DEFAULT;
-									errorTrap = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: masa del trapecio DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    trap.masa = TRAPECIO_MASA_DEFAULT;
-									errorTrap = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: masa del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                trap.masa = TRAPECIO_MASA_DEFAULT;
-								errorTrap = true;
-
-
-                            }
-                            /*************************************************************************************************/
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: trap-estatico
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["estatico"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["estatico"].isBool()){
-
-                                    trap.estatico = root["escenario"]["objetos"][i]["estatico"].asBool();  
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: estatico del trapecio DEBE ser un booleano, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    trap.estatico = TRAPECIO_ESTATICO_DEFAULT;
-									errorTrap = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: estatico del trapecio NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                trap.estatico = TRAPECIO_ESTATICO_DEFAULT;
-								errorTrap = true;
-
-
-                            }
-                            /*************************************************************************************************/ 						
-							if(!errorTrap){
+                            trap trap = this->parsearTrapecio(root["escenario"]["objetos"][i]);                                                    
                             miEscenario.trapecios.push_back(trap);
-							}
+							
                         }else{
                             EventLogger::AgregarEvento("ERROR: se quiso cargar un objeto invalido: " + tipo );
                         }
