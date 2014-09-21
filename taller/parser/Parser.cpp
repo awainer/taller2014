@@ -49,7 +49,7 @@ void Parser::Inicializar()
 
 	} else {
 
-		EventLogger::AgregarEvento("ERROR: PATH INVALIDO: El archivo en formato JSON especificado no existe, se cargaran los valores por defecto.");
+		EventLogger::AgregarEvento("PATH INVALIDO: El archivo en formato JSON especificado no existe, se cargaran los valores por defecto.",ERROR);
 		errorpath = true;
 		parseadoOK = true;
 		this->CargarDefault();
@@ -66,7 +66,7 @@ void Parser::Inicializar()
 		error.append(errormsg);
 		error.append(" Se cargara la configuracion por defecto.");
 
-        EventLogger::AgregarEvento(error);
+        EventLogger::AgregarEvento(error,ERROR);
 		
         //TODO:CARGAR JSON POR DEFECTO   
 		this->CargarDefault();
@@ -76,18 +76,7 @@ void Parser::Inicializar()
 
     if (parseadoOK && !errorpath)  
     { 
-		//agrego try a la lectura
 		try{
-        // Valores por defecto_?
-        /*
-        miEscenario.altopx = 0;
-        miEscenario.anchopx = 0;
-        miEscenario.altoun = 0;
-        miEscenario.anchoun = 0;
-        miEscenario.imagen_fondo = "";
-        miEscenario.personajeX = 0;
-        miEscenario.personajeY = 0;	  
-        */
 
 			/*************************************************************************************************/ 
         //VALIDACIONES: gravedad
@@ -102,14 +91,14 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: gravedad del escenario DEBE ser un real, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("gravedad del escenario DEBE ser un real, se cargaran los valores por defecto",ERROR);
 
               
                miEscenario.gravedad = GRAVEDAD_DEFAULT;
             }
 
         } else {
-            EventLogger::AgregarEvento("ERROR: gravedad del escenario NO existe en el archivo, se cargaran los valores por defecto");
+            EventLogger::AgregarEvento("gravedad del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
 
             miEscenario.gravedad = GRAVEDAD_DEFAULT;
 
@@ -133,7 +122,7 @@ void Parser::Inicializar()
                         miEscenario.altopx = root["escenario"]["alto-px"].asInt();  
 
                 } else {
-                    EventLogger::AgregarEvento("ERROR: alto-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto");
+                    EventLogger::AgregarEvento("alto-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto",ERROR);
 					//TODO:Cargar valores por defecto... Alto y ancho?
 					miEscenario.altopx = ALTO_PX_DEFAULT;
 					miEscenario.anchopx = ANCHO_PX_DEFAULT;
@@ -143,7 +132,7 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: alto-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("alto-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto", ERROR);
 
                 //TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altopx = ALTO_PX_DEFAULT;
@@ -153,7 +142,7 @@ void Parser::Inicializar()
             }
 
         } else {
-            EventLogger::AgregarEvento("ERROR: alto-px del escenario NO existe en el archivo, se cargaran los valores por defecto");
+            EventLogger::AgregarEvento("alto-px del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
 
             //TODO:Cargar valores por defecto... Alto y ancho?
             miEscenario.altopx = ALTO_PX_DEFAULT;
@@ -174,7 +163,7 @@ void Parser::Inicializar()
                     if(!pxSonDefault)
                         miEscenario.anchopx = root["escenario"]["ancho-px"].asInt();  
                 } else {
-                    EventLogger::AgregarEvento("ERROR: ancho-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto");
+                    EventLogger::AgregarEvento("ancho-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto",ERROR);
 
 					//TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altopx = ALTO_PX_DEFAULT;
@@ -185,7 +174,7 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: ancho-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("ancho-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto",ERROR);
 
                 //TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altopx = ALTO_PX_DEFAULT;
@@ -195,7 +184,7 @@ void Parser::Inicializar()
             }
 
         } else {
-            EventLogger::AgregarEvento("ERROR: ancho-px del escenario NO existe en el archivo, se cargaran los valores por defecto");
+            EventLogger::AgregarEvento("ancho-px del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
 
             //TODO:Cargar valores por defecto... Alto y ancho?
             miEscenario.altopx = ALTO_PX_DEFAULT;
@@ -217,7 +206,7 @@ void Parser::Inicializar()
                     if(!unSonDefault)
                         miEscenario.altoun = root["escenario"]["alto-un"].asFloat();  
                 } else {
-                    EventLogger::AgregarEvento("ERROR: alto-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto");
+                    EventLogger::AgregarEvento("alto-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
 					//TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altoun = ALTO_UN_DEFAULT;
                 miEscenario.anchoun = ANCHO_UN_DEFAULT;
@@ -226,7 +215,7 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: alto-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("alto-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
 
                 //TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altoun = ALTO_UN_DEFAULT;
@@ -235,7 +224,7 @@ void Parser::Inicializar()
             }
 
         } else {
-            EventLogger::AgregarEvento("ERROR: alto-un del escenario NO existe en el archivo, se cargaran los valores por defecto");
+            EventLogger::AgregarEvento("alto-un del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
 
             //TODO:Cargar valores por defecto... Alto y ancho?
             miEscenario.altoun = ALTO_UN_DEFAULT;
@@ -257,7 +246,7 @@ void Parser::Inicializar()
                     if(!unSonDefault)
                         miEscenario.anchoun = root["escenario"]["ancho-un"].asFloat();  
                 } else {
-                    EventLogger::AgregarEvento("ERROR: ancho-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto");
+                    EventLogger::AgregarEvento("ancho-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
 					//TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altoun = ALTO_UN_DEFAULT;
                 miEscenario.anchoun = ANCHO_UN_DEFAULT;
@@ -266,7 +255,7 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: ancho-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("ancho-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
 
                 //TODO:Cargar valores por defecto... Alto y ancho?
                 miEscenario.altoun = ALTO_UN_DEFAULT;
@@ -276,7 +265,7 @@ void Parser::Inicializar()
             }
 
         } else {
-            EventLogger::AgregarEvento("ERROR: ancho-un del escenario NO existe en el archivo, se cargaran los valores por defecto");
+            EventLogger::AgregarEvento("ancho-un del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
 
             //TODO:Cargar valores por defecto... Alto y ancho?
             miEscenario.altoun = ALTO_UN_DEFAULT;
@@ -300,13 +289,13 @@ void Parser::Inicializar()
                 //Validar si existe o tiene una extension invalida
 
                 if (!Funciones::esUnaImagenValida(miEscenario.imagen_fondo)){
-                    EventLogger::AgregarEvento("ERROR: imagen_fondo del escenario NO existe o tiene una extension invalida");
+                    EventLogger::AgregarEvento("imagen_fondo del escenario NO existe o tiene una extension invalida",ERROR);
                     //Cargar imagen fondo por defecto
 
 					 if (Funciones::esUnaImagenValida(IMAGEN_DEFAULT)){ 
 						 miEscenario.imagen_fondo=IMAGEN_DEFAULT;
 					 } else {
-					 EventLogger::AgregarEvento("ERROR: imagen_fondo del escenario DEFAULT NO existe o tiene una extension invalida");
+					 EventLogger::AgregarEvento("imagen_fondo del escenario DEFAULT NO existe o tiene una extension invalida",ERROR);
 					 }
 						 
 
@@ -315,14 +304,14 @@ void Parser::Inicializar()
 
 
             }  else {
-                EventLogger::AgregarEvento("ERROR: imagen_fondo del escenario DEBE ser un string");
+                EventLogger::AgregarEvento("imagen_fondo del escenario DEBE ser un string",ERROR);
                 //Cargar imagen fondo por defecto
                 miEscenario.imagen_fondo = IMAGEN_DEFAULT;
             }
 
         }
         else {
-            EventLogger::AgregarEvento("ERROR: imagen_fondo del escenario no existe");
+            EventLogger::AgregarEvento("imagen_fondo del escenario no existe",ERROR);
             //Cargar imagen fondo por defecto
             miEscenario.imagen_fondo = IMAGEN_DEFAULT;
         }
@@ -341,7 +330,7 @@ void Parser::Inicializar()
                     if(!personajeSonDefault)
                         miEscenario.personajeX = root["escenario"]["personaje"]["x"].asFloat();  
                 } else {
-                    EventLogger::AgregarEvento("ERROR: personaje x DEBE ser un real positivo, se cargaran los valores por defecto");
+                    EventLogger::AgregarEvento("personaje x DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
 					//TODO:Cargar valores por defecto..
                 miEscenario.personajeX = PERSONAJE_X_DEFAULT;
                 miEscenario.personajeY =	PERSONAJE_Y_DEFAULT;
@@ -350,7 +339,7 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: personaje x DEBE ser un real positivo, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("personaje x DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
 
                 //TODO:Cargar valores por defecto..
                 miEscenario.personajeX = PERSONAJE_X_DEFAULT;
@@ -360,7 +349,7 @@ void Parser::Inicializar()
             }
 
         } else {
-            EventLogger::AgregarEvento("ERROR: personaje x NO existe en el archivo, se cargaran los valores por defecto");
+            EventLogger::AgregarEvento("personaje x NO existe en el archivo, se cargaran los valores por defecto",ERROR);
 
             //TODO:Cargar valores por defecto..
             miEscenario.personajeX = PERSONAJE_X_DEFAULT;
@@ -383,7 +372,7 @@ void Parser::Inicializar()
                     if(!personajeSonDefault)
                         miEscenario.personajeY = root["escenario"]["personaje"]["y"].asFloat();  
                 } else {
-                    EventLogger::AgregarEvento("ERROR: personaje y DEBE ser un real positivo, se cargaran los valores por defecto");
+                    EventLogger::AgregarEvento("personaje y DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
 					//TODO:Cargar valores por defecto..
                 miEscenario.personajeX = PERSONAJE_X_DEFAULT;
                 miEscenario.personajeY =	PERSONAJE_Y_DEFAULT;
@@ -392,7 +381,7 @@ void Parser::Inicializar()
 
             }  else {
 
-                EventLogger::AgregarEvento("ERROR: personaje y DEBE ser un real positivo, se cargaran los valores por defecto");
+                EventLogger::AgregarEvento("personaje y DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
 
                 //TODO:Cargar valores por defecto..
                 miEscenario.personajeX = PERSONAJE_X_DEFAULT;
@@ -402,7 +391,7 @@ void Parser::Inicializar()
             }
 
         } else {
-            EventLogger::AgregarEvento("ERROR: personaje y NO existe en el archivo, se cargaran los valores por defecto");
+            EventLogger::AgregarEvento("personaje y NO existe en el archivo, se cargaran los valores por defecto",ERROR);
 
             //TODO:Cargar valores por defecto..
             miEscenario.personajeX = PERSONAJE_X_DEFAULT;
@@ -423,7 +412,7 @@ void Parser::Inicializar()
         //OBJETOS
 
         if (root["escenario"]["objetos"].isNull()){
-            EventLogger::AgregarEvento("WARNING: no hay objetos declarados");
+            EventLogger::AgregarEvento("no hay objetos declarados",WARNING);
 
             //TODO:cargar objetos default....
 
@@ -439,19 +428,19 @@ void Parser::Inicializar()
             notice.append(Funciones::intToString(objetos_size));
             notice.append(" objetos declarados.");
 
-            EventLogger::AgregarEvento(notice);
+            EventLogger::AgregarEvento(notice,WARNING);
 
 
             //   Recorro la lista de objetos
             for(int i = 0; i < objetos_size; ++i)  
             {  
                 if(root["escenario"]["objetos"][i]["tipo"].isNull()){
-                    EventLogger::AgregarEvento("ERROR: No es un objeto valido, no se cargara");
+                    EventLogger::AgregarEvento("No es un objeto valido, no se cargara",ERROR);
                 }
                 else {
 
                     if(!root["escenario"]["objetos"][i]["tipo"].isString()){
-                        EventLogger::AgregarEvento("ERROR: tipo DEBE ser un string");
+                        EventLogger::AgregarEvento("tipo DEBE ser un string",ERROR);
                     } else {
 
                         string tipo = root["escenario"]["objetos"][i]["tipo"].asString();
@@ -477,7 +466,7 @@ void Parser::Inicializar()
                                         if(!pxpEsDefault)
                                             poli.x = root["escenario"]["objetos"][i]["x"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: x del poligono DEBE ser un real positivo, se omitira el elemento");
+                                        EventLogger::AgregarEvento("x del poligono DEBE ser un real positivo, se omitira el elemento",ERROR);
 										//TODO:Cargar valores por defecto..
                                     poli.x = POLIGONO_X_DEFAULT;
                                     poli.y = POLIGONO_Y_DEFAULT;
@@ -487,7 +476,7 @@ void Parser::Inicializar()
 
                                 }  else {
 
-                                    EventLogger::AgregarEvento("ERROR: x del poligono DEBE ser un real positivo, se omitira el elemento");
+                                    EventLogger::AgregarEvento("x del poligono DEBE ser un real positivo, se omitira el elemento",ERROR);
 
                                     //TODO:Cargar valores por defecto..
                                     poli.x = POLIGONO_X_DEFAULT;
@@ -498,7 +487,7 @@ void Parser::Inicializar()
                                 }
 
                             } else {
-                                EventLogger::AgregarEvento("ERROR: x del poligono NO existe en el archivo, se omitira el elemento");
+                                EventLogger::AgregarEvento("x del poligono NO existe en el archivo, se omitira el elemento",ERROR);
 
                                 //TODO:Cargar valores por defecto..
                                 poli.x = POLIGONO_X_DEFAULT;
@@ -520,7 +509,7 @@ void Parser::Inicializar()
                                         if(!pxpEsDefault)
                                             poli.y = root["escenario"]["objetos"][i]["y"].asFloat();  
                                     } else {
-                                        EventLogger::AgregarEvento("ERROR: y del poligono DEBE ser un real positivo, se omitira el elemento");
+                                        EventLogger::AgregarEvento("y del poligono DEBE ser un real positivo, se omitira el elemento",ERROR);
 										//TODO:Cargar valores por defecto..
                                     poli.x = POLIGONO_X_DEFAULT;
                                     poli.y = POLIGONO_Y_DEFAULT;
@@ -2468,20 +2457,17 @@ VistaEscenario * Parser::CrearVista() {
 
 Escenario * Parser::CrearObjetos()
 {
-	// CREARESCENARIO
-
-/*	    cout << "altopx " << miEscenario.altopx << endl;
-        cout <<"anchopx " << miEscenario.anchopx << endl;
-        cout << "altoun " << miEscenario.altoun << endl;
-        cout << "anchoun " << miEscenario.anchoun << endl;
-        cout << "imagen_fondo " << miEscenario.imagen_fondo << endl;
-        cout << "personajeX " << miEscenario.personajeX << endl;
-        cout << "personajeY " << miEscenario.personajeY << endl;
-*/	 
+	
+	EventLogger::AgregarEvento("Parser: creando escenario:",DEBUG);
+	EventLogger::AgregarEvento("	Dimensiones:" + to_string(long double(miEscenario.anchoun)) + "x" + to_string(long double(miEscenario.altoun)) ,DEBUG);
+	EventLogger::AgregarEvento("	Gravedad:" + to_string(long double(miEscenario.gravedad)),DEBUG);	
+	EventLogger::AgregarEvento("	Path fondo:" + miEscenario.imagen_fondo,DEBUG);
 	Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,miEscenario.gravedad),miEscenario.imagen_fondo,NULL);
-		esc->agregarJugador(CoordenadasR2(miEscenario.personajeX,miEscenario.personajeY));
+	EventLogger::AgregarEvento("Parser: creando jugador:",DEBUG);
+	EventLogger::AgregarEvento("	Posicion:" + to_string(long double(miEscenario.personajeX)) + "," + to_string(long double(miEscenario.personajeY)),DEBUG);
+	esc->agregarJugador(CoordenadasR2(miEscenario.personajeX,miEscenario.personajeY));
 	// CREAR POLIGONOS
-		list <poli> objetosPoli;
+	list <poli> objetosPoli;
 	poli objetoActualPoli;
 	objetosPoli = miEscenario.poligonos;
 
@@ -2496,18 +2482,14 @@ Escenario * Parser::CrearObjetos()
 		objetoActualPoli.tipo;
 		objetoActualPoli.x;
 		objetoActualPoli.y;
-
-		cout<<"Tipo: " << objetoActualPoli.tipo  << endl;
-		cout<<"Lados: " <<objetoActualPoli.lados  << endl;
-		cout<<"Escala: " <<objetoActualPoli.escala  << endl;
-		cout<<"Color R: " << objetoActualPoli.color.r << endl;
-		cout<<"Color G: " << objetoActualPoli.color.g << endl;
-		cout<<"Color B: " << objetoActualPoli.color.b << endl;
-		cout<<"Estatico: " <<objetoActualPoli.estatico << endl;
-		cout<<"Masa: " <<objetoActualPoli.masa << endl;
-		cout<<"Rot: " <<objetoActualPoli.rot << endl;
-		cout<<"X: " <<objetoActualPoli.x << endl;
-		cout<<"Y: " <<objetoActualPoli.y << endl;
+		EventLogger::AgregarEvento("Parser: creando poligono regular:",DEBUG);
+		EventLogger::AgregarEvento("	Lados: " + to_string(long long(objetoActualPoli.lados)),DEBUG);
+		EventLogger::AgregarEvento("	Radio: " + to_string(long double(objetoActualPoli.escala)),DEBUG);
+		EventLogger::AgregarEvento("	Color: " + to_string(long long(objetoActualPoli.color.r)) + " " + to_string(long long(objetoActualPoli.color.g)) + " " + to_string(long long(objetoActualPoli.color.b)) ,DEBUG);	  
+		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(objetoActualPoli.estatico)),DEBUG);
+		EventLogger::AgregarEvento("	Masa: " + to_string(long double(objetoActualPoli.masa)),DEBUG);
+		EventLogger::AgregarEvento("	Rotacion: " + to_string(long long(objetoActualPoli.rot)),DEBUG);
+		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(objetoActualPoli.x))  + ","+  to_string(long double(objetoActualPoli.y)) +")" ,DEBUG);
 
 		esc->agregarPoligono(CoordenadasR2(objetoActualPoli.x,objetoActualPoli.y),
 							objetoActualPoli.escala,
@@ -2525,27 +2507,14 @@ Escenario * Parser::CrearObjetos()
 	objetosRect = miEscenario.rectangulos;
 	for (list <rect> ::iterator it= objetosRect.begin(); it!= objetosRect.end(); it++) {
 		objetoActualRect =  *it;
-		objetoActualRect.alto;
-		objetoActualRect.ancho;
-		objetoActualRect.color;
-		objetoActualRect.estatico;
-		objetoActualRect.masa;
-		objetoActualRect.rot;
-		objetoActualRect.tipo;
-		objetoActualRect.x;
-		objetoActualRect.y;
-
-		cout<<"Tipo: " << objetoActualRect.tipo  << endl;
-		cout<<"Alto: " <<objetoActualRect.alto  << endl;
-		cout<<"Ancho: " <<objetoActualRect.ancho  << endl;
-		cout<<"Color R: " << objetoActualRect.color.r << endl;
-		cout<<"Color G: " << objetoActualRect.color.g << endl;
-		cout<<"Color B: " << objetoActualRect.color.b << endl;
-		cout<<"Estatico: " <<objetoActualRect.estatico << endl;
-		cout<<"Masa: " <<objetoActualRect.masa << endl;
-		cout<<"Rot: " <<objetoActualRect.rot << endl;
-		cout<<"X: " <<objetoActualRect.x << endl;
-		cout<<"Y: " <<objetoActualRect.y << endl;
+		EventLogger::AgregarEvento("Parser: creando rectangulo:",DEBUG);
+		EventLogger::AgregarEvento("	Alto: " + to_string(long double (objetoActualRect.alto)),DEBUG);
+		EventLogger::AgregarEvento("	Ancho: " + to_string(long double (objetoActualRect.ancho)),DEBUG);
+		EventLogger::AgregarEvento("	Color: " + to_string(long long(objetoActualRect.color.r)) + " " + to_string(long long(objetoActualRect.color.g)) + " " + to_string(long long(objetoActualRect.color.b)) ,DEBUG);
+		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(objetoActualRect.estatico)),DEBUG);
+		EventLogger::AgregarEvento("	Masa: " + to_string(long double(objetoActualRect.masa)),DEBUG);
+		EventLogger::AgregarEvento("	Rotacion: " + to_string(long long(objetoActualRect.rot)),DEBUG);
+		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(objetoActualRect.x))  + ","+  to_string(long double(objetoActualRect.y)) +")" ,DEBUG);
 
 		esc->agregarRectangulo(CoordenadasR2(objetoActualRect.x,objetoActualRect.y),
 			objetoActualRect.alto,
@@ -2563,6 +2532,14 @@ Escenario * Parser::CrearObjetos()
 	objetosCirc = miEscenario.circulos;
 	for (list <circ> ::iterator it= miEscenario.circulos.begin(); it!= miEscenario.circulos.end(); it++) {
 		circ unCirculo= *it;
+		EventLogger::AgregarEvento("Parser: creando circulo:",DEBUG);
+		EventLogger::AgregarEvento("	Radio: " + to_string(long double (unCirculo.radio)),DEBUG);
+		EventLogger::AgregarEvento("	Color: " + to_string(long long(unCirculo.color.r)) + " " + to_string(long long(unCirculo.color.g)) + " " + to_string(long long(unCirculo.color.b)) ,DEBUG);
+		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(unCirculo.estatico)),DEBUG);
+		EventLogger::AgregarEvento("	Masa: " + to_string(long double(unCirculo.masa)),DEBUG);
+		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(unCirculo.x))  + ","+  to_string(long double(unCirculo.y)) +")" ,DEBUG);
+
+
 		esc->agregarPelota(CoordenadasR2(unCirculo.x,unCirculo.y),
 			unCirculo.radio,
 			Color(unCirculo.color.r, unCirculo.color.g, unCirculo.color.b),
@@ -2575,6 +2552,15 @@ Escenario * Parser::CrearObjetos()
 	objetosParalel = miEscenario.paralelogramos;
 	for (list <paralel> ::iterator it= miEscenario.paralelogramos.begin(); it!= miEscenario.paralelogramos.end(); it++) {
 		paralel unParalelogramo= *it;
+		EventLogger::AgregarEvento("Parser: creando paralelogramo:",DEBUG);
+		EventLogger::AgregarEvento("	Lado 1: " + to_string(long double(unParalelogramo.lado1)),DEBUG);
+		EventLogger::AgregarEvento("	Lado 2: " + to_string(long double(unParalelogramo.lado2)),DEBUG);
+		EventLogger::AgregarEvento("	Altura: " + to_string(long double(unParalelogramo.altura)),DEBUG);
+		EventLogger::AgregarEvento("	Color: " + to_string(long long(unParalelogramo.color.r)) + " " + to_string(long long(unParalelogramo.color.g)) + " " + to_string(long long(unParalelogramo.color.b)) ,DEBUG);
+		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(unParalelogramo.estatico)),DEBUG);
+		EventLogger::AgregarEvento("	Masa: " + to_string(long double(unParalelogramo.masa)),DEBUG);
+		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(unParalelogramo.x))  + ","+  to_string(long double(unParalelogramo.y)) +")" ,DEBUG);
+		EventLogger::AgregarEvento("	Rotacion: " + to_string(long long(unParalelogramo.rot)),DEBUG);
 
 		esc->agregarParalelogramo(CoordenadasR2(unParalelogramo.x,unParalelogramo.y),unParalelogramo.lado1,unParalelogramo.lado2,unParalelogramo.altura,Color(unParalelogramo.color.r, unParalelogramo.color.g, unParalelogramo.color.b),unParalelogramo.rot,!unParalelogramo.estatico,unParalelogramo.masa);
 
@@ -2587,19 +2573,20 @@ Escenario * Parser::CrearObjetos()
 	objetosTrap = miEscenario.trapecios;
 	for (list <trap> ::iterator it= miEscenario.trapecios.begin(); it!= miEscenario.trapecios.end(); it++) {
 		trap unTrapecio= *it;
+		EventLogger::AgregarEvento("Parser: creando trapecio:",DEBUG);
+		EventLogger::AgregarEvento("	Lado 1: " + to_string(long double(unTrapecio.lado1)),DEBUG);
+		EventLogger::AgregarEvento("	Lado 2: " + to_string(long double(unTrapecio.lado2)),DEBUG);
+		EventLogger::AgregarEvento("	Lado 3: " + to_string(long double(unTrapecio.lado3)),DEBUG);
+		EventLogger::AgregarEvento("	Color: " + to_string(long long(unTrapecio.color.r)) + " " + to_string(long long(unTrapecio.color.g)) + " " + to_string(long long(unTrapecio.color.b)) ,DEBUG);
+		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(unTrapecio.estatico)),DEBUG);
+		EventLogger::AgregarEvento("	Masa: " + to_string(long double(unTrapecio.estatico)),DEBUG);
+		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(unTrapecio.x))  + ","+  to_string(long double(unTrapecio.y)) +")" ,DEBUG);
+		EventLogger::AgregarEvento("	Rotacion: " + to_string(long long(unTrapecio.rot)),DEBUG);
 
 		esc->agregarTrapecio(CoordenadasR2(unTrapecio.x,unTrapecio.y),unTrapecio.lado1,unTrapecio.lado2,unTrapecio.lado3,unTrapecio.altura,Color(unTrapecio.color.r, unTrapecio.color.g, unTrapecio.color.b),unTrapecio.rot,!unTrapecio.estatico,unTrapecio.masa);
 
 
 	}
-
-
-
-
-
-
-
-
 
 	return esc;
 
