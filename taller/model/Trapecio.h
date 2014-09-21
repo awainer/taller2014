@@ -18,7 +18,7 @@ public:
 	      V1     piso     V4
 	*/
 	Trapecio();
-	Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, float longladoder,  float altura, Color color, float angulorot,bool dinamico,float masa,  b2World * world);
+	Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, float longladoder,  float altura, Color color, int angulorot,bool dinamico,float masa,  b2World * world);
 	static bool validarParametros(float longladoizq, float longtecho, float longladoder,  float altura);
 	~Trapecio(void);
 private:

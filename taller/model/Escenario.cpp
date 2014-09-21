@@ -87,7 +87,7 @@ void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,
 		r = new Rectangulo(centro,alto,ancho,dinamica,color,masa,angulo,this->world);
 		if (!this->checkOverlap((Figura *) r)){
 			this->cuerposEstaticos.push_back((Figura * ) r);
-			EventLogger::AgregarEvento("Escenario: poligono agregado!",DEBUG);
+			EventLogger::AgregarEvento("Escenario: rectangulo agregado!",DEBUG);
 			//this->cuerposEstaticos.push_back((Figura*) new );
 		}else{
 			EventLogger::AgregarEvento("Escenario: No puedo agregar un Rectangulo porque se superpone a otro cuerpo",WARNING);

@@ -4,6 +4,7 @@
       "alto-px":600,
 	  "ancho-un":8,
 	  "alto-un":6,
+	  "gravedad":-10,
       "imagen_fondo":"imagenes/sky.png",
       "personaje":{
          "x":4,
@@ -43,7 +44,7 @@
             "y":1,
             "ancho":1.8,
             "alto":0.3,
-            "color":"#1839CB",
+            "color":"#1839CA",
             "rot":0,
             "masa":3,
             "estatico":true

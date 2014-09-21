@@ -169,8 +169,9 @@ poli Parser::parsearPoligono(Json::Value elem){
 	defaultColor.r = R_DEFAULT;
 	defaultColor.g = G_DEFAULT;
 	defaultColor.b = B_DEFAULT;
-	result.tipo = elem['tipo'].asString();
-	result.x = this->parsearElementoFloatPositivo(elem["x"],POLIGONO_X_DEFAULT," posicion x del poligono");
+	//result.tipo = elem['tipo'].asString();
+	//result.x = this->parsearElementoFloatPositivo(elem["x"],POLIGONO_X_DEFAULT," posicion x del poligono");
+	result.x = this->parsearElementoFloatPositivo(elem["GAROLA"],POLIGONO_X_DEFAULT," posicion x del poligono");
 	result.y = this->parsearElementoFloatPositivo(elem["y"],POLIGONO_Y_DEFAULT," posicion y del poligono");
 	result.escala = this->parsearElementoFloatPositivo(elem["escala"],POLIGONO_ESCALA_DEFAULT, " escala ");
 	result.masa = this->parsearElementoFloatPositivo(elem["masa"],POLIGONO_MASA_DEFAULT, " masa ");
@@ -187,7 +188,7 @@ trap Parser::parsearTrapecio(Json::Value elem){
 	defaultColor.r = R_DEFAULT;
 	defaultColor.g = G_DEFAULT;
 	defaultColor.b = B_DEFAULT;
-	result.tipo = elem['tipo'].asString();
+	//result.tipo = elem['tipo'].asString();
 	result.x = this->parsearElementoFloatPositivo(elem["x"],TRAPECIO_X_DEFAULT," posicion x del trapecio");
 	result.y = this->parsearElementoFloatPositivo(elem["y"],TRAPECIO_Y_DEFAULT," posicion y del trapecio");
 	result.lado1 = this->parsearElementoFloatPositivo(elem["lado1"],TRAPECIO_LONGLADO1_DEFAULT," longitud lado izquierdo del trapecio");
@@ -207,7 +208,7 @@ paralel Parser::parsearParalelogramo(Json::Value elem){
 	defaultColor.r = R_DEFAULT;
 	defaultColor.g = G_DEFAULT;
 	defaultColor.b = B_DEFAULT;
-	result.tipo = elem['tipo'].asString();
+	//result.tipo = elem['tipo'].asString();
 	result.x = this->parsearElementoFloatPositivo(elem["x"],PARALELOGRAMO_X_DEFAULT," posicion x del paralelogramo");
 	result.y = this->parsearElementoFloatPositivo(elem["y"],PARALELOGRAMO_Y_DEFAULT," posicion y del paralelogramo");
 	result.lado1 = this->parsearElementoFloatPositivo(elem["lado1"],PARALELOGRAMO_LONGLADO1_DEFAULT," longitud lado1 del paralelogramo");
@@ -228,7 +229,7 @@ circ Parser::parsearCirculo(Json::Value elem){
 	defaultColor.r = R_DEFAULT;
 	defaultColor.g = G_DEFAULT;
 	defaultColor.b = B_DEFAULT;
-	result.tipo = elem['tipo'].asString();
+	//result.tipo = elem['tipo'].asString();
 	result.x = this->parsearElementoFloatPositivo(elem["x"],CIRCULO_X_DEFAULT," posicion x del circulo");
 	result.y = this->parsearElementoFloatPositivo(elem["y"],CIRCULO_X_DEFAULT," posicion y del circulo");
 	result.radio = this->parsearElementoFloatPositivo(elem["radio"],CIRCULO_RADIO_DEFAULT," radio del circulo");
@@ -296,7 +297,7 @@ void Parser::Inicializar()
 
     if (parseadoOK && !errorpath)  
     { 
-		try{
+	try{
         miEscenario.gravedad = this->parsearElementoFloatUnsigned(root["escenario"]["gravedad"],GRAVEDAD_DEFAULT,"gravedad");
 		miEscenario.altopx  =  this->parsearElementoIntPositivo(root["escenario"]["alto-px"],ALTO_PX_DEFAULT,"alto en px");
 		miEscenario.anchopx  =  this->parsearElementoIntPositivo(root["escenario"]["ancho-px"],ANCHO_PX_DEFAULT,"ancho en px");
@@ -336,21 +337,26 @@ void Parser::Inicializar()
                         string tipo = root["escenario"]["objetos"][i]["tipo"].asString();
 
                         if( tipo == "poli"){
+							EventLogger::AgregarEvento("Parseando poligono",DEBUG);
 							poli poli = this->parsearPoligono(root["escenario"]["objetos"][i]);
 							miEscenario.poligonos.push_back(poli);
                         }else if( tipo=="rect"){
+							EventLogger::AgregarEvento("Parseando rectangulo",DEBUG);
 							rect rect = this->parsearRectangulo(root["escenario"]["objetos"][i]);
 							miEscenario.rectangulos.push_back(rect);
                         }
                         else if( tipo=="circ"){
+							EventLogger::AgregarEvento("Parseando circulo",DEBUG);
                             circ circulo = this->parsearCirculo(root["escenario"]["objetos"][i]);
 							miEscenario.circulos.push_back(circulo);
                         }
                         else if( tipo=="paralel"){
-                            paralel paralel = this->parsearParalelogramo(root["escenario"]["objetos"][i]);                         
+							EventLogger::AgregarEvento("Parseando paralelogramo",DEBUG);
+							paralel paralel = this->parsearParalelogramo(root["escenario"]["objetos"][i]);
                             miEscenario.paralelogramos.push_back(paralel);
                         }
                         else if( tipo=="trap"){
+							EventLogger::AgregarEvento("Parseando trapecio",DEBUG);
                             trap trap = this->parsearTrapecio(root["escenario"]["objetos"][i]);                                                    
                             miEscenario.trapecios.push_back(trap);
                         }else{
@@ -366,6 +372,7 @@ void Parser::Inicializar()
     } 
 	catch( exception e) {
 		EventLogger::AgregarEvento(" excepcion en la lectura del archivo JSON, cargando escenario por default.",ERROR);
+		EventLogger::AgregarEvento(e.what() ,ERROR);
 		this->CargarDefault();
 
 	}

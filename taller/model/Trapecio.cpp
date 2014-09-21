@@ -6,7 +6,7 @@
 #include "../EventLogger.h"
 
 
-Trapecio::Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, float longladoder,  float altura, Color color, float angulorot,bool dinamico,float masa,  b2World * world)
+Trapecio::Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, float longladoder,  float altura, Color color, int angulorot,bool dinamico,float masa,  b2World * world)
 {
 	this->world = world;
 
@@ -116,7 +116,7 @@ Trapecio::Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, floa
 	this->setDensidad(masa);
 	this->color = color;
 	this->generateId();
-	std::string msg =	"Agregando Trapecio con id "  + EventLogger::itos(this->id) + " angulo rot: " + to_string(long long (this->body->GetAngle()));
+	std::string msg =	"Agregando Trapecio con id "  + EventLogger::itos(this->id) + " angulo rot: " + to_string(long double (this->body->GetAngle()));
 	EventLogger::AgregarEvento(msg, DEBUG);
 }
 
