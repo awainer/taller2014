@@ -22,7 +22,7 @@ private:
 	string jsonpath;
 	float parsearElementoFloatUnsigned(Json::Value elem, float defaultVal,string nombreElem);
 	float parsearElementoFloatPositivo(Json::Value elem, float defaultVal,string nombreElem);
-	float parsearElementoIntPositivo(Json::Value elem, int defaultVal,string nombreElem);
+	int parsearElementoIntPositivo(Json::Value elem, int defaultVal,string nombreElem);
 	string parsearImagen(Json::Value elem, string defaultVal,string nombreElem);
 	bool parsearBoolean(Json::Value elem, bool defaultVal, string nombreElem);
 	poli parsearPoligono(Json::Value elem);

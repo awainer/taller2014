@@ -27,6 +27,7 @@ float Parser::parsearElementoFloatUnsigned(Json::Value elem, float defaultVal,st
           return elem.asFloat();
 	 else{
 		 EventLogger::AgregarEvento(nombreElem + " no es un valor real, usando valor por defecto.",WARNING);
+		 return defaultVal;
 	 }
 }
 float Parser::parsearElementoFloatPositivo(Json::Value elem, float defaultVal,string nombreElem){
@@ -63,7 +64,7 @@ bool Parser::parsearBoolean(Json::Value elem, bool defaultVal, string nombreElem
 
 
 }
-float Parser::parsearElementoIntPositivo(Json::Value elem, int defaultVal,string nombreElem){
+int Parser::parsearElementoIntPositivo(Json::Value elem, int defaultVal,string nombreElem){
 	if(elem.isNull()){
 		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
 		return defaultVal;
@@ -334,7 +335,6 @@ void Parser::Inicializar()
 
                         string tipo = root["escenario"]["objetos"][i]["tipo"].asString();
 
-
                         if( tipo == "poli"){
 							poli poli = this->parsearPoligono(root["escenario"]["objetos"][i]);
 							miEscenario.poligonos.push_back(poli);
@@ -347,17 +347,14 @@ void Parser::Inicializar()
 							miEscenario.circulos.push_back(circulo);
                         }
                         else if( tipo=="paralel"){
-                            
                             paralel paralel = this->parsearParalelogramo(root["escenario"]["objetos"][i]);                         
                             miEscenario.paralelogramos.push_back(paralel);
-							
                         }
                         else if( tipo=="trap"){
                             trap trap = this->parsearTrapecio(root["escenario"]["objetos"][i]);                                                    
                             miEscenario.trapecios.push_back(trap);
-							
                         }else{
-                            EventLogger::AgregarEvento("ERROR: se quiso cargar un objeto invalido: " + tipo );
+                            EventLogger::AgregarEvento("Se intento cargar un objeto invalido: " + tipo , ERROR);
                         }
 
 
@@ -368,28 +365,13 @@ void Parser::Inicializar()
         }
     } 
 	catch( exception e) {
-		EventLogger::AgregarEvento("ERROR: error en la lectura del archivo JSON");
+		EventLogger::AgregarEvento(" excepcion en la lectura del archivo JSON, cargando escenario por default.",ERROR);
 		this->CargarDefault();
 
 	}
 
 	}
-
-
     archivoJson.close();  
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 void Parser::CargarDefault()
@@ -493,26 +475,15 @@ void Parser::CargarDefault()
 }
 
 DatosPantalla Parser::CargarDatosPantalla() {
-	
 	DatosPantalla datos = DatosPantalla(miEscenario.anchopx,miEscenario.altopx,miEscenario.anchoun,miEscenario.altoun);
-
 	return datos;
-
 }
 
 VistaEscenario * Parser::CrearVista() {
-
-
-	//REVISARRRR
 	Escenario * esc = this->CrearObjetos();
-	
-	//REVISARRRR
 	DatosPantalla datos = DatosPantalla(miEscenario.altopx,miEscenario.anchopx,miEscenario.altoun , miEscenario.anchoun);
-
 	VistaEscenario * escenario_vista = new VistaEscenario(esc,&datos);
-
 	return escenario_vista;
-
 }
 
 Escenario * Parser::CrearObjetos()
@@ -532,16 +503,6 @@ Escenario * Parser::CrearObjetos()
 	objetosPoli = miEscenario.poligonos;
 
 	for (list <poli> ::iterator it= objetosPoli.begin(); it!= objetosPoli.end(); it++) {
-		objetoActualPoli =  *it;
-		objetoActualPoli.lados;
-		objetoActualPoli.escala;
-		objetoActualPoli.color;
-		objetoActualPoli.estatico;
-		objetoActualPoli.masa;
-		objetoActualPoli.rot;
-		objetoActualPoli.tipo;
-		objetoActualPoli.x;
-		objetoActualPoli.y;
 		EventLogger::AgregarEvento("Parser: creando poligono regular:",DEBUG);
 		EventLogger::AgregarEvento("	Lados: " + to_string(long long(objetoActualPoli.lados)),DEBUG);
 		EventLogger::AgregarEvento("	Radio: " + to_string(long double(objetoActualPoli.escala)),DEBUG);
