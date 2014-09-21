@@ -326,6 +326,7 @@
     <None Include="parser\fondo1.png" />
     <None Include="parser\Log.txt" />
     <None Include="parser\test.json" />
+    <None Include="parser\test2.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

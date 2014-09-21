@@ -1,7 +1,7 @@
 {
    "escenario":{
-      "ancho-px":1200,
-      "alto-px":300,
+      "ancho-px":600,
+      "alto-px":600,
 	  "ancho-un":8,
 	  "alto-un":6,
       "imagen_fondo":"imagenes/sky.png",

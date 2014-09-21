@@ -738,5 +738,6 @@
     <None Include="imagenes\default.jpg">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="parser\test2.json" />
   </ItemGroup>
 </Project>

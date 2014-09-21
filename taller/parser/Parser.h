@@ -20,6 +20,16 @@ class Parser
 private:
 	StEscenario miEscenario;
 	string jsonpath;
+	float parsearElementoFloatUnsigned(Json::Value elem, float defaultVal,string nombreElem);
+	float parsearElementoFloatPositivo(Json::Value elem, float defaultVal,string nombreElem);
+	float parsearElementoIntPositivo(Json::Value elem, int defaultVal,string nombreElem);
+	string parsearImagen(Json::Value elem, string defaultVal,string nombreElem);
+	bool parsearBoolean(Json::Value elem, bool defaultVal, string nombreElem);
+	poli parsearPoligono(Json::Value elem);
+	rect parsearRectangulo(Json::Value elem);
+	colorRGB parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem);
+	unsigned int parsearAngulo(Json::Value elem, unsigned int defaultVal, string nombreElem);
+
 public:
 	Parser(string path);
 	Parser(void);

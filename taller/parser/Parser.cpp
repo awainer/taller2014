@@ -17,6 +17,146 @@ Parser::Parser(string path)
 	jsonpath = path;
 }
 
+float Parser::parsearElementoFloatUnsigned(Json::Value elem, float defaultVal,string nombreElem){
+	if(elem.isNull()){
+		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+
+	 if(elem.isDouble())
+          return elem.asFloat();
+	 else{
+		 EventLogger::AgregarEvento(nombreElem + " no es un valor real, usando valor por defecto.",WARNING);
+	 }
+}
+float Parser::parsearElementoFloatPositivo(Json::Value elem, float defaultVal,string nombreElem){
+	if(elem.isNull()){
+		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+
+	 if(elem.isDouble()){
+		 float result = elem.asFloat();
+		 if (result > 0)
+			 return result;
+		 else{
+			 EventLogger::AgregarEvento("El  valor para " + nombreElem + " debe ser positivo, usando valor por defecto.",WARNING);
+			 return defaultVal;
+		 }
+	 } else{
+		 EventLogger::AgregarEvento(nombreElem + " no es un valor real, usando valor por defecto.",WARNING);
+		 return defaultVal;
+	 }
+}
+bool Parser::parsearBoolean(Json::Value elem, bool defaultVal, string nombreElem){
+	if(elem.isNull()){
+		EventLogger::AgregarEvento("Se esperaba un booleano para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+
+	if(elem.isBool())
+		return elem.asBool();
+	else{
+		EventLogger::AgregarEvento("Se esperaba un booleano para " + nombreElem + ", usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+
+
+}
+float Parser::parsearElementoIntPositivo(Json::Value elem, int defaultVal,string nombreElem){
+	if(elem.isNull()){
+		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+
+	 if(elem.isInt()){
+		 int result = elem.asInt();
+		 if (result > 0)
+			 return result;
+		 else{
+			 EventLogger::AgregarEvento("El  valor para " + nombreElem + " debe ser positivo, usando valor por defecto.",WARNING);
+			 return defaultVal;
+		 }
+	 } else{
+		 EventLogger::AgregarEvento(nombreElem + " no es un valor entero, usando valor por defecto.",WARNING);
+		 return defaultVal;
+	 }
+}
+string Parser::parsearImagen(Json::Value elem, string defaultVal,string nombreElem){
+	if(elem.isNull()){
+		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",ERROR);
+		return defaultVal;
+	}
+	if(elem.isString()){
+		string result = elem.asString();
+		if (!Funciones::esUnaImagenValida(result)){
+			EventLogger::AgregarEvento(nombreElem + " NO existe o tiene una extension invalida, usando valor por defecto",ERROR);
+			return defaultVal;
+		}
+	}else{ 
+		EventLogger::AgregarEvento("Se esperaba un string " + nombreElem + " , usando valor por defecto.",ERROR);
+		return defaultVal;
+	}
+}
+
+colorRGB parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem){
+	if(elem.isNull()){
+		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+	if(!elem.isString()){
+		EventLogger::AgregarEvento("Se esperaba un string para " + nombreElem + ", usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+	string colorString = elem.asString();
+	colorRGB result;
+	if(Funciones::esHEXvalido(colorString)){
+		//Si es un hex valido....
+		result.r = Funciones::hexToRGB(colorString).r;
+        result.g = Funciones::hexToRGB(colorString).g;
+        result.b = Funciones::hexToRGB(colorString).b;
+	} else {
+		EventLogger::AgregarEvento("Se esperaba un string HEXA valido para " + nombreElem + ", usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+}
+
+unsigned int Parser::parsearAngulo(Json::Value elem, unsigned int defaultVal, string nombreElem){
+	if(elem.isNull()){
+		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		return defaultVal;
+	}
+	 if(elem.isInt()){
+		 int result = elem.asInt();
+		 if (result >= 0 && result <= 359)
+			 return result;
+		 else{
+			 EventLogger::AgregarEvento("El  valor para " + nombreElem + " debe ser estar entre 0 y 359, usando valor por defecto.",WARNING);
+			 return defaultVal;
+		 }
+	 } else{
+		 EventLogger::AgregarEvento(nombreElem + " no es un valor entero, usando valor por defecto.",WARNING);
+		 return defaultVal;
+	 }
+
+}
+
+poli Parser::parsearPoligono(Json::Value elem){
+	poli result;
+	colorRGB defaultColor;
+	defaultColor.r = R_DEFAULT;
+	defaultColor.g = G_DEFAULT;
+	defaultColor.b = B_DEFAULT;
+	result.tipo = elem['tipo'].asString();
+	result.x = this->parsearElementoFloatPositivo(elem["x"],POLIGONO_X_DEFAULT," posicion x del poligono");
+	result.y = this->parsearElementoFloatPositivo(elem["y"],POLIGONO_Y_DEFAULT," posicion y del poligono");
+	result.escala = this->parsearElementoFloatPositivo(elem["escala"],POLIGONO_ESCALA_DEFAULT, " escala ");
+	result.masa = this->parsearElementoFloatPositivo(elem["masa"],POLIGONO_MASA_DEFAULT, " masa ");
+	result.lados = this->parsearElementoIntPositivo(elem["lados"],POLIGONO_LADOS_DEFAULT," cantidad de lados ");
+	result.estatico = this->parsearBoolean(elem["estatico"],POLIGONO_ESTATICO_DEFAULT, "estatico");
+	result.color = this->parsearColor(elem["color"], defaultColor, " color del poligono ");
+	result.rot = this->parsearAngulo(elem["rot"],POLIGONO_ROT_DEFAULT, " angulo de rotacion ");
+}
 void Parser::Inicializar()
 {
     bool pxSonDefault = false;
@@ -77,346 +217,18 @@ void Parser::Inicializar()
     if (parseadoOK && !errorpath)  
     { 
 		try{
-
-			/*************************************************************************************************/ 
-        //VALIDACIONES: gravedad
-        
-        if(!root["escenario"]["gravedad"].isNull()){
-
-            
-            if(root["escenario"]["gravedad"].isDouble()){
-
-               
-                        miEscenario.gravedad = root["escenario"]["gravedad"].asFloat();                 
-
-            }  else {
-
-                EventLogger::AgregarEvento("gravedad del escenario DEBE ser un real, se cargaran los valores por defecto",ERROR);
-
-              
-               miEscenario.gravedad = GRAVEDAD_DEFAULT;
-            }
-
-        } else {
-            EventLogger::AgregarEvento("gravedad del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
-
-            miEscenario.gravedad = GRAVEDAD_DEFAULT;
-
-        }
-        /*************************************************************************************************/ 
-
-
-
-
-        /*************************************************************************************************/ 
-        //VALIDACIONES: alto-px 
-        //SI EXISTE
-        if(!root["escenario"]["alto-px"].isNull()){
-
-            //SI ES UN ENTERO
-			if(root["escenario"]["alto-px"].isInt()){
-
-                if(root["escenario"]["alto-px"].asInt()>=0){
-
-                    if(!pxSonDefault)
-                        miEscenario.altopx = root["escenario"]["alto-px"].asInt();  
-
-                } else {
-                    EventLogger::AgregarEvento("alto-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto",ERROR);
-					//TODO:Cargar valores por defecto... Alto y ancho?
-					miEscenario.altopx = ALTO_PX_DEFAULT;
-					miEscenario.anchopx = ANCHO_PX_DEFAULT;
-					pxSonDefault = true;
-                }
-
-
-            }  else {
-
-                EventLogger::AgregarEvento("alto-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto", ERROR);
-
-                //TODO:Cargar valores por defecto... Alto y ancho?
-                miEscenario.altopx = ALTO_PX_DEFAULT;
-                miEscenario.anchopx = ANCHO_PX_DEFAULT;
-                pxSonDefault = true;
-
-            }
-
-        } else {
-            EventLogger::AgregarEvento("alto-px del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
-
-            //TODO:Cargar valores por defecto... Alto y ancho?
-            miEscenario.altopx = ALTO_PX_DEFAULT;
-            miEscenario.anchopx = ANCHO_PX_DEFAULT;
-            pxSonDefault = true;
-        }
-        /*************************************************************************************************/ 
-
-        /*************************************************************************************************/ 
-        //VALIDACIONES: ancho-px 
-        //SI EXISTE
-        if(!root["escenario"]["ancho-px"].isNull()){
-
-            //SI ES UN ENTERO
-            if(root["escenario"]["ancho-px"].isInt()){
-
-                if(root["escenario"]["ancho-px"].asInt()>=0){
-                    if(!pxSonDefault)
-                        miEscenario.anchopx = root["escenario"]["ancho-px"].asInt();  
-                } else {
-                    EventLogger::AgregarEvento("ancho-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto",ERROR);
-
-					//TODO:Cargar valores por defecto... Alto y ancho?
-                miEscenario.altopx = ALTO_PX_DEFAULT;
-                miEscenario.anchopx = ANCHO_PX_DEFAULT;
-                pxSonDefault = true;
-
-                }
-
-            }  else {
-
-                EventLogger::AgregarEvento("ancho-px del escenario DEBE ser un entero positivo, se cargaran los valores por defecto",ERROR);
-
-                //TODO:Cargar valores por defecto... Alto y ancho?
-                miEscenario.altopx = ALTO_PX_DEFAULT;
-                miEscenario.anchopx = ANCHO_PX_DEFAULT;
-                pxSonDefault = true;
-
-            }
-
-        } else {
-            EventLogger::AgregarEvento("ancho-px del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
-
-            //TODO:Cargar valores por defecto... Alto y ancho?
-            miEscenario.altopx = ALTO_PX_DEFAULT;
-            miEscenario.anchopx = ANCHO_PX_DEFAULT;
-            pxSonDefault = true;
-
-        }
-        /*************************************************************************************************/ 
-
-        /*************************************************************************************************/ 
-        //VALIDACIONES: alto-un 
-        //SI EXISTE
-        if(!root["escenario"]["alto-un"].isNull()){
-
-            //SI ES UN ENTERO
-            if(root["escenario"]["alto-un"].isDouble()){
-
-                if(root["escenario"]["alto-un"].asFloat()>=0){
-                    if(!unSonDefault)
-                        miEscenario.altoun = root["escenario"]["alto-un"].asFloat();  
-                } else {
-                    EventLogger::AgregarEvento("alto-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
-					//TODO:Cargar valores por defecto... Alto y ancho?
-                miEscenario.altoun = ALTO_UN_DEFAULT;
-                miEscenario.anchoun = ANCHO_UN_DEFAULT;
-                unSonDefault = true;
-                }
-
-            }  else {
-
-                EventLogger::AgregarEvento("alto-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
-
-                //TODO:Cargar valores por defecto... Alto y ancho?
-                miEscenario.altoun = ALTO_UN_DEFAULT;
-                miEscenario.anchoun = ANCHO_UN_DEFAULT;
-                unSonDefault = true;
-            }
-
-        } else {
-            EventLogger::AgregarEvento("alto-un del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
-
-            //TODO:Cargar valores por defecto... Alto y ancho?
-            miEscenario.altoun = ALTO_UN_DEFAULT;
-            miEscenario.anchoun = ANCHO_UN_DEFAULT;
-            unSonDefault = true;
-
-        }
-        /*************************************************************************************************/ 
-
-        /*************************************************************************************************/ 
-        //VALIDACIONES: ancho-un 
-        //SI EXISTE
-        if(!root["escenario"]["ancho-un"].isNull()){
-
-            //SI ES UN ENTERO
-            if(root["escenario"]["ancho-un"].isDouble()){
-
-                if(root["escenario"]["ancho-un"].asFloat()>=0){
-                    if(!unSonDefault)
-                        miEscenario.anchoun = root["escenario"]["ancho-un"].asFloat();  
-                } else {
-                    EventLogger::AgregarEvento("ancho-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
-					//TODO:Cargar valores por defecto... Alto y ancho?
-                miEscenario.altoun = ALTO_UN_DEFAULT;
-                miEscenario.anchoun = ANCHO_UN_DEFAULT;
-                unSonDefault = true;
-                }
-
-            }  else {
-
-                EventLogger::AgregarEvento("ancho-un del escenario DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
-
-                //TODO:Cargar valores por defecto... Alto y ancho?
-                miEscenario.altoun = ALTO_UN_DEFAULT;
-                miEscenario.anchoun = ANCHO_UN_DEFAULT;
-                unSonDefault = true;
-
-            }
-
-        } else {
-            EventLogger::AgregarEvento("ancho-un del escenario NO existe en el archivo, se cargaran los valores por defecto",ERROR);
-
-            //TODO:Cargar valores por defecto... Alto y ancho?
-            miEscenario.altoun = ALTO_UN_DEFAULT;
-            miEscenario.anchoun = ANCHO_UN_DEFAULT;
-            unSonDefault = true;
-
-        }
-        /*************************************************************************************************/ 
-
-
-        /*************************************************************************************************/ 
-        //Validaciones string imagen_fondo
-
-
-        if(!root["escenario"]["imagen_fondo"].isNull()){
-
-            if(root["escenario"]["imagen_fondo"].isString()){
-
-                miEscenario.imagen_fondo = root["escenario"]["imagen_fondo"].asString();  			
-
-                //Validar si existe o tiene una extension invalida
-
-                if (!Funciones::esUnaImagenValida(miEscenario.imagen_fondo)){
-                    EventLogger::AgregarEvento("imagen_fondo del escenario NO existe o tiene una extension invalida",ERROR);
-                    //Cargar imagen fondo por defecto
-
-					 if (Funciones::esUnaImagenValida(IMAGEN_DEFAULT)){ 
-						 miEscenario.imagen_fondo=IMAGEN_DEFAULT;
-					 } else {
-					 EventLogger::AgregarEvento("imagen_fondo del escenario DEFAULT NO existe o tiene una extension invalida",ERROR);
-					 }
-						 
-
-                    
-                }
-
-
-            }  else {
-                EventLogger::AgregarEvento("imagen_fondo del escenario DEBE ser un string",ERROR);
-                //Cargar imagen fondo por defecto
-                miEscenario.imagen_fondo = IMAGEN_DEFAULT;
-            }
-
-        }
-        else {
-            EventLogger::AgregarEvento("imagen_fondo del escenario no existe",ERROR);
-            //Cargar imagen fondo por defecto
-            miEscenario.imagen_fondo = IMAGEN_DEFAULT;
-        }
-
-        /*************************************************************************************************/ 
-
-        /*************************************************************************************************/ 
-        //VALIDACIONES: personajeX
-        //SI EXISTE
-        if(!root["escenario"]["personaje"]["x"].isNull()){
-
-            //SI ES UN ENTERO
-            if(root["escenario"]["personaje"]["x"].isDouble()){
-
-                if(root["escenario"]["personaje"]["x"].asFloat()>=0){
-                    if(!personajeSonDefault)
-                        miEscenario.personajeX = root["escenario"]["personaje"]["x"].asFloat();  
-                } else {
-                    EventLogger::AgregarEvento("personaje x DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
-					//TODO:Cargar valores por defecto..
-                miEscenario.personajeX = PERSONAJE_X_DEFAULT;
-                miEscenario.personajeY =	PERSONAJE_Y_DEFAULT;
-                personajeSonDefault = true;
-                }
-
-            }  else {
-
-                EventLogger::AgregarEvento("personaje x DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
-
-                //TODO:Cargar valores por defecto..
-                miEscenario.personajeX = PERSONAJE_X_DEFAULT;
-                miEscenario.personajeY =	PERSONAJE_Y_DEFAULT;
-                personajeSonDefault = true;
-
-            }
-
-        } else {
-            EventLogger::AgregarEvento("personaje x NO existe en el archivo, se cargaran los valores por defecto",ERROR);
-
-            //TODO:Cargar valores por defecto..
-            miEscenario.personajeX = PERSONAJE_X_DEFAULT;
-            miEscenario.personajeY =	PERSONAJE_Y_DEFAULT;
-            personajeSonDefault = true;
-
-        }
-        /*************************************************************************************************/ 
-
-
-        /*************************************************************************************************/ 
-        //VALIDACIONES: personajeY
-        //SI EXISTE
-        if(!root["escenario"]["personaje"]["y"].isNull()){
-
-            //SI ES UN ENTERO
-            if(root["escenario"]["personaje"]["y"].isDouble()){
-
-                if(root["escenario"]["personaje"]["y"].asFloat()>=0){
-                    if(!personajeSonDefault)
-                        miEscenario.personajeY = root["escenario"]["personaje"]["y"].asFloat();  
-                } else {
-                    EventLogger::AgregarEvento("personaje y DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
-					//TODO:Cargar valores por defecto..
-                miEscenario.personajeX = PERSONAJE_X_DEFAULT;
-                miEscenario.personajeY =	PERSONAJE_Y_DEFAULT;
-                personajeSonDefault = true;
-                }
-
-            }  else {
-
-                EventLogger::AgregarEvento("personaje y DEBE ser un real positivo, se cargaran los valores por defecto",ERROR);
-
-                //TODO:Cargar valores por defecto..
-                miEscenario.personajeX = PERSONAJE_X_DEFAULT;
-                miEscenario.personajeY =	PERSONAJE_Y_DEFAULT;
-                personajeSonDefault = true;
-
-            }
-
-        } else {
-            EventLogger::AgregarEvento("personaje y NO existe en el archivo, se cargaran los valores por defecto",ERROR);
-
-            //TODO:Cargar valores por defecto..
-            miEscenario.personajeX = PERSONAJE_X_DEFAULT;
-            miEscenario.personajeY =	PERSONAJE_Y_DEFAULT;
-            personajeSonDefault = true;
-
-        }
-        /*************************************************************************************************/ 
-
-        /*************************************************************************************************/ 
-
-        //COUTS ESCENARIO
-
-
-
-        /*************************************************************************************************/ 
+        miEscenario.gravedad = this->parsearElementoFloatUnsigned(root["escenario"]["gravedad"],GRAVEDAD_DEFAULT,"gravedad");
+		miEscenario.altopx  =  this->parsearElementoIntPositivo(root["escenario"]["alto-px"],ALTO_PX_DEFAULT,"alto en px");
+		miEscenario.anchopx  =  this->parsearElementoIntPositivo(root["escenario"]["ancho-px"],ANCHO_PX_DEFAULT,"ancho en px");
+		miEscenario.altoun  = this->parsearElementoFloatPositivo(root["escenario"]["alto-un"],ALTO_UN_DEFAULT, " alto en unidades");
+		miEscenario.anchoun = this->parsearElementoFloatPositivo(root["escenario"]["ancho-un"],ANCHO_UN_DEFAULT, " alto en unidades");
+		miEscenario.imagen_fondo = this->parsearImagen(root["escenario"]["imagen_fondo"],IMAGEN_DEFAULT," path de imagen de fondo");
+		miEscenario.personajeX = this->parsearElementoFloatPositivo(root["escenario"]["personaje"]["x"],PERSONAJE_X_DEFAULT,"coordenada X del personaje");
+		miEscenario.personajeY = this->parsearElementoFloatPositivo(root["escenario"]["personaje"]["y"],PERSONAJE_Y_DEFAULT,"coordenada X del personaje");
 
         //OBJETOS
-
         if (root["escenario"]["objetos"].isNull()){
             EventLogger::AgregarEvento("no hay objetos declarados",WARNING);
-
-            //TODO:cargar objetos default....
-
-
         }
 
         // Si entra es porque tiene/Existe objetos 
@@ -427,9 +239,7 @@ void Parser::Inicializar()
             string notice = "NOTICE: Hay ";
             notice.append(Funciones::intToString(objetos_size));
             notice.append(" objetos declarados.");
-
             EventLogger::AgregarEvento(notice,WARNING);
-
 
             //   Recorro la lista de objetos
             for(int i = 0; i < objetos_size; ++i)  
@@ -447,374 +257,7 @@ void Parser::Inicializar()
 
 
                         if( tipo == "poli"){
-
-                            poli poli;
-                            poli.tipo = tipo;
-                            bool pxpEsDefault = false;
-							bool errorPoli = false;
-							
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: poli-x
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["x"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["x"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["x"].asFloat()>=0){
-
-                                        if(!pxpEsDefault)
-                                            poli.x = root["escenario"]["objetos"][i]["x"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("x del poligono DEBE ser un real positivo, se omitira el elemento",ERROR);
-										//TODO:Cargar valores por defecto..
-                                    poli.x = POLIGONO_X_DEFAULT;
-                                    poli.y = POLIGONO_Y_DEFAULT;
-                                    pxpEsDefault = true;
-									errorPoli = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("x del poligono DEBE ser un real positivo, se omitira el elemento",ERROR);
-
-                                    //TODO:Cargar valores por defecto..
-                                    poli.x = POLIGONO_X_DEFAULT;
-                                    poli.y = POLIGONO_Y_DEFAULT;
-                                    pxpEsDefault = true;
-									errorPoli = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("x del poligono NO existe en el archivo, se omitira el elemento",ERROR);
-
-                                //TODO:Cargar valores por defecto..
-                                poli.x = POLIGONO_X_DEFAULT;
-                                poli.y = POLIGONO_Y_DEFAULT;
-                                pxpEsDefault = true;
-								errorPoli = true;
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: poli-y
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["y"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["y"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["y"].asFloat()>=0){
-                                        if(!pxpEsDefault)
-                                            poli.y = root["escenario"]["objetos"][i]["y"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("y del poligono DEBE ser un real positivo, se omitira el elemento",ERROR);
-										//TODO:Cargar valores por defecto..
-                                    poli.x = POLIGONO_X_DEFAULT;
-                                    poli.y = POLIGONO_Y_DEFAULT;
-                                    pxpEsDefault = true;
-									errorPoli = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: y del poligono DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    poli.x = POLIGONO_X_DEFAULT;
-                                    poli.y = POLIGONO_Y_DEFAULT;
-                                    pxpEsDefault = true;
-									errorPoli = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: y del poligono NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                poli.x = POLIGONO_X_DEFAULT;
-                                poli.y = POLIGONO_Y_DEFAULT;
-                                pxpEsDefault = true;
-								errorPoli = true;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: poli-escala
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["escala"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["escala"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["escala"].asFloat()>=0){
-                                        poli.escala = root["escenario"]["objetos"][i]["escala"].asFloat();  
-                                    }else {
-                                        EventLogger::AgregarEvento("ERROR: escala del poligono DEBE ser un real positivo, se omitira el elemento");
-										 //TODO:Cargar valores por defecto..
-                                    poli.escala = POLIGONO_ESCALA_DEFAULT;
-									errorPoli = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: escala del poligono DEBE ser un float, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    poli.escala = POLIGONO_ESCALA_DEFAULT;
-									errorPoli = true;
-
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: escala del poligono NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                poli.escala = POLIGONO_ESCALA_DEFAULT;
-								errorPoli = true;
-
-                            }
-                            /*************************************************************************************************/ 
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: poli-lados
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["lados"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["lados"].isInt()){
-
-                                    if (root["escenario"]["objetos"][i]["lados"].asInt() >=3 && root["escenario"]["objetos"][i]["lados"].asInt() <=6){
-
-                                        poli.lados = root["escenario"]["objetos"][i]["lados"].asInt(); }
-
-                                    else {
-
-                                        EventLogger::AgregarEvento("ERROR: lados del poligono DEBE ser entero entre 3 y 6, se omitira el elemento");
-
-                                        //TODO:Cargar valores por defecto..
-                                        poli.lados = POLIGONO_LADOS_DEFAULT;
-										errorPoli = true;
-
-
-                                    }
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: lados del poligono DEBE ser un entero, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    poli.lados = POLIGONO_LADOS_DEFAULT;
-									errorPoli = true;
-
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: lados del poligono NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                poli.lados = POLIGONO_LADOS_DEFAULT;
-								errorPoli = true;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: poli-color
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["color"].isNull()){
-
-                                //SI ES UN STRING
-                                if( root["escenario"]["objetos"][i]["color"].isString()){
-
-                                    if( Funciones::esHEXvalido(root["escenario"]["objetos"][i]["color"].asString()) ){
-
-                                        string colorHEX = root["escenario"]["objetos"][i]["color"].asString();
-
-                                        //Si es un hex valido....
-                                        poli.color.r = Funciones::hexToRGB(colorHEX).r;
-                                        poli.color.g = Funciones::hexToRGB(colorHEX).g;
-                                        poli.color.b = Funciones::hexToRGB(colorHEX).b;
-
-
-                                    }  else {
-
-                                        EventLogger::AgregarEvento("ERROR: color del poligono DEBE ser un HEX VALIDO, se cargaran los valores por defecto");
-
-                                        //TODO:Cargar valores por defecto..
-                                        poli.color.r = R_DEFAULT;
-                                        poli.color.g = G_DEFAULT;
-                                        poli.color.b = B_DEFAULT;
-
-                                    } }
-                                else {
-
-                                    EventLogger::AgregarEvento("ERROR: color del poligono DEBE ser un string, se cargaran los valores por defecto");
-                                    //TODO:Cargar valores por defecto..
-                                    poli.color.r = R_DEFAULT;
-                                    poli.color.g = G_DEFAULT;
-                                    poli.color.b = B_DEFAULT;
-                                }
-
-
-
-                            }  else {
-                                EventLogger::AgregarEvento("ERROR: color del poligono NO existe en el archivo, se cargaran los valores por defecto");
-
-                                //TODO:Cargar valores por defecto..
-                                poli.color.r = R_DEFAULT;
-                                poli.color.g = G_DEFAULT;
-                                poli.color.b = B_DEFAULT;
-
-                            }
-                            /*************************************************************************************************/ 
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: poli-rot
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["rot"].isNull()){
-
-
-
-								
-
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["rot"].isInt()){
-
-                                    
-
-									if (root["escenario"]["objetos"][i]["rot"].asInt() >=0 && root["escenario"]["objetos"][i]["rot"].asInt() <=359){
-
-                                        poli.rot = root["escenario"]["objetos"][i]["rot"].asInt();  
-
-								} else {
-
-                                        EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser entero entre 0 y 359, se omitira el elemento");
-
-                                        //TODO:Cargar valores por defecto..
-                                        poli.rot= POLIGONO_ROT_DEFAULT;
-										errorPoli = true;
-
-
-                                    }
-
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: rot del poligono DEBE ser un entero, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    poli.rot = POLIGONO_ROT_DEFAULT;
-									errorPoli = true;
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: rot del poligono NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                poli.rot = POLIGONO_ROT_DEFAULT;
-								errorPoli = true;
-
-
-                            }
-                            /*************************************************************************************************/ 
-
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: poli-masa
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["masa"].isNull()){
-
-                                //SI ES UN ENTERO
-                                if(root["escenario"]["objetos"][i]["masa"].isDouble()){
-
-                                    if(root["escenario"]["objetos"][i]["masa"].asFloat()>=0){
-
-                                        poli.masa = root["escenario"]["objetos"][i]["masa"].asFloat();  
-                                    } else {
-                                        EventLogger::AgregarEvento("ERROR: masa del poligono DEBE ser un real positivo, se omitira el elemento");
-										//TODO:Cargar valores por defecto..
-                                    poli.masa = POLIGONO_MASA_DEFAULT;
-									errorPoli = true;
-                                    }
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: masa del poligono DEBE ser un real positivo, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    poli.masa = POLIGONO_MASA_DEFAULT;
-									errorPoli = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: masa del poligono NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                poli.masa = POLIGONO_MASA_DEFAULT;
-								errorPoli = true;
-
-
-                            }
-                            /*************************************************************************************************/
-
-                            /*************************************************************************************************/ 
-                            //VALIDACIONES: poli-estatico
-                            //SI EXISTE
-                            if(!root["escenario"]["objetos"][i]["estatico"].isNull()){
-
-                                //SI ES UN booleano
-                                if(root["escenario"]["objetos"][i]["estatico"].isBool()){
-
-                                    poli.estatico = root["escenario"]["objetos"][i]["estatico"].asBool();  
-
-
-                                }  else {
-
-                                    EventLogger::AgregarEvento("ERROR: estatico del poligono DEBE ser un booleano, se omitira el elemento");
-
-                                    //TODO:Cargar valores por defecto..
-                                    poli.estatico = POLIGONO_ESTATICO_DEFAULT;
-									errorPoli = true;
-
-                                }
-
-                            } else {
-                                EventLogger::AgregarEvento("ERROR: estatico del poligono NO existe en el archivo, se omitira el elemento");
-
-                                //TODO:Cargar valores por defecto..
-                                poli.estatico = POLIGONO_ESTATICO_DEFAULT;
-								errorPoli = true;
-
-
-                            }
-                            /*************************************************************************************************/ 						
-							if (!errorPoli){
-                            miEscenario.poligonos.push_back(poli);
-							}
-                            /*
-                            //COUTS POLIGONOS
-                            cout << endl << "Objeto Nro: " << i << endl;
-                            cout << endl << "tipo " << poli.tipo << endl;
-                            cout << endl << "x " << poli.x << endl;
-                            cout << endl << "y " << poli.y << endl;
-                            cout << endl << "ancho " << poli.ancho << endl;
-                            cout << endl << "alto " << poli.alto << endl;
-
-                            //cout << endl << "color HEX " << colorHEX << "color RGB R:" << Funciones::hexToRGB(colorHEX).r << "G:" << Funciones::hexToRGB(colorHEX).g << "B:" << Funciones::hexToRGB(colorHEX).b << endl;
-                            cout << endl << "rot " << poli.rot << endl;
-                            cout << endl << "masa " << poli.masa << endl;
-                            cout << endl << "estatico " << poli.estatico << endl;      
-                            */
-
-
+							poli poli = this->parsearPoligono(root["escenario"]["objetos"][i]);
                         } 
 
                         else if( tipo=="rect"){
