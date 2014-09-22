@@ -84,7 +84,10 @@ void Jugador::saltar(){
 		return;
 	//float verticalVelocity = this->body->GetLinearVelocity().y;
 	//if( (abs(verticalVelocity) < UMBRAL_SALTO))
-		this->body->ApplyLinearImpulse(b2Vec2(0,IMPULSO_SALTAR),this->body->GetWorldCenter(),true);
+	//	this->body->ApplyLinearImpulse(b2Vec2(0,IMPULSO_SALTAR),this->body->GetWorldCenter(),true);
+	b2Vec2 velocity = this->body->GetLinearVelocity();
+	velocity.y = 10;
+	this->body->SetLinearVelocity(velocity);
 }
 
 CoordenadasR2 Jugador::getSize(){

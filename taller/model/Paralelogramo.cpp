@@ -45,7 +45,7 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	//  angulo V2 = angulo V4
 
 	// Sacar
-	std::cout << "Centro.x: " << centro.x << " Centro.y: " << centro.y << std::endl;
+	//std::cout << "Centro.x: " << centro.x << " Centro.y: " << centro.y << std::endl;
 
 	bodyDef.position.Set(centro.x,centro.y);
 	bodyDef.angle= this->normalizarAngulo(angulorot);
