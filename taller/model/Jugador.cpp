@@ -6,7 +6,7 @@
 #define ALTO_JUGADOR     0.8f
 #define ANCHO_JUGADOR    0.5f
 #define IMPULSO_CAMINAR  1.0f
-#define	IMPULSO_SALTAR	 25.0f
+#define	IMPULSO_SALTAR	 8.0f
 #define VELOCIDAD_MAXIMA 8.0f
 #define UMBRAL_SALTO 0.1f// velocidad vertical maxima para iniciar salto
 #define UMBRAL_ESTATICO 0.5f
@@ -86,7 +86,7 @@ void Jugador::saltar(){
 	//if( (abs(verticalVelocity) < UMBRAL_SALTO))
 	//	this->body->ApplyLinearImpulse(b2Vec2(0,IMPULSO_SALTAR),this->body->GetWorldCenter(),true);
 	b2Vec2 velocity = this->body->GetLinearVelocity();
-	velocity.y = 10;
+	velocity.y = IMPULSO_SALTAR;
 	this->body->SetLinearVelocity(velocity);
 }
 
