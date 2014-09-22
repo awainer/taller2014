@@ -79,7 +79,7 @@ void Jugador::moverIzquierda(){
 }
 
 void Jugador::saltar(){
-	std::cout << "salto puedemover: " << this->puedeMover << std::endl;
+	//std::cout << "salto puedemover: " << this->puedeMover << std::endl;
 	if (this->puedeMover == 0)
 		return;
 	//float verticalVelocity = this->body->GetLinearVelocity().y;
