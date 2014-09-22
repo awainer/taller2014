@@ -13,7 +13,7 @@ Pelota::Pelota(CoordenadasR2 centro, Color color,float radio,bool dinamica,float
 
 	this->generateId();
 	std::string msg =	"Agregando pelota con id "  + EventLogger::itos(this->id);
-	EventLogger::AgregarEvento(msg, DEBUG);
+	log(msg, DEBUG);
 
 	bodyDef.position.Set(centro.x,centro.y);
 	if (dinamica){
@@ -58,7 +58,7 @@ CoordenadasR2 Pelota::getCentro(){
 bool Pelota::validarParametros(float radio){
 	if (radio > 0)
 		return true;
-	EventLogger::AgregarEvento("El radio de los circulos debe ser un numero positivo",WARNING);
+	log("El radio de los circulos debe ser un numero positivo",WARNING);
 	return false;
 }
 Pelota::~Pelota(void){

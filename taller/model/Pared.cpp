@@ -30,7 +30,7 @@ Pared::Pared(float x, float y, float largo, b2World * world, int tipo)
 	this->body->CreateFixture(&fixtureDef);
 	this->generateId();
 	std::string msg =	"Agregando pared con id "  + EventLogger::itos(this->id);
-	EventLogger::AgregarEvento(msg, DEBUG);
+	log(msg, DEBUG);
 }
 
 Pared::~Pared(){

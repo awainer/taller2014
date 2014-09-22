@@ -19,20 +19,20 @@ Parser::Parser(string path)
 
 float Parser::parsearElementoFloatUnsigned(Json::Value elem, float defaultVal,string nombreElem){
 	if(elem.isNull()){
-		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 
 	 if(elem.isDouble())
           return elem.asFloat();
 	 else{
-		 EventLogger::AgregarEvento(nombreElem + " no es un valor real, usando valor por defecto.",WARNING);
+		 log(nombreElem + " no es un valor real, usando valor por defecto.",WARNING);
 		 return defaultVal;
 	 }
 }
 float Parser::parsearElementoFloatPositivo(Json::Value elem, float defaultVal,string nombreElem){
 	if(elem.isNull()){
-		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 
@@ -41,24 +41,24 @@ float Parser::parsearElementoFloatPositivo(Json::Value elem, float defaultVal,st
 		 if (result > 0)
 			 return result;
 		 else{
-			 EventLogger::AgregarEvento("El  valor para " + nombreElem + " debe ser positivo, usando valor por defecto.",WARNING);
+			 log("El  valor para " + nombreElem + " debe ser positivo, usando valor por defecto.",WARNING);
 			 return defaultVal;
 		 }
 	 } else{
-		 EventLogger::AgregarEvento(nombreElem + " no es un valor real, usando valor por defecto.",WARNING);
+		 log(nombreElem + " no es un valor real, usando valor por defecto.",WARNING);
 		 return defaultVal;
 	 }
 }
 bool Parser::parsearBoolean(Json::Value elem, bool defaultVal, string nombreElem){
 	if(elem.isNull()){
-		EventLogger::AgregarEvento("Se esperaba un booleano para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		log("Se esperaba un booleano para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 
 	if(elem.isBool())
 		return elem.asBool();
 	else{
-		EventLogger::AgregarEvento("Se esperaba un booleano para " + nombreElem + ", usando valor por defecto.",WARNING);
+		log("Se esperaba un booleano para " + nombreElem + ", usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 
@@ -66,7 +66,7 @@ bool Parser::parsearBoolean(Json::Value elem, bool defaultVal, string nombreElem
 }
 int Parser::parsearElementoIntPositivo(Json::Value elem, int defaultVal,string nombreElem){
 	if(elem.isNull()){
-		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 
@@ -75,29 +75,29 @@ int Parser::parsearElementoIntPositivo(Json::Value elem, int defaultVal,string n
 		 if (result > 0)
 			 return result;
 		 else{
-			 EventLogger::AgregarEvento("El  valor para " + nombreElem + " debe ser positivo, usando valor por defecto.",WARNING);
+			 log("El  valor para " + nombreElem + " debe ser positivo, usando valor por defecto.",WARNING);
 			 return defaultVal;
 		 }
 	 } else{
-		 EventLogger::AgregarEvento(nombreElem + " no es un valor entero, usando valor por defecto.",WARNING);
+		 log(nombreElem + " no es un valor entero, usando valor por defecto.",WARNING);
 		 return defaultVal;
 	 }
 }
 string Parser::parsearImagen(Json::Value elem, string defaultVal,string nombreElem){
 	if(elem.isNull()){
-		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",ERROR);
+		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",ERROR);
 		return defaultVal;
 	}
 	if(elem.isString()){
 		string result = elem.asString();
 		if (!Funciones::esUnaImagenValida(result)){
-			EventLogger::AgregarEvento(nombreElem + " NO existe o tiene una extension invalida, usando valor por defecto",ERROR);
+			log(nombreElem + " NO existe o tiene una extension invalida, usando valor por defecto",ERROR);
 			return defaultVal;
 		} else {
 			return result;
 		}
 	}else{ 
-		EventLogger::AgregarEvento("Se esperaba un string " + nombreElem + " , usando valor por defecto.",ERROR);
+		log("Se esperaba un string " + nombreElem + " , usando valor por defecto.",ERROR);
 		return defaultVal;
 	}
 }
@@ -105,11 +105,11 @@ string Parser::parsearImagen(Json::Value elem, string defaultVal,string nombreEl
 
 colorRGB Parser::parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem){
 	if(elem.isNull()){
-		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 	if(!elem.isString()){
-		EventLogger::AgregarEvento("Se esperaba un string para " + nombreElem + ", usando valor por defecto.",WARNING);
+		log("Se esperaba un string para " + nombreElem + ", usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 	string colorString = elem.asString();
@@ -121,14 +121,14 @@ colorRGB Parser::parsearColor(Json::Value elem, colorRGB defaultVal, string nomb
         result.b = Funciones::hexToRGB(colorString).b;
 		return result;
 	} else {
-		EventLogger::AgregarEvento("Se esperaba un string HEXA valido para " + nombreElem + ", usando valor por defecto.",WARNING);
+		log("Se esperaba un string HEXA valido para " + nombreElem + ", usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 }
 
 unsigned int Parser::parsearAngulo(Json::Value elem, unsigned int defaultVal, string nombreElem){
 	if(elem.isNull()){
-		EventLogger::AgregarEvento("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
+		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
 		return defaultVal;
 	}
 	 if(elem.isInt()){
@@ -136,11 +136,11 @@ unsigned int Parser::parsearAngulo(Json::Value elem, unsigned int defaultVal, st
 		 if (result >= 0 && result <= 359)
 			 return result;
 		 else{
-			 EventLogger::AgregarEvento("El  valor para " + nombreElem + " debe ser estar entre 0 y 359, usando valor por defecto.",WARNING);
+			 log("El  valor para " + nombreElem + " debe ser estar entre 0 y 359, usando valor por defecto.",WARNING);
 			 return defaultVal;
 		 }
 	 } else{
-		 EventLogger::AgregarEvento(nombreElem + " no es un valor entero, usando valor por defecto.",WARNING);
+		 log(nombreElem + " no es un valor entero, usando valor por defecto.",WARNING);
 		 return defaultVal;
 	 }
 
@@ -269,7 +269,7 @@ void Parser::Inicializar()
 
 	} else {
 
-		EventLogger::AgregarEvento("PATH INVALIDO: El archivo en formato JSON especificado no existe, se cargaran los valores por defecto.",ERROR);
+		log("PATH INVALIDO: El archivo en formato JSON especificado no existe, se cargaran los valores por defecto.",ERROR);
 		errorpath = true;
 		parseadoOK = true;
 		this->CargarDefault();
@@ -286,7 +286,7 @@ void Parser::Inicializar()
 		error.append(errormsg);
 		error.append(" Se cargara la configuracion por defecto.");
 
-        EventLogger::AgregarEvento(error,ERROR);
+        log(error,ERROR);
 		
         //TODO:CARGAR JSON POR DEFECTO   
 		this->CargarDefault();
@@ -308,7 +308,7 @@ void Parser::Inicializar()
 
         //OBJETOS
         if (root["escenario"]["objetos"].isNull()){
-            EventLogger::AgregarEvento("no hay objetos declarados",WARNING);
+            log("no hay objetos declarados",WARNING);
         }
 
         // Si entra es porque tiene/Existe objetos 
@@ -319,47 +319,47 @@ void Parser::Inicializar()
             string notice = "NOTICE: Hay ";
             notice.append(Funciones::intToString(objetos_size));
             notice.append(" objetos declarados.");
-            EventLogger::AgregarEvento(notice,WARNING);
+            log(notice,WARNING);
 
             //   Recorro la lista de objetos
             for(int i = 0; i < objetos_size; ++i)  
             {  
                 if(root["escenario"]["objetos"][i]["tipo"].isNull()){
-                    EventLogger::AgregarEvento("No es un objeto valido, no se cargara",ERROR);
+                    log("No es un objeto valido, no se cargara",ERROR);
                 }
                 else {
 
                     if(!root["escenario"]["objetos"][i]["tipo"].isString()){
-                        EventLogger::AgregarEvento("tipo DEBE ser un string",ERROR);
+                        log("tipo DEBE ser un string",ERROR);
                     } else {
 
                         string tipo = root["escenario"]["objetos"][i]["tipo"].asString();
 
                         if( tipo == "poli"){
-							EventLogger::AgregarEvento("Parseando poligono",DEBUG);
+							log("Parseando poligono",DEBUG);
 							poli poli = this->parsearPoligono(root["escenario"]["objetos"][i]);
 							miEscenario.poligonos.push_back(poli);
                         }else if( tipo=="rect"){
-							EventLogger::AgregarEvento("Parseando rectangulo",DEBUG);
+							log("Parseando rectangulo",DEBUG);
 							rect rect = this->parsearRectangulo(root["escenario"]["objetos"][i]);
 							miEscenario.rectangulos.push_back(rect);
                         }
                         else if( tipo=="circ"){
-							EventLogger::AgregarEvento("Parseando circulo",DEBUG);
+							log("Parseando circulo",DEBUG);
                             circ circulo = this->parsearCirculo(root["escenario"]["objetos"][i]);
 							miEscenario.circulos.push_back(circulo);
                         }
                         else if( tipo=="paralel"){
-							EventLogger::AgregarEvento("Parseando paralelogramo",DEBUG);
+							log("Parseando paralelogramo",DEBUG);
 							paralel paralel = this->parsearParalelogramo(root["escenario"]["objetos"][i]);
                             miEscenario.paralelogramos.push_back(paralel);
                         }
                         else if( tipo=="trap"){
-							EventLogger::AgregarEvento("Parseando trapecio",DEBUG);
+							log("Parseando trapecio",DEBUG);
                             trap trap = this->parsearTrapecio(root["escenario"]["objetos"][i]);                                                    
                             miEscenario.trapecios.push_back(trap);
                         }else{
-                            EventLogger::AgregarEvento("Se intento cargar un objeto invalido: " + tipo , ERROR);
+                            log("Se intento cargar un objeto invalido: " + tipo , ERROR);
                         }
 
 
@@ -370,8 +370,8 @@ void Parser::Inicializar()
         }
     } 
 	catch( exception e) {
-		EventLogger::AgregarEvento(" excepcion en la lectura del archivo JSON, cargando escenario por default.",ERROR);
-		EventLogger::AgregarEvento(e.what() ,ERROR);
+		log(" excepcion en la lectura del archivo JSON, cargando escenario por default.",ERROR);
+		log(e.what() ,ERROR);
 		this->CargarDefault();
 
 	}
@@ -495,13 +495,13 @@ VistaEscenario * Parser::CrearVista() {
 Escenario * Parser::CrearObjetos()
 {
 	
-	EventLogger::AgregarEvento("Parser: creando escenario:",DEBUG);
-	EventLogger::AgregarEvento("	Dimensiones:" + to_string(long double(miEscenario.anchoun)) + "x" + to_string(long double(miEscenario.altoun)) ,DEBUG);
-	EventLogger::AgregarEvento("	Gravedad:" + to_string(long double(miEscenario.gravedad)),DEBUG);	
-	EventLogger::AgregarEvento("	Path fondo:" + miEscenario.imagen_fondo,DEBUG);
+	log("Parser: creando escenario:",DEBUG);
+	log("	Dimensiones:" + to_string(long double(miEscenario.anchoun)) + "x" + to_string(long double(miEscenario.altoun)) ,DEBUG);
+	log("	Gravedad:" + to_string(long double(miEscenario.gravedad)),DEBUG);	
+	log("	Path fondo:" + miEscenario.imagen_fondo,DEBUG);
 	Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,miEscenario.gravedad),miEscenario.imagen_fondo,NULL);
-	EventLogger::AgregarEvento("Parser: creando jugador:",DEBUG);
-	EventLogger::AgregarEvento("	Posicion:" + to_string(long double(miEscenario.personajeX)) + "," + to_string(long double(miEscenario.personajeY)),DEBUG);
+	log("Parser: creando jugador:",DEBUG);
+	log("	Posicion:" + to_string(long double(miEscenario.personajeX)) + "," + to_string(long double(miEscenario.personajeY)),DEBUG);
 	esc->agregarJugador(CoordenadasR2(miEscenario.personajeX,miEscenario.personajeY));
 	// CREAR POLIGONOS
 	list <poli> objetosPoli;
@@ -510,14 +510,14 @@ Escenario * Parser::CrearObjetos()
 
 	for (list <poli> ::iterator it= objetosPoli.begin(); it!= objetosPoli.end(); it++) {
 		objetoActualPoli = *it;
-		EventLogger::AgregarEvento("Parser: creando poligono regular:",DEBUG);
-		EventLogger::AgregarEvento("	Lados: " + to_string(long long(objetoActualPoli.lados)),DEBUG);
-		EventLogger::AgregarEvento("	Radio: " + to_string(long double(objetoActualPoli.escala)),DEBUG);
-		EventLogger::AgregarEvento("	Color: " + to_string(long long(objetoActualPoli.color.r)) + " " + to_string(long long(objetoActualPoli.color.g)) + " " + to_string(long long(objetoActualPoli.color.b)) ,DEBUG);	  
-		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(objetoActualPoli.estatico)),DEBUG);
-		EventLogger::AgregarEvento("	Masa: " + to_string(long double(objetoActualPoli.masa)),DEBUG);
-		EventLogger::AgregarEvento("	Rotacion: " + to_string(long long(objetoActualPoli.rot)),DEBUG);
-		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(objetoActualPoli.x))  + ","+  to_string(long double(objetoActualPoli.y)) +")" ,DEBUG);
+		log("Parser: creando poligono regular:",DEBUG);
+		log("	Lados: " + to_string(long long(objetoActualPoli.lados)),DEBUG);
+		log("	Radio: " + to_string(long double(objetoActualPoli.escala)),DEBUG);
+		log("	Color: " + to_string(long long(objetoActualPoli.color.r)) + " " + to_string(long long(objetoActualPoli.color.g)) + " " + to_string(long long(objetoActualPoli.color.b)) ,DEBUG);	  
+		log("	Estatico: " + to_string(long long(objetoActualPoli.estatico)),DEBUG);
+		log("	Masa: " + to_string(long double(objetoActualPoli.masa)),DEBUG);
+		log("	Rotacion: " + to_string(long long(objetoActualPoli.rot)),DEBUG);
+		log("	Centro de masa: (" + to_string(long double(objetoActualPoli.x))  + ","+  to_string(long double(objetoActualPoli.y)) +")" ,DEBUG);
 
 		esc->agregarPoligono(CoordenadasR2(objetoActualPoli.x,objetoActualPoli.y),
 							objetoActualPoli.escala,
@@ -535,14 +535,14 @@ Escenario * Parser::CrearObjetos()
 	objetosRect = miEscenario.rectangulos;
 	for (list <rect> ::iterator it= objetosRect.begin(); it!= objetosRect.end(); it++) {
 		objetoActualRect =  *it;
-		EventLogger::AgregarEvento("Parser: creando rectangulo:",DEBUG);
-		EventLogger::AgregarEvento("	Alto: " + to_string(long double (objetoActualRect.alto)),DEBUG);
-		EventLogger::AgregarEvento("	Ancho: " + to_string(long double (objetoActualRect.ancho)),DEBUG);
-		EventLogger::AgregarEvento("	Color: " + to_string(long long(objetoActualRect.color.r)) + " " + to_string(long long(objetoActualRect.color.g)) + " " + to_string(long long(objetoActualRect.color.b)) ,DEBUG);
-		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(objetoActualRect.estatico)),DEBUG);
-		EventLogger::AgregarEvento("	Masa: " + to_string(long double(objetoActualRect.masa)),DEBUG);
-		EventLogger::AgregarEvento("	Rotacion: " + to_string(long long(objetoActualRect.rot)),DEBUG);
-		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(objetoActualRect.x))  + ","+  to_string(long double(objetoActualRect.y)) +")" ,DEBUG);
+		log("Parser: creando rectangulo:",DEBUG);
+		log("	Alto: " + to_string(long double (objetoActualRect.alto)),DEBUG);
+		log("	Ancho: " + to_string(long double (objetoActualRect.ancho)),DEBUG);
+		log("	Color: " + to_string(long long(objetoActualRect.color.r)) + " " + to_string(long long(objetoActualRect.color.g)) + " " + to_string(long long(objetoActualRect.color.b)) ,DEBUG);
+		log("	Estatico: " + to_string(long long(objetoActualRect.estatico)),DEBUG);
+		log("	Masa: " + to_string(long double(objetoActualRect.masa)),DEBUG);
+		log("	Rotacion: " + to_string(long long(objetoActualRect.rot)),DEBUG);
+		log("	Centro de masa: (" + to_string(long double(objetoActualRect.x))  + ","+  to_string(long double(objetoActualRect.y)) +")" ,DEBUG);
 
 		esc->agregarRectangulo(CoordenadasR2(objetoActualRect.x,objetoActualRect.y),
 			objetoActualRect.alto,
@@ -560,12 +560,12 @@ Escenario * Parser::CrearObjetos()
 	objetosCirc = miEscenario.circulos;
 	for (list <circ> ::iterator it= miEscenario.circulos.begin(); it!= miEscenario.circulos.end(); it++) {
 		circ unCirculo= *it;
-		EventLogger::AgregarEvento("Parser: creando circulo:",DEBUG);
-		EventLogger::AgregarEvento("	Radio: " + to_string(long double (unCirculo.radio)),DEBUG);
-		EventLogger::AgregarEvento("	Color: " + to_string(long long(unCirculo.color.r)) + " " + to_string(long long(unCirculo.color.g)) + " " + to_string(long long(unCirculo.color.b)) ,DEBUG);
-		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(unCirculo.estatico)),DEBUG);
-		EventLogger::AgregarEvento("	Masa: " + to_string(long double(unCirculo.masa)),DEBUG);
-		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(unCirculo.x))  + ","+  to_string(long double(unCirculo.y)) +")" ,DEBUG);
+		log("Parser: creando circulo:",DEBUG);
+		log("	Radio: " + to_string(long double (unCirculo.radio)),DEBUG);
+		log("	Color: " + to_string(long long(unCirculo.color.r)) + " " + to_string(long long(unCirculo.color.g)) + " " + to_string(long long(unCirculo.color.b)) ,DEBUG);
+		log("	Estatico: " + to_string(long long(unCirculo.estatico)),DEBUG);
+		log("	Masa: " + to_string(long double(unCirculo.masa)),DEBUG);
+		log("	Centro de masa: (" + to_string(long double(unCirculo.x))  + ","+  to_string(long double(unCirculo.y)) +")" ,DEBUG);
 
 
 		esc->agregarPelota(CoordenadasR2(unCirculo.x,unCirculo.y),
@@ -580,15 +580,15 @@ Escenario * Parser::CrearObjetos()
 	objetosParalel = miEscenario.paralelogramos;
 	for (list <paralel> ::iterator it= miEscenario.paralelogramos.begin(); it!= miEscenario.paralelogramos.end(); it++) {
 		paralel unParalelogramo= *it;
-		EventLogger::AgregarEvento("Parser: creando paralelogramo:",DEBUG);
-		EventLogger::AgregarEvento("	Lado 1: " + to_string(long double(unParalelogramo.lado1)),DEBUG);
-		EventLogger::AgregarEvento("	Lado 2: " + to_string(long double(unParalelogramo.lado2)),DEBUG);
-		EventLogger::AgregarEvento("	Altura: " + to_string(long double(unParalelogramo.altura)),DEBUG);
-		EventLogger::AgregarEvento("	Color: " + to_string(long long(unParalelogramo.color.r)) + " " + to_string(long long(unParalelogramo.color.g)) + " " + to_string(long long(unParalelogramo.color.b)) ,DEBUG);
-		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(unParalelogramo.estatico)),DEBUG);
-		EventLogger::AgregarEvento("	Masa: " + to_string(long double(unParalelogramo.masa)),DEBUG);
-		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(unParalelogramo.x))  + ","+  to_string(long double(unParalelogramo.y)) +")" ,DEBUG);
-		EventLogger::AgregarEvento("	Rotacion: " + to_string(long long(unParalelogramo.rot)),DEBUG);
+		log("Parser: creando paralelogramo:",DEBUG);
+		log("	Lado 1: " + to_string(long double(unParalelogramo.lado1)),DEBUG);
+		log("	Lado 2: " + to_string(long double(unParalelogramo.lado2)),DEBUG);
+		log("	Altura: " + to_string(long double(unParalelogramo.altura)),DEBUG);
+		log("	Color: " + to_string(long long(unParalelogramo.color.r)) + " " + to_string(long long(unParalelogramo.color.g)) + " " + to_string(long long(unParalelogramo.color.b)) ,DEBUG);
+		log("	Estatico: " + to_string(long long(unParalelogramo.estatico)),DEBUG);
+		log("	Masa: " + to_string(long double(unParalelogramo.masa)),DEBUG);
+		log("	Centro de masa: (" + to_string(long double(unParalelogramo.x))  + ","+  to_string(long double(unParalelogramo.y)) +")" ,DEBUG);
+		log("	Rotacion: " + to_string(long long(unParalelogramo.rot)),DEBUG);
 
 		esc->agregarParalelogramo(CoordenadasR2(unParalelogramo.x,unParalelogramo.y),unParalelogramo.lado1,unParalelogramo.lado2,unParalelogramo.altura,Color(unParalelogramo.color.r, unParalelogramo.color.g, unParalelogramo.color.b),unParalelogramo.rot,!unParalelogramo.estatico,unParalelogramo.masa);
 
@@ -601,15 +601,15 @@ Escenario * Parser::CrearObjetos()
 	objetosTrap = miEscenario.trapecios;
 	for (list <trap> ::iterator it= miEscenario.trapecios.begin(); it!= miEscenario.trapecios.end(); it++) {
 		trap unTrapecio= *it;
-		EventLogger::AgregarEvento("Parser: creando trapecio:",DEBUG);
-		EventLogger::AgregarEvento("	Lado 1: " + to_string(long double(unTrapecio.lado1)),DEBUG);
-		EventLogger::AgregarEvento("	Lado 2: " + to_string(long double(unTrapecio.lado2)),DEBUG);
-		EventLogger::AgregarEvento("	Lado 3: " + to_string(long double(unTrapecio.lado3)),DEBUG);
-		EventLogger::AgregarEvento("	Color: " + to_string(long long(unTrapecio.color.r)) + " " + to_string(long long(unTrapecio.color.g)) + " " + to_string(long long(unTrapecio.color.b)) ,DEBUG);
-		EventLogger::AgregarEvento("	Estatico: " + to_string(long long(unTrapecio.estatico)),DEBUG);
-		EventLogger::AgregarEvento("	Masa: " + to_string(long double(unTrapecio.estatico)),DEBUG);
-		EventLogger::AgregarEvento("	Centro de masa: (" + to_string(long double(unTrapecio.x))  + ","+  to_string(long double(unTrapecio.y)) +")" ,DEBUG);
-		EventLogger::AgregarEvento("	Rotacion: " + to_string(long long(unTrapecio.rot)),DEBUG);
+		log("Parser: creando trapecio:",DEBUG);
+		log("	Lado 1: " + to_string(long double(unTrapecio.lado1)),DEBUG);
+		log("	Lado 2: " + to_string(long double(unTrapecio.lado2)),DEBUG);
+		log("	Lado 3: " + to_string(long double(unTrapecio.lado3)),DEBUG);
+		log("	Color: " + to_string(long long(unTrapecio.color.r)) + " " + to_string(long long(unTrapecio.color.g)) + " " + to_string(long long(unTrapecio.color.b)) ,DEBUG);
+		log("	Estatico: " + to_string(long long(unTrapecio.estatico)),DEBUG);
+		log("	Masa: " + to_string(long double(unTrapecio.estatico)),DEBUG);
+		log("	Centro de masa: (" + to_string(long double(unTrapecio.x))  + ","+  to_string(long double(unTrapecio.y)) +")" ,DEBUG);
+		log("	Rotacion: " + to_string(long long(unTrapecio.rot)),DEBUG);
 
 		esc->agregarTrapecio(CoordenadasR2(unTrapecio.x,unTrapecio.y),unTrapecio.lado1,unTrapecio.lado2,unTrapecio.lado3,unTrapecio.altura,Color(unTrapecio.color.r, unTrapecio.color.g, unTrapecio.color.b),unTrapecio.rot,!unTrapecio.estatico,unTrapecio.masa);
 

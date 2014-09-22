@@ -11,6 +11,8 @@ using namespace std;
 #define DEBUG	1
 #define LOGLEVEL 1
 
+#define log(MESSAGE,PRIORITY) EventLogger::AgregarEvento(__FILE__, __LINE__, MESSAGE,PRIORITY)
+
 class EventLogger {
 
 public:
@@ -20,6 +22,7 @@ public:
 	static void Append(string msg);
 	static void AgregarEvento(string msgEvento);
 	static void AgregarEvento(string msgEvento,int prioridad);
+	static void AgregarEvento(const char * filename, int line, string msgEvento,int prioridad);
 	static string itos(int i);
 	static string levelSring(int level);
 };

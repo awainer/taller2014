@@ -35,7 +35,7 @@ Trapecio::Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, floa
 	      V1     piso      V4
 	*/
 	// Sacar
-	std::cout << "Centro.x: " << centro.x << " Centro.y: " << centro.y << std::endl;
+	log("Trapecio: Centro.x: " + std::to_string(long double(centro.x)) + " Centro.y: " + std::to_string(long double(centro.y))   ,DEBUG);
 
 	bodyDef.position.Set(centro.x,centro.y);
 	bodyDef.angle= this->normalizarAngulo(angulorot);
@@ -117,7 +117,7 @@ Trapecio::Trapecio(CoordenadasR2 centro,float longladoizq, float longtecho, floa
 	this->color = color;
 	this->generateId();
 	std::string msg =	"Agregando Trapecio con id "  + EventLogger::itos(this->id) + " angulo rot: " + to_string(long double (this->body->GetAngle()));
-	EventLogger::AgregarEvento(msg, DEBUG);
+	log(msg, DEBUG);
 }
 
 
@@ -129,22 +129,22 @@ bool Trapecio::validarParametros(float longladoizq, float longtecho, float longl
 					return validarDimensiones(longladoizq, longtecho, longladoder, altura);
 				}
 				else {
-					EventLogger::AgregarEvento("La altura del Trapecio debe ser un numero positivo",WARNING);
+					log("La altura del Trapecio debe ser un numero positivo",WARNING);
 					return false;
 				}
 			}
 			else{
-				EventLogger::AgregarEvento("La longitud del lado derecho del Trapecio debe ser un numero positivo",WARNING);
+				log("La longitud del lado derecho del Trapecio debe ser un numero positivo",WARNING);
 				return false;
 			}
 		}
 		else {
-			EventLogger::AgregarEvento("La longitud del techo del trapecio debe ser un numero positivo",WARNING);
+			log("La longitud del techo del trapecio debe ser un numero positivo",WARNING);
 			return false;
 		}
 	}
 	else {
-		EventLogger::AgregarEvento("La longitud del izquierdo del Trapecio debe ser un numero positivo",WARNING);
+		log("La longitud del izquierdo del Trapecio debe ser un numero positivo",WARNING);
 		return false;
 	}
 }
@@ -153,12 +153,12 @@ bool Trapecio::validarParametros(float longladoizq, float longtecho, float longl
 
 bool Trapecio::validarDimensiones(float longladoizq, float longtecho, float longladoder,  float altura){
 	if ((longladoder < altura) || (longladoizq < altura)){
-		EventLogger::AgregarEvento("Los lados izquierdo y derecho de un trapecio no pueden ser menores a la altura",WARNING);
+		log("Los lados izquierdo y derecho de un trapecio no pueden ser menores a la altura",WARNING);
 		return false;
 	}
 	
 	if ((longladoizq == longladoder) && (longladoizq == altura)){
-		EventLogger::AgregarEvento("Al menos 1 de las 2 longitudes de los lados deben ser mayores a la altura de un trapecio",WARNING);
+		log("Al menos 1 de las 2 longitudes de los lados deben ser mayores a la altura de un trapecio",WARNING);
 		return false;
 	}
 	else {

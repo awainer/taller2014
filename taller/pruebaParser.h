@@ -15,14 +15,14 @@ Escenario* iniciar(string path){
 }
 
 int pruebaParser(string path){
-	EventLogger::AgregarEvento("",WARNING);
-	EventLogger::AgregarEvento("",WARNING);
-	EventLogger::AgregarEvento("",WARNING);
-	EventLogger::AgregarEvento("*****************************************",WARNING);
-	EventLogger::AgregarEvento("********   INICIA EJECUCION   ***********",WARNING);
-	EventLogger::AgregarEvento("",WARNING);
-	EventLogger::AgregarEvento("",WARNING);
-	EventLogger::AgregarEvento("",WARNING);
+	log("",WARNING);
+	log("",WARNING);
+	log("",WARNING);
+	log("*****************************************",WARNING);
+	log("********   INICIA EJECUCION   ***********",WARNING);
+	log("",WARNING);
+	log("",WARNING);
+	log("",WARNING);
 	Color  rojo = Color(255,0,0);
 	Color  azul = Color(0,0,255);
 	Color  verde = Color(0,255,0);
@@ -31,7 +31,7 @@ int pruebaParser(string path){
 	{ 
 		std::string msg ="No se pudo iniciar SDL - SDL Error: ";
 		msg.append(SDL_GetError());
-		EventLogger::AgregarEvento(msg, ERROR);
+		log(msg, ERROR);
 
 	}else
 	{

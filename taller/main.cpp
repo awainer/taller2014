@@ -8,46 +8,17 @@
 //#include "pruebaReiniciar.h"
 #include "pruebaSuper.h"
 #undef main
-#include <vld.h>
-//#include <vld.h>
+
 int main(int argc, char ** argv){
-	//pruebaSuper();
-	//pruebaSuperposicion();
-	//prueba_vistaEscenario();
-	//caca();
-	//caca2();
-	//string path = "";
 	string path;
+	log("Logger inicializado",DEBUG);
+
 	if (argc != 2){
-		EventLogger::AgregarEvento("Cantidad de argumentos incorrecta!");
+		log("Cantidad de argumentos incorrecta!",ERROR);
 		 path = "";
 	}else
 		 path = string(argv[1]);
 
 	pruebaParser(path);
-	/*
-	char pathChar[2000];
-	string path;
-	
-	if(argc != 2) {
-		cout<<"USO: miPrograma.exe miJson.json "<<endl;
-		cout<<"Escriba la ubicacion del archivo json: "<<endl;
-		cin.getline(pathChar,2000,'\n');
-		path = pathChar;
-	} else {
-		
-		path = argv[1];
-	}
-	
-	prueba_vistaEscenario();*/
-
-	//prueba_vistaEscenario();
-
-	//caca();
-	//caca2();
-	//pruebaParser("");
-	//pruebaReiniciar();
-	//prueba_paralelogramo();
-	//prueba_trapecio();
 	return 0;
 }

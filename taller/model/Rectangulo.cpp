@@ -32,7 +32,7 @@ Rectangulo::Rectangulo(CoordenadasR2 centro, float alto, float ancho, bool dinam
 	this->color = color;
 	this->generateId();
 	std::string msg =	"Agregando rectangulo con id "  + EventLogger::itos(this->id);
-	EventLogger::AgregarEvento(msg, DEBUG);
+	log(msg, DEBUG);
 
 }
 
@@ -42,12 +42,12 @@ bool Rectangulo::validarParametros(float alto, float ancho){
 			return true;
 		}
 		else {
-			EventLogger::AgregarEvento("El ancho del rectangulo debe ser un numero positivo",WARNING);
+			log("El ancho del rectangulo debe ser un numero positivo",WARNING);
 			return false;
 		}
 	}
 	else {
-		EventLogger::AgregarEvento("El alto del rectangulo debe ser un numero positivo",WARNING);
+		log("El alto del rectangulo debe ser un numero positivo",WARNING);
 		return false;
 	}
 }

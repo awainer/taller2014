@@ -50,12 +50,12 @@ b2Fixture * Figura::getFixture(){
 float Figura::normalizarAngulo(int angulo){
 	float result = 0;
 	if (angulo < 0 || angulo > 359){
-		EventLogger::AgregarEvento("El angulo debe estar entre 0 y 359, se usa angulo 0.",WARNING);
+		log("El angulo debe estar entre 0 y 359, se usa angulo 0.",WARNING);
 		return result;
 	}
 	// Le tengo que restar 180 porque box2d maneja angulos normalizados entre -pi y pi.
 	result =  -1 * (angulo - 180)* b2_pi /180;
-	EventLogger::AgregarEvento("El angulo " + to_string(long double(angulo)) + " normalizado en radianes resulta: " + to_string(long double(result)), DEBUG);
+	log("El angulo " + to_string(long double(angulo)) + " normalizado en radianes resulta: " + to_string(long double(result)), DEBUG);
 	return result;
 }
 
@@ -75,7 +75,7 @@ void Figura::activar(){
 }
 Figura::~Figura(void)
 {
-	EventLogger::AgregarEvento("Lllamando destructor de figura",DEBUG);
+	log("Lllamando destructor de figura",DEBUG);
 	//this->world->DestroyBody(this->body);
 	this->body->GetWorld()->DestroyBody(this->body);
 

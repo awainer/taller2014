@@ -51,19 +51,19 @@ Poligono::Poligono(CoordenadasR2 centro, Color color, float radio, unsigned int 
 	this->color = color;
 	this->generateId();
 	std::string msg =	"Agregando poligono con id "  + EventLogger::itos(this->id);
-	EventLogger::AgregarEvento(msg, DEBUG);
+	log(msg, DEBUG);
 
 }
 
 
 bool Poligono::validarParametros(unsigned int lados, float radio){
 	if (lados <= 2 || lados > 6){
-		EventLogger::AgregarEvento("Los poligonos admiten entre 3 y 6 lados",WARNING);
+		log("Los poligonos admiten entre 3 y 6 lados",WARNING);
 		return false;
 	}
 	
 	if ( radio < 0 ){
-		EventLogger::AgregarEvento("El radio debe ser un numero positivo",WARNING);
+		log("El radio debe ser un numero positivo",WARNING);
 		return false;
 	}
 

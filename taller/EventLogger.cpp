@@ -8,6 +8,7 @@ string EventLogger::levelSring(int level){
 	case DEBUG: return "DEBUG"; break;
 	case WARNING: return "WARNING"; break;
 	case ERROR:	return "ERROR"; break;
+	default: return "UNKNOW"; break;
 	}
 }
 string EventLogger::pathArchivo = "Log.txt";
@@ -63,6 +64,11 @@ void EventLogger::AgregarEvento(string msgEvento,int prioridad){
 	}
 	catch( exception e) {
 	}
+}
+
+void EventLogger::AgregarEvento(const char * filename, int line, string msgEvento,int prioridad){
+	string msg = string(filename) + ":" + to_string(long long(line)) + " " + msgEvento;
+	EventLogger::AgregarEvento(msg,prioridad);
 }
 
 void EventLogger::AgregarEvento(string msgEvento){

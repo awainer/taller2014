@@ -6,7 +6,7 @@
 #define ALTO_JUGADOR     0.8f
 #define ANCHO_JUGADOR    0.5f
 #define IMPULSO_CAMINAR  1.0f
-#define	IMPULSO_SALTAR	 65.0f
+#define	IMPULSO_SALTAR	 25.0f
 #define VELOCIDAD_MAXIMA 8.0f
 #define UMBRAL_SALTO 0.1f// velocidad vertical maxima para iniciar salto
 #define UMBRAL_ESTATICO 0.5f
@@ -26,7 +26,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	this->body = world->CreateBody(&bodyDef);
 
 	// sensor de piso
-	shapeSensor.SetAsBox(0.48f * ANCHO_JUGADOR, 0.2f * ANCHO_JUGADOR, b2Vec2(0.0f,0-ALTO_JUGADOR/2.0f), 0.0f);
+	shapeSensor.SetAsBox(0.48f * ANCHO_JUGADOR, 0.1f * ANCHO_JUGADOR, b2Vec2(0.0f,0-ALTO_JUGADOR/2.0f), 0.0f);
 	fixtureDef.isSensor = true;
 	fixtureDef.shape = &shapeSensor;
 	fixtureDef.userData = (void*) FOOT_SENSOR;
@@ -48,7 +48,7 @@ Jugador::Jugador(float x, float y,b2World * world)
 	this->puedeMover = 0;
 	this->generateId();
 	std::string msg =	"Agregando jugador con id "  + EventLogger::itos(this->id);
-	EventLogger::AgregarEvento(msg, DEBUG);
+	log(msg, DEBUG);
 
 }
 
@@ -56,7 +56,7 @@ void Jugador::moverLateral(int lado){
 	//std::cout << "lateral puedemover: " << this->puedeMover << std::endl;
 	double factor = 1;
 	if (this->puedeMover == 0)
-		factor = 0.2;
+		factor = 0.1;
 
 	b2Vec2 velocidad = this->body->GetLinearVelocity();
 	float nuevaVelocidadX = float(velocidad.x	+ lado * IMPULSO_CAMINAR * factor);
@@ -79,12 +79,11 @@ void Jugador::moverIzquierda(){
 }
 
 void Jugador::saltar(){
-	//std::cout << "salto puedemover: " << this->puedeMover << std::endl;
+	std::cout << "salto puedemover: " << this->puedeMover << std::endl;
 	if (this->puedeMover == 0)
 		return;
-	float verticalVelocity = this->body->GetLinearVelocity().y;
-	// Solo se puede saltar cuando estas en el piso.
-	if(abs(verticalVelocity) < UMBRAL_SALTO)
+	//float verticalVelocity = this->body->GetLinearVelocity().y;
+	//if( (abs(verticalVelocity) < UMBRAL_SALTO))
 		this->body->ApplyLinearImpulse(b2Vec2(0,IMPULSO_SALTAR),this->body->GetWorldCenter(),true);
 }
 
