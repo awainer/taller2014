@@ -6,8 +6,8 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	m_ancho = datos->getAnchoPixel();
 	m_alto = datos->getAltoPixel();
 	m_fondo =NULL;
-	if( iniciarSDL() == false){
-		std::string msg ="No se pudo iniciar SDL";
+	if( iniciarVentana() == false){
+		std::string msg ="No se pudo iniciar correctamente VistaEscenario.";
 		log(msg, ERROR);
 	}
 	else
@@ -22,48 +22,40 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	}
 }
 
-bool VistaEscenario::iniciarSDL() { 
+bool VistaEscenario::iniciarVentana() { 
 
 	bool success = true; 
 
-	/*if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) 
+	m_window = SDL_CreateWindow( "TP taller", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_ancho, m_alto, SDL_WINDOW_SHOWN );
+	if( m_window == NULL ) 
 	{ 
-		std::string msg ="No se pudo iniciar SDL - SDL Error: ";
+		std::string msg ="No se pudo crear ventana - SDL Error: ";
 		msg.append(SDL_GetError());
-		log(msg, DEBUG);
+		log(msg, ERROR);
 		success = false; 
-	} else { */
-
-		m_window = SDL_CreateWindow( "TP taller", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_ancho, m_alto, SDL_WINDOW_SHOWN );
-		if( m_window == NULL ) 
-		{ 
-			std::string msg ="No se pudo crear ventana - SDL Error: ";
+	} else { 
+		m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_ACCELERATED); 
+		if( m_renderer == NULL )
+		{
+			std::string msg ="No se pudo crear Renderer - SDL Error: ";
 			msg.append(SDL_GetError());
-			log(msg, DEBUG);
+			log(msg, ERROR); 
 			success = false; 
-		} else { 
-			m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_ACCELERATED); 
-			if( m_renderer == NULL )
-			{
-				std::string msg ="No se pudo crear Renderer - SDL Error: ";
-				msg.append(SDL_GetError());
-				log(msg, DEBUG); 
-				success = false; 
-			}
-			else { 
+		}
+		else { 
 
-				//Inicializo SDL_IMAGE 
-				int imgFlags = IMG_INIT_JPG|IMG_INIT_PNG; 
-				if( !( IMG_Init( imgFlags ) & imgFlags ) ) 
-				{ 
-					std::string msg ="No se pudo iniciar SDL_image - SDL_image Error: ";
-					msg.append(IMG_GetError());
-					log(msg, DEBUG);
-					success = false; 
-				} 
-			}
-		} 
-	//} 
+			//Inicializo SDL_IMAGE 
+			int imgFlags = IMG_INIT_JPG|IMG_INIT_PNG; 
+			if( !( IMG_Init( imgFlags ) & imgFlags ) ) 
+			{ 
+				std::string msg ="No se pudo iniciar SDL_image - SDL_image Error: ";
+				msg.append(IMG_GetError());
+				log(msg, ERROR);
+				success = false; 
+			} 
+		}
+	} 
+
 	return success; 
 }
 
@@ -78,7 +70,7 @@ void VistaEscenario::agregarFondo(std::string path){
 	if( loadedSurface == NULL )
 	{
 		std::string msg =	"No se pudo cargar la imagen de fondo: " + path + " IMG_image Error: " + IMG_GetError() ;
-		log(msg, DEBUG);	
+		log(msg, ERROR);	
 	}
 	else
 	{
@@ -87,10 +79,10 @@ void VistaEscenario::agregarFondo(std::string path){
 		if( m_fondo == NULL )
 		{
 			std::string msg =	"No se pudo crear la textura desde " + path + " SDL Error: " + SDL_GetError() ;
-			log(msg, DEBUG);
+			log(msg, ERROR);
 		}else{
 			std::string msg ="Se cargo correctamente textura con fondo: " + path ;
-			log(msg, DEBUG);
+			log(msg, ERROR);
 		}
 
 	
@@ -142,7 +134,7 @@ VistaEscenario::~VistaEscenario(void)
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 	IMG_Quit();
-	//SDL_Quit();
+
 }
 
 void VistaEscenario::cargarFiguras(){

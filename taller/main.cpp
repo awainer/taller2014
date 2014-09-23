@@ -1,12 +1,6 @@
 #include <SDL2\SDL.h>
 #undef main
-#include "prueba_VistaEscenario.h"
-#include "pruebapoligono.h"
-#include "pruebaParser.h"
-#include "prueba_paralelogramo.h"
-#include "prueba_trapecio.h"
-//#include "pruebaReiniciar.h"
-#include "pruebaSuper.h"
+#include "GameLoop.h"
 #undef main
 
 int main(int argc, char ** argv){
@@ -19,6 +13,6 @@ int main(int argc, char ** argv){
 	}else
 		 path = string(argv[1]);
 
-	pruebaParser(path);
+	gameLoop(path);
 	return 0;
 }

@@ -25,7 +25,7 @@ private:
 	void cargarFiguras();
 	void agregarPelota(Pelota* pelota);
 	void agregarPoligonos(Poligono* poligono);
-	bool iniciarSDL();
+	bool iniciarVentana();
 	Escenario* m_escenario;
 	std::vector <VistaFigura*> figuras;
 	SDL_Renderer* m_renderer;
