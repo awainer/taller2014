@@ -216,7 +216,7 @@ extern "C" {
 
 	/* Textured Polygon */
 
-	SDL2_GFXPRIMITIVES_SCOPE int texturedPolygon(SDL_Renderer * renderer, const Sint16 * vx, const Sint16 * vy, int n, SDL_Surface * texture,int texture_dx,int texture_dy);
+	SDL2_GFXPRIMITIVES_SCOPE int texturedPolygon(SDL_Texture *textureAsTexture,SDL_Renderer * renderer, const Sint16 * vx, const Sint16 * vy, int n, SDL_Surface * texture,int texture_dx,int texture_dy);
 
 	/* Bezier */
 

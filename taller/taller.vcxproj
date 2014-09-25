@@ -319,6 +319,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imagenes\default.jpg" />
+    <None Include="imagenes\floor.jpg" />
     <None Include="imagenes\fondo.png" />
     <None Include="imagenes\homero.png" />
     <None Include="imagenes\sprite.PNG" />

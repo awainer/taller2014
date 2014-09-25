@@ -3139,7 +3139,8 @@ to the left and want the texture to apear the same you need to increase the text
 
 \returns Returns 0 on success, -1 on failure.
 */
-int texturedPolygonMT(SDL_Renderer *renderer, const Sint16 * vx, const Sint16 * vy, int n, 
+
+int texturedPolygonMT(SDL_Texture *textureAsTexture,SDL_Renderer *renderer, const Sint16 * vx, const Sint16 * vy, int n, 
 	SDL_Surface * texture, int texture_dx, int texture_dy, int **polyInts, int *polyAllocated)
 {
 	int result;
@@ -3152,7 +3153,7 @@ int texturedPolygonMT(SDL_Renderer *renderer, const Sint16 * vx, const Sint16 * 
 	int ints;
 	int *gfxPrimitivesPolyInts = NULL;
 	int gfxPrimitivesPolyAllocated = 0;
-	SDL_Texture *textureAsTexture = NULL;
+	//SDL_Texture *textureAsTexture = NULL;
 
 	/*
 	* Sanity check number of edges
@@ -3233,11 +3234,15 @@ int texturedPolygonMT(SDL_Renderer *renderer, const Sint16 * vx, const Sint16 * 
 	}
 
     /* Create texture for drawing */
+	/*
+	
 	textureAsTexture = SDL_CreateTextureFromSurface(renderer, texture);
+
 	if (textureAsTexture == NULL)
 	{
 		return -1;
 	}
+	*/
 	SDL_SetTextureBlendMode(textureAsTexture, SDL_BLENDMODE_BLEND);
 	
 	/*
@@ -3283,8 +3288,8 @@ int texturedPolygonMT(SDL_Renderer *renderer, const Sint16 * vx, const Sint16 * 
 		}
 	}
 
-	SDL_RenderPresent(renderer);
-	SDL_DestroyTexture(textureAsTexture);
+	//SDL_RenderPresent(renderer);
+	//SDL_DestroyTexture(textureAsTexture);
 
 	return (result);
 }
@@ -3305,12 +3310,12 @@ to the left and want the texture to apear the same you need to increase the text
 
 \returns Returns 0 on success, -1 on failure.
 */
-int texturedPolygon(SDL_Renderer *renderer, const Sint16 * vx, const Sint16 * vy, int n, SDL_Surface *texture, int texture_dx, int texture_dy)
+int texturedPolygon(SDL_Texture *textureAsTexture,SDL_Renderer *renderer, const Sint16 * vx, const Sint16 * vy, int n, SDL_Surface *texture, int texture_dx, int texture_dy)
 {
 	/*
 	* Draw
 	*/
-	return (texturedPolygonMT(renderer, vx, vy, n, texture, texture_dx, texture_dy, NULL, NULL));
+	return (texturedPolygonMT(textureAsTexture,renderer, vx, vy, n, texture, texture_dx, texture_dy, NULL, NULL));
 }
 
 /* ---- Character */

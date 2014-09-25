@@ -1,11 +1,13 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <SDL2\SDL_image.h>
 #include <vista/SDL2_gfx/SDL2_gfxPrimitives.h>
 #include "../model/CoordenadasR2.h"
 #include "../model/Poligono.h"
 #include "../model/Figura.h"
 #include "VistaFigura.h"
 #include "DatosPantalla.h"
+#include "../EventLogger.h"
 #include <vector>
 class VistaPoligono: public VistaFigura
 {
@@ -22,7 +24,10 @@ private:
 	int n_vertices;
 	Sint16* m_vx;
 	Sint16* m_vy;
-	Poligono * poligono;	
-	
+	Poligono * poligono;
+	SDL_Surface* m_loadedSurface;
+	SDL_Texture* m_texture;
+	int x;
+	int y;
 };
 
