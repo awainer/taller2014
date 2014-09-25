@@ -85,19 +85,19 @@ int Parser::parsearElementoIntPositivo(Json::Value elem, int defaultVal,string n
 }
 string Parser::parsearImagen(Json::Value elem, string defaultVal,string nombreElem){
 	if(elem.isNull()){
-		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",ERROR);
+		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",LOG_ERROR);
 		return defaultVal;
 	}
 	if(elem.isString()){
 		string result = elem.asString();
 		if (!Funciones::esUnaImagenValida(result)){
-			log(nombreElem + " NO existe o tiene una extension invalida, usando valor por defecto",ERROR);
+			log(nombreElem + " NO existe o tiene una extension invalida, usando valor por defecto",LOG_ERROR);
 			return defaultVal;
 		} else {
 			return result;
 		}
 	}else{ 
-		log("Se esperaba un string " + nombreElem + " , usando valor por defecto.",ERROR);
+		log("Se esperaba un string " + nombreElem + " , usando valor por defecto.",LOG_ERROR);
 		return defaultVal;
 	}
 }
@@ -269,7 +269,7 @@ void Parser::Inicializar()
 
 	} else {
 
-		log("PATH INVALIDO: El archivo en formato JSON especificado no existe, se cargaran los valores por defecto.",ERROR);
+		log("PATH INVALIDO: El archivo en formato JSON especificado no existe, se cargaran los valores por defecto.",LOG_ERROR);
 		errorpath = true;
 		parseadoOK = true;
 		this->CargarDefault();
@@ -282,11 +282,11 @@ void Parser::Inicializar()
 		string errormsg = reader.getFormattedErrorMessages();
 		errormsg.erase(std::remove(errormsg.begin(), errormsg.end(), '\n'), errormsg.end());
 		string error;
-		error = "ERROR EN ARCHIVO JSON: ";
+		error = "LOG_ERROR EN ARCHIVO JSON: ";
 		error.append(errormsg);
 		error.append(" Se cargara la configuracion por defecto.");
 
-        log(error,ERROR);
+        log(error,LOG_ERROR);
 		
         //TODO:CARGAR JSON POR DEFECTO   
 		this->CargarDefault();
@@ -325,12 +325,12 @@ void Parser::Inicializar()
             for(int i = 0; i < objetos_size; ++i)  
             {  
                 if(root["escenario"]["objetos"][i]["tipo"].isNull()){
-                    log("No es un objeto valido, no se cargara",ERROR);
+                    log("No es un objeto valido, no se cargara",LOG_ERROR);
                 }
                 else {
 
                     if(!root["escenario"]["objetos"][i]["tipo"].isString()){
-                        log("tipo DEBE ser un string",ERROR);
+                        log("tipo DEBE ser un string",LOG_ERROR);
                     } else {
 
                         string tipo = root["escenario"]["objetos"][i]["tipo"].asString();
@@ -359,7 +359,7 @@ void Parser::Inicializar()
                             trap trap = this->parsearTrapecio(root["escenario"]["objetos"][i]);                                                    
                             miEscenario.trapecios.push_back(trap);
                         }else{
-                            log("Se intento cargar un objeto invalido: " + tipo , ERROR);
+                            log("Se intento cargar un objeto invalido: " + tipo , LOG_ERROR);
                         }
 
 
@@ -370,8 +370,8 @@ void Parser::Inicializar()
         }
     } 
 	catch( exception e) {
-		log(" excepcion en la lectura del archivo JSON, cargando escenario por default.",ERROR);
-		log(e.what() ,ERROR);
+		log(" excepcion en la lectura del archivo JSON, cargando escenario por default.",LOG_ERROR);
+		log(e.what() ,LOG_ERROR);
 		this->CargarDefault();
 
 	}

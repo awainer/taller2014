@@ -166,7 +166,7 @@ void VistaJugador::agregarSprite(std::string path){
 	if( loadedSurface == NULL )
 	{
 		std::string msg =	"No se pudo levantar la imagen de sprite " + path + " SDL_image Error: " + IMG_GetError() ;
-		log(msg, ERROR);
+		log(msg, LOG_ERROR);
 	}
 	else
 	{
@@ -178,7 +178,7 @@ void VistaJugador::agregarSprite(std::string path){
 		if( m_sprite == NULL )
 		{
 			std::string msg =	"No se pudo crear la textura desde " + path + " SDL Error: " + SDL_GetError() ;
-			log(msg, ERROR);
+			log(msg, LOG_ERROR);
 		}
 		else
 		{

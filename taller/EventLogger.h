@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 
-#define ERROR	3
+#define LOG_ERROR	3
 #define WARNING 2
 #define DEBUG	1
 #define LOGLEVEL 1

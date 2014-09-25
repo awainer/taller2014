@@ -8,7 +8,7 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	m_fondo =NULL;
 	if( iniciarVentana() == false){
 		std::string msg ="No se pudo iniciar correctamente VistaEscenario.";
-		log(msg, ERROR);
+		log(msg, LOG_ERROR);
 	}
 	else
 	{
@@ -31,7 +31,7 @@ bool VistaEscenario::iniciarVentana() {
 	{ 
 		std::string msg ="No se pudo crear ventana - SDL Error: ";
 		msg.append(SDL_GetError());
-		log(msg, ERROR);
+		log(msg, LOG_ERROR);
 		success = false; 
 	} else { 
 		m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); 
@@ -39,7 +39,7 @@ bool VistaEscenario::iniciarVentana() {
 		{
 			std::string msg ="No se pudo crear Renderer - SDL Error: ";
 			msg.append(SDL_GetError());
-			log(msg, ERROR); 
+			log(msg, LOG_ERROR); 
 			success = false; 
 		}
 		else { 
@@ -50,7 +50,7 @@ bool VistaEscenario::iniciarVentana() {
 			{ 
 				std::string msg ="No se pudo iniciar SDL_image - SDL_image Error: ";
 				msg.append(IMG_GetError());
-				log(msg, ERROR);
+				log(msg, LOG_ERROR);
 				success = false; 
 			} 
 		}
@@ -70,7 +70,7 @@ void VistaEscenario::agregarFondo(std::string path){
 	if( loadedSurface == NULL )
 	{
 		std::string msg =	"No se pudo cargar la imagen de fondo: " + path + " IMG_image Error: " + IMG_GetError() ;
-		log(msg, ERROR);	
+		log(msg, LOG_ERROR);	
 	}
 	else
 	{
@@ -79,10 +79,10 @@ void VistaEscenario::agregarFondo(std::string path){
 		if( m_fondo == NULL )
 		{
 			std::string msg =	"No se pudo crear la textura desde " + path + " SDL Error: " + SDL_GetError() ;
-			log(msg, ERROR);
+			log(msg, LOG_ERROR);
 		}else{
 			std::string msg ="Se cargo correctamente textura con fondo: " + path ;
-			log(msg, ERROR);
+			log(msg, LOG_ERROR);
 		}
 
 	

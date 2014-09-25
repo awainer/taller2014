@@ -25,7 +25,7 @@ VistaPoligono::VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosP
 	if( m_loadedSurface == NULL )
 	{
 		std::string msg =	"No se pudo cargar la imagen de fondo: " + path + " IMG_image Error: " + IMG_GetError() ;
-		log(msg, ERROR);	
+		log(msg, LOG_ERROR);	
 	}
 	else
 	{
@@ -34,10 +34,10 @@ VistaPoligono::VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosP
 		if( m_texture == NULL )
 		{
 			std::string msg =	"No se pudo crear la textura desde " + path + " SDL Error: " + SDL_GetError() ;
-			log(msg, ERROR);
+			log(msg, LOG_ERROR);
 		}else{
 			std::string msg ="Se cargo correctamente textura con fondo: " + path ;
-			log(msg, ERROR);
+			log(msg, LOG_ERROR);
 		}
 		
 	
