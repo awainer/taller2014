@@ -175,3 +175,11 @@ bool VistaEscenario::agregarJugador(Jugador* jugador){
 	}
 	return true;
 }
+
+void VistaEscenario::agregarPelota(DatosCirculo* pelota){
+	this->figuras.push_back(new VistaCirculo(m_renderer,pelota,this->m_datos_pantalla));
+}
+
+void VistaEscenario::agregarPoligonos(DatosPoligono* poligono){
+	this->figuras.push_back(new VistaPoligono(m_renderer,poligono,this->m_datos_pantalla));
+}

@@ -12,6 +12,7 @@
 #include "VistaJugador.h"
 #include <list>
 #include <iostream>
+
 class VistaEscenario
 {
 public:
@@ -20,6 +21,8 @@ public:
 	void mostrar();
 	void resize(int ancho,int alto);
 	bool agregarJugador(Jugador* jugador);
+	void agregarPelota(DatosCirculo* pelota);
+	void agregarPoligonos(DatosPoligono* poligono);
 	~VistaEscenario(void);
 private:
 	void cargarFiguras();

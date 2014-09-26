@@ -8,7 +8,7 @@
       "imagen_fondo":"imagenes/sky.png",
       "personaje":{
          "x":4,
-         "y":1
+         "y":7
       },
       "objetos":[
 		  {
@@ -23,7 +23,7 @@
 		  {
             "tipo":"poli",
             "x":4,
-            "y":5,
+            "y":1,
             "escala":0.3,
             "color":"#2A4714",
             "masa":1,

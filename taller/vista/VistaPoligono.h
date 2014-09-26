@@ -9,14 +9,14 @@
 #include "DatosPantalla.h"
 #include "../EventLogger.h"
 #include <vector>
+#include "../contenedores/DatosPoligono.h"
 class VistaPoligono: public VistaFigura
 {
 public:
-	//recibe el renderer donde dibujar junto la cantidad de vertices.
-	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosPantalla* datos);
 	
+	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosPantalla* datos);
+	VistaPoligono(SDL_Renderer* gRenderer, DatosPoligono * poligono,DatosPantalla* datos);
 	void render() ;
-
 	void transformarSint16(std::vector<CoordenadasR2> vertices);
 	~VistaPoligono(void);
 private:
@@ -29,5 +29,6 @@ private:
 	SDL_Texture* m_texture;
 	int x;
 	int y;
+	DatosPoligono* d_poligono;
 };
 

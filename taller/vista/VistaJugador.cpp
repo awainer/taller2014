@@ -10,16 +10,26 @@ VistaJugador::VistaJugador(SDL_Renderer* renderer,Jugador* jugador,DatosPantalla
 	this->agregarSprite("imagenes/sprite.png");
 	paso=0;
 	delay=0;
+	m_vx = new Sint16[4];
+	m_vy = new Sint16[4];
+
 }
 
 void VistaJugador::render(){
 	CoordenadasR2 size = m_jugador->getSize(); //ancho,alto
 	CoordenadasR2 pos = m_jugador->getPosicion();//x,y
+
+	//Descomentar para ver recuadro real del personaje
+	//this->transformarSint16(m_jugador->getVertices());
+	//filledPolygonRGBA(m_renderer, m_vx , m_vy ,4,250,0,0,255);
+	
 	int x,y,w,h;
-	x = int(( pos.x - ( size.x / 2 ) ) * this->m_datos->getXratio());
-	y = int(this->m_datos->getAltoPixel() - ( (pos.y + ( size.y / 2 ) ) * this->m_datos->getYratio()));
-	w = int(1.15 * size.x * this->m_datos->getXratio());
-	h = int(size.y * this->m_datos->getYratio());
+	
+	x = int(( pos.x - ( size.x * 0.8 ) ) * this->m_datos->getXratio());
+	y = int(this->m_datos->getAltoPixel() - ( (pos.y + ( size.y * 0.5 ) ) * this->m_datos->getYratio()));
+	w = int(1.75* size.x * this->m_datos->getXratio());
+	h = int(1.05*size.y * this->m_datos->getYratio());
+	
 	this->cargarSprites(m_jugador->getDireccion(), x, y, w, h);
 	if ((this->m_jugador->getDireccion() == IZQUIERDA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
 		m_dirAnterior = IZQUIERDA;
@@ -157,6 +167,8 @@ void VistaJugador::cargarSprites(int dire, int x, int y, int w, int h){
 VistaJugador::~VistaJugador(void)
 {
 	SDL_DestroyTexture(this->m_sprite);
+	delete[] m_vx;
+	delete[] m_vy;
 }
 
 void VistaJugador::agregarSprite(std::string path){
@@ -290,4 +302,15 @@ bool VistaJugador::spriteOk(){
 	}else{
 		return true;
 	}
+}
+
+void VistaJugador::transformarSint16(std::vector<CoordenadasR2> vertices){
+
+		for(int i = 0; i<4; i++){
+			
+			m_vx[i]=Sint16(vertices[i].x *  this->m_datos->getXratio());
+			m_vy[i]=Sint16(this->m_datos->getAltoPixel() -(vertices[i].y *  this->m_datos->getYratio()));
+
+		} 
+		
 }

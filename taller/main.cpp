@@ -1,6 +1,7 @@
 #include <SDL2\SDL.h>
 #undef main
 #include "GameLoop.h"
+#include "test\prueba_VistaEscenario.h"
 #undef main
 
 int main(int argc, char ** argv){
@@ -14,5 +15,6 @@ int main(int argc, char ** argv){
 		 path = string(argv[1]);
 
 	gameLoop(path);
+	prueba_vistaEscenario();
 	return 0;
 }

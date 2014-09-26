@@ -9,6 +9,7 @@
 #include "DatosPantalla.h"
 #include "../EventLogger.h"
 #include <vector>
+#include "VistaPoligono.h"
 class VistaJugador: public VistaFigura
 {
 public: 
@@ -29,4 +30,8 @@ private:
 	int m_dirAnterior;
 	int paso;
 	int delay;
+	//variables para ver cuadrado real del personaje.
+	Sint16* m_vx;
+	Sint16* m_vy;
+	void transformarSint16(std::vector<CoordenadasR2> vertices);
 };
