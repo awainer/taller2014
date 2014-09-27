@@ -1,5 +1,10 @@
 #include "CoordenadasR2.h"
 
+CoordenadasR2::CoordenadasR2(void)
+{
+	this->x = 0;
+	this->y = 0;
+}
 
 CoordenadasR2::CoordenadasR2(float x, float y)
 {

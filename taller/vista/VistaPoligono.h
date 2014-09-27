@@ -9,7 +9,7 @@
 #include "DatosPantalla.h"
 #include "../EventLogger.h"
 #include <vector>
-#include "../contenedores/DatosPoligono.h"
+#include "status/DatosPoligono.h"
 class VistaPoligono: public VistaFigura
 {
 public:

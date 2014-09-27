@@ -77,12 +77,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="constantes.h" />
+    <ClInclude Include="vista\status\DatosJugador.h" />
+    <ClInclude Include="net\NewElement.h" />
+    <ClInclude Include="vista\status\DatosFigura.h" />
     <ClInclude Include="net\LoginResponse.h" />
     <ClInclude Include="net\ClientLogin.h" />
     <ClInclude Include="net\ClientEvent.h" />
     <ClInclude Include="control\ControladorJugador.h" />
-    <ClInclude Include="contenedores\DatosCirculo.h" />
-    <ClInclude Include="contenedores\DatosPoligono.h" />
+    <ClInclude Include="vista\PositionHandler.h" />
+    <ClInclude Include="vista\status\DatosCirculo.h" />
+    <ClInclude Include="vista\status\DatosPoligono.h" />
     <ClInclude Include="json\assertions.h" />
     <ClInclude Include="json\autolink.h" />
     <ClInclude Include="json\config.h" />
@@ -245,12 +250,16 @@
     <ClInclude Include="vista\VistaPoligono.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="vista\status\DatosJugador.cpp" />
+    <ClCompile Include="net\NewElement.cpp" />
+    <ClCompile Include="vista\status\DatosFigura.cpp" />
     <ClCompile Include="net\LoginResponse.cpp" />
     <ClCompile Include="net\ClientLogin.cpp" />
     <ClCompile Include="net\ClientEvent.cpp" />
     <ClCompile Include="control\ControladorJugador.cpp" />
-    <ClCompile Include="contenedores\DatosCirculo.cpp" />
-    <ClCompile Include="contenedores\DatosPoligono.cpp" />
+    <ClCompile Include="vista\PositionHandler.cpp" />
+    <ClCompile Include="vista\status\DatosCirculo.cpp" />
+    <ClCompile Include="vista\status\DatosPoligono.cpp" />
     <ClCompile Include="model\Paralelogramo.cpp" />
     <ClCompile Include="model\Trapecio.cpp" />
     <ClCompile Include="EventLogger.cpp" />

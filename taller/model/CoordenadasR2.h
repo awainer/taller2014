@@ -3,6 +3,7 @@
 class CoordenadasR2
 {
 public:
+	CoordenadasR2(void);
 	CoordenadasR2(float x, float y);
 	float x,y;
 	~CoordenadasR2(void);

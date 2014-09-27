@@ -1,0 +1,1 @@
+enum TipoFigura { JUGADOR, POLIGONO, CIRCULO };

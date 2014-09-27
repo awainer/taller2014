@@ -5,7 +5,7 @@
 #include "VistaFigura.h"
 #include "../model/Pelota.h"
 #include "DatosPantalla.h"
-#include "../contenedores/DatosCirculo.h"
+#include "status/DatosCirculo.h"
 class VistaCirculo : public VistaFigura
 {
 public:

@@ -2,19 +2,21 @@
 #pragma once
 #include "model\Poligono.h"
 #include "model\CoordenadasR2.h"
+#include "DatosFigura.h"
 #include <vector>
 
-class DatosPoligono
+class DatosPoligono: public DatosFigura
 {
 public:
 	DatosPoligono(Poligono* poligono);
-	void setVertices(std::vector<CoordenadasR2>  vertices);
+	DatosPoligono(NewElement* poligono);
 	std::vector<CoordenadasR2>  getVertices();
+	void  setPosicion(CoordenadasR2  vertices[6]);
 	int getVertexCount();
 	int getId();
 	~DatosPoligono(void);
 private:
-	int n_vertices;
+	unsigned int n_vertices;
 	std::vector<CoordenadasR2> m_vertices;
 	int id;
 };

@@ -1,14 +1,18 @@
 #pragma once
 #include "model\Pelota.h"
 #include "model\CoordenadasR2.h"
-class DatosCirculo
+#include "DatosFigura.h"
+#include "../../net/NewElement.h"
+
+class DatosCirculo: public DatosFigura
 {
 public:
 	DatosCirculo(Pelota* pelota);
-	void setPosicion(CoordenadasR2 centro);
+	DatosCirculo(NewElement* elem);
 	CoordenadasR2 getPosicion();
+	void setPosicion(CoordenadasR2  vertices[6]);
 	float getRadio();
-	int getId();
+
 	~DatosCirculo(void);
 private:
 	float m_x;

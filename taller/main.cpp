@@ -16,6 +16,6 @@ int main(int argc, char ** argv){
 		 path = string(argv[1]);
 
 	gameLoop(path);
-	prueba_vistaEscenario();
+//	prueba_vistaEscenario();
 	return 0;
 }
