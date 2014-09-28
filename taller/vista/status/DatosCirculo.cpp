@@ -3,6 +3,9 @@
 DatosCirculo::DatosCirculo(NewElement* elem){
 	this->setPosicion(elem->vertices);
 	this->m_radio = elem->radio;
+	this->color = elem->color;
+	this->id = elem->id;
+
 }
 DatosCirculo::DatosCirculo(Pelota* pelota)
 {
@@ -12,17 +15,11 @@ DatosCirculo::DatosCirculo(Pelota* pelota)
 	this->m_radio = pelota->getRadio();
 }
 
-void DatosCirculo::setPosicion(CoordenadasR2 centro[6]){
-
-	this->m_x= centro[0].x;
-	this->m_y= centro[0].y;
-
+CoordenadasR2 DatosCirculo::getPuntoReferencia(){
+	return this->m_vertices[1];
 }
 CoordenadasR2 DatosCirculo::getPosicion(){
-	CoordenadasR2 pos = CoordenadasR2(0,0);
-	pos.x = m_x;
-	pos.y = m_y;
-	return pos;
+	return this->m_vertices[0];
 }
 
 float DatosCirculo::getRadio(){

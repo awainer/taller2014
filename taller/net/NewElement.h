@@ -10,12 +10,12 @@ class NewElement :
 public:
 	NewElement(void);
 	~NewElement(void);
-	unsigned int id, lados, rotacion;
+	unsigned int id, lados;
 	TipoFigura tipo;
 	CoordenadasR2 vertices[6];
 	Color color;
-	float radio;
-
+	float radio,alto,ancho;
+	int direccion;
 	
 };
 

@@ -10,16 +10,11 @@ public:
 	DatosCirculo(Pelota* pelota);
 	DatosCirculo(NewElement* elem);
 	CoordenadasR2 getPosicion();
-	void setPosicion(CoordenadasR2  vertices[6]);
+	CoordenadasR2 getPuntoReferencia();
 	float getRadio();
 
 	~DatosCirculo(void);
 private:
-	float m_x;
-	float m_y;
-	int m_id;
 	float m_radio;
-	
-
 };
 

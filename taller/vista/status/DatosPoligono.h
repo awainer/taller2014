@@ -17,7 +17,5 @@ public:
 	~DatosPoligono(void);
 private:
 	unsigned int n_vertices;
-	std::vector<CoordenadasR2> m_vertices;
-	int id;
 };
 
