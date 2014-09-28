@@ -1,6 +1,7 @@
 #pragma once
 #include "../../model/CoordenadasR2.h"
 #include "../../net/NewElement.h"
+#include "../../net/NewPosition.h"
 #include "../../constantes.h"
 #include "../../model/Color.h"
 #include <vector>
@@ -13,6 +14,7 @@ public:
 	~DatosFigura(void);
 	int getId();
 	Color color;
+	void update(NewPosition * pos);
 protected:
 	std::vector<CoordenadasR2> m_vertices;
 	int id;

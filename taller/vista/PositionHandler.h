@@ -14,8 +14,8 @@ class PositionHandler
 public:
 	PositionHandler(void);
 	~PositionHandler(void);
-	void updateData(NewPosition pos);
-	void addData(NewElement* data);
+	void updateData(NewPosition *pos);
+	void addData(NewElement *data);
 private:
 	std::map<int, DatosFigura*> data;
 };

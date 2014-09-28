@@ -12,6 +12,5 @@ public:
 	CoordenadasR2 posicion;
 	CoordenadasR2 vertices[6];
 	unsigned int direccion;
-	float rotacion;
 };
 

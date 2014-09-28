@@ -5,8 +5,15 @@ DatosFigura::DatosFigura(void)
 {
 }
 
+
+
+
 int DatosFigura::getId(){
 	return 1;
+}
+
+void DatosFigura::update(NewPosition * elem){
+	this->setPosicion(elem->vertices);
 }
 
 void DatosFigura::setPosicion(CoordenadasR2 vertices[6]){

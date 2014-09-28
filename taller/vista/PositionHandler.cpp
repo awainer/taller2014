@@ -22,8 +22,12 @@ void PositionHandler::addData(NewElement * data){
 	this->data.insert(std::pair<int,DatosFigura*>(nuevoDatosFigura->getId(),nuevoDatosFigura));
 }
 
-
+void PositionHandler::updateData(NewPosition * pos){
+	DatosFigura * datos = this->data[ pos->id_figura ];
+	datos->update(pos);
+}
 
 PositionHandler::~PositionHandler(void)
 {
+	this->data.clear();
 }

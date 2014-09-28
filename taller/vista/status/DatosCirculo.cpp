@@ -7,6 +7,8 @@ DatosCirculo::DatosCirculo(NewElement* elem){
 	this->id = elem->id;
 
 }
+
+
 DatosCirculo::DatosCirculo(Pelota* pelota)
 {
 	CoordenadasR2 vec[6];

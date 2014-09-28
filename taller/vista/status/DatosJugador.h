@@ -8,6 +8,7 @@ public:
 	DatosJugador(NewElement * elem);
 	CoordenadasR2 getSize();
 	int getDireccion();
+	void update(NewPosition * pos);
 	//void setPosicion(CoordenadasR2  vertices[6]);
 	~DatosJugador(void);
 private:

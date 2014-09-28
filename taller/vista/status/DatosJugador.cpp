@@ -23,7 +23,10 @@ int DatosJugador::getDireccion(){
 	return this->direccion;
 }
 
-
+void DatosJugador::update(NewPosition * pos){
+	this->setPosicion(pos->vertices);
+	this->direccion = pos->direccion;
+}
 DatosJugador::~DatosJugador(void)
 {
 }
