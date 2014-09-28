@@ -12,7 +12,7 @@ int pruebaPositionHandler(){
 	Color violeta = Color(100,100,0);
 	SDL_Init( SDL_INIT_VIDEO );
 	SDL_Event evento;
-	SDL_Scancode sc;
+//	SDL_Scancode sc;
 	bool juegoEnMarcha = true;
 
 	DatosPantalla datos = DatosPantalla(800,600,8.0f,6.0f);
@@ -27,8 +27,8 @@ int pruebaPositionHandler(){
 	e_circulo.radio = 1;
 	e_circulo.vertices[0].x = x;
 	e_circulo.vertices[0].y = y;
-	e_circulo.vertices[1].x = x+ 0.5;
-	e_circulo.vertices[1].y = y+ 0.5;
+	e_circulo.vertices[1].x = x+ 0.5f;
+	e_circulo.vertices[1].y = y+ 0.5f;
 	e_circulo.color = rojo;
 	e_circulo.id = 3;
 	e_circulo.tipo = CIRCULO;//CIRCULO

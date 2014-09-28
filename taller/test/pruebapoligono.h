@@ -73,8 +73,8 @@ int  caca(){
 	e_circulo.radio = 1;
 	e_circulo.vertices[0].x = x;
 	e_circulo.vertices[0].y = y;
-	e_circulo.vertices[1].x = x+ 0.5;
-	e_circulo.vertices[1].y = y+ 0.5;
+	e_circulo.vertices[1].x = x+ 0.5f;
+	e_circulo.vertices[1].y = y+ 0.5f;
 	e_circulo.color = rojo;
 	DatosCirculo d_circulo = DatosCirculo(&e_circulo);
 

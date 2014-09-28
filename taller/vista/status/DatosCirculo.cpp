@@ -15,6 +15,7 @@ DatosCirculo::DatosCirculo(Pelota* pelota)
 {
 	CoordenadasR2 vec[6];
 	vec[0] = pelota->getCentro();
+	vec[1] = pelota->getPuntoReferencia();
 	this->setPosicion(vec);
 	this->m_radio = pelota->getRadio();
 }

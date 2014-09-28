@@ -25,6 +25,10 @@ Color::Color(unsigned char r,unsigned char  g,unsigned char b)
 	this->b = b;
 }
 
+std::string Color::str(){
+	std::string s = "( " + std::to_string((long long)this->r) + " " + std::to_string((long long)this->g) + " " + std::to_string((long long)this->b) + " )";
+	return s;
+}
 Color::~Color(void)
 {
 }

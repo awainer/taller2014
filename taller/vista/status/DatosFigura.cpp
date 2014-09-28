@@ -17,10 +17,11 @@ void DatosFigura::update(NewPosition * elem){
 }
 
 void DatosFigura::setPosicion(CoordenadasR2 vertices[6]){
-
+	this->m_vertices.clear();
 	for (unsigned int i=0; i < MAX_VERTICES; i++ ){
-		this->m_vertices[i].x = vertices[i].x;
-		this->m_vertices[i].y=vertices[i].y;
+		this->m_vertices.push_back(vertices[i]);
+		//this->m_vertices[i].x = vertices[i].x;
+		//this->m_vertices[i].y=vertices[i].y;
 	}
 		
 }

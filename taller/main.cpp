@@ -8,7 +8,9 @@
 
 int main(int argc, char ** argv){
 	string path;
-	//Server server;
+	Server server;
+	
+
 	log("Logger inicializado",DEBUG);
 
 	if (argc != 2){
@@ -16,7 +18,8 @@ int main(int argc, char ** argv){
 		path = "";
 	}else
 		 path = string(argv[1]);
-	pruebaPositionHandler();
+	server.init(path);
+	//pruebaPositionHandler();
 	//caca();
 	//gameLoop(path);
 //	prueba_vistaEscenario();
