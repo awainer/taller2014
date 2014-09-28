@@ -1,6 +1,7 @@
 #include "DatosPoligono.h"
 
 DatosPoligono::DatosPoligono(NewElement* elem){
+	this->iniciarVertices();
 	this->setPosicion(elem->vertices);
 	this->color = elem->color;
 	this->id = elem->id;
@@ -17,15 +18,10 @@ DatosPoligono::DatosPoligono(Poligono* poligono)
 	
 }
 
-void DatosPoligono::setPosicion(CoordenadasR2  vertices[6]){
-	for(unsigned int i=0; i<6 ;i++){
-		m_vertices[i].x = vertices[i].x;
-		m_vertices[i].y = vertices[i].y;
-	}
-}
 std::vector<CoordenadasR2>  DatosPoligono::getVertices(){
 	return this->m_vertices;
 }
+
 int  DatosPoligono::getVertexCount(){
 	return n_vertices;
 }

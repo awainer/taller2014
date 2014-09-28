@@ -7,6 +7,7 @@ DatosJugador::DatosJugador(void)
 }
 DatosJugador::DatosJugador(NewElement * elem)
 {
+	this->iniciarVertices();
 	this->setPosicion(elem->vertices);
 	this->id = elem->id;
 	this->direccion = elem->direccion;

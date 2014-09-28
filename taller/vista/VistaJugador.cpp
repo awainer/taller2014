@@ -13,27 +13,48 @@ VistaJugador::VistaJugador(SDL_Renderer* renderer,Jugador* jugador,DatosPantalla
 	m_vx = new Sint16[4];
 	m_vy = new Sint16[4];
 
+	this->size = jugador->getSize(); //ancho,alto
+	this->d_jugador = NULL;
+
 }
+VistaJugador::VistaJugador(SDL_Renderer* renderer,DatosJugador* jugador,DatosPantalla* datos){
+	this->m_jugador= NULL;
+	this->m_renderer = renderer;
+	this->m_datos = datos;
+	this->m_sprite = NULL;
+	this->agregarSprite("imagenes/sprite.png");
+	paso=0;
+	delay=0;
+	m_vx = new Sint16[4];
+	m_vy = new Sint16[4];
 
+	this->size = jugador->getSize(); //ancho,alto
+	this->d_jugador = jugador;
+}
 void VistaJugador::render(){
-	CoordenadasR2 size = m_jugador->getSize(); //ancho,alto
-	CoordenadasR2 pos = m_jugador->getPosicion();//x,y
-
+	//CoordenadasR2 size = m_jugador->getSize(); //ancho,alto
+	CoordenadasR2 pos;//x,y
+	int direccion;
+	int x,y,w,h;
 	//Descomentar para ver recuadro real del personaje
 	//this->transformarSint16(m_jugador->getVertices());
 	//filledPolygonRGBA(m_renderer, m_vx , m_vy ,4,250,0,0,255);
-	
-	int x,y,w,h;
-	
+	if(this->m_jugador != NULL){
+		pos = m_jugador->getPosicion();
+		direccion = m_jugador->getDireccion();	
+	}
+	if(this->d_jugador != NULL){
+		pos = d_jugador->getPosicion();
+		direccion = d_jugador->getDireccion();	
+	}
 	x = int(( pos.x - ( size.x * 0.8 ) ) * this->m_datos->getXratio());
 	y = int(this->m_datos->getAltoPixel() - ( (pos.y + ( size.y * 0.5 ) ) * this->m_datos->getYratio()));
 	w = int(1.75* size.x * this->m_datos->getXratio());
 	h = int(1.05*size.y * this->m_datos->getYratio());
-	
-	this->cargarSprites(m_jugador->getDireccion(), x, y, w, h);
-	if ((this->m_jugador->getDireccion() == IZQUIERDA) || (this->m_jugador->getDireccion() == ARRIBA_IZQUIERDA) ){
+	this->cargarSprites(direccion, x, y, w, h);
+	if ((direccion == IZQUIERDA) || (direccion == ARRIBA_IZQUIERDA) ){
 		m_dirAnterior = IZQUIERDA;
-	}else if ((this->m_jugador->getDireccion() == DERECHA) || (this->m_jugador->getDireccion() == ARRIBA_DERECHA) ){
+	}else if ((direccion == DERECHA) || (direccion == ARRIBA_DERECHA) ){
 		m_dirAnterior = DERECHA;
 	}
 

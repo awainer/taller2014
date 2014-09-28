@@ -10,10 +10,12 @@
 #include "../EventLogger.h"
 #include <vector>
 #include "VistaPoligono.h"
+#include "status\DatosJugador.h"
 class VistaJugador: public VistaFigura
 {
 public: 
 	VistaJugador(SDL_Renderer* renderer ,Jugador* jugador,DatosPantalla* datos);
+	VistaJugador(SDL_Renderer* renderer,DatosJugador* jugador,DatosPantalla* datos);
 	void render();
 	void agregarSprite(std::string path);
 	bool spriteOk();
@@ -30,6 +32,8 @@ private:
 	int m_dirAnterior;
 	int paso;
 	int delay;
+	DatosJugador* d_jugador;
+	CoordenadasR2 size;
 	//variables para ver cuadrado real del personaje.
 	Sint16* m_vx;
 	Sint16* m_vy;

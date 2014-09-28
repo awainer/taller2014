@@ -1,20 +1,22 @@
 #include <SDL2\SDL.h>
 #undef main
 #include "GameLoop.h"
+#include "test\pruebapoligono.h"
 #include "Server.h"
 #undef main
 
 int main(int argc, char ** argv){
 	string path;
-	Server server;
+	//Server server;
 	log("Logger inicializado",DEBUG);
 
 	if (argc != 2){
 		log("Cantidad de argumentos incorrecta!",ERROR);
-		 path = "";
+		path = "";
 	}else
 		 path = string(argv[1]);
 
+	//caca();
 	gameLoop(path);
 //	prueba_vistaEscenario();
 	return 0;

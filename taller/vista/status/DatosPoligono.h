@@ -11,7 +11,6 @@ public:
 	DatosPoligono(Poligono* poligono);
 	DatosPoligono(NewElement* poligono);
 	std::vector<CoordenadasR2>  getVertices();
-	void  setPosicion(CoordenadasR2  vertices[6]);
 	int getVertexCount();
 	int getId();
 	~DatosPoligono(void);

@@ -71,7 +71,7 @@ void VistaPoligono::render(){
 	}
 	if(d_poligono !=NULL){
 		this->transformarSint16(this->d_poligono->getVertices());
-		filledPolygonRGBA(m_renderer, m_vx , m_vy ,n_vertices,250,0,0,255);
+		filledPolygonRGBA(m_renderer, m_vx , m_vy ,n_vertices,this->d_poligono->color.r,this->d_poligono->color.g,this->d_poligono->color.b,this->d_poligono->color.a);
 	}
 }
 

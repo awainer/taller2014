@@ -15,8 +15,10 @@ public:
 	int getId();
 	Color color;
 	void update(NewPosition * pos);
+	
 protected:
 	std::vector<CoordenadasR2> m_vertices;
 	int id;
+	void iniciarVertices();
 };
 

@@ -1,6 +1,8 @@
 #include "DatosCirculo.h"
 
 DatosCirculo::DatosCirculo(NewElement* elem){
+	
+	this->iniciarVertices();
 	this->setPosicion(elem->vertices);
 	this->m_radio = elem->radio;
 	this->color = elem->color;
