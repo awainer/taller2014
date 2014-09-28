@@ -20,9 +20,10 @@ public:
 	void agregarFondo(std::string path);	
 	void mostrar();
 	void resize(int ancho,int alto);
-	bool agregarJugador(Jugador* jugador);
+	bool agregarJugador(Jugador* jugador);//devuelve bool en el caso q no pueda cargar el sprite
 	void agregarPelota(DatosCirculo* pelota);
 	void agregarPoligonos(DatosPoligono* poligono);
+	bool agregarJugador(DatosJugador* jugador);//devuelve bool en el caso q no pueda cargar el sprite
 	~VistaEscenario(void);
 private:
 	void cargarFiguras();

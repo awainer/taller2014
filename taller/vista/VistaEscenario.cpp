@@ -183,3 +183,14 @@ void VistaEscenario::agregarPelota(DatosCirculo* pelota){
 void VistaEscenario::agregarPoligonos(DatosPoligono* poligono){
 	this->figuras.push_back(new VistaPoligono(m_renderer,poligono,this->m_datos_pantalla));
 }
+
+bool VistaEscenario::agregarJugador(DatosJugador* jugador){
+	VistaJugador* v_jugador= new VistaJugador(m_renderer,jugador,m_datos_pantalla);
+	if( v_jugador->spriteOk() == false){
+		delete v_jugador;
+		return false;
+	}else{
+		this->figuras.push_back(v_jugador);
+	}
+	return true;
+}
