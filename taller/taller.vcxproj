@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="constantes.h" />
+    <ClInclude Include="test\testPositionHandler.h" />
     <ClInclude Include="vista\status\DatosJugador.h" />
     <ClInclude Include="net\NewElement.h" />
     <ClInclude Include="vista\status\DatosFigura.h" />

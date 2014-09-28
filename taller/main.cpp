@@ -2,6 +2,7 @@
 #undef main
 #include "GameLoop.h"
 #include "test\pruebapoligono.h"
+#include "test\testPositionHandler.h"
 #include "Server.h"
 #undef main
 
@@ -15,9 +16,9 @@ int main(int argc, char ** argv){
 		path = "";
 	}else
 		 path = string(argv[1]);
-
+	pruebaPositionHandler();
 	//caca();
-	gameLoop(path);
+	//gameLoop(path);
 //	prueba_vistaEscenario();
 	return 0;
 }

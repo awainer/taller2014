@@ -4,17 +4,25 @@
 PositionHandler::PositionHandler(void)
 {
 }
-
+PositionHandler::PositionHandler(VistaEscenario* escenario){
+	this->m_escenario = escenario;
+}
 
 void PositionHandler::addData(NewElement * data){
 	TipoFigura tipo  = data->tipo;
 	DatosFigura * nuevoDatosFigura =NULL;
 	switch(tipo){
-		case JUGADOR: nuevoDatosFigura = new DatosJugador(data);
+		case JUGADOR: 
+			nuevoDatosFigura = new DatosJugador(data);
+			this->m_escenario->agregarJugador((DatosJugador*)nuevoDatosFigura);
 			break;
-		case CIRCULO: nuevoDatosFigura = new DatosCirculo(data);
+		case CIRCULO: 
+			nuevoDatosFigura = new DatosCirculo(data);
+			this->m_escenario->agregarPelota((DatosCirculo*)nuevoDatosFigura);
 			break;
-		case POLIGONO: nuevoDatosFigura = new DatosPoligono(data);
+		case POLIGONO: 
+			nuevoDatosFigura = new DatosPoligono(data);
+			this->m_escenario->agregarPoligonos((DatosPoligono*)nuevoDatosFigura);
 			break;
 		default: break;
 	}

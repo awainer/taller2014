@@ -9,7 +9,6 @@ public:
 	~NewPosition(void);
 	unsigned int id_figura;
 	unsigned int tipo_figura;
-	CoordenadasR2 posicion;
 	CoordenadasR2 vertices[6];
 	unsigned int direccion;
 };

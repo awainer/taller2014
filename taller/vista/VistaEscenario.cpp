@@ -22,6 +22,25 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	}
 }
 
+VistaEscenario::VistaEscenario( DatosPantalla* datos)
+{
+	m_ancho = datos->getAnchoPixel();
+	m_alto = datos->getAltoPixel();
+	m_fondo =NULL;
+	if( iniciarVentana() == false){
+		std::string msg ="No se pudo iniciar correctamente VistaEscenario.";
+		log(msg, LOG_ERROR);
+	}
+	else
+	{
+		m_escenario = NULL;
+		m_datos_pantalla = datos;
+		std::string msg ="Vista Escenario. Resolucion de ventana = "+ EventLogger::itos(datos->getAnchoPixel()) + " x " + EventLogger::itos(datos->getAltoPixel());
+		log(msg, DEBUG);
+		log("VistaEscenario creado correctamente.", DEBUG);
+	}
+}
+
 bool VistaEscenario::iniciarVentana() { 
 
 	bool success = true; 
@@ -128,7 +147,9 @@ VistaEscenario::~VistaEscenario(void)
 	for(unsigned int i=0; i<figuras.size() ;i++){
 		delete figuras[i];
 	}
+
 	if(m_fondo !=NULL){
+		
 		SDL_DestroyTexture( m_fondo );
 	}
 	SDL_DestroyRenderer(m_renderer);

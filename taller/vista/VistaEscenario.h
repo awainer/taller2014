@@ -17,6 +17,7 @@ class VistaEscenario
 {
 public:
 	VistaEscenario(Escenario* escenario, DatosPantalla* datos);
+	VistaEscenario(DatosPantalla* datos);
 	void agregarFondo(std::string path);	
 	void mostrar();
 	void resize(int ancho,int alto);

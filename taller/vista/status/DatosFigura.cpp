@@ -9,7 +9,7 @@ DatosFigura::DatosFigura(void)
 
 
 int DatosFigura::getId(){
-	return 1;
+	return this->id;
 }
 
 void DatosFigura::update(NewPosition * elem){
