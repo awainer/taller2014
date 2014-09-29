@@ -1,9 +1,11 @@
 #pragma once
+#include "../constantes.h"
+
 class Packet
 {
 public:
 	Packet(void);
-	unsigned int type;
+	TipoPaquete type;
 	~Packet(void);
 
 	

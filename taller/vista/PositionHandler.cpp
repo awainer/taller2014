@@ -9,7 +9,7 @@ PositionHandler::PositionHandler(VistaEscenario* escenario){
 }
 
 void PositionHandler::addData(NewElement * data){
-	TipoFigura tipo  = data->tipo;
+	TipoFigura tipo  = data->tipo_figura;
 	DatosFigura * nuevoDatosFigura =NULL;
 	switch(tipo){
 		case JUGADOR: 

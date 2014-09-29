@@ -31,7 +31,7 @@ int pruebaPositionHandler(){
 	e_circulo.vertices[1].y = y+ 0.5f;
 	e_circulo.color = rojo;
 	e_circulo.id = 3;
-	e_circulo.tipo = CIRCULO;//CIRCULO
+	e_circulo.tipo_figura = CIRCULO;//CIRCULO
 
 	manejador.addData(&e_circulo);
 	NewPosition pos;

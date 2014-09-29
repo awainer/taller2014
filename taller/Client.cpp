@@ -1,5 +1,6 @@
 #include "Client.h"
 #include "net\Packet.h"
+#include "net\NewElement.h"
 
 Client::Client(void)
 {
@@ -18,14 +19,32 @@ void Client::init(){
 }
 
 void Client::connectar(){
-	int rsize;
+	int rsize=0;
 	Packet * packet;
+	NewElement * newElem;
 	connect(this->mySocket , (struct sockaddr *)&(this->server),sizeof(this->server));
-	rsize = recv(this->mySocket,this->recbuffer,sizeof(this->recbuffer),0);
-	log("Recibo " + std::to_string((long long) rsize) + " bytes.",DEBUG);
-	packet = (Packet*) (&(this->recbuffer));
-	log("Recibo paquete tipo: "+ std::to_string((long long)packet->type),DEBUG);
-
+	
+	do{
+		rsize = recv(this->mySocket,this->recbuffer,sizeof(this->recbuffer),0);
+		int bytecounter = 0;
+		log("Recibo " + std::to_string((long long) rsize) + " bytes.",DEBUG);
+		while(bytecounter < rsize){
+			packet = (Packet*) (&(this->recbuffer));
+			newElem = (NewElement*) packet;
+			log("Recibo paquete tipo: "+ std::to_string((long long)packet->type),DEBUG);
+			if (packet->type == NEW_ELEMENT){
+				log("byteCounter:" + std::to_string((long long)bytecounter),WARNING);
+				log("Tamanio de paquete:"  + std::to_string((long long)sizeof(NewElement)),WARNING);
+				
+				bytecounter = bytecounter + sizeof(NewElement);
+				log("PacketPTR: " + std::to_string((long long)packet),DEBUG);
+				//packet = (Packet*) ((char*)packet + sizeof(NewElement));
+				log("newElem:" + newElem->str(),WARNING);
+				newElem++;
+			}
+		}
+	}while(rsize);
+	
 }
 
 Client::~Client(void)

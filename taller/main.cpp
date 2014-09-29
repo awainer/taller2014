@@ -28,7 +28,8 @@ int main(int argc, char ** argv){
 	SDL_Thread *client = NULL;
 
 	server = SDL_CreateThread(run_server, "server",NULL );
-	server = SDL_CreateThread(run_client, "client",NULL );
+	client = SDL_CreateThread(run_client, "client",NULL );
+	//SDL_WaitThread(
 /*	log("Logger inicializado",DEBUG);
 
 	if (argc != 2){

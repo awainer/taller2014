@@ -6,7 +6,7 @@
 #include "../model/Pelota.h"
 #include "../model/Jugador.h"
 #include "../model/Poligono.h"
-
+#include <string>
 class NewElement :
 	public Packet
 {
@@ -17,11 +17,11 @@ public:
 	NewElement(Poligono * poligono);
 	~NewElement(void);
 	unsigned int id, lados;
-	TipoFigura tipo;
+	TipoFigura tipo_figura;
 	CoordenadasR2 vertices[6];
 	Color color;
 	float radio,alto,ancho;
 	int direccion;
-	
+	std::string str();
 };
 

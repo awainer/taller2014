@@ -27,13 +27,13 @@ void Server::sendInitialStatus(SOCKET clientSocket){
 	std::list<Figura*>  pelotas;
 	pelotas = this->esc->getPelotas();
 
-	DatosCirculo * circulo;
+	NewElement * circulo;
 	Pelota * p;
 	for(std::list<Figura*>::iterator it= pelotas.begin(); it != pelotas.end(); ++it){
 		p = (Pelota*) *it;
-		circulo = new DatosCirculo(p);
-		log("Enviando mensaje de creacion de nueva pelota: [pos: " + circulo->getPosicion().str() + " radio: " + std::to_string((long long)circulo->getRadio()) + " color:" + circulo->color.str() + "]",WARNING);
-		send( clientSocket, (char*)circulo , sizeof(DatosCirculo), 0 );
+		circulo = new NewElement(p);
+		log("Enviando mensaje de creacion tipo("+ std::to_string((long long)circulo->type)    +") de nueva pelota: [pos: " + circulo->vertices[0].str() + " radio: " + std::to_string((long long)circulo->radio) + " color:" + circulo->color.str() + "]",WARNING);
+		send( clientSocket, (char*)circulo , sizeof(NewElement), 0 );
 		delete circulo;
 	}
 
@@ -41,12 +41,14 @@ void Server::sendInitialStatus(SOCKET clientSocket){
 	poligonos = this->esc->getPoligonos();
 
 	Poligono *f;
-	DatosPoligono * poligono;
+	NewElement * poligono;
 	for(std::list<Figura*>::iterator it=poligonos.begin(); it != poligonos.end(); ++it){
 		f = (Poligono *)*it;
-		poligono = new DatosPoligono(f);
-		log("Enviando mensaje de creacion de nuevo poligono  color:" + circulo->color.str() + " lados: " + std::to_string((long long)poligono->getVertexCount()) + "]",WARNING);
-		send( clientSocket, (char*)poligono , sizeof(DatosPoligono), 0 );
+		poligono = new NewElement(f);
+		log("Enviando mensaje de creacion de nuevo poligono tipo("+ std::to_string((long long)poligono->type) + ") id: " +  std::to_string((long long)poligono->id)   +  " color: " + circulo->color.str() + " lados: " + std::to_string((long long)poligono->lados) + "]",WARNING);
+		log("Tamanio de paquete:" + std::to_string((long long)sizeof(NewElement)),WARNING);
+		send( clientSocket, (char*)poligono , sizeof(NewElement), 0 );
+		delete poligono;
 	}
 }
 void Server::init(string path){
