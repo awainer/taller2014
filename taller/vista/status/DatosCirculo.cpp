@@ -17,6 +17,7 @@ DatosCirculo::DatosCirculo(Pelota* pelota)
 	vec[0] = pelota->getCentro();
 	vec[1] = pelota->getPuntoReferencia();
 	this->setPosicion(vec);
+	this->color = pelota->color;
 	this->m_radio = pelota->getRadio();
 }
 

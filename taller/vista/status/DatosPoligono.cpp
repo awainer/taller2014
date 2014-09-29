@@ -12,8 +12,9 @@ DatosPoligono::DatosPoligono(Poligono* poligono)
 {
 	this->n_vertices = poligono->getVertexCount();
 	std::vector<CoordenadasR2> vertices = poligono->getVertices();
+	this->m_vertices.clear();
 	for(unsigned int i=0; i<n_vertices ;i++){
-		m_vertices[i]=  CoordenadasR2(vertices[i].x,vertices[i].y);
+		this->m_vertices.push_back(CoordenadasR2(vertices[i].x,vertices[i].y));
 	}
 	
 }
