@@ -32,7 +32,7 @@ void Server::sendInitialStatus(SOCKET clientSocket){
 	for(std::list<Figura*>::iterator it= pelotas.begin(); it != pelotas.end(); ++it){
 		p = (Pelota*) *it;
 		circulo = new NewElement(p);
-		log("Enviando mensaje de creacion tipo("+ std::to_string((long long)circulo->type)    +") de nueva pelota: [pos: " + circulo->vertices[0].str() + " radio: " + std::to_string((long long)circulo->radio) + " color:" + circulo->color.str() + "]",WARNING);
+		log("Enviando mensaje de creacion tipo("+ std::to_string((long long)circulo->type)    +") de nueva pelota: [pos: " + circulo->vertices[0].str() + " radio: " + std::to_string((long double)circulo->radio) + " color:" + circulo->color.str() + "]",WARNING);
 		send( clientSocket, (char*)circulo , sizeof(NewElement), 0 );
 		delete circulo;
 	}
