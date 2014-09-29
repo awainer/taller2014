@@ -28,9 +28,9 @@ void Client::connectar(){
 		rsize = recv(this->mySocket,this->recbuffer,sizeof(this->recbuffer),0);
 		int bytecounter = 0;
 		log("Recibo " + std::to_string((long long) rsize) + " bytes.",DEBUG);
+		packet = (Packet*) (&(this->recbuffer));
+		newElem = (NewElement*) packet;
 		while(bytecounter < rsize){
-			packet = (Packet*) (&(this->recbuffer));
-			newElem = (NewElement*) packet;
 			log("Recibo paquete tipo: "+ std::to_string((long long)packet->type),DEBUG);
 			if (packet->type == NEW_ELEMENT){
 				log("byteCounter:" + std::to_string((long long)bytecounter),WARNING);
