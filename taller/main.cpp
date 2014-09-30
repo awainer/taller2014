@@ -14,22 +14,19 @@ int run_server(void * data){
 	return 0;
 }
 
-int run_client(void * data){
-	Client client;
-	client.init();
-	client.connectar();
-
-	return 0;
-}
 
 int main(int argc, char ** argv){
-		
-	SDL_Thread *server = NULL;
-	SDL_Thread *client = NULL;
-
-	server = SDL_CreateThread(run_server, "server",NULL );
-	client = SDL_CreateThread(run_client, "client",NULL );
-	//SDL_WaitThread(
+	run_server(NULL);	
+	/*SDL_Thread *server = NULL;
+	SDL_Thread *clientthread = NULL;
+	SDL_Thread *client_draw = NULL;
+	Client client;
+	client.init();
+	server = SDL_CreateThread(run_server, "server",NULL);
+	clientthread = SDL_CreateThread(run_client, "client",&client );*/
+	//SDL_WaitThread(clientthread,NULL);
+	//client_draw = SDL_CreateThread(run_client_draw, "client_draw",&client);
+	
 /*	log("Logger inicializado",DEBUG);
 
 	if (argc != 2){

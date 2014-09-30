@@ -15,10 +15,38 @@ void Client::init(){
 	this->server.sin_addr.s_addr = inet_addr("127.0.0.1");
 	this->server.sin_family = AF_INET;
     this->server.sin_port = htons( 100 );
-
+	DatosPantalla datos = DatosPantalla(800,600,8.0f,6.0f);
+	this->vistaEscenario = new VistaEscenario(&datos);
+	this->positionHandler = new PositionHandler(vistaEscenario);
 }
 
+void Client::loop(){
+	log("LOOP!", DEBUG);
+	SDL_Init( SDL_INIT_VIDEO );
+	SDL_Event evento;
+
+	bool juegoEnMarcha = true;
+	while( juegoEnMarcha ){
+		//Dibujo figuras
+		log("Render!", DEBUG);
+		this->vistaEscenario->mostrar();
+
+		SDL_PollEvent( &evento);
+		SDL_Delay(10);
+		switch(evento.type)
+		{
+		case SDL_QUIT:
+			juegoEnMarcha= false;
+			//delete this->vistaEscenario;
+			break;
+		}
+	}
+	SDL_Quit();
+}
+
+
 void Client::connectar(){
+
 	int rsize=0;
 	Packet * packet;
 	NewElement * newElem;
@@ -49,4 +77,6 @@ void Client::connectar(){
 
 Client::~Client(void)
 {
+	delete this->positionHandler;
+	delete this->vistaEscenario;
 }

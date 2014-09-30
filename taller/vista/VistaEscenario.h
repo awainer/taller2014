@@ -1,15 +1,15 @@
 #pragma once
 #include <vector>
-#include <SDL.h>
+#include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
-#include "VistaFigura.h"
-#include "VistaCirculo.h"
-#include "VistaPoligono.h"
-#include "..\model\Pelota.h"
-#include "..\model\Poligono.h"
-#include "../model/Escenario.h"
-#include "DatosPantalla.h"
-#include "VistaJugador.h"
+#include <vista\VistaFigura.h>
+#include <vista\VistaCirculo.h>
+#include <vista\VistaPoligono.h>
+#include <model\Pelota.h>
+#include <model\Poligono.h>
+#include <model\Escenario.h>
+#include <vista\DatosPantalla.h>
+#include <vista\VistaJugador.h>
 #include <list>
 #include <iostream>
 

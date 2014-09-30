@@ -58,7 +58,9 @@ void Server::init(string path){
 	parser.Inicializar();
 	this->esc = parser.CrearObjetos();
 	this->initSocket();	
+	log("Esperando conexion",WARNING);
 	SOCKET clientSocket = accept(this->listenSocket,NULL,NULL);
+	log("Cliente conectado!",WARNING);
 	this->sendInitialStatus(clientSocket);
 }
 

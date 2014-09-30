@@ -1,16 +1,16 @@
 #pragma once
 #include "..\model\Jugador.h"
 #include "../model/constantes.h"
-#include "SDL2_gfx\SDL2_gfxPrimitives.h"
-#include "VistaFigura.h"
+#include <vista\SDL2_gfx\SDL2_gfxPrimitives.h>
+#include <vista\VistaFigura.h>
 #include "../model/CoordenadasR2.h"
-#include <SDL.h>
+#include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
-#include "DatosPantalla.h"
+#include <vista\DatosPantalla.h>
 #include "../EventLogger.h"
 #include <vector>
-#include "VistaPoligono.h"
-#include "status\DatosJugador.h"
+#include <vista\VistaPoligono.h>
+#include <vista\status\DatosJugador.h>
 class VistaJugador: public VistaFigura
 {
 public: 
