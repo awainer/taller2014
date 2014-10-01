@@ -154,11 +154,17 @@ std::list <Jugador *> Escenario::getJugadores(){
 void Escenario::agregarJugador(CoordenadasR2 centro){
 	if(!this->contiene(centro)){
 		log("Centro de masa del jugador fuera del escenario:" + centro.str(),WARNING);
+<<<<<<< HEAD
 		//this->jugadores.push_back(new Jugador(centro.x,centro.y,this->world));
 		this->jugadores.push_back(new Jugador(this->largo / 2,this->alto / 2 ,this->world));
 	}
 	else{
 		//this->jugadores.push_back(new Jugador(this->largo / 2,this->alto / 2 ,this->world));
+=======
+		this->jugadores.push_back(new Jugador(this->largo / 2,this->alto / 2 ,this->world));
+	}
+	else{
+>>>>>>> 7c11de6d63bd69c39f2a1c82430ddb8ddd5360ab
 		this->jugadores.push_back(new Jugador(centro.x,centro.y,this->world));
 	}
 }

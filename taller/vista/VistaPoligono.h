@@ -13,6 +13,11 @@
 class VistaPoligono: public VistaFigura
 {
 public:
+<<<<<<< HEAD
+=======
+	
+	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosPantalla* datos);
+>>>>>>> 7c11de6d63bd69c39f2a1c82430ddb8ddd5360ab
 	
 	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosPantalla* datos);
 	VistaPoligono(SDL_Renderer* gRenderer, DatosPoligono * poligono,DatosPantalla* datos);
