@@ -10,7 +10,7 @@
 class VistaPoligono: public VistaFigura
 {
 public:
-	//recibe el renderer donde dibujar junto la cantidad de vertices.
+	
 	VistaPoligono(SDL_Renderer* gRenderer, Poligono * poligono,DatosPantalla* datos);
 	
 	void render() ;
