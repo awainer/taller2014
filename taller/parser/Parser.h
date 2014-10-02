@@ -13,6 +13,7 @@
 #include "vista\VistaEscenario.h"
 #include "vista\DatosPantalla.h"
 
+
 using namespace std;
 
 class Parser
@@ -32,7 +33,7 @@ private:
 	trap parsearTrapecio(Json::Value elem);
 	colorRGB parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem);
 	unsigned int parsearAngulo(Json::Value elem, unsigned int defaultVal, string nombreElem);
-
+	Escenario * escenario;
 public:
 	Parser(string path);
 	Parser(void);

@@ -31,10 +31,10 @@ int gameLoop(string path){
 		SDL_Event evento;
 		SDL_Scancode sc;
 
-		Parser parser = Parser(path);
-		parser.Inicializar();
-		Escenario * esc = parser.CrearObjetos();
-		DatosPantalla datos = parser.CargarDatosPantalla();
+		Parser * parser = new Parser(path);
+		parser->Inicializar();
+		Escenario * esc = parser->CrearObjetos();
+		DatosPantalla datos = parser->CargarDatosPantalla();
 		bool juegoEnMarcha = true;
 		VistaEscenario* escenario_vista = new  VistaEscenario(esc,&datos);
 		Jugador* jugador = *(esc->getJugadores().begin());
@@ -69,10 +69,11 @@ int gameLoop(string path){
 						delete control_jugador;
 						delete escenario_vista;
 						delete esc;
-						parser = Parser(path);
-						parser.Inicializar();
-						esc = parser.CrearObjetos();
-						datos = parser.CargarDatosPantalla();
+						delete parser;
+						parser = new Parser(path);
+						parser->Inicializar();
+						esc = parser->CrearObjetos();
+						datos = parser->CargarDatosPantalla();
 
 						escenario_vista = new VistaEscenario(esc,&datos);
 						Jugador* jugador = *(esc->getJugadores().begin());

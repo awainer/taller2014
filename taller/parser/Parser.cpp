@@ -101,8 +101,6 @@ string Parser::parsearImagen(Json::Value elem, string defaultVal,string nombreEl
 		return defaultVal;
 	}
 }
-
-
 colorRGB Parser::parsearColor(Json::Value elem, colorRGB defaultVal, string nombreElem){
 	if(elem.isNull()){
 		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
@@ -125,7 +123,6 @@ colorRGB Parser::parsearColor(Json::Value elem, colorRGB defaultVal, string nomb
 		return defaultVal;
 	}
 }
-
 unsigned int Parser::parsearAngulo(Json::Value elem, unsigned int defaultVal, string nombreElem){
 	if(elem.isNull()){
 		log("Se esperaba un valor para " + nombreElem + " pero no se encontro o era nulo, usando valor por defecto.",WARNING);
@@ -145,7 +142,6 @@ unsigned int Parser::parsearAngulo(Json::Value elem, unsigned int defaultVal, st
 	 }
 
 }
-
 rect Parser::parsearRectangulo(Json::Value elem){
 	rect result;
 	colorRGB defaultColor;
@@ -162,7 +158,6 @@ rect Parser::parsearRectangulo(Json::Value elem){
 	result.y = this->parsearElementoFloatPositivo(elem["y"],RECTANGULO_Y_DEFAULT," posicion y del rectangulo");
 	return result;
 }
-
 poli Parser::parsearPoligono(Json::Value elem){
 	poli result;
 	colorRGB defaultColor;
@@ -180,7 +175,6 @@ poli Parser::parsearPoligono(Json::Value elem){
 	result.rot = this->parsearAngulo(elem["rot"],POLIGONO_ROT_DEFAULT, " angulo de rotacion ");
 	return result;
 }
-
 trap Parser::parsearTrapecio(Json::Value elem){
 	trap result;
 	colorRGB defaultColor;
@@ -200,7 +194,6 @@ trap Parser::parsearTrapecio(Json::Value elem){
 	result.rot = this->parsearAngulo(elem["rot"],TRAPECIO_ROT_DEFAULT, " angulo de trapecio ");
 	return result;
 }
-
 paralel Parser::parsearParalelogramo(Json::Value elem){
 	paralel result;
 	colorRGB defaultColor;
@@ -219,9 +212,6 @@ paralel Parser::parsearParalelogramo(Json::Value elem){
 	result.rot = this->parsearAngulo(elem["rot"],PARALELOGRAMO_ROT_DEFAULT, " angulo de paralelogramo ");
 	return result;
 }
-
-
-
 circ Parser::parsearCirculo(Json::Value elem){
 	circ result;
 	colorRGB defaultColor;
@@ -242,7 +232,7 @@ void Parser::Inicializar()
     bool pxSonDefault = false;
     bool unSonDefault = false;
     bool personajeSonDefault = false;
-
+	this->escenario = NULL;
 	Json::Features features;
     Json::Reader reader = Json::Reader(features.strictMode());  
     Json::Value root;    
@@ -288,7 +278,6 @@ void Parser::Inicializar()
 
         log(error,ERROR);
 		
-        //TODO:CARGAR JSON POR DEFECTO   
 		this->CargarDefault();
 
 
@@ -305,6 +294,16 @@ void Parser::Inicializar()
 		miEscenario.imagen_fondo = this->parsearImagen(root["escenario"]["imagen_fondo"],IMAGEN_DEFAULT," path de imagen de fondo");
 		miEscenario.personajeX = this->parsearElementoFloatPositivo(root["escenario"]["personaje"]["x"],PERSONAJE_X_DEFAULT,"coordenada X del personaje");
 		miEscenario.personajeY = this->parsearElementoFloatPositivo(root["escenario"]["personaje"]["y"],PERSONAJE_Y_DEFAULT,"coordenada X del personaje");
+		log("Parser: creando escenario:",DEBUG);
+		log("	Dimensiones:" + to_string(long double(miEscenario.anchoun)) + "x" + to_string(long double(miEscenario.altoun)) ,DEBUG);
+		log("	Gravedad:" + to_string(long double(miEscenario.gravedad)),DEBUG);	
+		log("	Path fondo:" + miEscenario.imagen_fondo,DEBUG);
+		this->escenario = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,miEscenario.gravedad),miEscenario.imagen_fondo,NULL);
+		log("Parser: creando jugador:",DEBUG);
+		log("	Posicion:" + to_string(long double(miEscenario.personajeX)) + "," + to_string(long double(miEscenario.personajeY)),DEBUG);
+		this->escenario->agregarJugador(CoordenadasR2(miEscenario.personajeX,miEscenario.personajeY));
+
+		
 
         //OBJETOS
         if (root["escenario"]["objetos"].isNull()){
@@ -338,26 +337,90 @@ void Parser::Inicializar()
                         if( tipo == "poli"){
 							log("Parseando poligono",DEBUG);
 							poli poli = this->parsearPoligono(root["escenario"]["objetos"][i]);
-							miEscenario.poligonos.push_back(poli);
+							log("Parser: creando poligono regular:",DEBUG);
+							log("	Lados: " + to_string(long long(poli.lados)),DEBUG);
+							log("	Radio: " + to_string(long double(poli.escala)),DEBUG);
+							log("	Color: " + to_string(long long(poli.color.r)) + " " + to_string(long long(poli.color.g)) + " " + to_string(long long(poli.color.b)) ,DEBUG);	  
+							log("	Estatico: " + to_string(long long(poli.estatico)),DEBUG);
+							log("	Masa: " + to_string(long double(poli.masa)),DEBUG);
+							log("	Rotacion: " + to_string(long long(poli.rot)),DEBUG);
+							log("	Centro de masa: (" + to_string(long double(poli.x))  + ","+  to_string(long double(poli.y)) +")" ,DEBUG);
+
+						this->escenario->agregarPoligono(CoordenadasR2(poli.x,poli.y),
+								poli.escala,
+								poli.lados,
+								poli.rot,
+								Color(poli.color.r,poli.color.g,poli.color.b),
+								!poli.estatico,
+								poli.masa);
+							
                         }else if( tipo=="rect"){
 							log("Parseando rectangulo",DEBUG);
-							rect rect = this->parsearRectangulo(root["escenario"]["objetos"][i]);
-							miEscenario.rectangulos.push_back(rect);
+							rect rectangulo = this->parsearRectangulo(root["escenario"]["objetos"][i]);
+							//miEscenario.rectangulos.push_back(rect);
+							log("Parser: creando rectangulo:",DEBUG);
+							log("	Alto: " + to_string(long double (rectangulo.alto)),DEBUG);
+							log("	Ancho: " + to_string(long double (rectangulo.ancho)),DEBUG);
+							log("	Color: " + to_string(long long(rectangulo.color.r)) + " " + to_string(long long(rectangulo.color.g)) + " " + to_string(long long(rectangulo.color.b)) ,DEBUG);
+							log("	Estatico: " + to_string(long long(rectangulo.estatico)),DEBUG);
+							log("	Masa: " + to_string(long double(rectangulo.masa)),DEBUG);
+							log("	Rotacion: " + to_string(long long(rectangulo.rot)),DEBUG);
+							log("	Centro de masa: (" + to_string(long double(rectangulo.x))  + ","+  to_string(long double(rectangulo.y)) +")" ,DEBUG);
+
+							this->escenario->agregarRectangulo(CoordenadasR2(rectangulo.x,rectangulo.y),
+												   rectangulo.alto,
+												   rectangulo.ancho,
+												   rectangulo.rot,
+												   Color(rectangulo.color.r,rectangulo.color.g,rectangulo.color.b),
+												   !rectangulo.estatico,
+												   rectangulo.masa);
                         }
                         else if( tipo=="circ"){
 							log("Parseando circulo",DEBUG);
                             circ circulo = this->parsearCirculo(root["escenario"]["objetos"][i]);
-							miEscenario.circulos.push_back(circulo);
-                        }
+							log("Parser: creando circulo:",DEBUG);
+							log("	Radio: " + to_string(long double (circulo.radio)),DEBUG);
+							log("	Color: " + to_string(long long(circulo.color.r)) + " " + to_string(long long(circulo.color.g)) + " " + to_string(long long(circulo.color.b)) ,DEBUG);
+							log("	Estatico: " + to_string(long long(circulo.estatico)),DEBUG);
+							log("	Masa: " + to_string(long double(circulo.masa)),DEBUG);
+							log("	Centro de masa: (" + to_string(long double(circulo.x))  + ","+  to_string(long double(circulo.y)) +")" ,DEBUG);
+
+
+							this->escenario->agregarPelota(CoordenadasR2(circulo.x,circulo.y),
+											  circulo.radio,
+											  Color(circulo.color.r, circulo.color.g, circulo.color.b),
+											  !circulo.estatico,
+											  circulo.masa);							
+						}
                         else if( tipo=="paralel"){
 							log("Parseando paralelogramo",DEBUG);
 							paralel paralel = this->parsearParalelogramo(root["escenario"]["objetos"][i]);
-                            miEscenario.paralelogramos.push_back(paralel);
+                            log("Parser: creando paralelogramo:",DEBUG);
+							log("	Lado 1: " + to_string(long double(paralel.lado1)),DEBUG);
+							log("	Lado 2: " + to_string(long double(paralel.lado2)),DEBUG);
+							log("	Altura: " + to_string(long double(paralel.altura)),DEBUG);
+							log("	Color: " + to_string(long long(paralel.color.r)) + " " + to_string(long long(paralel.color.g)) + " " + to_string(long long(paralel.color.b)) ,DEBUG);
+							log("	Estatico: " + to_string(long long(paralel.estatico)),DEBUG);
+							log("	Masa: " + to_string(long double(paralel.masa)),DEBUG);
+							log("	Centro de masa: (" + to_string(long double(paralel.x))  + ","+  to_string(long double(paralel.y)) +")" ,DEBUG);
+							log("	Rotacion: " + to_string(long long(paralel.rot)),DEBUG);
+							this->escenario->agregarParalelogramo(CoordenadasR2(paralel.x,paralel.y),paralel.lado1,paralel.lado2,paralel.altura,Color(paralel.color.r, paralel.color.g, paralel.color.b),paralel.rot,!paralel.estatico,paralel.masa);
                         }
                         else if( tipo=="trap"){
 							log("Parseando trapecio",DEBUG);
-                            trap trap = this->parsearTrapecio(root["escenario"]["objetos"][i]);                                                    
-                            miEscenario.trapecios.push_back(trap);
+                            trap trapecio = this->parsearTrapecio(root["escenario"]["objetos"][i]);                                                    
+                            log("Parser: creando trapecio:",DEBUG);
+							log("	Lado 1: " + to_string(long double(trapecio.lado1)),DEBUG);
+							log("	Lado 2: " + to_string(long double(trapecio.lado2)),DEBUG);
+							log("	Lado 3: " + to_string(long double(trapecio.lado3)),DEBUG);
+							log("	Color: " + to_string(long long(trapecio.color.r)) + " " + to_string(long long(trapecio.color.g)) + " " + to_string(long long(trapecio.color.b)) ,DEBUG);
+							log("	Estatico: " + to_string(long long(trapecio.estatico)),DEBUG);
+							log("	Masa: " + to_string(long double(trapecio.estatico)),DEBUG);
+							log("	Centro de masa: (" + to_string(long double(trapecio.x))  + ","+  to_string(long double(trapecio.y)) +")" ,DEBUG);
+							log("	Rotacion: " + to_string(long long(trapecio.rot)),DEBUG);
+
+							this->escenario->agregarTrapecio(CoordenadasR2(trapecio.x,trapecio.y),trapecio.lado1,trapecio.lado2,trapecio.lado3,trapecio.altura,Color(trapecio.color.r, trapecio.color.g, trapecio.color.b),trapecio.rot,!trapecio.estatico,trapecio.masa);
+
                         }else{
                             log("Se intento cargar un objeto invalido: " + tipo , ERROR);
                         }
@@ -382,9 +445,7 @@ void Parser::Inicializar()
 
 void Parser::CargarDefault()
 {
-	//UNA OPCION 
-	//SE DEBERIAN LLENAR BIEN LAS CONSTANTES DEFAULT DESPUES y usar algunas de esas aca
-	//CREAR MAS ESCENARIOS DEFAULT
+
 		miEscenario.gravedad=-14;
 		miEscenario.anchopx=600;
 		miEscenario.altopx=600;
@@ -394,39 +455,21 @@ void Parser::CargarDefault()
         miEscenario.imagen_fondo="imagenes/default.jpg";
         miEscenario.personajeX=1;
         miEscenario.personajeY=1;
+		this->escenario = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,miEscenario.gravedad),miEscenario.imagen_fondo,NULL);
+		this->escenario->agregarJugador(CoordenadasR2(6,1));
+		this->escenario->agregarPoligono(CoordenadasR2(5,6),
+								1,
+								5,
+								90,
+								Color(0,250,250),
+								false,
+								1);
 
-
-		// UN POLI
-		
-		poli objetoActualPoli;
-		objetoActualPoli.lados = 5;
-		objetoActualPoli.escala =1;
-		objetoActualPoli.color.r = 0;
-		objetoActualPoli.color.g = 250;
-		objetoActualPoli.color.b = 250;
-		objetoActualPoli.estatico=true;
-		objetoActualPoli.masa=1;
-		objetoActualPoli.rot=90;
-		objetoActualPoli.tipo="poli";
-		objetoActualPoli.x=5;
-		objetoActualPoli.y=6;
-		
-		miEscenario.poligonos.push_back(objetoActualPoli);
-		
-
-		// UN CIRCULO
-		 
-			circ unCirculo;
-			unCirculo.x = 2;
-			unCirculo.y = 8;
-			unCirculo.radio = 0.5;
-			unCirculo.color.r = 200;
-			unCirculo.color.g = 232;
-			unCirculo.color.b = 100;
-			unCirculo.estatico = false;
-			unCirculo.masa = 1;
-
-			miEscenario.circulos.push_back(unCirculo);
+		this->escenario->agregarPelota(CoordenadasR2(2,8),
+							  0.5f,
+							  Color(200,232,100),
+							  true,
+							  1);	
 		
 		// UN RECT
 		rect objetoActualRect;
@@ -442,18 +485,15 @@ void Parser::CargarDefault()
 		objetoActualRect.y=1.45f;
 		miEscenario.rectangulos.push_back(objetoActualRect);
 
-		objetoActualRect.alto=0.5;
-		objetoActualRect.ancho=3;
-		objetoActualRect.color.r=134;
-		objetoActualRect.color.g=134;
-		objetoActualRect.color.b=255;
-		objetoActualRect.estatico=true;
-		objetoActualRect.masa=3;
-		objetoActualRect.rot=0;		
-		objetoActualRect.x=1.5;
-		objetoActualRect.y=3;
-		miEscenario.rectangulos.push_back(objetoActualRect);
+		this->escenario->agregarRectangulo(CoordenadasR2(5,1.45f),
+							   0.5,
+							   3,
+							   3,
+							   Color(100,231,50),
+							   false,
+							   3);
 
+/*
 		objetoActualRect.alto=0.5;
 		objetoActualRect.ancho=3;
 		objetoActualRect.color.r=134;
@@ -477,7 +517,7 @@ void Parser::CargarDefault()
 		objetoActualRect.x=2;
 		objetoActualRect.y=6;
 		miEscenario.rectangulos.push_back(objetoActualRect);
-
+*/
 }
 
 DatosPantalla Parser::CargarDatosPantalla() {
@@ -485,140 +525,16 @@ DatosPantalla Parser::CargarDatosPantalla() {
 	return datos;
 }
 
+Escenario * Parser::CrearObjetos(){
+	return this->escenario;
+}
+
 VistaEscenario * Parser::CrearVista() {
-	Escenario * esc = this->CrearObjetos();
 	DatosPantalla datos = DatosPantalla(miEscenario.altopx,miEscenario.anchopx,miEscenario.altoun , miEscenario.anchoun);
-	VistaEscenario * escenario_vista = new VistaEscenario(esc,&datos);
+	VistaEscenario * escenario_vista = new VistaEscenario(this->escenario,&datos);
 	return escenario_vista;
 }
 
-Escenario * Parser::CrearObjetos()
-{
-	
-	log("Parser: creando escenario:",DEBUG);
-	log("	Dimensiones:" + to_string(long double(miEscenario.anchoun)) + "x" + to_string(long double(miEscenario.altoun)) ,DEBUG);
-	log("	Gravedad:" + to_string(long double(miEscenario.gravedad)),DEBUG);	
-	log("	Path fondo:" + miEscenario.imagen_fondo,DEBUG);
-	Escenario * esc = new Escenario(miEscenario.anchoun,miEscenario.altoun,CoordenadasR2(0,miEscenario.gravedad),miEscenario.imagen_fondo,NULL);
-	log("Parser: creando jugador:",DEBUG);
-	log("	Posicion:" + to_string(long double(miEscenario.personajeX)) + "," + to_string(long double(miEscenario.personajeY)),DEBUG);
-	esc->agregarJugador(CoordenadasR2(miEscenario.personajeX,miEscenario.personajeY));
-	// CREAR POLIGONOS
-	list <poli> objetosPoli;
-	poli objetoActualPoli;
-	objetosPoli = miEscenario.poligonos;
-
-	for (list <poli> ::iterator it= objetosPoli.begin(); it!= objetosPoli.end(); it++) {
-		objetoActualPoli = *it;
-		log("Parser: creando poligono regular:",DEBUG);
-		log("	Lados: " + to_string(long long(objetoActualPoli.lados)),DEBUG);
-		log("	Radio: " + to_string(long double(objetoActualPoli.escala)),DEBUG);
-		log("	Color: " + to_string(long long(objetoActualPoli.color.r)) + " " + to_string(long long(objetoActualPoli.color.g)) + " " + to_string(long long(objetoActualPoli.color.b)) ,DEBUG);	  
-		log("	Estatico: " + to_string(long long(objetoActualPoli.estatico)),DEBUG);
-		log("	Masa: " + to_string(long double(objetoActualPoli.masa)),DEBUG);
-		log("	Rotacion: " + to_string(long long(objetoActualPoli.rot)),DEBUG);
-		log("	Centro de masa: (" + to_string(long double(objetoActualPoli.x))  + ","+  to_string(long double(objetoActualPoli.y)) +")" ,DEBUG);
-
-		esc->agregarPoligono(CoordenadasR2(objetoActualPoli.x,objetoActualPoli.y),
-							objetoActualPoli.escala,
-							objetoActualPoli.lados,
-							objetoActualPoli.rot,
-							Color(objetoActualPoli.color.r,objetoActualPoli.color.g,objetoActualPoli.color.b),
-							!objetoActualPoli.estatico,
-							objetoActualPoli.masa);
-
-	}
-
-	//CREAR RECTANGULOS
-	list <rect> objetosRect;
-	rect objetoActualRect;
-	objetosRect = miEscenario.rectangulos;
-	for (list <rect> ::iterator it= objetosRect.begin(); it!= objetosRect.end(); it++) {
-		objetoActualRect =  *it;
-		log("Parser: creando rectangulo:",DEBUG);
-		log("	Alto: " + to_string(long double (objetoActualRect.alto)),DEBUG);
-		log("	Ancho: " + to_string(long double (objetoActualRect.ancho)),DEBUG);
-		log("	Color: " + to_string(long long(objetoActualRect.color.r)) + " " + to_string(long long(objetoActualRect.color.g)) + " " + to_string(long long(objetoActualRect.color.b)) ,DEBUG);
-		log("	Estatico: " + to_string(long long(objetoActualRect.estatico)),DEBUG);
-		log("	Masa: " + to_string(long double(objetoActualRect.masa)),DEBUG);
-		log("	Rotacion: " + to_string(long long(objetoActualRect.rot)),DEBUG);
-		log("	Centro de masa: (" + to_string(long double(objetoActualRect.x))  + ","+  to_string(long double(objetoActualRect.y)) +")" ,DEBUG);
-
-		esc->agregarRectangulo(CoordenadasR2(objetoActualRect.x,objetoActualRect.y),
-			objetoActualRect.alto,
-			objetoActualRect.ancho,
-			objetoActualRect.rot,
-			Color(objetoActualRect.color.r,objetoActualRect.color.g,objetoActualRect.color.b),
-			!objetoActualRect.estatico,
-			objetoActualRect.masa);
-
-
-	}
-
-	list <circ> objetosCirc;
-	circ objetoActualCirc;
-	objetosCirc = miEscenario.circulos;
-	for (list <circ> ::iterator it= miEscenario.circulos.begin(); it!= miEscenario.circulos.end(); it++) {
-		circ unCirculo= *it;
-		log("Parser: creando circulo:",DEBUG);
-		log("	Radio: " + to_string(long double (unCirculo.radio)),DEBUG);
-		log("	Color: " + to_string(long long(unCirculo.color.r)) + " " + to_string(long long(unCirculo.color.g)) + " " + to_string(long long(unCirculo.color.b)) ,DEBUG);
-		log("	Estatico: " + to_string(long long(unCirculo.estatico)),DEBUG);
-		log("	Masa: " + to_string(long double(unCirculo.masa)),DEBUG);
-		log("	Centro de masa: (" + to_string(long double(unCirculo.x))  + ","+  to_string(long double(unCirculo.y)) +")" ,DEBUG);
-
-
-		esc->agregarPelota(CoordenadasR2(unCirculo.x,unCirculo.y),
-			unCirculo.radio,
-			Color(unCirculo.color.r, unCirculo.color.g, unCirculo.color.b),
-			!unCirculo.estatico,
-			unCirculo.masa);
-
-	}
-
-	list <paralel> objetosParalel;
-	objetosParalel = miEscenario.paralelogramos;
-	for (list <paralel> ::iterator it= miEscenario.paralelogramos.begin(); it!= miEscenario.paralelogramos.end(); it++) {
-		paralel unParalelogramo= *it;
-		log("Parser: creando paralelogramo:",DEBUG);
-		log("	Lado 1: " + to_string(long double(unParalelogramo.lado1)),DEBUG);
-		log("	Lado 2: " + to_string(long double(unParalelogramo.lado2)),DEBUG);
-		log("	Altura: " + to_string(long double(unParalelogramo.altura)),DEBUG);
-		log("	Color: " + to_string(long long(unParalelogramo.color.r)) + " " + to_string(long long(unParalelogramo.color.g)) + " " + to_string(long long(unParalelogramo.color.b)) ,DEBUG);
-		log("	Estatico: " + to_string(long long(unParalelogramo.estatico)),DEBUG);
-		log("	Masa: " + to_string(long double(unParalelogramo.masa)),DEBUG);
-		log("	Centro de masa: (" + to_string(long double(unParalelogramo.x))  + ","+  to_string(long double(unParalelogramo.y)) +")" ,DEBUG);
-		log("	Rotacion: " + to_string(long long(unParalelogramo.rot)),DEBUG);
-
-		esc->agregarParalelogramo(CoordenadasR2(unParalelogramo.x,unParalelogramo.y),unParalelogramo.lado1,unParalelogramo.lado2,unParalelogramo.altura,Color(unParalelogramo.color.r, unParalelogramo.color.g, unParalelogramo.color.b),unParalelogramo.rot,!unParalelogramo.estatico,unParalelogramo.masa);
-
-
-	}
-
-	
-
-	list <trap> objetosTrap;	
-	objetosTrap = miEscenario.trapecios;
-	for (list <trap> ::iterator it= miEscenario.trapecios.begin(); it!= miEscenario.trapecios.end(); it++) {
-		trap unTrapecio= *it;
-		log("Parser: creando trapecio:",DEBUG);
-		log("	Lado 1: " + to_string(long double(unTrapecio.lado1)),DEBUG);
-		log("	Lado 2: " + to_string(long double(unTrapecio.lado2)),DEBUG);
-		log("	Lado 3: " + to_string(long double(unTrapecio.lado3)),DEBUG);
-		log("	Color: " + to_string(long long(unTrapecio.color.r)) + " " + to_string(long long(unTrapecio.color.g)) + " " + to_string(long long(unTrapecio.color.b)) ,DEBUG);
-		log("	Estatico: " + to_string(long long(unTrapecio.estatico)),DEBUG);
-		log("	Masa: " + to_string(long double(unTrapecio.estatico)),DEBUG);
-		log("	Centro de masa: (" + to_string(long double(unTrapecio.x))  + ","+  to_string(long double(unTrapecio.y)) +")" ,DEBUG);
-		log("	Rotacion: " + to_string(long long(unTrapecio.rot)),DEBUG);
-
-		esc->agregarTrapecio(CoordenadasR2(unTrapecio.x,unTrapecio.y),unTrapecio.lado1,unTrapecio.lado2,unTrapecio.lado3,unTrapecio.altura,Color(unTrapecio.color.r, unTrapecio.color.g, unTrapecio.color.b),unTrapecio.rot,!unTrapecio.estatico,unTrapecio.masa);
-
-
-	}
-
-	return esc;
-
-}
 
 
 Parser::~Parser(void)
