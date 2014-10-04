@@ -105,28 +105,28 @@
             "estatico":true
 		},
 		 {
-			"lado2": 0.8,
-			"altura": 0.3,
             "tipo":"paralel",
-            "x":7,
+			"lado1": 1,
+			"lado2": 1,
+			"angulo": 40,
+            "x":4,
             "y":3,
             "color":"#172C30",
-            "rot":180,
+            "rot":0,
             "masa":3,
-			"lado1": 0.5,
             "estatico":false
 		},
 		{
+            "tipo":"trap",
+			"lado1": 0.5,
 			"lado3": 0.8,
 			"altura": 0.3,
 			"lado2": 0.5,
-            "tipo":"trap",
-            "x":4,
-            "y":1,
+            "x":1,
+            "y":7,
             "color":"#B77CD0",
             "rot":45,
             "masa":3,
-			"lado1": 0.5,
             "estatico":false
 		}
       ]

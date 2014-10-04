@@ -205,7 +205,7 @@ paralel Parser::parsearParalelogramo(Json::Value elem){
 	result.y = this->parsearElementoFloatPositivo(elem["y"],PARALELOGRAMO_Y_DEFAULT," posicion y del paralelogramo");
 	result.lado1 = this->parsearElementoFloatPositivo(elem["lado1"],PARALELOGRAMO_LONGLADO1_DEFAULT," longitud lado1 del paralelogramo");
 	result.lado2 = this->parsearElementoFloatPositivo(elem["lado2"],PARALELOGRAMO_LONGLADO2_DEFAULT," longitud lado2  del paralelogramo");
-	result.altura = this->parsearElementoFloatPositivo(elem["altura"],PARALELOGRAMO_ALTURA_DEFAULT," altura del paralelogramo");
+	result.angulo = this->parsearElementoFloatPositivo(elem["angulo"],PARALELOGRAMO_ANGULO_DEFAULT," angulo del paralelogramo");
 	result.masa = this->parsearElementoFloatPositivo(elem["masa"],PARALELOGRAMO_MASA_DEFAULT, " masa ");	
 	result.estatico = this->parsearBoolean(elem["estatico"],PARALELOGRAMO_ESTATICO_DEFAULT, "estatico");
 	result.color = this->parsearColor(elem["color"], defaultColor, " color del paralelogramo ");
@@ -398,13 +398,13 @@ void Parser::Inicializar()
                             log("Parser: creando paralelogramo:",DEBUG);
 							log("	Lado 1: " + to_string(long double(paralel.lado1)),DEBUG);
 							log("	Lado 2: " + to_string(long double(paralel.lado2)),DEBUG);
-							log("	Altura: " + to_string(long double(paralel.altura)),DEBUG);
+							log("	Angulo: " + to_string(long double(paralel.angulo)),DEBUG);
 							log("	Color: " + to_string(long long(paralel.color.r)) + " " + to_string(long long(paralel.color.g)) + " " + to_string(long long(paralel.color.b)) ,DEBUG);
 							log("	Estatico: " + to_string(long long(paralel.estatico)),DEBUG);
 							log("	Masa: " + to_string(long double(paralel.masa)),DEBUG);
 							log("	Centro de masa: (" + to_string(long double(paralel.x))  + ","+  to_string(long double(paralel.y)) +")" ,DEBUG);
 							log("	Rotacion: " + to_string(long long(paralel.rot)),DEBUG);
-							this->escenario->agregarParalelogramo(CoordenadasR2(paralel.x,paralel.y),paralel.lado1,paralel.lado2,paralel.altura,Color(paralel.color.r, paralel.color.g, paralel.color.b),paralel.rot,!paralel.estatico,paralel.masa);
+							this->escenario->agregarParalelogramo(CoordenadasR2(paralel.x,paralel.y),paralel.lado1,paralel.lado2,paralel.angulo,Color(paralel.color.r, paralel.color.g, paralel.color.b),paralel.rot,!paralel.estatico,paralel.masa);
                         }
                         else if( tipo=="trap"){
 							log("Parseando trapecio",DEBUG);

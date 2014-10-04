@@ -44,7 +44,7 @@ struct paralel {
 		float y;
 		float lado1;
 		float lado2;
-		float altura;
+		float angulo;
 		colorRGB color;
 		int rot;
 		float masa;
@@ -145,7 +145,7 @@ typedef const Char * 	Location;
 
 #define PARALELOGRAMO_LONGLADO1_DEFAULT 5
 #define PARALELOGRAMO_LONGLADO2_DEFAULT 5
-#define PARALELOGRAMO_ALTURA_DEFAULT 5
+#define PARALELOGRAMO_ANGULO_DEFAULT 45
 
 #define PARALELOGRAMO_ROT_DEFAULT 0
 #define PARALELOGRAMO_MASA_DEFAULT 15

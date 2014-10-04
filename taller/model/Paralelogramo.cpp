@@ -1,4 +1,4 @@
-#include "Paralelogramo.h"
+ï»¿#include "Paralelogramo.h"
 #include "../EventLogger.h"
 #include <math.h>
 #include <stdio.h>
@@ -6,16 +6,16 @@
 #include <vector>
 
 
-Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float altura, Color color, int angulorot,bool dinamico,float masa,  b2World * world)
+Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float angulo, Color color, int angulorot,bool dinamico,float masa,  b2World * world)
 {
 	this->world = world;
+	float altura;
 
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
 	b2PolygonShape shape;
 	this->generateId();
 	// Los lados siempre son 4
-	//float angulo = 2 * b2_pi / lados;
 	CoordenadasR2 vertice1(0,0), vertice2(0,0), vertice3(0,0), vertice4(0,0);
 
 	if (dinamico){
@@ -33,66 +33,43 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 	//        V2 _____________ V3
 	//          /  |         /
 	//  lado1  /   | C      /  lado3
-	//        /    | H     /
-	//       /_____|______/
+	//        /)&  | H     /
+	//       /_)___|______/
 	//      V1    lado4    V4
 	//  
-	//  angulo V1 = arcsin(H/lado1)
-	//  p (diagonal V2 V4) = Raíz cuadrada(( lado1^2 + lado4^2 - 2 * lado1 * lado4 cos(angulo V1) ))
-    //  q (diagonal V1 V3) = Raíz cuadrada(( lado1^2 + lado4^2 + 2 * lado1 * lado4 cos(angulo V1) )) -> esta no la estamos usando
-	//  angulo V4 = 180° - angulo V1
-	//  angulo V3 = angulo V1
-	//  angulo V2 = angulo V4
-
-	// Sacar
-	//std::cout << "Centro.x: " << centro.x << " Centro.y: " << centro.y << std::endl;
 
 	bodyDef.position.Set(centro.x,centro.y);
 	bodyDef.angle= this->normalizarAngulo(angulorot);
 	b2Vec2 vertices[8]; 
-
+	
+	// resultado en radianes
+	float anguloV1rad = this->normalizarAngulo(angulo);
+	
+	altura = longlado1 * sin(anguloV1rad);
+	
 	vertice1.y = -altura / 2;
 	vertice4.y = vertice1.y;
 	vertice2.y = altura / 2;
 	vertice3.y = vertice2.y;
-	/*
-	// Sacar
-	std::cout << "vertice1.y: " << vertice1.y + centro.y << std::endl;
-	std::cout << "vertice2.y: " << vertice2.y + centro.y << std::endl;
-	std::cout << "vertice3.y: " << vertice3.y + centro.y << std::endl;
-	std::cout << "vertice4.y: " << vertice4.y + centro.y << std::endl;
-	*/
-	//  angulo V1 = arcsin(H/lado1)
-	// resultado en radianes
-	float anguloV1 = asin(altura/longlado1);
-
-	//  p (diagonal V2 V4) = Raíz cuadrada(( lado1^2 + lado4^2 - 2 * lado1 * lado4 cos(angulo V1) ))
-	float p = sqrt( pow(longlado1,2) + pow(longlado2,2) - 2 * longlado1 * longlado2 * cos(anguloV1) );
 	
-	// Sacar
-	//std::cout << "p: " << p << std::endl;
+	float diferinfizq = sqrt ( pow(longlado1/2,2) - pow(altura/2,2));
 
-	// Auxiliares para calcular los x para los vertices superiores e inferiores
-	// Saco diferencia izquierda y derecha en base a suponer que la (altura/2) y la mitad de p
-	float diferinfizq = sqrt ( pow(p/2,2) + pow(altura/2,2));
+	float diferinfder = diferinfizq;
+	
+	if (angulo < 90){
+		vertice1.x = - (longlado2 / 2);
+		vertice2.x = - (longlado2 / 2) + diferinfizq;
+		vertice3.x = (longlado2 / 2) + diferinfder;
+		vertice4.x = (longlado2 / 2);
+	}
+	else
+	{
+		vertice1.x = - (longlado2 / 2);
+		vertice2.x = - (longlado2 / 2) - diferinfizq;
+		vertice3.x = (longlado2 / 2) - diferinfder;
+		vertice4.x = (longlado2 / 2);
+	}
 
-	// Sacar
-	//std::cout << "diferinfizq: " << diferinfizq << std::endl;
-
-	float diferinfder = longlado2 - diferinfizq;
-
-	vertice1.x = - diferinfizq;
-	vertice2.x = - diferinfder;
-	vertice3.x = diferinfizq;
-	vertice4.x = diferinfder;
-
-
-	// Sacar
-	/*std::cout << "vertice1.x: " << vertice1.x + centro.x<< std::endl;
-	std::cout << "vertice2.x: " << vertice2.x + centro.x<< std::endl;
-	std::cout << "vertice3.x: " << vertice3.x + centro.x<< std::endl;
-	std::cout << "vertice4.x: " << vertice4.x + centro.x<< std::endl;
-	*/
 	// Paso los vertices en sentido anti-horario
 	vertices[0].Set(vertice4.x,vertice4.y);
 	vertices[1].Set(vertice3.x,vertice3.y);
@@ -113,20 +90,26 @@ Paralelogramo::Paralelogramo(CoordenadasR2 centro,float longlado1, float longlad
 }
 
 
-bool Paralelogramo::validarParametros(float longlado1, float longlado2, float altura){
+bool Paralelogramo::validarParametros(float longlado1, float longlado2, float angulo){
 	if (longlado1 > 0){
 		if (longlado2 > 0){
-			if (altura > 0) {
-				if (longlado1 > altura){
-					return true;
+			if (angulo > 0) {
+				if (angulo < 180){
+					if (angulo != 90){
+						return true;
+					}
+					else{
+						log("El angulo del paralelogramo no puede ser 90",WARNING);
+						return false;
+					}
 				}
 				else {
-					log("Los lados del paralelogramo deben ser mayores a la altura del paralelogramo",WARNING);
+					log("El angulo del paralelogramo debe ser un menor a 180",WARNING);
 					return false;
 				}
 			}
 			else{
-				log("La altura del paralelogramo debe ser un numero positivo",WARNING);
+				log("El angulo del paralelogramo debe ser un mayor a cero",WARNING);
 				return false;
 			}
 		}
