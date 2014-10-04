@@ -96,14 +96,14 @@ void Escenario::agregarRectangulo(CoordenadasR2 centro, float alto, float ancho,
 	}
 }
 
-void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float angulo, Color color, int angulorot,bool dinamico,float masa){
+void Escenario::agregarParalelogramo(CoordenadasR2 centro,float longlado1, float longlado2, float altura, Color color, int angulorot,bool dinamico,float masa){
 	Paralelogramo * p = NULL;
 	if(!this->contiene(centro)){
 			log("No puedo agregar un paralelogramo con centro de masa fuera del escenario:" + centro.str(),WARNING);
 			return;
 	}
-	if (Paralelogramo::validarParametros(longlado1, longlado2, angulo)){
-		p = new Paralelogramo(centro,longlado1,longlado2, angulo, color,angulorot,dinamico,masa, this->world);
+	if (Paralelogramo::validarParametros(longlado1, longlado2, altura)){
+		p = new Paralelogramo(centro,longlado1,longlado2, altura, color,angulorot,dinamico,masa, this->world);
 		if (!this->checkOverlap((Figura *) p)){
 			this->cuerposEstaticos.push_back((Figura * ) p);
 			log("Escenario: Paralelogramo agregado!",DEBUG);
@@ -154,11 +154,17 @@ std::list <Jugador *> Escenario::getJugadores(){
 void Escenario::agregarJugador(CoordenadasR2 centro){
 	if(!this->contiene(centro)){
 		log("Centro de masa del jugador fuera del escenario:" + centro.str(),WARNING);
+<<<<<<< HEAD
 		//this->jugadores.push_back(new Jugador(centro.x,centro.y,this->world));
 		this->jugadores.push_back(new Jugador(this->largo / 2,this->alto / 2 ,this->world));
 	}
 	else{
 		//this->jugadores.push_back(new Jugador(this->largo / 2,this->alto / 2 ,this->world));
+=======
+		this->jugadores.push_back(new Jugador(this->largo / 2,this->alto / 2 ,this->world));
+	}
+	else{
+>>>>>>> 7c11de6d63bd69c39f2a1c82430ddb8ddd5360ab
 		this->jugadores.push_back(new Jugador(centro.x,centro.y,this->world));
 	}
 }

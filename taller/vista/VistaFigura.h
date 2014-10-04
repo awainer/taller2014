@@ -1,6 +1,6 @@
 #pragma once
-#include "DatosPantalla.h"
-#include <SDL.h>
+#include <vista/DatosPantalla.h>
+#include <SDL2/SDL.h>
 class VistaFigura
 {
 public:

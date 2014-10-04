@@ -4,7 +4,7 @@
 #include <iostream>
 //Constantes del Jugador
 #define ALTO_JUGADOR     0.8f
-#define ANCHO_JUGADOR    0.5f
+#define ANCHO_JUGADOR    0.3f
 #define IMPULSO_CAMINAR  1.0f
 #define	IMPULSO_SALTAR	 8.0f
 #define VELOCIDAD_MAXIMA 8.0f

@@ -24,7 +24,7 @@ int gameLoop(string path){
 	{ 
 		std::string msg ="No se pudo iniciar SDL - SDL Error: ";
 		msg.append(SDL_GetError());
-		log(msg, ERROR);
+		log(msg, LOG_ERROR);
 
 	}else
 	{

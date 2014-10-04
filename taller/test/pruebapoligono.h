@@ -7,6 +7,14 @@
 #include "..\model\Poligono.h"
 #include "..\model\Color.h"
 #include "vista\DatosPantalla.h"
+#include "../net/NewElement.h"
+#include "../vista/status/DatosCirculo.h"
+#include "../vista/status/DatosPoligono.h"
+#include "../vista/status/DatosJugador.h"
+#include "../vista/VistaJugador.h"
+#include "../model/constantes.h"
+#define ALTO_JUGADOR     0.8f
+#define ANCHO_JUGADOR    0.3f
 
 SDL_Texture* loadTexture( std::string path );
 
@@ -49,37 +57,72 @@ int  caca(){
 	//creo la pantalla
 	SDL_Window *win = SDL_CreateWindow("Prueba poligono, rectangulo", 100, 100, 640, 480, SDL_WINDOW_SHOWN);	
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
-	Escenario * esc = new Escenario(6.4f, 4.8f,CoordenadasR2(0.0f,-10.0f),std::string("pathfondo"),NULL);
+	//Escenario * esc = new Escenario(6.4f, 4.8f,CoordenadasR2(0.0f,-10.0f),std::string("pathfondo"),NULL);
 	
 	// cambio de escala segun Box2D a SDL, necesaria para dibujar en el pixel correcto
 	//float xratio = 640 / 6.4f;
 	//float yratio = 480 / 4.8f;
 	DatosPantalla datos = DatosPantalla(640,480,6.4f,4.8f);
-	esc->agregarPelota(  CoordenadasR2(4,4),0.5,azul,true,1);
-	esc->agregarPoligono(CoordenadasR2(4,2),1,3,0,rojo,true,2);
+	//esc->agregarPelota(  CoordenadasR2(4,4),0.5,azul,true,1);
+	//esc->agregarPoligono(CoordenadasR2(4,2),1,3,0,rojo,true,2);
+	CoordenadasR2 vertices[6];
+	NewElement e_circulo;
+	float x ,y;
+	x= 2;
+	y= 2;
+	e_circulo.radio = 1;
+	e_circulo.vertices[0].x = x;
+	e_circulo.vertices[0].y = y;
+	e_circulo.vertices[1].x = x+ 0.5f;
+	e_circulo.vertices[1].y = y+ 0.5f;
+	e_circulo.color = rojo;
+	DatosCirculo d_circulo = DatosCirculo(&e_circulo);
 
+	VistaFigura* circulo = new VistaCirculo(ren,&d_circulo,&datos); 
 
-	//VistaFigura* circulo = new VistaCirculo(ren,esc->getPelotas()[0],&datos); 
-	//VistaFigura* poligono = new VistaPoligono(ren,(Poligono*)esc->getPoligonos()[0],&datos);
-	/*VistaPoligono poligono2 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[1]);
-	VistaPoligono poligono3 = VistaPoligono(ren,(Poligono*)esc->getPoligonos()[2]);*/
+	NewElement e_poligono;
+	e_poligono.lados= 4;
+	e_poligono.vertices[0].x = 1;
+	e_poligono.vertices[0].y = 2;
+	e_poligono.vertices[1].x = 1;
+	e_poligono.vertices[1].y = 1;
+	e_poligono.vertices[2].x = 2;
+	e_poligono.vertices[2].y = 1;
+	e_poligono.vertices[3].x = 2;
+	e_poligono.vertices[3].y = 2;
+	e_poligono.id = 2;
+	e_poligono.color = azul;
+	DatosPoligono d_poligono = DatosPoligono(&e_poligono);
+	VistaFigura* poligono = new VistaPoligono(ren,&d_poligono,&datos);
+	
+	NewElement e_j;
+	e_j.ancho = ANCHO_JUGADOR;
+	e_j.alto = ALTO_JUGADOR;
+	e_j.direccion = IZQUIERDA;
+	e_j.vertices[0].x = x;
+	e_j.vertices[0].y = y;
+
+	DatosJugador d_j = DatosJugador(&e_j);
+	VistaJugador* personaje = new VistaJugador(ren,&d_j,&datos);
 	
 	while( juegoEnMarcha ){
 			
 		//Clear screen		
-		SDL_SetRenderDrawColor( ren, 0, 255, 0, 255 );
+		SDL_SetRenderDrawColor( ren, 0, 0, 0, 255 );
 		SDL_RenderClear( ren );
 		
 		//Dibujo figuras
-		//circulo->render();
+		circulo->render();
 		//poligono->render();
 		/*poligono2.render();
 		poligono3.render();*/
-
+		//personaje->render();
 		SDL_RenderPresent(ren);
 		SDL_PollEvent( &evento);
-		esc->step();
-		SDL_Delay(30);
+		//esc->step();
+		SDL_Delay(100);
+		
+		
 
 		switch(evento.type)
 		{
@@ -109,8 +152,9 @@ int  caca(){
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
-	//delete circulo;
-	//delete poligono;
+	delete circulo;
+	delete poligono;
+	delete personaje;
 	return 0;
 }
 

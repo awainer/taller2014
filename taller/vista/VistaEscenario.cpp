@@ -8,7 +8,7 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	m_fondo =NULL;
 	if( iniciarVentana() == false){
 		std::string msg ="No se pudo iniciar correctamente VistaEscenario.";
-		log(msg, ERROR);
+		log(msg, LOG_ERROR);
 	}
 	else
 	{
@@ -22,6 +22,25 @@ VistaEscenario::VistaEscenario(Escenario* escenario , DatosPantalla* datos)
 	}
 }
 
+VistaEscenario::VistaEscenario( DatosPantalla* datos)
+{
+	m_ancho = datos->getAnchoPixel();
+	m_alto = datos->getAltoPixel();
+	m_fondo =NULL;
+	if( iniciarVentana() == false){
+		std::string msg ="No se pudo iniciar correctamente VistaEscenario.";
+		log(msg, LOG_ERROR);
+	}
+	else
+	{
+		m_escenario = NULL;
+		m_datos_pantalla = datos;
+		std::string msg ="Vista Escenario. Resolucion de ventana = "+ EventLogger::itos(datos->getAnchoPixel()) + " x " + EventLogger::itos(datos->getAltoPixel());
+		log(msg, DEBUG);
+		log("VistaEscenario creado correctamente.", DEBUG);
+	}
+}
+
 bool VistaEscenario::iniciarVentana() { 
 
 	bool success = true; 
@@ -31,15 +50,15 @@ bool VistaEscenario::iniciarVentana() {
 	{ 
 		std::string msg ="No se pudo crear ventana - SDL Error: ";
 		msg.append(SDL_GetError());
-		log(msg, ERROR);
+		log(msg, LOG_ERROR);
 		success = false; 
 	} else { 
-		m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_ACCELERATED); 
+		m_renderer = SDL_CreateRenderer( m_window , -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); 
 		if( m_renderer == NULL )
 		{
 			std::string msg ="No se pudo crear Renderer - SDL Error: ";
 			msg.append(SDL_GetError());
-			log(msg, ERROR); 
+			log(msg, LOG_ERROR); 
 			success = false; 
 		}
 		else { 
@@ -50,7 +69,7 @@ bool VistaEscenario::iniciarVentana() {
 			{ 
 				std::string msg ="No se pudo iniciar SDL_image - SDL_image Error: ";
 				msg.append(IMG_GetError());
-				log(msg, ERROR);
+				log(msg, LOG_ERROR);
 				success = false; 
 			} 
 		}
@@ -70,7 +89,7 @@ void VistaEscenario::agregarFondo(std::string path){
 	if( loadedSurface == NULL )
 	{
 		std::string msg =	"No se pudo cargar la imagen de fondo: " + path + " IMG_image Error: " + IMG_GetError() ;
-		log(msg, ERROR);	
+		log(msg, LOG_ERROR);	
 	}
 	else
 	{
@@ -79,10 +98,10 @@ void VistaEscenario::agregarFondo(std::string path){
 		if( m_fondo == NULL )
 		{
 			std::string msg =	"No se pudo crear la textura desde " + path + " SDL Error: " + SDL_GetError() ;
-			log(msg, ERROR);
+			log(msg, LOG_ERROR);
 		}else{
 			std::string msg ="Se cargo correctamente textura con fondo: " + path ;
-			log(msg, ERROR);
+			log(msg, LOG_ERROR);
 		}
 
 	
@@ -128,7 +147,9 @@ VistaEscenario::~VistaEscenario(void)
 	for(unsigned int i=0; i<figuras.size() ;i++){
 		delete figuras[i];
 	}
+
 	if(m_fondo !=NULL){
+		
 		SDL_DestroyTexture( m_fondo );
 	}
 	SDL_DestroyRenderer(m_renderer);
@@ -166,6 +187,25 @@ void VistaEscenario::agregarPoligonos(Poligono* poligono){
 }
 
 bool VistaEscenario::agregarJugador(Jugador* jugador){
+	VistaJugador* v_jugador= new VistaJugador(m_renderer,jugador,m_datos_pantalla);
+	if( v_jugador->spriteOk() == false){
+		delete v_jugador;
+		return false;
+	}else{
+		this->figuras.push_back(v_jugador);
+	}
+	return true;
+}
+
+void VistaEscenario::agregarPelota(DatosCirculo* pelota){
+	this->figuras.push_back(new VistaCirculo(m_renderer,pelota,this->m_datos_pantalla));
+}
+
+void VistaEscenario::agregarPoligonos(DatosPoligono* poligono){
+	this->figuras.push_back(new VistaPoligono(m_renderer,poligono,this->m_datos_pantalla));
+}
+
+bool VistaEscenario::agregarJugador(DatosJugador* jugador){
 	VistaJugador* v_jugador= new VistaJugador(m_renderer,jugador,m_datos_pantalla);
 	if( v_jugador->spriteOk() == false){
 		delete v_jugador;

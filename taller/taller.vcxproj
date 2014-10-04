@@ -17,7 +17,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -77,7 +77,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="constantes.h" />
+    <ClInclude Include="test\testPositionHandler.h" />
+    <ClInclude Include="vista\status\DatosJugador.h" />
+    <ClInclude Include="net\NewElement.h" />
+    <ClInclude Include="vista\status\DatosFigura.h" />
+    <ClInclude Include="net\LoginResponse.h" />
+    <ClInclude Include="net\ClientLogin.h" />
+    <ClInclude Include="net\ClientEvent.h" />
     <ClInclude Include="control\ControladorJugador.h" />
+    <ClInclude Include="vista\PositionHandler.h" />
+    <ClInclude Include="vista\status\DatosCirculo.h" />
+    <ClInclude Include="vista\status\DatosPoligono.h" />
     <ClInclude Include="json\assertions.h" />
     <ClInclude Include="json\autolink.h" />
     <ClInclude Include="json\config.h" />
@@ -89,11 +101,14 @@
     <ClInclude Include="json\writer.h" />
     <ClInclude Include="model\Paralelogramo.h" />
     <ClInclude Include="model\Trapecio.h" />
+    <ClInclude Include="net\Packet.h" />
+    <ClInclude Include="net\NewPosition.h" />
     <ClInclude Include="parser\Constantes.h" />
     <ClInclude Include="EventLogger.h" />
     <ClInclude Include="parser\Funciones.h" />
     <ClInclude Include="parser\Parser.h" />
     <ClInclude Include="GameLoop.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="test\pruebapoligono.h" />
     <ClInclude Include="test\pruebaReiniciar.h" />
     <ClInclude Include="test\pruebaSuper.h" />
@@ -237,12 +252,25 @@
     <ClInclude Include="vista\VistaPoligono.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="vista\status\DatosJugador.cpp" />
+    <ClCompile Include="net\NewElement.cpp" />
+    <ClCompile Include="vista\status\DatosFigura.cpp" />
+    <ClCompile Include="net\LoginResponse.cpp" />
+    <ClCompile Include="net\ClientLogin.cpp" />
+    <ClCompile Include="net\ClientEvent.cpp" />
     <ClCompile Include="control\ControladorJugador.cpp" />
+    <ClCompile Include="vista\PositionHandler.cpp" />
+    <ClCompile Include="vista\status\DatosCirculo.cpp" />
+    <ClCompile Include="vista\status\DatosPoligono.cpp" />
     <ClCompile Include="model\Paralelogramo.cpp" />
     <ClCompile Include="model\Trapecio.cpp" />
     <ClCompile Include="EventLogger.cpp" />
+    <ClCompile Include="net\Packet.cpp" />
+    <ClCompile Include="net\NewPosition.cpp" />
     <ClCompile Include="parser\Funciones.cpp" />
     <ClCompile Include="parser\Parser.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="vista\DatosPantalla.cpp" />
     <ClCompile Include="model\Color.cpp" />
     <ClCompile Include="main.cpp" />
@@ -319,6 +347,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imagenes\default.jpg" />
+    <None Include="imagenes\floor.jpg" />
     <None Include="imagenes\fondo.png" />
     <None Include="imagenes\homero.png" />
     <None Include="imagenes\sprite.PNG" />

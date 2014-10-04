@@ -35,7 +35,7 @@ Andreas Schiffler -- aschiffler at ferzkopp dot net
 #define M_PI	3.1415926535897932384626433832795
 #endif
 
-#include "SDL.h"
+#include <SDL2/SDL.h>
 
 /* Set up for C function definitions, even when using C++ */
 #ifdef __cplusplus
@@ -216,7 +216,7 @@ extern "C" {
 
 	/* Textured Polygon */
 
-	SDL2_GFXPRIMITIVES_SCOPE int texturedPolygon(SDL_Renderer * renderer, const Sint16 * vx, const Sint16 * vy, int n, SDL_Surface * texture,int texture_dx,int texture_dy);
+	SDL2_GFXPRIMITIVES_SCOPE int texturedPolygon(SDL_Texture *textureAsTexture,SDL_Renderer * renderer, const Sint16 * vx, const Sint16 * vy, int n, SDL_Surface * texture,int texture_dx,int texture_dy);
 
 	/* Bezier */
 

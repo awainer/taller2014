@@ -7,7 +7,7 @@ string EventLogger::levelSring(int level){
 	switch(level){
 	case DEBUG: return "DEBUG"; break;
 	case WARNING: return "WARNING"; break;
-	case ERROR:	return "ERROR"; break;
+	case LOG_ERROR:	return "ERROR"; break;
 	default: return "UNKNOW"; break;
 	}
 }
