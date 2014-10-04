@@ -7,7 +7,7 @@
 #define ANCHO_JUGADOR    0.5f
 #define IMPULSO_CAMINAR  1.0f
 #define	IMPULSO_SALTAR	 8.0f
-#define VELOCIDAD_MAXIMA 8.0f
+#define VELOCIDAD_MAXIMA 2.0f
 #define UMBRAL_SALTO 0.1f// velocidad vertical maxima para iniciar salto
 #define UMBRAL_ESTATICO 0.5f
 #define IZQ -1
